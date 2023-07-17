@@ -3,7 +3,6 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import MainContainer from "../components/layout/mainContainer";
 import Hero from "../components/Hero/hero";
-import { useNextSanityImage } from "next-sanity-image";
 
 export default function Home() {
     return (
