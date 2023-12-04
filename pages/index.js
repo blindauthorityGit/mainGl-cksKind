@@ -1,17 +1,44 @@
 import Head from "next/head";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import MainContainer from "../components/layout/mainContainer";
-import Hero from "../components/Hero/hero";
 
-export default function Home() {
+// SANITY
+import client from "../client";
+
+//COMPS
+import { MainHero } from "../components/Hero";
+
+//FUNCTIONS
+import changeBodyBackgroundColor from "../functions/changeBodyBackgroundColor";
+
+export default function Home({ dataHome }) {
+    useEffect(() => {
+        console.log(dataHome);
+        changeBodyBackgroundColor(dataHome);
+    }, []);
     return (
-        <MainContainer width="max-w-[80%]">
+        <MainContainer width="">
             <Head>
                 <title>Site title</title>
             </Head>
-            <Hero fullHeight={true} colspan="col-span-12"></Hero>
-            <h1 className="font-sans">Hallo ich bin ein Text</h1>
+            <MainHero data={dataHome.components[0]}></MainHero>
+            {/* <h1 className="font-sans">Hallo ich bin ein Textor</h1> */}
         </MainContainer>
     );
 }
+
+export const getStaticProps = async (context) => {
+    const resHome = await client.fetch(`
+  *[_type == "home"][0]
+`);
+    const dataHome = await resHome;
+
+    return {
+        props: {
+            dataHome,
+        },
+        revalidate: 1, // 10 seconds
+    };
+};
