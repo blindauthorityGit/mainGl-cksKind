@@ -32,6 +32,7 @@ const CoverImage = (
                     src={src}
                     alt={alt}
                     layout="fill"
+                    objectFit="cover"
                     quality={100}
                     className="hidden lg:block"
                     style={{ aspectRatio: aspectRatio }} // Apply the custom aspect ratio for desktop

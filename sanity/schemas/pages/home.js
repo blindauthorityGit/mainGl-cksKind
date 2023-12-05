@@ -10,6 +10,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
+    },
+    {
       name: 'components',
       title: 'Components',
       type: 'array',
@@ -31,6 +36,9 @@ export default {
         },
         {
           type: 'fullImageWidthText', // Reference the object type directly
+        },
+        {
+          type: 'eventslider', // Reference the object type directly
         },
         // Add other custom component types as needed
       ],

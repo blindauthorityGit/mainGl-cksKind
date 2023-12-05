@@ -14,6 +14,16 @@ export default {
       type: 'string',
     },
     {
+      name: 'description',
+      title: 'Beschreibung',
+      type: 'text',
+    },
+    {
+      name: 'image',
+      title: 'Bild',
+      type: 'image',
+    },
+    {
       name: 'farbe',
       title: 'Farbe',
       type: 'simplerColor',

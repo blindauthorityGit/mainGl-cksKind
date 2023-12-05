@@ -13,6 +13,8 @@ import cardCollection from './components/cardCollection'
 import ctaText from './components/ctaText'
 import textWithImage from './components/textWithImage'
 import fullImageWidthText from './components/fullImageWidthText'
+import eventslider from './components/eventSlider'
+import seo from './components/seo'
 //SECTIONS
 import trainer from './sections/trainer'
 import location from './sections/location'
@@ -36,5 +38,7 @@ export const schemaTypes = [
   textWithImage,
   fullImageWidthText,
   kontakt,
+  eventslider,
+  seo,
   // Add more schema types as needed
 ]
