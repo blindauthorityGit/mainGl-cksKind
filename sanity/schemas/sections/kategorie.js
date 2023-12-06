@@ -19,6 +19,12 @@ export default {
       type: 'text',
     },
     {
+      name: 'button',
+      title: 'Button',
+      type: 'button',
+      description: 'Optionaler Button für zusätzliche Aktionen.',
+    },
+    {
       name: 'image',
       title: 'Bild',
       type: 'image',

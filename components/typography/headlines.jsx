@@ -10,11 +10,19 @@ const H1 = ({ children, klasse }) => {
 };
 
 const H2 = ({ children, klasse }) => {
-    return <h2 className={`text-xl font-headline  lg:text-2xl xl:text-6xl mb-10 font-thin  ${klasse}`}>{children}</h2>;
+    return (
+        <h2 className={`text-xl font-ueber text-textColor  lg:text-2xl xl:text-4xl mb-10 font-thin  ${klasse}`}>
+            {children}
+        </h2>
+    );
 };
 
-const H3 = ({ children, klasse }) => {
-    return <h2 className={`text-lg lg:text-4xl font-thin font-headline ${klasse}`}>{children}</h2>;
+const H3 = ({ children, klasse, style }) => {
+    return (
+        <h2 className={`text-lg lg:text-2xl font-thin font-headline font-ueber text-textColor ${klasse}`} style={style}>
+            {children}
+        </h2>
+    );
 };
 const H4 = ({ children, klasse }) => {
     return <h4 className={`text-sm lg:text-lg font-regular font-ueber text-textColor ${klasse}`}>{children}</h4>;

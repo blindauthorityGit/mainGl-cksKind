@@ -11,6 +11,9 @@ import client from "../client";
 import { MainHero } from "../components/Hero";
 import { EventSlider } from "../components/slider";
 import { CardHolder } from "../components/cards";
+import Divider from "../components/layout/divider";
+import FullWidthSection from "../components/layout/fullWidthSection";
+import { CTAContent } from "../components/content";
 
 //FUNCTIONS
 import changeBodyBackgroundColor from "../functions/changeBodyBackgroundColor";
@@ -21,15 +24,24 @@ export default function Home({ dataHome, dataEvents, dataKategorie }) {
         changeBodyBackgroundColor(dataHome);
     }, []);
     return (
-        <MainContainer width="container mx-auto">
-            <Head>
-                <title>Site title</title>
-            </Head>
-            <MainHero data={dataHome.components[0]}></MainHero>
-            <EventSlider data={dataEvents}></EventSlider>
-            <CardHolder data={dataKategorie}></CardHolder>
-            {/* <h1 className="font-sans">Hallo ich bin ein Textor</h1> */}
-        </MainContainer>
+        <>
+            <MainContainer width="container mx-auto">
+                <Head>
+                    <title>Site title</title>
+                </Head>
+                <MainHero data={dataHome.components[0]}></MainHero>
+                <Divider></Divider>
+
+                <EventSlider data={dataEvents}></EventSlider>
+                <Divider></Divider>
+                <Divider></Divider>
+                <CardHolder data={dataKategorie}></CardHolder>
+                {/* <h1 className="font-sans">Hallo ich bin ein Textor</h1> */}
+            </MainContainer>
+            <FullWidthSection klasse="bg-[#AFD3A2]">
+                <CTAContent data={dataHome.components[3]}></CTAContent>
+            </FullWidthSection>
+        </>
     );
 }
 

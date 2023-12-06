@@ -9,10 +9,9 @@ import { H4, P } from "../typography";
 //FUNCTIONS
 import urlFor from "../../functions/urlFor";
 
-import formatDates from "../../functions/formatDates";
+import formatStringToDate from "../../functions/formatStringToDate";
 
 const SlideElement = ({ data }) => {
-    console.log(data.kategorie.farbe.value);
     return (
         <div className="wrapper">
             <CoverImage
@@ -24,7 +23,7 @@ const SlideElement = ({ data }) => {
             />
             <div className="pl-2">
                 <H4>{data.headline}</H4>
-                <P>{formatDates(data.datum)}</P>
+                <P>{formatStringToDate(data.date)}</P>
             </div>
         </div>
     );

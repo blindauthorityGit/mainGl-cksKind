@@ -23,3 +23,18 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.swiper-pagination {
+  position: relative !important;
+  margin-top: -3px ;
+}
+
+.swiper, swiper-container {
+
+  padding-bottom: 1rem!important;
+}
+
+
+.swiper-pagination-bullet-active {
+  background: #655975!important;
+}

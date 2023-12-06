@@ -35,6 +35,7 @@ const EventSlider1 = (props) => {
     const [swiper, setSwiper] = useState(null);
     const [isLastSlideLeft, setIsLastSlideLeft] = useState(true);
     const [isLastSlideRight, setIsLastSlideRight] = useState(false);
+    const [flatData, setFlatData] = useState(null);
 
     const handleNav = () => {
         if (swiper && swiper.activeIndex === 0) {
@@ -49,7 +50,21 @@ const EventSlider1 = (props) => {
 
     useEffect(() => {
         setisLoaded(true);
-        console.log(props.data);
+
+        //CHECK CURRENT DATE
+        const currentDate = new Date();
+        // FLATTEN ARRAY TO SINGLE DATES AND FILTER OUT OUTDATED EVENTS
+        const flattenedEvents = props.data.flatMap((event) =>
+            event.datum
+                .map((date) => ({ ...event, date: date.startDateTime }))
+                .filter((event) => new Date(event.date) >= currentDate)
+        );
+
+        // Sort the flattened events by date
+        const sortedEvents = flattenedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        console.log(sortedEvents);
+        setFlatData(sortedEvents);
     }, []);
 
     const textMotion = {
@@ -82,7 +97,7 @@ const EventSlider1 = (props) => {
                 props.colspan
             }`}
         >
-            <div className="w-full z-50 md:hidden">
+            <div className="w-full z-50 ">
                 <div
                     onClick={() => {
                         swiper.slidePrev();
@@ -91,9 +106,9 @@ const EventSlider1 = (props) => {
                 >
                     <button
                         style={{ opacity: isLastSlideLeft ? 0.5 : 1 }}
-                        className=" rounded-full h-8 w-8 flex items-center justify-center"
+                        className=" rounded-full h-8  w-8 flex items-center justify-center"
                     >
-                        <FaChevronLeft className="text-black" />
+                        <FaChevronLeft className="text-white lg:text-5xl" />
                     </button>
                 </div>
                 <div
@@ -106,7 +121,7 @@ const EventSlider1 = (props) => {
                         style={{ opacity: isLastSlideRight ? 0.5 : 1 }}
                         className=" rounded-full h-8 w-8 flex items-center justify-center"
                     >
-                        <FaChevronRight className="text-black" />
+                        <FaChevronRight className="text-white lg:text-5xl" />
                     </button>
                 </div>
             </div>
@@ -122,15 +137,13 @@ const EventSlider1 = (props) => {
                 slidesPerView={4}
                 pagination={{ clickable: true }}
                 onSwiper={(swiper) => {
-                    console.log(swiper.params);
                     {
                         setSwiper(swiper);
                     }
                 }}
                 onSlideChange={() => {
-                    console.log("slide change");
-                    console.log(swiper.activeIndex);
                     handleNav();
+                    console.log(isLastSlideRight, swiper.activeIndex, swiper.slides.length - 1);
                 }}
                 className="h-full eventSlider"
                 // style={{ paddingBottom: "3.75rem!important" }}
@@ -153,16 +166,15 @@ const EventSlider1 = (props) => {
                     1280: {
                         slidesPerView: 4,
                         navigation: false,
-                        spaceBetween: 30,
+                        spaceBetween: 20,
                     },
                 }}
             >
-                {props.data.map((e, i) => {
-                    console.log(e);
+                {flatData?.map((e, i) => {
                     return (
                         <SwiperSlide
                             key={`sliderKey${i}`}
-                            className="lg:px-6 sm:px-0 relative min-h-[350px!important] sm:min-h-[380px!important]"
+                            className="lg:px-6 sm:px-0 relative  sm:min-h-[380px!important]"
                         >
                             <SlideElement data={e}></SlideElement>
                         </SwiperSlide>
