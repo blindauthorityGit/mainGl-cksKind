@@ -93,7 +93,7 @@ const EventSlider1 = (props) => {
 
     return (
         <div
-            className={`${isLoaded ? "opacity-100" : "opacity-0"} col-span-12 px-8 sm:px-24 pt-6 lg:pt-0 relative ${
+            className={`${isLoaded ? "opacity-100" : "opacity-0"} col-span-12 px-6 sm:px-24 pt-6 lg:pt-0 relative ${
                 props.colspan
             }`}
         >
@@ -153,7 +153,7 @@ const EventSlider1 = (props) => {
                         slidesPerView: 2,
                         navigation: true,
                         pagination: false,
-                        spaceBetween: 10,
+                        spaceBetween: 15,
                     },
                     768: {
                         slidesPerView: 2,

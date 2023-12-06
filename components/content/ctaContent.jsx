@@ -13,7 +13,7 @@ const CTAContent = ({ data }) => {
             <div className="lg:w-2/4 pt-3 lg:mt-6">
                 <P>{data.text}</P>
             </div>
-            {/* {data.button && <MainButton link={data.button.link}>{data.button.label}</MainButton>} */}
+            {/* {data?.button && <MainButton link={data?.button.link}>{data?.button.label}</MainButton>} */}
         </div>
     );
 };

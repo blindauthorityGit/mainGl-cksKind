@@ -11,7 +11,7 @@ const H1 = ({ children, klasse }) => {
 
 const H2 = ({ children, klasse }) => {
     return (
-        <h2 className={`text-xl font-ueber text-textColor  lg:text-2xl xl:text-4xl mb-10 font-thin  ${klasse}`}>
+        <h2 className={`text-xl font-ueber text-textColor  lg:text-2xl xl:text-4xl mb-4 lg:mb-10 font-thin  ${klasse}`}>
             {children}
         </h2>
     );
@@ -25,7 +25,7 @@ const H3 = ({ children, klasse, style }) => {
     );
 };
 const H4 = ({ children, klasse }) => {
-    return <h4 className={`text-sm lg:text-lg font-regular font-ueber text-textColor ${klasse}`}>{children}</h4>;
+    return <h4 className={`text-xs lg:text-lg font-regular font-ueber text-textColor ${klasse}`}>{children}</h4>;
 };
 
 // Add more headline components for H3, H4, etc.
