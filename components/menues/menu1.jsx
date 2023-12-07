@@ -164,12 +164,12 @@ const Menu1 = (props) => {
                         <Link className="flex" href="/">
                             <img
                                 src={props.logo}
-                                className="max-h-[1.75rem] sm:max-h-[8.75rem] fill-current-[#fff] absolute top-0"
+                                className="max-h-[5.75rem] sm:max-h-[8.75rem] fill-current-[#fff] absolute top-0"
                                 alt="Logo"
                             />
                         </Link>
                     </div>
-                    <div className="col-span-7 md:col-span-8 ">
+                    <div className="col-span-6 md:col-span-8 ">
                         <ul className="hidden lg:flex items-center list-style-none justify-end pr-8">
                             {props.menuItems.map((e, i) => {
                                 return (
@@ -219,19 +219,19 @@ const Menu1 = (props) => {
                                 );
                             })}
                         </ul>
-
+                        {/* 
                         <ul className="block md:flex lg:hidden lg:flex items-center list-style-none justify-end pr-12">
                             <Newsletter onClick={props.onClick}></Newsletter>
-                        </ul>
+                        </ul> */}
                     </div>
-                    <div className="col-span-2 social media flex justify-end text-xl md:text-xl">
+                    <div className=" flex justify-end text-xl md:text-xl">
                         <div
                             className="block lg:hidden cursor-pointer"
                             onClick={(e) => {
                                 setShowOverlay(true);
                             }}
                         >
-                            {props.burgerIcon}
+                            <img src={props.burgerIcon} alt="" />
                         </div>
                         <div className="hidden lg:flex mt-0 pt-0 items-center col-span-2">
                             <MainButton klasse="bg-themeAccent" link="#">

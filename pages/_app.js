@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { menuItems, socialMedia } from "../components/menues/config";
 import Logo from "../assets/logo.svg";
+import burger from "../assets/BURGER.svg";
 
 //COMPS
 import { Menu1 } from "../components/menues";
@@ -21,7 +22,7 @@ function MyApp({ Component, pageProps }) {
                 logo={Logo.src}
                 menuItems={menuItems}
                 socialMedia={socialMedia}
-                burgerIcon={<RxHamburgerMenu />}
+                burgerIcon={burger.src}
                 onBurgerClick={(e) => {
                     console.log(e);
                 }}

@@ -11,9 +11,14 @@ import client from "../client";
 import { MainHero } from "../components/Hero";
 import { EventSlider } from "../components/slider";
 import { CardHolder } from "../components/cards";
+import { ContentCard } from "../components/cards";
 import Divider from "../components/layout/divider";
 import FullWidthSection from "../components/layout/fullWidthSection";
 import { CTAContent } from "../components/content";
+import { TextImage } from "../components/content";
+import { BigDecal } from "../components/decorative";
+import { DecorativeDivider } from "../components/decorative";
+import FullWidthSectionBGImage from "../components/layout/fullWidthSectionBGImage";
 
 //FUNCTIONS
 import changeBodyBackgroundColor from "../functions/changeBodyBackgroundColor";
@@ -38,9 +43,23 @@ export default function Home({ dataHome, dataEvents, dataKategorie }) {
                 <CardHolder data={dataKategorie}></CardHolder>
                 {/* <h1 className="font-sans">Hallo ich bin ein Textor</h1> */}
             </MainContainer>
-            <FullWidthSection klasse="bg-[#AFD3A2]">
+            <FullWidthSection klasse="bg-[#AFD3A2] py-20 lg:!py-32">
                 <CTAContent data={dataHome.components[3]}></CTAContent>
             </FullWidthSection>
+            <MainContainer width="container mx-auto">
+                <TextImage overlap data={dataHome.components[4]}></TextImage>
+                <TextImage data={dataHome.components[5]}></TextImage>
+            </MainContainer>
+            <FullWidthSectionBGImage klasse="lg:mt-[-4rem]" image={dataHome.components[6].image}>
+                <ContentCard data={dataHome.components[6]}></ContentCard>
+            </FullWidthSectionBGImage>
+            <MainContainer width="container mx-auto">
+                <TextImage overlap data={dataHome.components[7]}></TextImage>
+            </MainContainer>
+            <DecorativeDivider></DecorativeDivider>
+            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32"></FullWidthSection>
+
+            <BigDecal></BigDecal>
         </>
     );
 }
