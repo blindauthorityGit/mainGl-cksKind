@@ -32,7 +32,7 @@ export default {
       name: 'kursleiter',
       title: 'Instructor',
       type: 'reference',
-      to: [{type: 'trainer'}], // Assuming 'trainer' is a valid reference type
+      to: [{type: 'partner'}], // Assuming 'trainer' is a valid reference type
     },
   ],
 }

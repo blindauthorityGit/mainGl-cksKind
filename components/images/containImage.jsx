@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import Image from "next/image";
 
-const CoverImage = (
+const ContainImage = (
     { src, mobileSrc, alt, height, onClick, width, position, className, style, aspectRatio, onLoadingComplete },
     ref
 ) => {
@@ -20,7 +20,7 @@ const CoverImage = (
                     src={mobileSrc}
                     alt={alt}
                     layout="fill"
-                    objectFit="cover"
+                    objectFit="contain"
                     quality={100}
                     className="block lg:hidden"
                     onClick={onClick}
@@ -33,7 +33,7 @@ const CoverImage = (
                     src={src}
                     alt={alt}
                     layout="fill"
-                    objectFit="cover"
+                    objectFit="contain"
                     quality={100}
                     className="hidden lg:block"
                     onClick={onClick}
@@ -45,4 +45,4 @@ const CoverImage = (
     );
 };
 
-export default forwardRef(CoverImage);
+export default forwardRef(ContainImage);

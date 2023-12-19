@@ -51,7 +51,7 @@ const TextImage = ({ data, overlap }) => {
         >
             <div
                 className={`col-span-12 lg:col-span-5 flex flex-col justify-center mt-6 lg:mt-0 mb-12 lg:mb-0   ${
-                    !data.rightImage ? "order-last lg:pl-12" : "lg:pr-12 order-last lg:order-first"
+                    !data.rightImage ? "order-last lg:pl-36" : "lg:pr-36 order-last lg:order-first"
                 }`}
             >
                 <H2 klasse="">{data.headline}</H2>

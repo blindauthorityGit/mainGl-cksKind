@@ -16,6 +16,7 @@ import Divider from "../components/layout/divider";
 import FullWidthSection from "../components/layout/fullWidthSection";
 import { CTAContent } from "../components/content";
 import { TextImage } from "../components/content";
+import { Contact } from "../components/content";
 import { BigDecal } from "../components/decorative";
 import { DecorativeDivider } from "../components/decorative";
 import FullWidthSectionBGImage from "../components/layout/fullWidthSectionBGImage";
@@ -23,9 +24,9 @@ import FullWidthSectionBGImage from "../components/layout/fullWidthSectionBGImag
 //FUNCTIONS
 import changeBodyBackgroundColor from "../functions/changeBodyBackgroundColor";
 
-export default function Home({ dataHome, dataEvents, dataKategorie }) {
+export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt }) {
     useEffect(() => {
-        console.log(dataHome, dataEvents, dataKategorie);
+        console.log(dataHome, dataEvents, dataKategorie, dataKontakt);
         changeBodyBackgroundColor(dataHome);
     }, []);
     return (
@@ -46,18 +47,25 @@ export default function Home({ dataHome, dataEvents, dataKategorie }) {
             <FullWidthSection klasse="bg-[#AFD3A2] py-20 lg:!py-32">
                 <CTAContent data={dataHome.components[3]}></CTAContent>
             </FullWidthSection>
+            <FullWidthSectionBGImage klasse="]" image={dataHome.components[6].image}>
+                <ContentCard data={dataHome.components[6]}></ContentCard>
+            </FullWidthSectionBGImage>
             <MainContainer width="container mx-auto">
                 <TextImage overlap data={dataHome.components[4]}></TextImage>
                 <TextImage data={dataHome.components[5]}></TextImage>
             </MainContainer>
-            <FullWidthSectionBGImage klasse="lg:mt-[-4rem]" image={dataHome.components[6].image}>
+            {/* <FullWidthSectionBGImage klasse="lg:mt-[-4rem]" image={dataHome.components[6].image}>
                 <ContentCard data={dataHome.components[6]}></ContentCard>
-            </FullWidthSectionBGImage>
+            </FullWidthSectionBGImage> */}
             <MainContainer width="container mx-auto">
                 <TextImage overlap data={dataHome.components[7]}></TextImage>
             </MainContainer>
+            <Divider></Divider>
+
             <DecorativeDivider></DecorativeDivider>
-            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32"></FullWidthSection>
+            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+                <Contact data={dataKontakt[0]}></Contact>
+            </FullWidthSection>
 
             <BigDecal></BigDecal>
         </>
@@ -77,16 +85,21 @@ export const getStaticProps = async (context) => {
     const resKategorie = await client.fetch(`
 *[_type == "kategorie"]
 `);
+    const resKontakt = await client.fetch(`
+*[_type == "kontakt"]
+`);
 
     const dataHome = await resHome;
     const dataEvents = await resEvents;
     const dataKategorie = await resKategorie;
+    const dataKontakt = await resKontakt;
 
     return {
         props: {
             dataHome,
             dataEvents,
             dataKategorie,
+            dataKontakt,
         },
         revalidate: 1, // 10 seconds
     };

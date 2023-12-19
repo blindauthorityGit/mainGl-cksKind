@@ -38,3 +38,7 @@ a {
 .swiper-pagination-bullet-active {
   background: #655975!important;
 }
+
+.richText > p {
+  margin-bottom: 1.5rem;
+}

@@ -14,7 +14,7 @@ const DecorativeDivider = () => {
                 src={Divider.src} // Replace with the actual path to your image
                 mobileSrc={Divider.src} // Replace with the actual path to your image
                 alt="Cover Background"
-                style={{ aspectRatio: "5.2/1" }}
+                style={{ aspectRatio: "13.2/1" }}
                 className="w-full  relative "
             />
         </div>

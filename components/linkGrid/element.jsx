@@ -15,7 +15,7 @@ import { H3, H4, P } from "../typography";
 //FUNCTIONS
 import urlFor from "../../functions/urlFor";
 
-const Card = ({ data, i }) => {
+const Element = ({ data, i, isWorkshop }) => {
     const controls = useAnimation();
     const [ref, inView] = useInView({
         triggerOnce: true,
@@ -45,33 +45,29 @@ const Card = ({ data, i }) => {
     return (
         <motion.div
             ref={ref}
-            className={`col-span-12 lg:col-span-4 ${i === 1 ? "lg:mt-[-6rem]" : ""} ${i === 2 ? "lg:mt-[4rem]" : ""}`}
+            className={`col-span-12 lg:col-span-4`}
             initial="hidden"
             animate={controls}
             variants={variants}
         >
-            <Link href={`/kurse/${data.button.link}`}>
-                <CoverImage
-                    src={urlFor(data.image).url()} // Replace with the actual path to your image
-                    mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
-                    alt="Cover Background"
-                    style={{ aspectRatio: "1/0.8" }}
-                    className="w-full z-20 relative rounded-t-[40px] overflow-hidden "
-                />
-            </Link>
-            <div className="px-6 lg:px-12 rounded-b-[40px] py-8 mb-4 lg:mb-4" style={{ background: data.farbe.value }}>
-                <H3 klasse="mb-4 " style={{ color: data.farbe.value == "#3E55AB" ? "#ffffff" : null }}>
-                    {data.name}
-                </H3>
-                <P klasse="lg:!text-base !text-xs" style={{ color: data.farbe.value == "#3E55AB" ? "#E2EAF7" : null }}>
+            <CoverImage
+                src={urlFor(data.logo).url()} // Replace with the actual path to your image
+                mobileSrc={urlFor(data.logo).url()} // Replace with the actual path to your image
+                alt="Cover Background"
+                style={{ aspectRatio: "1/0.8" }}
+                className="w-full z-20 relative rounded-[40px] overflow-hidden "
+            />
+            <div className="px-6 lg:px-8 rounded-[40px] py-8 lg:py-6 mb-4 lg:mb-2">
+                <H3 klasse={`mb-4 lg:mb-2 ${isWorkshop ? "!text-blueColor-100" : null}`}>{data.name}</H3>
+                {/* <P klasse="lg:!text-base !text-xs" style={{ color: data.farbe.value == "#3E55AB" ? "#E2EAF7" : null }}>
                     {data.description}
                 </P>
                 <TextButton link={data.button.link}>
                     <span style={{ color: data.farbe.value == "#3E55AB" ? "#E2EAF7" : null }}>{data.button.label}</span>
-                </TextButton>
+                </TextButton> */}
             </div>
         </motion.div>
     );
 };
 
-export default Card;
+export default Element;

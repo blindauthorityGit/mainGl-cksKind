@@ -168,15 +168,17 @@ const EventSlider1 = (props) => {
                         navigation: false,
                         spaceBetween: 20,
                     },
+                    1600: {
+                        slidesPerView: 5,
+                        navigation: false,
+                        spaceBetween: 10,
+                    },
                 }}
             >
                 {flatData?.map((e, i) => {
                     return (
-                        <SwiperSlide
-                            key={`sliderKey${i}`}
-                            className="lg:px-6 sm:px-0 relative  sm:min-h-[380px!important]"
-                        >
-                            <SlideElement data={e}></SlideElement>
+                        <SwiperSlide key={`sliderKey${i}`} className="lg:px-6 sm:px-0 relative ">
+                            <SlideElement isWorkshop={props.isWorkshop} data={e}></SlideElement>
                         </SwiperSlide>
                     );
                 })}

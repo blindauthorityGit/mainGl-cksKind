@@ -234,7 +234,7 @@ const Menu1 = (props) => {
                             <img src={props.burgerIcon} alt="" />
                         </div>
                         <div className="hidden lg:flex mt-0 pt-0 items-center col-span-2">
-                            <MainButton klasse="bg-themeAccent" link="#">
+                            <MainButton klasse="bg-primaryColor !py-3" link="#">
                                 SHOP
                             </MainButton>
                         </div>

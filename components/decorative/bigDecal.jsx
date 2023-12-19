@@ -9,7 +9,7 @@ import { CoverImage } from "../images";
 
 const BigDecal = () => {
     return (
-        <Parallax translateY={["-90vh", "90vh"]} className="w-screen h-screen absolute top-0 z-[-2] overflow-hidden">
+        <Parallax translateY={["-90vh", "90vh"]} className="w-[100vw] h-screen absolute top-0 z-[-2] overflow-hidden">
             <CoverImage
                 src={Graphic.src} // Replace with the actual path to your image
                 mobileSrc={Graphic.src} // Replace with the actual path to your image

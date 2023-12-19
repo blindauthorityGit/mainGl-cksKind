@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 //COMPONENTS
 import { CoverImage } from "../images";
@@ -11,19 +12,21 @@ import urlFor from "../../functions/urlFor";
 
 import formatStringToDate from "../../functions/formatStringToDate";
 
-const SlideElement = ({ data }) => {
+const SlideElement = ({ data, isWorkshop }) => {
     return (
         <div className="wrapper">
-            <CoverImage
-                src={urlFor(data.mainImage).url()} // Replace with the actual path to your image
-                mobileSrc={urlFor(data.mainImage).url()} // Replace with the actual path to your image
-                alt="Cover Background"
-                style={{ aspectRatio: "1/1", borderColor: data.kategorie.farbe.value }}
-                className="w-full z-20 relative rounded-[40px] overflow-hidden border-[10px] lg:border-[18px] mb-3"
-            />
+            <Link href={`/event/${data.slug.current}`}>
+                <CoverImage
+                    src={urlFor(data.mainImage).url()} // Replace with the actual path to your image
+                    mobileSrc={urlFor(data.mainImage).url()} // Replace with the actual path to your image
+                    alt="Cover Background"
+                    style={{ aspectRatio: "1/1", borderColor: data.kategorie.farbe.value }}
+                    className="w-full z-20 relative rounded-[40px] overflow-hidden border-[10px] lg:border-[12px] mb-3"
+                />
+            </Link>
             <div className="pl-2">
-                <H4>{data.headline}</H4>
-                <P>{formatStringToDate(data.date)}</P>
+                <H4 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.headline}</H4>
+                <P klasse={isWorkshop ? "!text-blueColor-100" : null}>{formatStringToDate(data.date)}</P>
             </div>
         </div>
     );

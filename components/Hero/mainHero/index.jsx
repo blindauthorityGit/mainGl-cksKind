@@ -20,10 +20,17 @@ import { motion } from "framer-motion";
 //PARALLAX
 import { Parallax } from "react-scroll-parallax";
 
+//HOOKS
+import { useWindowDimensions } from "../../../hooks/useWindowDimension";
+
 const MainHero = ({ data }) => {
+    const { width, height } = useWindowDimensions();
+    const aspectRatio = width < 1600 ? "1/1.05" : "1/0.75";
+
     useEffect(() => {
         console.log(urlFor(data.image).url(), imgRef.current.clientHeight);
         setBGHeight(imgRef.current.clientHeight);
+        console.log(width, height);
     }, []);
 
     const imgRef = useRef();
@@ -31,7 +38,7 @@ const MainHero = ({ data }) => {
     const [bgHeight, setBGHeight] = useState(null);
 
     return (
-        <section className="col-span-12 min-h-screen bg-[#AFD3A2] lg:bg-transparent px-4 pb-8 lg:pb-0">
+        <section className="col-span-12 min-h-screen xl:min-h-0  bg-[#AFD3A2] lg:bg-transparent px-4 pb-8 lg:pb-0 lg:mt-24">
             <div className="grid grid-cols-12 z-10 h-full lg:gap-24">
                 <div className="col-span-12 lg:col-span-5 text-center lg:text-left pt-24 lg:pt-0  flex flex-col justify-center z-20">
                     <motion.div
@@ -72,13 +79,13 @@ const MainHero = ({ data }) => {
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.6, duration: 0.8 }}
-                    className="col-span-12 lg:col-span-7 relative z-10 mt-6 lg:mt-48"
+                    className="col-span-12 lg:col-span-7 relative z-10 mt-6 lg:mt-12"
                 >
                     <CoverImage
                         src={urlFor(data.image).url()} // Replace with the actual path to your image
                         mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
                         alt="Cover Background"
-                        style={{ aspectRatio: "1/1.05" }}
+                        style={{ aspectRatio: aspectRatio }}
                         className="w-full z-20 relative rounded-[40px] overflow-hidden"
                         data-aos={"fade-left"}
                         ref={imgRef}
@@ -114,10 +121,11 @@ const MainHero = ({ data }) => {
                 ></div>
             </div>
             <motion.div
+                translateY={["-90vh", "90vh"]}
                 initial={{ x: "-100%", opacity: 0.5 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 95, damping: 15 }}
-                className="absolute bg-[#AFD3A2] h-full w-2/4 left-0 top-0 z-[-10] hidden lg:block"
+                className="fixed bg-[#AFD3A2] h-full w-2/4 left-0 top-0 z-[-10] hidden lg:block"
             ></motion.div>
         </section>
     );

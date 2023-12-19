@@ -11,6 +11,8 @@ import { Menu1 } from "../components/menues";
 import Overlay from "../components/overlay";
 import { Modal } from "../components/modal";
 import { MobileBar1 } from "../components/mobileBar";
+import { Full } from "../components/footer";
+import { Sub } from "../components/footer";
 
 //FX
 import { ParallaxProvider } from "react-scroll-parallax";
@@ -39,6 +41,8 @@ function MyApp({ Component, pageProps }) {
             ></MobileBar1>
             <ParallaxProvider>
                 <Component {...pageProps} />
+                <Full></Full>
+                <Sub></Sub>
             </ParallaxProvider>
         </>
     );
