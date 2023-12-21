@@ -15,7 +15,7 @@ import { H3, H4, P } from "../typography";
 //FUNCTIONS
 import urlFor from "../../functions/urlFor";
 
-const Element = ({ data, i, isWorkshop }) => {
+const Element = ({ data, i, isWorkshop, isDetail }) => {
     const controls = useAnimation();
     const [ref, inView] = useInView({
         triggerOnce: true,
@@ -50,13 +50,15 @@ const Element = ({ data, i, isWorkshop }) => {
             animate={controls}
             variants={variants}
         >
-            <CoverImage
-                src={urlFor(data.logo).url()} // Replace with the actual path to your image
-                mobileSrc={urlFor(data.logo).url()} // Replace with the actual path to your image
-                alt="Cover Background"
-                style={{ aspectRatio: "1/0.8" }}
-                className="w-full z-20 relative rounded-[40px] overflow-hidden "
-            />
+            <Link href={"#"}>
+                <CoverImage
+                    src={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
+                    mobileSrc={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
+                    alt="Cover Background"
+                    style={{ aspectRatio: "1/0.8" }}
+                    className="w-full z-20 relative rounded-[40px] overflow-hidden "
+                />
+            </Link>
             <div className="px-6 lg:px-8 rounded-[40px] py-8 lg:py-6 mb-4 lg:mb-2">
                 <H3 klasse={`mb-4 lg:mb-2 ${isWorkshop ? "!text-blueColor-100" : null}`}>{data.name}</H3>
                 {/* <P klasse="lg:!text-base !text-xs" style={{ color: data.farbe.value == "#3E55AB" ? "#E2EAF7" : null }}>

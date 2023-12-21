@@ -36,6 +36,7 @@ const EventSlider1 = (props) => {
     const [isLastSlideLeft, setIsLastSlideLeft] = useState(true);
     const [isLastSlideRight, setIsLastSlideRight] = useState(false);
     const [flatData, setFlatData] = useState(null);
+    const [dataLen, setDataLen] = useState(null);
 
     const handleNav = () => {
         if (swiper && swiper.activeIndex === 0) {
@@ -63,9 +64,13 @@ const EventSlider1 = (props) => {
         // Sort the flattened events by date
         const sortedEvents = flattenedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        console.log(sortedEvents);
         setFlatData(sortedEvents);
-    }, []);
+        setDataLen(sortedEvents.length);
+    }, [props.data]);
+
+    useEffect(() => {
+        console.log(typeof dataLen);
+    }, [dataLen]);
 
     const textMotion = {
         rest: {
@@ -131,58 +136,64 @@ const EventSlider1 = (props) => {
                 </h2>
             ) : null} */}
 
-            <Swiper
-                // install Swiper modules
-                modules={[Pagination, Navigation, A11y]}
-                slidesPerView={4}
-                pagination={{ clickable: true }}
-                onSwiper={(swiper) => {
-                    {
-                        setSwiper(swiper);
-                    }
-                }}
-                onSlideChange={() => {
-                    handleNav();
-                    console.log(isLastSlideRight, swiper.activeIndex, swiper.slides.length - 1);
-                }}
-                className="h-full eventSlider"
-                // style={{ paddingBottom: "3.75rem!important" }}
-                breakpoints={{
-                    // when window width is >= 640px
-                    320: {
-                        slidesPerView: 2,
-                        navigation: true,
-                        pagination: false,
-                        spaceBetween: 15,
-                    },
-                    768: {
-                        slidesPerView: 2,
-                        navigation: true,
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        navigation: false,
-                    },
-                    1280: {
-                        slidesPerView: 4,
-                        navigation: false,
-                        spaceBetween: 20,
-                    },
-                    1600: {
-                        slidesPerView: 5,
-                        navigation: false,
-                        spaceBetween: 10,
-                    },
-                }}
-            >
-                {flatData?.map((e, i) => {
-                    return (
-                        <SwiperSlide key={`sliderKey${i}`} className="lg:px-6 sm:px-0 relative ">
-                            <SlideElement isWorkshop={props.isWorkshop} data={e}></SlideElement>
-                        </SwiperSlide>
-                    );
-                })}
-            </Swiper>
+            {dataLen > 0 && (
+                <Swiper
+                    // install Swiper modules
+                    modules={[Pagination, Navigation, A11y]}
+                    slidesPerView={4}
+                    pagination={{ clickable: true }}
+                    onSwiper={(swiper) => {
+                        {
+                            setSwiper(swiper);
+                        }
+                    }}
+                    onSlideChange={() => {
+                        handleNav();
+                        console.log(isLastSlideRight, swiper.activeIndex, swiper.slides.length - 1);
+                    }}
+                    className="h-full eventSlider"
+                    // style={{ paddingBottom: "3.75rem!important" }}
+                    breakpoints={{
+                        // when window width is >= 640px
+                        320: {
+                            slidesPerView: 2,
+                            navigation: true,
+                            pagination: false,
+                            spaceBetween: 15,
+                        },
+                        768: {
+                            slidesPerView: 2,
+                            navigation: true,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                            navigation: false,
+                        },
+                        1280: {
+                            slidesPerView: 4,
+                            navigation: false,
+                            spaceBetween: 20,
+                        },
+                        1600: {
+                            slidesPerView: dataLen >= 5 ? 5 : dataLen,
+                            navigation: false,
+                            spaceBetween: 10,
+                        },
+                    }}
+                >
+                    {flatData?.map((e, i) => {
+                        return (
+                            <SwiperSlide key={`sliderKey${i}`} className="lg:px-6 sm:px-0 relative ">
+                                <SlideElement
+                                    aspectRatio={dataLen > 3 ? "1/1" : "2/1"}
+                                    isWorkshop={props.isWorkshop}
+                                    data={e}
+                                ></SlideElement>
+                            </SwiperSlide>
+                        );
+                    })}
+                </Swiper>
+            )}
         </div>
     );
 };

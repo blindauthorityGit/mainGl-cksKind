@@ -25,7 +25,7 @@ const MapboxMap = (props) => {
             const map = new Map({
                 container: mapContainer.current,
                 style: "mapbox://styles/mapbox/light-v11",
-                center: [8.69565, 50.02418],
+                center: [8.70288, 50.03262],
                 pitch: 45,
                 zoom: 15.5,
                 bearing: -17.6,
@@ -37,7 +37,7 @@ const MapboxMap = (props) => {
             const marker = new mapboxgl.Marker({
                 color: "#df3288",
             })
-                .setLngLat([8.69565, 50.02418])
+                .setLngLat([8.70288, 50.03262])
                 .addTo(map);
 
             map.addControl(

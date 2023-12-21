@@ -4,7 +4,9 @@ import section from './sections/index'
 import event from './events'
 //PAGES
 import home from './pages/home'
+import raumvermietung from './pages/raumvermietung'
 import kursInfo from './pages/kursInfo'
+import kindergeburtstag from './pages/kindergeburtstag'
 
 // COMPONENTS
 import mainHero from './components/mainHero'
@@ -20,6 +22,7 @@ import eventslider from './components/eventSlider'
 import seo from './components/seo'
 import basicText from './components/basicText'
 import imageGallery from './components/imageGallery'
+import roomDetails from './components/roomDetails'
 //SECTIONS
 import partner from './sections/partner'
 import location from './sections/location'
@@ -31,6 +34,8 @@ export const schemaTypes = [
   basicHero,
   section,
   home,
+  raumvermietung,
+  kindergeburtstag,
   event,
   eventDetails,
   partner,
@@ -48,5 +53,6 @@ export const schemaTypes = [
   basicText,
   kursInfo,
   imageGallery,
+  roomDetails,
   // Add more schema types as needed
 ]

@@ -29,8 +29,8 @@ export default {
       of: [{type: 'block'}], // Using 'block' for rich text
     },
     {
-      name: 'kursleiter',
-      title: 'Instructor',
+      name: 'partner',
+      title: 'Kursleiter',
       type: 'reference',
       to: [{type: 'partner'}], // Assuming 'trainer' is a valid reference type
     },

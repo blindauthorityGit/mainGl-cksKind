@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import MainContainer from "../../components/layout/mainContainer";
+import { StickyContainer, Sticky } from "react-sticky";
 
 // SANITY
 import client from "../../client";
@@ -9,9 +10,10 @@ import client from "../../client";
 //COMPS
 import { BasicHero } from "../../components/Hero";
 import { EventSlider } from "../../components/slider";
-import { PortableTextView } from "../../components/content";
-import { LinkGrid } from "../../components/linkGrid";
+import { PortableTextEvent, RegularText, AnmeldeContent } from "../../components/content";
 import { Contact } from "../../components/content";
+import { Details } from "../../components/sidebar";
+import { LinkGrid } from "../../components/linkGrid";
 
 import Divider from "../../components/layout/divider";
 
@@ -22,47 +24,91 @@ import FullWidthSection from "../../components/layout/fullWidthSection";
 //FUNCTIONS
 import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor";
 
-export default function KursOverview({ data }) {
+export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAllKategorie }) {
+    const [isWorkshop, setIsWorkshop] = useState(false);
+    const [filteredKategorie, setFilteredKategorie] = useState(false);
+
     useEffect(() => {
-        console.log(data);
+        console.log(data, dataAllKategorie);
+        console.log("Details Data:", data.details);
+
         // FILTER THE PARTNER
+        const filterName = data.kategorie.name;
+        // const filteredDataPartner = dataPartner.filter((partner) => {
+        //     // Check if the 'kurse' array exists and has at least one entry matching the desired category
+        //     return partner.kurse && partner.kurse.some((kurs) => kurs.name === filterName);
+        // });
+
+        setFilteredKategorie(
+            dataAllKategorie.filter((e) => {
+                return e.name !== filterName;
+            })
+        );
 
         changeBodyBackgroundColor(data);
-    }, []);
+        setIsWorkshop(data.kategorie.name == "Beratung & Workshops");
+    }, [data]);
 
     return (
         <>
-            {/* <MainContainer width="container mx-auto">
+            <MainContainer width="container mx-auto gap-8">
                 <Head>
                     <title>Site title</title>
                 </Head>
+                <StickyContainer className="grid grid-cols-12 w-full col-span-12">
+                    <div className="col-span-8">
+                        {" "}
+                        <BasicHero isEvent data={data}></BasicHero>
+                        <PortableTextEvent
+                            isWorkshop={isWorkshop}
+                            blocks={data.content.content}
+                            data={data}
+                        ></PortableTextEvent>
+                        <RegularText data={data.eventDetails.partner}></RegularText>
+                    </div>
+                    {/* //SIDEBAR */}
+                    <div className="col-span-4 lg:mt-28 lg:pl-16">
+                        <Sticky distanceFromTop={280} topOffset={-128}>
+                            {({ style, isSticky }) => (
+                                <div style={{ ...style, marginTop: isSticky ? "128px" : "0px" }} className="col-span-3">
+                                    <Details isWorkshop={isWorkshop} data={data}></Details>{" "}
+                                </div>
+                            )}
+                        </Sticky>
+                    </div>
+                </StickyContainer>
 
-                <BasicHero data={data.components[0]}></BasicHero>
                 <Divider></Divider>
-                <PortableTextView
+                {/* <PortableTextView
                     isWorkshop={data.title == "Beratung & Workshops"}
                     blocks={data.components[1].content}
                     data={data}
-                ></PortableTextView>
-
+                ></PortableTextView> */}
+            </MainContainer>{" "}
+            <Divider></Divider>
+            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+                <AnmeldeContent data={dataKontakt[0]}></AnmeldeContent>
+            </FullWidthSection>
+            <MainContainer width="container mx-auto gap-8">
                 <Divider></Divider>
-                <EventSlider isWorkshop={data.title == "Beratung & Workshops"} data={dataEvents}></EventSlider>
 
+                <EventSlider data={dataAllEvents}></EventSlider>
                 <Divider></Divider>
-                {filteredDataPartner && (
+                {filteredKategorie && (
                     <LinkGrid
+                        isDetail
                         isWorkshop={data.title == "Beratung & Workshops"}
-                        data={filteredDataPartner}
-                        headline="Unsere Partner"
+                        data={filteredKategorie}
+                        headline="Weitere Kurse"
                     ></LinkGrid>
                 )}
                 <Divider></Divider>
-            </MainContainer>{" "}
+            </MainContainer>
             <DecorativeDivider></DecorativeDivider>
             <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
                 <Contact data={dataKontakt[0]}></Contact>
             </FullWidthSection>
-            <BigDecal></BigDecal> */}
+            <BigDecal></BigDecal>
         </>
     );
 }
@@ -86,13 +132,48 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
     const slug = context.params.slug;
 
-    const res = await client.fetch(`*[_type == "event" && slug.current == "${slug}"] 
-    `);
+    const res = await client.fetch(`
+    *[_type == "event" && slug.current == "${slug}"]{
+        ...,
+        kategorie->{...},
+        eventDetails {
+            ...,
+            partner->{...},
+            location->{...},
+        }
+      }
+      
+  `);
+
     const data = await res[0];
+
+    const resKontakt = await client.fetch(`
+    *[_type == "kontakt"]
+    `);
+
+    const dataKontakt = await resKontakt;
+
+    const resAllEvents = await client.fetch(`
+    *[_type == "event" && slug.current != "${slug}"]{
+        ...,
+        kategorie->{...}
+      }
+    `);
+
+    const dataAllEvents = await resAllEvents;
+
+    const resKategorie = await client.fetch(`
+    *[_type == "kategorie" ]
+    `);
+
+    const dataAllKategorie = await resKategorie;
 
     return {
         props: {
             data,
+            dataKontakt,
+            dataAllEvents,
+            dataAllKategorie,
         },
         revalidate: 1, // 10 seconds
     };

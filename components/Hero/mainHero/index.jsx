@@ -23,7 +23,7 @@ import { Parallax } from "react-scroll-parallax";
 //HOOKS
 import { useWindowDimensions } from "../../../hooks/useWindowDimension";
 
-const MainHero = ({ data }) => {
+const MainHero = ({ data, bgColor }) => {
     const { width, height } = useWindowDimensions();
     const aspectRatio = width < 1600 ? "1/1.05" : "1/0.75";
 
@@ -34,12 +34,19 @@ const MainHero = ({ data }) => {
     }, []);
 
     const imgRef = useRef();
+    const heightRef = useRef();
+
+    useEffect(() => {
+        console.log(heightRef.current.clientHeight);
+        setBGHeightAbsolute(heightRef.current.clientHeight + 140 + "px");
+    }, [heightRef.current]);
 
     const [bgHeight, setBGHeight] = useState(null);
+    const [bgHeightAbsolute, setBGHeightAbsolute] = useState(null);
 
     return (
         <section className="col-span-12 min-h-screen xl:min-h-0  bg-[#AFD3A2] lg:bg-transparent px-4 pb-8 lg:pb-0 lg:mt-24">
-            <div className="grid grid-cols-12 z-10 h-full lg:gap-24">
+            <div ref={heightRef} className="grid grid-cols-12 z-10 h-full lg:gap-24 relative">
                 <div className="col-span-12 lg:col-span-5 text-center lg:text-left pt-24 lg:pt-0  flex flex-col justify-center z-20">
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
@@ -125,7 +132,8 @@ const MainHero = ({ data }) => {
                 initial={{ x: "-100%", opacity: 0.5 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 95, damping: 15 }}
-                className="fixed bg-[#AFD3A2] h-full w-2/4 left-0 top-0 z-[-10] hidden lg:block"
+                style={{ height: bgHeightAbsolute, background: bgColor }}
+                className="absolute bg-[#AFD3A2]  w-2/4 left-0 top-0 z-[-10] hidden lg:block"
             ></motion.div>
         </section>
     );

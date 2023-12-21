@@ -106,23 +106,23 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'mainImage',
+      name: 'image',
       title: 'Hauptbild',
       type: 'image',
       description: 'Das Hauptbild für die Veranstaltung',
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'details',
+      name: 'eventDetails',
       title: 'Details',
       type: 'eventDetails',
       description: 'Weitere Details zur Veranstaltung',
     },
+
     {
       name: 'content',
       title: 'Inhalt',
-      type: 'array',
-      of: [{type: 'block'}, {type: 'image'}],
+      type: 'basicText',
       description: 'Der Inhalt der Veranstaltung (Text und Bilder)',
     },
     {
@@ -137,7 +137,7 @@ export default {
     select: {
       title: 'headline',
       subtitle: 'datum.0',
-      media: 'mainImage',
+      media: 'image',
     },
   },
 }

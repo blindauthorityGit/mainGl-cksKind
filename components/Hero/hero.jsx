@@ -3,7 +3,7 @@ import { motion, useAnimation } from "framer-motion";
 import { CoverImage } from "../images";
 import urlFor from "../../functions/urlFor";
 
-const Hero = ({ data }) => {
+const Hero = ({ data, isEvent }) => {
     const controls = useAnimation();
 
     return (
@@ -18,7 +18,7 @@ const Hero = ({ data }) => {
                 src={urlFor(data.image).url()}
                 mobileSrc={urlFor(data.image).url()}
                 alt="Cover Background"
-                style={{ aspectRatio: "1642/650" }}
+                style={{ aspectRatio: isEvent ? "3/2" : "1642/650" }}
                 className="w-full z-20 relative rounded-[40px] overflow-hidden"
             />
         </motion.div>

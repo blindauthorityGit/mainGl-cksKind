@@ -42,6 +42,8 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
                 <Divider></Divider>
                 <Divider></Divider>
                 <CardHolder data={dataKategorie}></CardHolder>
+                <Divider></Divider>
+
                 {/* <h1 className="font-sans">Hallo ich bin ein Textor</h1> */}
             </MainContainer>
             <FullWidthSection klasse="bg-[#AFD3A2] py-20 lg:!py-32">
