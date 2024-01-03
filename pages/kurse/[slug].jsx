@@ -26,21 +26,23 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
     const [filteredDataPartner, setFilteredDataPartner] = useState(null);
 
     useEffect(() => {
+        if (data) {
+            const filterName = data.title;
+            // const filteredDataPartner = dataPartner.filter((partner) => {
+            //     // Check if the 'kurse' array exists and has at least one entry matching the desired category
+            //     return partner.kurse && partner.kurse.some((kurs) => kurs.name === filterName);
+            // });
+
+            setFilteredDataPartner(
+                dataPartner.filter((partner) => {
+                    // Check if the 'kurse' array exists and has at least one entry matching the desired category
+                    return partner.kurse && partner.kurse.some((kurs) => kurs.name === filterName);
+                })
+            );
+
+            changeBodyBackgroundColor(data);
+        }
         // FILTER THE PARTNER
-        const filterName = data.title;
-        // const filteredDataPartner = dataPartner.filter((partner) => {
-        //     // Check if the 'kurse' array exists and has at least one entry matching the desired category
-        //     return partner.kurse && partner.kurse.some((kurs) => kurs.name === filterName);
-        // });
-
-        setFilteredDataPartner(
-            dataPartner.filter((partner) => {
-                // Check if the 'kurse' array exists and has at least one entry matching the desired category
-                return partner.kurse && partner.kurse.some((kurs) => kurs.name === filterName);
-            })
-        );
-
-        changeBodyBackgroundColor(data);
     }, [data]);
 
     useEffect(() => {
