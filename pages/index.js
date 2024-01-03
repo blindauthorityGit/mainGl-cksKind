@@ -65,7 +65,7 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
             <Divider></Divider>
 
             <DecorativeDivider></DecorativeDivider>
-            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+            <FullWidthSection klasse="bg-[#fff] py-8 lg:!py-32">
                 <Contact data={dataKontakt[0]}></Contact>
             </FullWidthSection>
 
