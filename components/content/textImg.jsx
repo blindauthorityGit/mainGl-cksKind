@@ -44,10 +44,10 @@ const TextImage = ({ data, overlap }) => {
     return (
         <motion.div
             ref={ref}
-            initial="hidden"
+            initial={{ opacity: 0, x: data.rightImage ? 50 : -50 }}
             animate={controls}
             variants={variants}
-            className="col-span-12 grid grid-cols-12 px-6 lg:px-24"
+            className="col-span-12 grid grid-cols-12 px-6 lg:px-24 "
         >
             <div
                 className={`col-span-12 lg:col-span-5 flex flex-col justify-center mt-6 lg:mt-0 mb-12 lg:mb-0   ${

@@ -9,7 +9,7 @@ const ToolTip = ({ data }) => {
 
     return (
         <div className="absolute w-[400px] p-8 bottom-[2rem]" style={{ background: data.kategorie.farbe.value }}>
-            <H4>{data.headline}</H4>
+            <H4 klasse="hidden lg:block">{data.headline}</H4>
         </div>
     );
 };

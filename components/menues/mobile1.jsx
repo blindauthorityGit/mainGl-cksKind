@@ -98,7 +98,7 @@ const Mobile1 = (props) => {
                             </a>
                         </Link>
                     </div> */}
-                    <motion.h1
+                    {/* <motion.h1
                         className="text-5xl md:text-5xl font-serif tracking-wider mb-2 mt-6"
                         initial={{ opacity: 0, scale: 0.85 }}
                         animate={{
@@ -115,21 +115,23 @@ const Mobile1 = (props) => {
                             ATELIER
                         </motion.span>
                         BUCHNER
-                    </motion.h1>
+                    </motion.h1> */}
                     <hr />
-                    <div className="MenuItems text-lg sm:text-4xl pt-4 font-sans">
-                        <Link href="/galerie">
-                            <a className="text-text block my-3 subNav relative mt-4 hover:text-primaryColor cursor-pointer">
-                                Galerie
-                            </a>
+                    <div className="MenuItems text-lg sm:text-4xl pt-4 font-sans mt-16 font-sans">
+                        <Link
+                            className="text-text block my-3 subNav relative mt-4 hover:text-primaryColor cursor-pointer"
+                            href="/programm"
+                        >
+                            Programm
                         </Link>
                         <motion.ul variants={boxMotion} className="">
                             <motion.li variants={textMotion} className="mb-4">
                                 <div className="wrap dropdown text-primaryColor-900  ">
-                                    <Link href="/kurse">
-                                        <a className="text-text block my-3 subNav relative hover:text-primaryColor cursor-pointer">
-                                            Kurse
-                                        </a>
+                                    <Link
+                                        className="text-text block my-3 subNav relative hover:text-primaryColor cursor-pointer"
+                                        href="/cafe"
+                                    >
+                                        Cafe
                                     </Link>
 
                                     {/* <ul className="pl-8 mt-4 mb-4 text-primaryColor-900">
@@ -151,36 +153,35 @@ const Mobile1 = (props) => {
                                     </ul> */}
                                 </div>
                             </motion.li>
-                            <Link href="/leistungen">
-                                <a className="text-text block my-3 subNav relative mt-4 hover:text-primaryColor cursor-pointer">
-                                    Leistungen
-                                </a>
+                            <Link
+                                className="text-text block my-3 subNav relative mt-4 hover:text-primaryColor cursor-pointer"
+                                href="/raumvermietung"
+                            >
+                                Raumvermietung
                             </Link>
                             <li className="mr-8 hover:text-primaryColor hover:underline mb-4 text-primaryColor-900">
-                                <Link href="/blog">
-                                    <a>Blog</a>
-                                </Link>
+                                <Link href="/kindergeburtstag">Kindergeburtstag</Link>
                             </li>
                             <li className="text-primaryColor-900">
-                                <Link href="/kontakt ">
-                                    <a>Kontakt</a>
-                                </Link>
+                                <Link href="/ueber-uns ">Über uns</Link>
                             </li>
                         </motion.ul>
                         <hr className="mt-4" />
                         <ul className="tracking-widest text-primaryColor-900">
                             <li className="mb-3 mt-8 text-xs">
                                 <div className="wrap dropdown   ">
-                                    <Link href="/impressum">
-                                        <a className="text-text block my-4 subNav relative hover:text-primaryColor cursor-pointer">
-                                            Impressum
-                                        </a>
+                                    <Link
+                                        className="text-text block my-4 subNav relative hover:text-primaryColor cursor-pointer"
+                                        href="/impressum"
+                                    >
+                                        Impressum
                                     </Link>
 
-                                    <Link href="/datenschutz">
-                                        <a className="text-text block my-4 subNav relative mt-4 hover:text-primaryColor cursor-pointer">
-                                            Datenschutzerklärung
-                                        </a>
+                                    <Link
+                                        className="text-text block my-4 subNav relative mt-4 hover:text-primaryColor cursor-pointer"
+                                        href="/datenschutz"
+                                    >
+                                        Datenschutzerklärung
                                     </Link>
                                 </div>
                             </li>

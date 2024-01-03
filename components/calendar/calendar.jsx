@@ -88,14 +88,14 @@ const Calendar = ({ data }) => {
     }, [data]);
 
     return (
-        <div className="calendar col-span-12 mt-36 bg-white p-12 rounded-xl text-textColor font-sans">
+        <div className="calendar col-span-12 mt-24 lg:mt-36 bg-white p-4 lg:p-12 rounded-xl text-textColor font-sans">
             <div className="flex justify-between items-center mb-4">
-                <button className="flex items-center" onClick={prevMonth}>
+                <button className="flex items-center text-xs lg:text-base" onClick={prevMonth}>
                     <BsChevronLeft />
                     Vorheriger Monat
                 </button>
-                <H3>{format(currentDate, "MMMM yyyy", { locale: de })}</H3>
-                <button className="flex items-center" onClick={nextMonth}>
+                <H3 klasse="text-center px-4">{format(currentDate, "MMMM yyyy", { locale: de })}</H3>
+                <button className="flex items-center text-xs lg:text-base" onClick={nextMonth}>
                     Nächster Monat
                     <BsChevronRight />
                 </button>
@@ -115,7 +115,7 @@ const Calendar = ({ data }) => {
                     return (
                         <div
                             key={i}
-                            className={`p-4  rounded-xl bg-slate-50 ${
+                            className={` p-2 text-center lg:p-4  rounded-xl bg-slate-50 ${
                                 isToday(day) ? " font-bold !bg-primaryColor-100" : null
                             }`}
                         >
@@ -138,8 +138,8 @@ const Calendar = ({ data }) => {
                                             console.log(data);
                                         }}
                                     >
-                                        {e.headline}
-                                        {showTooltip ? <ToolTip data={tooltipData}></ToolTip> : null}
+                                        <div className="hidden lg:block">{e.headline}</div>
+                                        {/* {showTooltip ? <ToolTip data={tooltipData}></ToolTip> : null} */}
                                     </div>
                                 );
                             })}
