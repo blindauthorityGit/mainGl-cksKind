@@ -2,42 +2,43 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 const menuItems = [
     {
-        title: "Kurse",
-        slug: "kurse",
+        title: "Programm",
+        slug: "programm",
         subMenu: true,
         subMenuItems: [
             {
-                title: "Winterakademie 2023",
-                slug: "about",
+                title: "Schwangerschaft",
+                slug: "/kurse/schwangerschaft",
             },
             {
-                title: "Frühlingsakademie 2023",
-                slug: "sammlungen",
+                title: "Beratung & Workshops",
+                slug: "/kurse/beratung-&-workshops",
             },
+
             {
-                title: "Sommerakademie 2023",
-                slug: "https://cdn.sanity.io/files/7all625u/dev/5a6f73b99aceb4c681ca63eb1b1ac1f447064ae7.pdf",
-                external: true,
-            },
-            {
-                title: "Herbstakademie 2023",
-                slug: "blog",
+                title: "Baby & Kleinkind",
+                slug: "/kurse/baby-&-kleinkind",
             },
         ],
     },
     {
-        title: "Galerie",
-        slug: "besuch",
+        title: "Cafe",
+        slug: "cafe",
         subMenu: false,
     },
     {
-        title: "News",
-        slug: "events",
+        title: "Raumvermietung",
+        slug: "raumvermietung",
         subMenu: false,
     },
     {
-        title: "Kontakt",
-        slug: "kontakt",
+        title: "Kindergeburtstag",
+        slug: "kindergeburtstag",
+        subMenu: false,
+    },
+    {
+        title: "Über uns",
+        slug: "ueber-uns",
         subMenu: false,
     },
 ];

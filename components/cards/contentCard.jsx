@@ -16,11 +16,11 @@ import urlFor from "../../functions/urlFor";
 
 const ContentCard = ({ data, i }) => {
     return (
-        <div className="lg:col-start-0 lg:col-span-5 col-span-12 bg-white rounded-[40px] px-6 lg:px-24 py-12 lg:py-24 mt-24">
+        <div className="lg:col-start-0 lg:col-span-5 col-span-12 bg-white rounded-[40px] px-6 lg:px-24 py-12 lg:py-24 mt-64">
             <H2 klasse="mb-4 ">{data.headline}</H2>
             <P klasse="lg:!text-base !text-xs">{data.text}</P>
             <MainButton
-                klasse={`mt-12 ${
+                klasse={`mt-6 lg:mt-12 ${
                     data.button.HauptButton
                         ? "bg-primaryColor border-2 border-primaryColor"
                         : "border-2 border-primaryColor-50"

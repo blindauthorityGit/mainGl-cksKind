@@ -25,7 +25,8 @@ import { useWindowDimensions } from "../../../hooks/useWindowDimension";
 
 const MainHero = ({ data, bgColor }) => {
     const { width, height } = useWindowDimensions();
-    const aspectRatio = width < 1600 ? "1/1.05" : "1/0.75";
+    // const aspectRatio = width < 1600 ? "1/1.05" : "1/0.75";
+    const aspectRatio = "1/0.75";
 
     useEffect(() => {
         console.log(urlFor(data.image).url(), imgRef.current.clientHeight);

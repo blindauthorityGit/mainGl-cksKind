@@ -36,6 +36,8 @@ export default function Raumvermietung({ data, dataKontakt }) {
 
                 <MainHero data={data.components[0]}></MainHero>
                 <Divider></Divider>
+                <Divider></Divider>
+
                 <StickyContainer className="grid grid-cols-12 w-full col-span-12">
                     <div className="col-span-8">
                         <PortableTextEvent blocks={data.components[1].content} data={data}></PortableTextEvent>
@@ -51,6 +53,7 @@ export default function Raumvermietung({ data, dataKontakt }) {
                         </Sticky>
                     </div>
                 </StickyContainer>
+                <Divider></Divider>
                 <Divider></Divider>
             </MainContainer>
             <FullWidthSection klasse="bg-[#AFD3A2] py-20 lg:!py-32">

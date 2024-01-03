@@ -33,9 +33,8 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
                 <Head>
                     <title>Site title</title>
                 </Head>
-
                 <MainHero bgColor="#E9B4C7" data={data.components[0]}></MainHero>
-                <Divider></Divider>
+                <Divider></Divider> <Divider></Divider>
                 <StickyContainer className="grid grid-cols-12 w-full col-span-12">
                     <div className="col-span-8">
                         <PortableTextEvent blocks={data.components[1].content} data={data}></PortableTextEvent>
@@ -51,7 +50,7 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
                         </Sticky>
                     </div>
                 </StickyContainer>
-                <Divider></Divider>
+                <Divider></Divider> <Divider></Divider>
             </MainContainer>
             <FullWidthSection klasse="bg-[#E9B4C7] py-20 lg:!py-32">
                 <CTAContentButton data={data.components[3]}></CTAContentButton>

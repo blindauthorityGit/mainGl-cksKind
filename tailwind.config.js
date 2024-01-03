@@ -6,6 +6,24 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 module.exports = {
     content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
     theme: {
+        screens: {
+            sm: "640px",
+            md: "768px",
+            lg: "1024px",
+            xl: "1280px",
+            "2xl": "1940px",
+            "3xl": "2600px", // Add a custom breakpoint for 2880px
+        },
+        container: {
+            screens: {
+                sm: "100%",
+                md: "640px",
+                lg: "840px",
+                xl: "1040px",
+                "2xl": "1536px",
+                "3xl": "1536px", // Adjust container width for 2880px
+            },
+        },
         extend: {
             fontFamily: {
                 ...fontFamily,

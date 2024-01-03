@@ -13,6 +13,16 @@ export default {
       of: [
         {
           type: 'block',
+          marks: {
+            decorators: [
+              {title: 'Strong', value: 'strong'},
+              {title: 'Emphasis', value: 'em'},
+              {title: 'Underline', value: 'underline'},
+              {title: 'Strike', value: 'strike-through'},
+              // Add color option
+              {title: 'Text Color', value: 'textColor'},
+            ],
+          },
         },
         {
           type: 'imageGallery', // Custom type for the image gallery

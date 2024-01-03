@@ -26,12 +26,17 @@ const H3 = ({ children, klasse, style }) => {
 };
 const H4 = ({ children, klasse }) => {
     return (
-        <h4 className={`text-xs lg:text-lg xl:text-base font-regular font-ueber text-textColor ${klasse}`}>
+        <h4 className={`text-xs lg:text-lg xl:text-base font-thin font-ueber text-textColor ${klasse}`}>{children}</h4>
+    );
+};
+const H5 = ({ children, klasse }) => {
+    return (
+        <h5 className={`text-xs lg:text-base xl:text-sm font-regular font-ueber text-textColor ${klasse}`}>
             {children}
-        </h4>
+        </h5>
     );
 };
 
 // Add more headline components for H3, H4, etc.
 
-export { H1, H2, H3, H4 };
+export { H1, H2, H3, H4, H5 };

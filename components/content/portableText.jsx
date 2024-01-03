@@ -40,6 +40,17 @@ const myPortableTextComponents = {
             </strong>
         ),
     },
+    block: {
+        // Styling for the "normal" paragraphs
+        normal: ({ children }) => <p className="text-base leading-7 font-sans">{children}</p>,
+        // Styling for the "h1" headings
+        h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
+        h2: ({ children, isWorkshop }) => <H2 klasse={`${isWorkshop ? "text-white" : "null"}`}>{children}</H2>,
+        h3: ({ children, isWorkshop }) => <H3 klasse="!mb-4 !mt-10">{children}</H3>,
+        p: ({ children }) => <p className="font-sans">{children}</p>,
+
+        // Add more styles as needed
+    },
     blockStyles: {
         // Styling for the "normal" paragraphs
         normal: ({ children }) => <p className="text-base leading-7 font-sans">{children}</p>,

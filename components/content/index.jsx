@@ -1,6 +1,7 @@
 export { default as CTAContent } from "./ctaContent";
 export { default as CTAContentButton } from "./ctaContentButton";
 export { default as TextImage } from "./textImg";
+export { default as TextImage2 } from "./textImg2";
 export { default as Contact } from "./contact";
 export { default as PortableTextView } from "./portableText";
 export { default as PortableTextEvent } from "./portableTextEvent";

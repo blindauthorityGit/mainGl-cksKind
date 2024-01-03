@@ -158,7 +158,7 @@ const Menu1 = (props) => {
             /> */}
             <nav ref={navRef} className={`w-full fixed z-30 px-4 sm:px-12 lg:py-2 top-0   ${props.colspan}`}>
                 {/* BG */}
-                <div className=" z-40 grid relative container mx-auto grid-cols-12 m-auto items-center  py-2 sm:py-4  lg:px-0 lg:py-0">
+                <div className=" z-40 grid relative 2xl:container mx-auto grid-cols-12 m-auto items-center  py-2 sm:py-4  lg:px-0 lg:py-0">
                     {/* Background Image */}
                     <div className="logo col-span-4 md:col-span-2 ">
                         <Link className="flex" href="/">
@@ -178,12 +178,15 @@ const Menu1 = (props) => {
                                         whileHover="hover"
                                         animate="rest"
                                         key={`menuKey${i}`}
-                                        className="relative mx-8 py-4 font-headline tracking-widest  text-blackText-300 hover:text-primaryColor-500"
+                                        className="relative mx-8 py-4 font-headline tracking-wider  text-blackText-300 hover:text-primaryColor-500"
                                         onMouseEnter={(e) => {
                                             onEnter(e);
                                         }}
                                     >
-                                        <Link href={`/${e.slug}`} className="flex items-end uppercase text-sm ">
+                                        <Link
+                                            href={`/${e.slug}`}
+                                            className="flex items-end font-sans font-semibold text-textColor uppercase text-sm "
+                                        >
                                             {e.title}{" "}
                                             {e.subMenu ? (
                                                 <motion.span variants={pfeilMotion}>
@@ -224,7 +227,7 @@ const Menu1 = (props) => {
                             <Newsletter onClick={props.onClick}></Newsletter>
                         </ul> */}
                     </div>
-                    <div className=" flex justify-end text-xl md:text-xl">
+                    <div className=" flex justify-end text-xl md:text-xl col-span-2">
                         <div
                             className="block lg:hidden cursor-pointer"
                             onClick={(e) => {
@@ -234,8 +237,8 @@ const Menu1 = (props) => {
                             <img src={props.burgerIcon} alt="" />
                         </div>
                         <div className="hidden lg:flex mt-0 pt-0 items-center col-span-2">
-                            <MainButton klasse="bg-primaryColor !py-3" link="#">
-                                SHOP
+                            <MainButton klasse="bg-primaryColor !py-3" link="/programm">
+                                Jetzt buchen
                             </MainButton>
                         </div>
                         <div className="hidden lg:hidden ">

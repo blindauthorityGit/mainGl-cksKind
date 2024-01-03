@@ -7,6 +7,8 @@ import home from './pages/home'
 import raumvermietung from './pages/raumvermietung'
 import kursInfo from './pages/kursInfo'
 import kindergeburtstag from './pages/kindergeburtstag'
+import ueberuns from './pages/about'
+import cafe from './pages/cafe'
 
 // COMPONENTS
 import mainHero from './components/mainHero'
@@ -23,11 +25,16 @@ import seo from './components/seo'
 import basicText from './components/basicText'
 import imageGallery from './components/imageGallery'
 import roomDetails from './components/roomDetails'
+import cardButtons from './components/cardButton'
+import cardButtonCollection from './components/cardButtonCollection'
+import menuItem from './components/menuItem'
+import speiseKategorie from './components/speiseKategorie'
 //SECTIONS
 import partner from './sections/partner'
 import location from './sections/location'
 import kategorie from './sections/kategorie'
 import kontakt from './sections/kontakt'
+import speisekarte from './sections/speisekarte'
 
 export const schemaTypes = [
   mainHero,
@@ -36,6 +43,8 @@ export const schemaTypes = [
   home,
   raumvermietung,
   kindergeburtstag,
+  ueberuns,
+  cafe,
   event,
   eventDetails,
   partner,
@@ -54,5 +63,10 @@ export const schemaTypes = [
   kursInfo,
   imageGallery,
   roomDetails,
+  cardButtons,
+  cardButtonCollection,
+  speisekarte,
+  menuItem,
+  speiseKategorie,
   // Add more schema types as needed
 ]
