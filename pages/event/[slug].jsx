@@ -59,11 +59,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                     <div className="col-span-8">
                         {" "}
                         <BasicHero isEvent data={data}></BasicHero>
-                        <PortableTextEvent
-                            isWorkshop={isWorkshop}
-                            blocks={data.content.content}
-                            data={data}
-                        ></PortableTextEvent>
+                        <PortableTextEvent isWorkshop={isWorkshop} data={data}></PortableTextEvent>
                         <RegularText data={data.eventDetails.partner}></RegularText>
                     </div>
                     {/* //SIDEBAR */}
