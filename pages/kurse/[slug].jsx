@@ -51,13 +51,13 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
 
     return (
         <>
-            <MainContainer width="container mx-auto">
-                <Head>
-                    <title>Site title</title>
-                </Head>
+            {data && dataEvents && dataPartner && dataKontakt ? (
+                <>
+                    <MainContainer width="container mx-auto">
+                        <Head>
+                            <title>Site title</title>
+                        </Head>
 
-                {data && data.components && (
-                    <>
                         <BasicHero data={data.components[0]}></BasicHero>
                         <Divider></Divider>
                         <PortableTextView
@@ -78,15 +78,17 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
                             ></LinkGrid>
                         )}
                         <Divider></Divider>
-                    </>
-                )}
-            </MainContainer>
+                    </MainContainer>
 
-            <DecorativeDivider></DecorativeDivider>
-            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
-                <Contact data={dataKontakt[0]}></Contact>
-            </FullWidthSection>
-            <BigDecal></BigDecal>
+                    <DecorativeDivider></DecorativeDivider>
+                    <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+                        <Contact data={dataKontakt[0]}></Contact>
+                    </FullWidthSection>
+                    <BigDecal></BigDecal>
+                </>
+            ) : (
+                <>"Loading"</>
+            )}
         </>
     );
 }

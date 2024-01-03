@@ -53,55 +53,67 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
 
     return (
         <>
-            <MainContainer width="container mx-auto gap-8">
-                <Head>
-                    <title>Site title</title>
-                </Head>
-                <StickyContainer className="grid grid-cols-12 w-full col-span-12">
-                    <div className="col-span-8">
-                        {" "}
-                        <BasicHero isEvent data={data}></BasicHero>
-                        <PortableTextEvent isWorkshop={isWorkshop} blocks={data.content.content}></PortableTextEvent>
-                        <RegularText data={data.eventDetails.partner}></RegularText>
-                    </div>
-                    {/* //SIDEBAR */}
-                    <div className="col-span-4 lg:mt-28 lg:pl-16">
-                        <Sticky distanceFromTop={280} topOffset={-128}>
-                            {({ style, isSticky }) => (
-                                <div style={{ ...style, marginTop: isSticky ? "128px" : "0px" }} className="col-span-3">
-                                    <Details isWorkshop={isWorkshop} data={data}></Details>{" "}
-                                </div>
-                            )}
-                        </Sticky>
-                    </div>
-                </StickyContainer>
+            {data && dataKontakt && dataAllEvents && dataAllKategorie ? (
+                <>
+                    <MainContainer width="container mx-auto gap-8">
+                        <Head>
+                            <title>Site title</title>
+                        </Head>
+                        <StickyContainer className="grid grid-cols-12 w-full col-span-12">
+                            <div className="col-span-8">
+                                {" "}
+                                <BasicHero isEvent data={data}></BasicHero>
+                                <PortableTextEvent
+                                    isWorkshop={isWorkshop}
+                                    blocks={data.content.content}
+                                ></PortableTextEvent>
+                                <RegularText data={data.eventDetails.partner}></RegularText>
+                            </div>
+                            {/* //SIDEBAR */}
+                            <div className="col-span-4 lg:mt-28 lg:pl-16">
+                                <Sticky distanceFromTop={280} topOffset={-128}>
+                                    {({ style, isSticky }) => (
+                                        <div
+                                            style={{ ...style, marginTop: isSticky ? "128px" : "0px" }}
+                                            className="col-span-3"
+                                        >
+                                            <Details isWorkshop={isWorkshop} data={data}></Details>{" "}
+                                        </div>
+                                    )}
+                                </Sticky>
+                            </div>
+                        </StickyContainer>
 
-                <Divider></Divider>
-            </MainContainer>{" "}
-            <Divider></Divider>
-            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
-                <AnmeldeContent data={dataKontakt[0]}></AnmeldeContent>
-            </FullWidthSection>
-            <MainContainer width="container mx-auto gap-8">
-                <Divider></Divider>
+                        <Divider></Divider>
+                    </MainContainer>{" "}
+                    <Divider></Divider>
+                    <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+                        <AnmeldeContent data={dataKontakt[0]}></AnmeldeContent>
+                    </FullWidthSection>
+                    <MainContainer width="container mx-auto gap-8">
+                        <Divider></Divider>
 
-                <EventSlider data={dataAllEvents}></EventSlider>
-                <Divider></Divider>
-                {filteredKategorie && (
-                    <LinkGrid
-                        isDetail
-                        isWorkshop={data.title == "Beratung & Workshops"}
-                        data={filteredKategorie}
-                        headline="Weitere Kurse"
-                    ></LinkGrid>
-                )}
-                <Divider></Divider>
-            </MainContainer>
-            <DecorativeDivider></DecorativeDivider>
-            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
-                <Contact data={dataKontakt[0]}></Contact>
-            </FullWidthSection>
-            <BigDecal></BigDecal>
+                        <EventSlider data={dataAllEvents}></EventSlider>
+                        <Divider></Divider>
+                        {filteredKategorie && (
+                            <LinkGrid
+                                isDetail
+                                isWorkshop={data.title == "Beratung & Workshops"}
+                                data={filteredKategorie}
+                                headline="Weitere Kurse"
+                            ></LinkGrid>
+                        )}
+                        <Divider></Divider>
+                    </MainContainer>
+                    <DecorativeDivider></DecorativeDivider>
+                    <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+                        <Contact data={dataKontakt[0]}></Contact>
+                    </FullWidthSection>
+                    <BigDecal></BigDecal>
+                </>
+            ) : (
+                <>LOADING</>
+            )}
         </>
     );
 }
