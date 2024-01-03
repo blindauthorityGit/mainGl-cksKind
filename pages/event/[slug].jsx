@@ -29,9 +29,6 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
     const [filteredKategorie, setFilteredKategorie] = useState(false);
 
     useEffect(() => {
-        console.log(data, dataAllKategorie);
-        console.log("Details Data:", data.details);
-
         // FILTER THE PARTNER
         const filterName = data.kategorie.name;
         // const filteredDataPartner = dataPartner.filter((partner) => {

@@ -26,11 +26,8 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
     const [filteredDataPartner, setFilteredDataPartner] = useState(null);
 
     useEffect(() => {
-        console.log(dataEvents);
-        console.log(data, dataPartner);
         // FILTER THE PARTNER
         const filterName = data.title;
-        console.log(data.title);
         // const filteredDataPartner = dataPartner.filter((partner) => {
         //     // Check if the 'kurse' array exists and has at least one entry matching the desired category
         //     return partner.kurse && partner.kurse.some((kurs) => kurs.name === filterName);
@@ -43,9 +40,8 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
             })
         );
 
-        console.log(filteredDataPartner);
         changeBodyBackgroundColor(data);
-    }, []);
+    }, [data]);
 
     useEffect(() => {
         console.log(filteredDataPartner);
@@ -58,27 +54,32 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
                     <title>Site title</title>
                 </Head>
 
-                <BasicHero data={data.components[0]}></BasicHero>
-                <Divider></Divider>
-                <PortableTextView
-                    isWorkshop={data.title == "Beratung & Workshops"}
-                    blocks={data.components[1].content}
-                    data={data}
-                ></PortableTextView>
+                {data && data.components && (
+                    <>
+                        <BasicHero data={data.components[0]}></BasicHero>
+                        <Divider></Divider>
+                        <PortableTextView
+                            isWorkshop={data.title == "Beratung & Workshops"}
+                            blocks={data.components[1].content}
+                            data={data}
+                        ></PortableTextView>
 
-                <Divider></Divider>
-                <EventSlider isWorkshop={data.title == "Beratung & Workshops"} data={dataEvents}></EventSlider>
+                        <Divider></Divider>
+                        <EventSlider isWorkshop={data.title == "Beratung & Workshops"} data={dataEvents}></EventSlider>
 
-                <Divider></Divider>
-                {filteredDataPartner && (
-                    <LinkGrid
-                        isWorkshop={data.title == "Beratung & Workshops"}
-                        data={filteredDataPartner}
-                        headline="Unsere Partner"
-                    ></LinkGrid>
+                        <Divider></Divider>
+                        {filteredDataPartner && (
+                            <LinkGrid
+                                isWorkshop={data.title == "Beratung & Workshops"}
+                                data={filteredDataPartner}
+                                headline="Unsere Partner"
+                            ></LinkGrid>
+                        )}
+                        <Divider></Divider>
+                    </>
                 )}
-                <Divider></Divider>
-            </MainContainer>{" "}
+            </MainContainer>
+
             <DecorativeDivider></DecorativeDivider>
             <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
                 <Contact data={dataKontakt[0]}></Contact>
