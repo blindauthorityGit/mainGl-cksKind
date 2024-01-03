@@ -50,7 +50,7 @@ const Element = ({ data, i, isWorkshop, isDetail }) => {
             animate={controls}
             variants={variants}
         >
-            <Link href={"#"}>
+            <Link href={""}>
                 <CoverImage
                     src={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
                     mobileSrc={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
