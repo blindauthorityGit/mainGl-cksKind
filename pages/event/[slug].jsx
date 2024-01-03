@@ -30,11 +30,16 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
 
     useEffect(() => {
         // FILTER THE PARTNER
-        const filterName = data.kategorie.name;
-        // const filteredDataPartner = dataPartner.filter((partner) => {
-        //     // Check if the 'kurse' array exists and has at least one entry matching the desired category
-        //     return partner.kurse && partner.kurse.some((kurs) => kurs.name === filterName);
-        // });
+        if (!data) {
+            // Handle the case where data is undefined
+            return;
+        }
+        console.log(data);
+        const filterName = data.kategorie?.name;
+        if (!filterName || !dataAllKategorie) {
+            // Handle the case where filterName or dataAllKategorie is undefined
+            return;
+        }
 
         setFilteredKategorie(
             dataAllKategorie.filter((e) => {
@@ -43,7 +48,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
         );
 
         changeBodyBackgroundColor(data);
-        setIsWorkshop(data.kategorie.name == "Beratung & Workshops");
+        setIsWorkshop(data.kategorie?.name == "Beratung & Workshops");
     }, [data]);
 
     return (
@@ -56,8 +61,8 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                     <div className="col-span-8">
                         {" "}
                         <BasicHero isEvent data={data}></BasicHero>
-                        <PortableTextEvent isWorkshop={isWorkshop} data={data}></PortableTextEvent>
-                        <RegularText data={data.eventDetails?.partner}></RegularText>
+                        <PortableTextEvent isWorkshop={isWorkshop} blocks={data.content.content}></PortableTextEvent>
+                        <RegularText data={data.eventDetails.partner}></RegularText>
                     </div>
                     {/* //SIDEBAR */}
                     <div className="col-span-4 lg:mt-28 lg:pl-16">
@@ -72,11 +77,6 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                 </StickyContainer>
 
                 <Divider></Divider>
-                {/* <PortableTextView
-                    isWorkshop={data.title == "Beratung & Workshops"}
-                    blocks={data.components[1].content}
-                    data={data}
-                ></PortableTextView> */}
             </MainContainer>{" "}
             <Divider></Divider>
             <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
