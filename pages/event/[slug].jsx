@@ -60,7 +60,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                             <title>Site title</title>
                         </Head>
                         <StickyContainer className="grid grid-cols-12 w-full col-span-12">
-                            <div className="col-span-8">
+                            <div className="col-span-12 md:col-span-8 px-4 md:px-0">
                                 {" "}
                                 <BasicHero isEvent data={data}></BasicHero>
                                 <PortableTextEvent
@@ -70,7 +70,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                 <RegularText isWorkshop={isWorkshop} data={data.eventDetails.partner}></RegularText>
                             </div>
                             {/* //SIDEBAR */}
-                            <div className="col-span-4 lg:mt-28 lg:pl-16">
+                            <div className="col-span-12 hidden md:block md:col-span-4 lg:mt-28 lg:pl-16">
                                 <Sticky distanceFromTop={280} topOffset={-128}>
                                     {({ style, isSticky }) => (
                                         <div

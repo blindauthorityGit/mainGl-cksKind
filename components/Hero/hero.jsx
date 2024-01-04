@@ -8,7 +8,7 @@ const Hero = ({ data, isEvent }) => {
 
     return (
         <motion.div
-            className={`hero-container w-full col-span-12 lg:mt-28`}
+            className={`hero-container w-full col-span-12 mt-16 lg:mt-28`}
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.1, duration: 0.8 }}

@@ -13,7 +13,7 @@ const myPortableTextComponents = (isWorkshop) => ({
         imageGallery: ({ value }) => {
             console.log(value);
             return (
-                <div className="grid col-span-12 grid-cols-12 gap-4 my-24">
+                <div className="grid col-span-12 grid-cols-12 gap-4 my-12 xl:my-24">
                     {value.images.map((e, i) => (
                         <CoverImage
                             key={i}
@@ -42,12 +42,12 @@ const myPortableTextComponents = (isWorkshop) => ({
     },
     block: {
         // Styling for the "normal" paragraphs
-        normal: ({ children }) => <p className="text-base leading-7 font-sans">{children}</p>,
+        normal: ({ children }) => <P klasse="font-sans">{children}</P>,
         // Styling for the "h1" headings
         h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
         h2: ({ children }) => <H2 klasse={`${isWorkshop ? "!text-white" : "null"}`}>{children}</H2>,
         h3: ({ children }) => <H3 klasse={`!mb-4 !mt-10 ${isWorkshop ? "!text-white" : "null"}`}>{children}</H3>,
-        p: ({ children }) => <p className="font-sans">{children}</p>,
+        p: ({ children }) => <P klasse="font-sans">{children}</P>,
 
         // Add more styles as needed
     },
@@ -61,7 +61,11 @@ const myPortableTextComponents = (isWorkshop) => ({
     },
     listItem: {
         // Ex. 1: customizing common list types
-        bullet: ({ children }) => <li style={{ listStyleType: "disc" }}>{children}</li>,
+        bullet: ({ children }) => (
+            <li className="text-sm mb-2" style={{ listStyleType: "disc" }}>
+                {children}
+            </li>
+        ),
 
         // Ex. 2: rendering custom list items
         checkmarks: ({ children }) => <li>✅ {children}</li>,
@@ -74,7 +78,7 @@ const PortableTextEvent = ({ blocks, data, isWorkshop }) => {
     console.log(isWorkshop);
     return (
         <div
-            className={`col-span-8 richText lg:ml-28 lg:pr-20 pt-16 font-sans text-xl font-medium leading-relaxed ${
+            className={`col-span-8 richText lg:ml-28 lg:pr-20 pt-8 xl:pt-16 font-sans text-xl font-medium leading-relaxed ${
                 isWorkshop ? "!text-blueColor-100" : "text-textColor"
             }`}
         >
