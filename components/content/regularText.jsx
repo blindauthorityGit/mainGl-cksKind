@@ -9,10 +9,10 @@ import { CoverImage } from "../images";
 //FUNCTIONS
 import urlFor from "../../functions/urlFor";
 
-const RegularText = ({ data }) => {
+const RegularText = ({ data, isWorkshop }) => {
     return (
         <div className="col-span-12 px-6 lg:ml-28  ">
-            <H2 klasse="">{data.title}</H2>
+            <H2 klasse={`${isWorkshop ? "!text-white" : null}`}>{data.title}</H2>
             <div className=" pt-3 lg:mt-6 flex ">
                 <CoverImage
                     key={"bubu"}
@@ -24,7 +24,7 @@ const RegularText = ({ data }) => {
                         data.image.length > 1 ? "col-span-6" : "col-span-12"
                     }`}
                 />
-                <P klasse="px-8 w-2/4">{data.beschreibung}</P>
+                <P klasse={`px-8 w-2/4 ${isWorkshop ? "!text-blueColor-100" : null}`}>{data.beschreibung}</P>
             </div>
             {/* {data?.button && <MainButton link={data?.button.link}>{data?.button.label}</MainButton>} */}
         </div>

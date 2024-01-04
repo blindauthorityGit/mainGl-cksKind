@@ -67,7 +67,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                     isWorkshop={isWorkshop}
                                     blocks={data.content.content}
                                 ></PortableTextEvent>
-                                <RegularText data={data.eventDetails.partner}></RegularText>
+                                <RegularText isWorkshop={isWorkshop} data={data.eventDetails.partner}></RegularText>
                             </div>
                             {/* //SIDEBAR */}
                             <div className="col-span-4 lg:mt-28 lg:pl-16">
@@ -93,12 +93,12 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                     <MainContainer width="container mx-auto gap-8">
                         <Divider></Divider>
 
-                        <EventSlider data={dataAllEvents}></EventSlider>
+                        <EventSlider isWorkshop={isWorkshop} data={dataAllEvents}></EventSlider>
                         <Divider></Divider>
                         {filteredKategorie && (
                             <LinkGrid
                                 isDetail
-                                isWorkshop={data.title == "Beratung & Workshops"}
+                                isWorkshop={isWorkshop}
                                 data={filteredKategorie}
                                 headline="Weitere Kurse"
                             ></LinkGrid>

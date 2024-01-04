@@ -45,7 +45,9 @@ const Details = ({ data, isWorkshop }) => {
                             className=" w-20 h-20 z-20 relative rounded-[40px] overflow-hidden  mr-4"
                         />
                     </div>{" "}
-                    <P>{data.eventDetails.partner.name}</P>
+                    <P klasse={` ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
+                        {data.eventDetails.partner.name}
+                    </P>
                 </div>
             </div>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
