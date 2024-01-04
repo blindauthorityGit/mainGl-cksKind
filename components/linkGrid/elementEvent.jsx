@@ -47,7 +47,7 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
     }, [controls, inView]);
 
     return (
-        <div className="wrapper col-span-3">
+        <div className="wrapper col-span-6 md:col-span-4 lg:col-span-3">
             <Link href={`/event/${data.slug.current}`}>
                 <CoverImage
                     src={urlFor(data.image).url()} // Replace with the actual path to your image

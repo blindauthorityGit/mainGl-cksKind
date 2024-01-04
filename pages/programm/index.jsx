@@ -51,9 +51,9 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                 <Calendar data={dataEvents}></Calendar>
 
                 <Divider></Divider>
-                <div className="col-span-12 ">
+                <div className="col-span-12 px-8 lg:px-0 py-6">
                     <H2>Unser Programm</H2>
-                    <div className="w-2/4">
+                    <div className="lg:w-2/4">
                         <P>
                             Entdecken Sie bei MainGlückskind ein vielfältiges Kursangebot, das die ganze Familie
                             anspricht. Von kreativen Spielen bis zu bildenden Aktivitäten bieten wir individuelle
@@ -67,7 +67,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
             </MainContainer>
             <Divider></Divider>
 
-            <FullWidthSection klasse="bg-[#AFD3A2] py-20 lg:!py-32">
+            <FullWidthSection klasse="bg-[#AFD3A2] py-20 2xl:!py-32">
                 <CTAContent data={dataHome.components[3]}></CTAContent>
             </FullWidthSection>
             <Divider></Divider>
@@ -76,7 +76,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                 <CardHolder data={dataKategorie}></CardHolder>
             </MainContainer>
             <DecorativeDivider></DecorativeDivider>
-            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+            <FullWidthSection klasse="bg-[#fff] py-8 lg:!py-32">
                 <Contact data={dataKontakt[0]}></Contact>
             </FullWidthSection>
             <BigDecal></BigDecal>

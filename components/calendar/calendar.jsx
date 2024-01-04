@@ -115,7 +115,7 @@ const Calendar = ({ data }) => {
                     return (
                         <div
                             key={i}
-                            className={` p-2 text-center lg:p-4  rounded-xl bg-slate-50 ${
+                            className={` p-2 text-center 2xl:p-4  rounded-xl bg-slate-50 ${
                                 isToday(day) ? " font-bold !bg-primaryColor-100" : null
                             }`}
                         >
@@ -125,7 +125,7 @@ const Calendar = ({ data }) => {
                                 return (
                                     <div
                                         style={{ background: e.kategorie.farbe.value }}
-                                        className={`rounded-lg py-1 px-2 font-semibold text-sm relative ${
+                                        className={`rounded-lg py-1 px-2 2xl:font-semibold text-sm relative ${
                                             todaysEvents.length > 1 ? "mb-1" : null
                                         } ${e.kategorie.name == "Beratung & Workshops" ? "!text-blueColor-100" : null}`}
                                         key={e.headline}
@@ -138,7 +138,7 @@ const Calendar = ({ data }) => {
                                             console.log(data);
                                         }}
                                     >
-                                        <div className="hidden lg:block">{e.headline}</div>
+                                        <div className="hidden lg:block xl:text-xs">{e.headline}</div>
                                         {/* {showTooltip ? <ToolTip data={tooltipData}></ToolTip> : null} */}
                                     </div>
                                 );

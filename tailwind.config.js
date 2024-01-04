@@ -19,7 +19,7 @@ module.exports = {
                 sm: "100%",
                 md: "680px",
                 lg: "840px",
-                xl: "1040px",
+                xl: "1080px",
                 "2xl": "1536px",
                 "3xl": "1936px", // Adjust container width for 2880px
             },

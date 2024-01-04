@@ -33,7 +33,7 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
         <>
             <H2 klasse={`col-span-12 pl-6 text-center ${isWorkshop ? "!text-white" : null}`}>{headline}</H2>
 
-            <div className="col-span-12 grid grid-cols-12 lg:gap-8 px-6 lg:px-24">
+            <div className="col-span-12 grid grid-cols-12 gap-4 lg:gap-8 px-6 lg:px-24">
                 {isEvent
                     ? flatData?.map((e, i) => {
                           return <ElementEvent key={i} isDetail={isDetail} isWorkshop={isWorkshop} data={e} />;
