@@ -130,7 +130,7 @@ const MainHero = ({ data, bgColor }) => {
                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
                     >
                         <H1 klasse="!mb-4 lg:mb-0 xl:!mb-6">{data.headline}</H1>
-                        <P klasse="hidden md:block md:mb-10 lg:mb-0">{data.text}</P>
+                        <P klasse="text-xs px-4 md:px-0 md:block md:mb-10 lg:mb-0">{data.text}</P>
                     </motion.div>
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
