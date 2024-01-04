@@ -21,7 +21,7 @@ const SlideElement = ({ data, isWorkshop, aspectRatio }) => {
                     mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
                     alt="Cover Background"
                     style={{ aspectRatio: aspectRatio, borderColor: data.kategorie.farbe.value }}
-                    className="w-full z-20 relative rounded-[40px] overflow-hidden border-[6px] lg:border-[12px] mb-3"
+                    className="w-full z-20 relative rounded-[40px] overflow-hidden border-[6px] xl:border-[8px] 2xl:border-[12px] mb-3"
                 />
             </Link>
             <div className="pl-2">

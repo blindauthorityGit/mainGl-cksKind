@@ -25,7 +25,7 @@ import { useWindowDimensions } from "../../../hooks/useWindowDimension";
 
 const MainHero = ({ data, bgColor }) => {
     const { width, height } = useWindowDimensions();
-    const aspectRatio = width < 480 ? "1/0.75" : "1/0.75";
+    const aspectRatio = width < 480 ? "1/0.9" : "1/0.75";
 
     // const [topDistance, setTopDistance]
     useEffect(() => {
@@ -63,9 +63,9 @@ const MainHero = ({ data, bgColor }) => {
     const [bgHeightAbsolute, setBGHeightAbsolute] = useState(null);
 
     return (
-        <section className="col-span-12 min-h-[70vh] xl:min-h-0  bg-[#AFD3A2] md:bg-transparent px-4 pb-8 lg:pb-0 lg:mt-24">
+        <section className="col-span-12 min-h-[70vh] xl:min-h-0  bg-[#AFD3A2] md:bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-24">
             <div ref={heightRef} className="grid grid-cols-12 z-10 h-full lg:gap-24 relative">
-                <div className="col-span-12 lg:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0  flex flex-col justify-center z-20">
+                <div className="col-span-12 lg:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -104,7 +104,7 @@ const MainHero = ({ data, bgColor }) => {
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.6, duration: 0.8 }}
-                    className="col-span-12 lg:col-span-7 relative z-10 mt-0 lg:mt-12"
+                    className="col-span-12 lg:col-span-7 relative z-10 mt-10 md:mt-0 lg:mt-12"
                 >
                     <CoverImage
                         src={urlFor(data.image).url()} // Replace with the actual path to your image
@@ -115,6 +115,15 @@ const MainHero = ({ data, bgColor }) => {
                         data-aos={"fade-left"}
                         ref={imgRef}
                     />
+                    <motion.div
+                        className="flex-col justify-center flex text-center md:hidden mt-6"
+                        initial={{ scale: 0.5, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
+                    >
+                        <H1 klasse="!mb-4 lg:mb-0 xl:!mb-6">{data.headline}</H1>
+                        <P klasse="hidden md:block md:mb-10 lg:mb-0">{data.text}</P>
+                    </motion.div>
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}

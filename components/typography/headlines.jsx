@@ -28,7 +28,11 @@ const H3 = ({ children, klasse, style }) => {
 };
 const H4 = ({ children, klasse }) => {
     return (
-        <h4 className={`text-xs lg:text-lg xl:text-base font-thin font-ueber text-textColor ${klasse}`}>{children}</h4>
+        <h4
+            className={`text-xs md:text-sm lg:text-lg xl:text-sm 2xl:text-base font-thin font-ueber text-textColor ${klasse}`}
+        >
+            {children}
+        </h4>
     );
 };
 const H5 = ({ children, klasse }) => {

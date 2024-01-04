@@ -167,11 +167,12 @@ const EventSlider1 = (props) => {
                         1024: {
                             slidesPerView: 3,
                             navigation: false,
+                            spaceBetween: 15,
                         },
                         1280: {
                             slidesPerView: 4,
                             navigation: false,
-                            spaceBetween: 20,
+                            spaceBetween: 15,
                         },
                         1600: {
                             slidesPerView: dataLen >= 5 ? 5 : dataLen,
@@ -182,7 +183,7 @@ const EventSlider1 = (props) => {
                 >
                     {flatData?.map((e, i) => {
                         return (
-                            <SwiperSlide key={`sliderKey${i}`} className="lg:px-6 sm:px-0 relative ">
+                            <SwiperSlide key={`sliderKey${i}`} className="2xl:px-6 sm:px-0 relative ">
                                 <SlideElement
                                     aspectRatio={dataLen > 3 ? "1/1" : "2/1"}
                                     isWorkshop={props.isWorkshop}
