@@ -11,7 +11,7 @@ module.exports = {
             md: "768px",
             lg: "1024px",
             xl: "1280px",
-            "2xl": "1940px",
+            "2xl": "1536px",
             "3xl": "2600px", // Add a custom breakpoint for 2880px
         },
         container: {
@@ -21,7 +21,7 @@ module.exports = {
                 lg: "840px",
                 xl: "1040px",
                 "2xl": "1536px",
-                "3xl": "1536px", // Adjust container width for 2880px
+                "3xl": "1936px", // Adjust container width for 2880px
             },
         },
         extend: {

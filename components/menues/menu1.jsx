@@ -178,14 +178,14 @@ const Menu1 = (props) => {
                                         whileHover="hover"
                                         animate="rest"
                                         key={`menuKey${i}`}
-                                        className="relative mx-8 py-4 font-headline tracking-wider  text-blackText-300 hover:text-primaryColor-500"
+                                        className="relative mx-8 xl:mx-4 2xl:mx-6 py-4 font-headline tracking-wider  text-blackText-300 hover:text-primaryColor-500"
                                         onMouseEnter={(e) => {
                                             onEnter(e);
                                         }}
                                     >
                                         <Link
                                             href={`/${e.slug}`}
-                                            className="flex items-end font-sans font-semibold text-textColor uppercase text-sm "
+                                            className="flex items-end font-sans font-semibold text-textColor uppercase text-sm xl:text-xs 2xl:text-sm"
                                         >
                                             {e.title}{" "}
                                             {e.subMenu ? (
@@ -234,7 +234,7 @@ const Menu1 = (props) => {
                                 setShowOverlay(true);
                             }}
                         >
-                            <img src={props.burgerIcon} alt="" />
+                            <img className="h-[1.7rem]" src={props.burgerIcon} alt="" />
                         </div>
                         <div className="hidden lg:flex mt-0 pt-0 items-center col-span-2">
                             <MainButton klasse="bg-primaryColor !py-3" link="/programm">

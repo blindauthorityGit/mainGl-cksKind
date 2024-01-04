@@ -45,7 +45,7 @@ const MobileBar = (props) => {
                     }}
                     className="w-1/3 p-3 flex border-r border-opacity-30 border-primaryColor-200 flex-col justify-center items-center text-primaryColor-200 hover:text-primaryColor"
                 >
-                    <img src={Phone.src} alt="" />
+                    <img className="h-[1.35rem]" src={Phone.src} alt="" />
                     <span className="text-xs font-base mt-1">Anruf</span>
                 </a>
                 <a
@@ -56,14 +56,14 @@ const MobileBar = (props) => {
                     }}
                     className="w-1/3 p-3 flex flex-col border-r border-primaryColor-200 border-opacity-30  justify-center items-center text-primaryColor-200 hover:text-primaryColor"
                 >
-                    <img src={Email.src} alt="" />
+                    <img className="h-[1.35rem]" src={Email.src} alt="" />
                     <span className="text-xs font-base mt-1">Email</span>
                 </a>
                 <a
                     href="tel:+436508011900"
                     className="w-1/3 p-3 border-r border-primaryColor-200 border-opacity-30 flex flex-col justify-center items-center text-primaryColor-200 hover:text-primaryColor "
                 >
-                    <img src={Programm.src} alt="" />
+                    <img className="h-[1.35rem]" src={Programm.src} alt="" />
                     <span className="text-xs  mt-1">Programm</span>
                 </a>
             </div>

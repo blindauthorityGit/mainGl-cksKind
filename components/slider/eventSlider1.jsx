@@ -98,9 +98,9 @@ const EventSlider1 = (props) => {
 
     return (
         <div
-            className={`${isLoaded ? "opacity-100" : "opacity-0"} col-span-12 px-6 sm:px-24 pt-6 lg:pt-0 relative ${
-                props.colspan
-            }`}
+            className={`${
+                isLoaded ? "opacity-100" : "opacity-0"
+            } col-span-12 px-10 md:px-8 lg:px-24 pt-6 lg:pt-0 relative ${props.colspan}`}
         >
             <div className="w-full z-50 ">
                 <div
@@ -113,7 +113,7 @@ const EventSlider1 = (props) => {
                         style={{ opacity: isLastSlideLeft ? 0.5 : 1 }}
                         className=" rounded-full h-8  w-8 flex items-center justify-center"
                     >
-                        <FaChevronLeft className="text-white lg:text-5xl" />
+                        <FaChevronLeft className="text-textColor lg:text-5xl" />
                     </button>
                 </div>
                 <div
@@ -126,7 +126,7 @@ const EventSlider1 = (props) => {
                         style={{ opacity: isLastSlideRight ? 0.5 : 1 }}
                         className=" rounded-full h-8 w-8 flex items-center justify-center"
                     >
-                        <FaChevronRight className="text-white lg:text-5xl" />
+                        <FaChevronRight className="text-textColor lg:text-5xl" />
                     </button>
                 </div>
             </div>
@@ -157,13 +157,12 @@ const EventSlider1 = (props) => {
                         // when window width is >= 640px
                         320: {
                             slidesPerView: 2,
-                            navigation: true,
-                            pagination: false,
                             spaceBetween: 15,
                         },
                         768: {
-                            slidesPerView: 2,
-                            navigation: true,
+                            slidesPerView: 3,
+
+                            spaceBetween: 15,
                         },
                         1024: {
                             slidesPerView: 3,

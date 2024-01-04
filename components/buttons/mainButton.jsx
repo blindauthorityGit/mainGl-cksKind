@@ -16,7 +16,7 @@ const MainButton = (props) => {
     const transition = { duration: 0.1, ease: "easeInOut" };
 
     return (
-        <Link href={props.link} passHref>
+        <Link href={props.link} className="md:w-full" passHref>
             <motion.button
                 whileHover="hover"
                 animate="rest"
@@ -25,7 +25,7 @@ const MainButton = (props) => {
                 disabled={props.disabled}
                 className={`${props.klasse} ${
                     props.disabled ? "opacity-30" : null
-                } font-sans font-semibold hover-underline-animation z-20 flex items-center justify-center text-primaryColor-50 py-4 text-xs sm:text-base sm:py-6 px-6 min-w-[10rem] w-full uppercase rounded-md`}
+                } font-sans font-semibold hover-underline-animation z-20 flex items-center justify-center text-primaryColor-50 py-4 text-xs sm:text-base xl:text-sm sm:py-6 xl:py-4 2xl:py-6 px-6 min-w-[10rem] w-full uppercase rounded-md`}
             >
                 <motion.span variants={textAnimation} transition={{ duration: 0.3, ease: "easeInOut", delay: 0.15 }}>
                     {props.children}
