@@ -13,7 +13,9 @@ const H1 = ({ children, klasse }) => {
 
 const H2 = ({ children, klasse }) => {
     return (
-        <h2 className={`text-xl font-ueber text-textColor  lg:text-2xl xl:text-4xl mb-4 lg:mb-10 font-thin  ${klasse}`}>
+        <h2
+            className={`text-xl font-ueber text-textColor  lg:text-2xl 2xl:text-4xl mb-4 lg:mb-10 font-thin  ${klasse}`}
+        >
             {children}
         </h2>
     );
@@ -21,9 +23,12 @@ const H2 = ({ children, klasse }) => {
 
 const H3 = ({ children, klasse, style }) => {
     return (
-        <h2 className={`text-lg lg:text-2xl font-thin font-headline font-ueber text-textColor ${klasse}`} style={style}>
+        <h3
+            className={`text-lg xl:text-lg 2xl:text-2xl font-thin font-headline font-ueber text-textColor ${klasse}`}
+            style={style}
+        >
             {children}
-        </h2>
+        </h3>
     );
 };
 const H4 = ({ children, klasse }) => {

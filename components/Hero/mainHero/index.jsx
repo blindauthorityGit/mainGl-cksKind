@@ -25,7 +25,8 @@ import { useWindowDimensions } from "../../../hooks/useWindowDimension";
 
 const MainHero = ({ data, bgColor }) => {
     const { width, height } = useWindowDimensions();
-    const aspectRatio = width < 480 ? "1/0.9" : "1/0.75";
+
+    const [aspectRatio, setAspectRatio] = useState("1/0.75");
 
     // const [topDistance, setTopDistance]
     useEffect(() => {
@@ -37,7 +38,8 @@ const MainHero = ({ data, bgColor }) => {
 
     const imgRef = useRef();
     const heightRef = useRef();
-
+    const [bgHeight, setBGHeight] = useState(null);
+    const [bgHeightAbsolute, setBGHeightAbsolute] = useState(0);
     // Resize handler
     const handleResize = () => {
         if (heightRef.current) {
@@ -50,17 +52,23 @@ const MainHero = ({ data, bgColor }) => {
             setBGHeightAbsolute(heightRef.current.clientHeight + 140 + "px");
         }
 
-        // Add event listener
-        window.addEventListener("resize", handleResize);
+        // if (width > 0) {
+        //     setAspectRatio(width < 480 ? "1/0.9" : "1/0.75");
+        // }
 
-        // Cleanup
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
+        // // Add event listener
+        // window.addEventListener("resize", handleResize);
+
+        // // Cleanup
+        // return () => {
+        //     window.removeEventListener("resize", handleResize);
+        // };
+    }, [heightRef.current, width, aspectRatio]);
+
+    useEffect(() => {
+        console.log(heightRef.current.clientHeight);
+        setBGHeightAbsolute(heightRef.current.clientHeight + 140 + "px");
     }, [heightRef.current]);
-
-    const [bgHeight, setBGHeight] = useState(null);
-    const [bgHeightAbsolute, setBGHeightAbsolute] = useState(null);
 
     return (
         <section className="col-span-12 min-h-[70vh] xl:min-h-0  bg-[#AFD3A2] md:bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-24">
@@ -110,8 +118,8 @@ const MainHero = ({ data, bgColor }) => {
                         src={urlFor(data.image).url()} // Replace with the actual path to your image
                         mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
                         alt="Cover Background"
-                        style={{ aspectRatio: aspectRatio }}
-                        className="w-full z-20 relative rounded-[40px] overflow-hidden"
+                        // style={{ aspectRatio: aspectRatio }}
+                        className="w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/0.7] xl:aspect-[1/0.85]"
                         data-aos={"fade-left"}
                         ref={imgRef}
                     />
@@ -129,7 +137,7 @@ const MainHero = ({ data, bgColor }) => {
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.8, duration: 0.8 }}
                         style={{ height: `${bgHeight * 0.89}px` }}
-                        className="absolute  lg:block bg-themeGreen-50 w-[104%] md:w-[106%] left-[-0.5rem] md:left-[-1rem] rounded-[40px] h-full top-[-4rem] lg:top-[-2rem] lg:w-full lg:right-[-2rem] lg:left-auto lg:translate-x-0 z-[0]"
+                        className="absolute  lg:block bg-themeGreen-50 w-[104%] md:w-[106%] left-[-0.5rem] md:left-[-1rem] rounded-[40px] h-full top-[-4rem] md:top-[-1rem] lg:top-[-2rem] lg:w-full lg:right-[-2rem] lg:left-auto lg:translate-x-0 z-[0]"
                     ></motion.div>
                 </motion.div>
 
