@@ -4,7 +4,7 @@ import React from "react";
 const H1 = ({ children, klasse }) => {
     return (
         <h1
-            className={`text-3xl md:text-5xl lg:text-5xl xl:text-4xl 2xl:text-6xl mb-4 lg:mb-6  font-ueber text-textColor ${klasse}`}
+            className={`text-3xl md:text-5xl lg:text-5xl xl:text-4xl 2xl:text-7xl mb-4 lg:mb-6  font-ueber text-textColor ${klasse}`}
         >
             {children}
         </h1>
