@@ -23,10 +23,15 @@ import FullWidthSection from "../../components/layout/fullWidthSection";
 
 //FUNCTIONS
 import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor";
+// ... other imports
+import { useWindowDimensions } from "../../hooks/useWindowDimension";
 
 export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAllKategorie }) {
     const [isWorkshop, setIsWorkshop] = useState(false);
     const [filteredKategorie, setFilteredKategorie] = useState(false);
+
+    const { width } = useWindowDimensions();
+    const marginTopValue = width < 1440 ? "80px" : "128px";
 
     useEffect(() => {
         // FILTER THE PARTNER
@@ -60,7 +65,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                             <title>Site title</title>
                         </Head>
                         <StickyContainer className="grid grid-cols-12 w-full col-span-12">
-                            <div className="col-span-12 md:col-span-8 px-4 md:px-0">
+                            <div className="col-span-12 lg:col-span-8 px-4 md:px-0">
                                 {" "}
                                 <BasicHero isEvent data={data}></BasicHero>
                                 <PortableTextEvent
@@ -70,11 +75,11 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                 <RegularText isWorkshop={isWorkshop} data={data.eventDetails.partner}></RegularText>
                             </div>
                             {/* //SIDEBAR */}
-                            <div className="col-span-12 hidden md:block md:col-span-4 lg:mt-28 lg:pl-16">
+                            <div className="col-span-12 hidden lg:block md:col-span-4 lg:mt-28 lg:pl-16">
                                 <Sticky distanceFromTop={280} topOffset={-128}>
                                     {({ style, isSticky }) => (
                                         <div
-                                            style={{ ...style, marginTop: isSticky ? "128px" : "0px" }}
+                                            style={{ ...style, marginTop: isSticky ? marginTopValue : "0px" }}
                                             className="col-span-3"
                                         >
                                             <Details isWorkshop={isWorkshop} data={data}></Details>{" "}
@@ -87,12 +92,16 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                         <Divider></Divider>
                     </MainContainer>{" "}
                     <Divider></Divider>
-                    <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+                    <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-16 2xl:!py-32">
+                        <div className="col-span-12 lg:hidden px-6">
+                            <Details isWorkshop={isWorkshop} data={data}></Details> <hr className="mb-4" />
+                        </div>
                         <AnmeldeContent data={dataKontakt[0]}></AnmeldeContent>
                     </FullWidthSection>
                     <MainContainer width="container mx-auto gap-8">
-                        <Divider></Divider>
-
+                        <div className="hidden md:block">
+                            <Divider></Divider>
+                        </div>
                         <EventSlider isWorkshop={isWorkshop} data={dataAllEvents}></EventSlider>
                         <Divider></Divider>
                         {filteredKategorie && (
@@ -103,10 +112,12 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                 headline="Weitere Kurse"
                             ></LinkGrid>
                         )}
-                        <Divider></Divider>
+                        <div className="hidden 2xl:block">
+                            <Divider></Divider>
+                        </div>
                     </MainContainer>
                     <DecorativeDivider></DecorativeDivider>
-                    <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+                    <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
                         <Contact data={dataKontakt[0]}></Contact>
                     </FullWidthSection>
                     <BigDecal></BigDecal>

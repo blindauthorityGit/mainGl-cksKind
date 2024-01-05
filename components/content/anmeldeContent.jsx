@@ -15,7 +15,7 @@ const AnmeldeContent = ({ data }) => {
     return (
         <div className="col-span-12 px-6 lg:px-48 ">
             <H1 klasse="">Anmeldung</H1>
-            <div className="lg:w-2/4 pt-3 lg:mt-6">
+            <div className="2xl::w-2/4 pt-3 lg:mt-6">
                 <P>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo dolores sed temporibus, deleniti
                     accusamus nihil culpa a pariatur rerum doloremque ab natus, itaque fugiat, eius facilis ducimus

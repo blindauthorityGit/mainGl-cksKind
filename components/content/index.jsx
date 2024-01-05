@@ -4,6 +4,7 @@ export { default as TextImage } from "./textImg";
 export { default as TextImage2 } from "./textImg2";
 export { default as Contact } from "./contact";
 export { default as PortableTextView } from "./portableText";
+export { default as BasicPortableText } from "./basicPortableText";
 export { default as PortableTextEvent } from "./portableTextEvent";
 export { default as RegularText } from "./regularText";
 export { default as AnmeldeContent } from "./anmeldeContent";

@@ -31,7 +31,9 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
 
     return (
         <>
-            <H2 klasse={`col-span-12 pl-6 text-center ${isWorkshop ? "!text-white" : null}`}>{headline}</H2>
+            <H2 klasse={`col-span-12 pl-6 text-center xl:!mb-0 2xl:!mb-4  ${isWorkshop ? "!text-white" : null}`}>
+                {headline}
+            </H2>
 
             <div className="col-span-12 grid grid-cols-12 gap-4 lg:gap-8 px-6 lg:px-24">
                 {isEvent

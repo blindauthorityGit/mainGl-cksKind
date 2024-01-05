@@ -78,7 +78,7 @@ const PortableTextEvent = ({ blocks, data, isWorkshop }) => {
     console.log(isWorkshop);
     return (
         <div
-            className={`col-span-8 richText lg:ml-28 lg:pr-20 pt-8 xl:pt-16 font-sans text-xl font-medium leading-relaxed ${
+            className={`col-span-8 richText xl:ml-8 2xl:ml-28 lg:pr-20 pt-8 xl:pt-16 font-sans text-xl font-medium leading-relaxed ${
                 isWorkshop ? "!text-blueColor-100" : "text-textColor"
             }`}
         >

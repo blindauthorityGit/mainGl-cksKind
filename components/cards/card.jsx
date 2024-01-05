@@ -19,6 +19,9 @@ import urlFor from "../../functions/urlFor";
 import { useWindowDimensions } from "../../hooks/useWindowDimension";
 
 const Card = ({ data, i }) => {
+    const { width, height } = useWindowDimensions();
+    const isMobile = width < 480; // You can adjust this threshold
+
     const controls = useAnimation();
     const [ref, inView] = useInView({
         triggerOnce: true,
@@ -26,18 +29,27 @@ const Card = ({ data, i }) => {
     });
 
     const variants = {
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.75,
-                bounce: 0.5, // Add a bouncy effect
-                delay: i * 0.1, // Delay each card based on index
-            },
-        },
-        hidden: { opacity: 0, y: 150 },
+        visible: isMobile
+            ? {
+                  opacity: 1,
+                  x: 0, // Slide in from the side on mobile
+                  transition: {
+                      duration: 0.75,
+                      bounce: 0.5,
+                      delay: i * 0.1,
+                  },
+              }
+            : {
+                  opacity: 1,
+                  y: 0, // Slide in from the bottom on desktop
+                  transition: {
+                      duration: 0.75,
+                      bounce: 0.5,
+                      delay: i * 0.1,
+                  },
+              },
+        hidden: isMobile ? { opacity: 0, x: -100 } : { opacity: 0, y: 150 },
     };
-    const { width, height } = useWindowDimensions();
 
     useEffect(() => {
         if (inView) {
@@ -45,7 +57,7 @@ const Card = ({ data, i }) => {
         } else {
             controls.start("hidden");
         }
-    }, [controls, inView]);
+    }, [controls, inView, isMobile]);
     return (
         <motion.div
             ref={ref}

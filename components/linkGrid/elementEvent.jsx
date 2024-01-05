@@ -15,9 +15,13 @@ import { H3, H4, P } from "../typography";
 //FUNCTIONS
 import urlFor from "../../functions/urlFor";
 import formatStringToDate from "../../functions/formatStringToDate";
+import { useWindowDimensions } from "../../hooks/useWindowDimension";
 
 const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
     const [flatData, setFlatData] = useState(null);
+
+    const { width } = useWindowDimensions();
+    const isMobile = width < 480; // You can adjust this threshold
 
     const controls = useAnimation();
     const [ref, inView] = useInView({
@@ -26,16 +30,26 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
     });
 
     const variants = {
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.75,
-                bounce: 0.5, // Add a bouncy effect
-                delay: i * 0.1, // Delay each card based on index
-            },
-        },
-        hidden: { opacity: 0, y: 150 },
+        visible: isMobile
+            ? {
+                  opacity: 1,
+                  x: 0, // Slide in from the side on mobile
+                  transition: {
+                      duration: 0.75,
+                      bounce: 0.5,
+                      delay: i * 0.1,
+                  },
+              }
+            : {
+                  opacity: 1,
+                  y: 0, // Slide in from the bottom on desktop
+                  transition: {
+                      duration: 0.75,
+                      bounce: 0.5,
+                      delay: i * 0.1,
+                  },
+              },
+        hidden: isMobile ? { opacity: 0, x: -100 } : { opacity: 0, y: 150 },
     };
 
     useEffect(() => {
@@ -44,7 +58,7 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
         } else {
             controls.start("hidden");
         }
-    }, [controls, inView]);
+    }, [controls, inView, isMobile]); //
 
     return (
         <div className="wrapper col-span-6 md:col-span-4 lg:col-span-3">
