@@ -13,7 +13,7 @@ const myPortableTextComponents = {
         imageGallery: ({ value }) => {
             console.log(value);
             return (
-                <div className="grid col-span-12 grid-cols-12 gap-2 xl:gap-4 my-8 xl:my-24">
+                <div className="grid col-span-12 grid-cols-12 gap-2 xl:gap-4 my-8 2xl:my-24">
                     {value.images.map((e, i) => (
                         <CoverImage
                             key={i}
@@ -67,7 +67,7 @@ const PortableTextView = ({ blocks, data, isWorkshop }) => {
     console.log(blocks);
     return (
         <div
-            className={`col-span-12 lg:col-span-8 richText lg:ml-64 font-sans text-xl font-medium leading-relaxed ${
+            className={`col-span-12 xl:col-span-10 2xl:col-span-8 richText lg:ml-64 font-sans text-xl font-medium leading-relaxed ${
                 isWorkshop ? "text-blueColor-100" : "text-textColor"
             }`}
         >

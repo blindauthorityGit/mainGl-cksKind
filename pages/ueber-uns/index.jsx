@@ -29,7 +29,7 @@ export default function Ueberuns({ dataAbout, dataPartner, dataKontakt }) {
     }, []);
     return (
         <>
-            <MainContainer width="container mx-auto">
+            <MainContainer width="container mx-auto px-4 lg:px-0">
                 <Head>
                     <title>Site title</title>
                 </Head>
@@ -52,7 +52,7 @@ export default function Ueberuns({ dataAbout, dataPartner, dataKontakt }) {
                 {/* <h1 className="font-sans">Hallo ich bin ein Textor</h1> */}
             </MainContainer>
             <DecorativeDivider></DecorativeDivider>
-            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+            <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
                 <Contact data={dataKontakt[0]}></Contact>
             </FullWidthSection>
             <BigDecal></BigDecal>

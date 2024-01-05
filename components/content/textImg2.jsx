@@ -56,7 +56,7 @@ const TextImage2 = ({ data, overlap }) => {
         >
             <div
                 className={`col-span-12 lg:col-span-5 relative flex flex-col justify-center mt-6 lg:mt-0 mb-12 lg:mb-0   ${
-                    !data.rightImage ? "order-last lg:pl-36" : "lg:pr-36 order-last lg:order-first"
+                    !data.rightImage ? "order-last xl:pl-12 2xl:pl-36" : "xl:pr-12 2xl:pr-36 order-last lg:order-first"
                 }`}
             >
                 <div ref={hRef} className="">
@@ -71,7 +71,7 @@ const TextImage2 = ({ data, overlap }) => {
                                 hRef.current.children[0].clientHeight / 2 +
                                 "px",
                         }}
-                        className="left-0 top-2/4 w-[650px]  h-1 border-textColor absolute"
+                        className="left-0 top-2/4 xl:w-[400px] 2xl:w-[650px]  h-1 border-textColor absolute"
                     />
                 )}
                 <P>{data.text}</P>

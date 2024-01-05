@@ -35,15 +35,17 @@ export default function Raumvermietung({ data, dataKontakt }) {
                 </Head>
 
                 <MainHero data={data.components[0]}></MainHero>
-                <Divider></Divider>
+                <div className="hidden 2xl:block">
+                    <Divider></Divider>
+                </div>
                 <Divider></Divider>
 
-                <StickyContainer className="grid grid-cols-12 w-full col-span-12">
-                    <div className="col-span-8">
+                <StickyContainer className="grid grid-cols-12 w-full col-span-12 px-4 lg_px-0">
+                    <div className="col-span-12 lg:col-span-8">
                         <PortableTextEvent blocks={data.components[1].content} data={data}></PortableTextEvent>
                     </div>
                     {/* //SIDEBAR */}
-                    <div className="col-span-4 lg:mt-28 lg:pl-16">
+                    <div className="col-span-4 lg:mt-28 lg:pl-16 hidden lg:block">
                         <Sticky distanceFromTop={10} topOffset={-18}>
                             {({ style, isSticky }) => (
                                 <div style={{ ...style, marginTop: isSticky ? "90px" : "0px" }} className="col-span-3">
@@ -53,17 +55,22 @@ export default function Raumvermietung({ data, dataKontakt }) {
                         </Sticky>
                     </div>
                 </StickyContainer>
-                <Divider></Divider>
+                <div className="hidden 2xl:block">
+                    <Divider></Divider>
+                </div>
                 <Divider></Divider>
             </MainContainer>
-            <FullWidthSection klasse="bg-[#AFD3A2] py-20 lg:!py-32">
+            <FullWidthSection klasse="bg-[#AFD3A2] py-10 2xl:!py-32">
+                <div className="col-span-12 lg:hidden px-4">
+                    <RoomDetails data={data.components[2]}></RoomDetails>{" "}
+                </div>
                 <CTAContentButton data={data.components[3]}></CTAContentButton>
             </FullWidthSection>
             <MainContainer width="container mx-auto">
-                <TextImage overlap data={data.components[4]}></TextImage>
+                <TextImage data={data.components[4]}></TextImage>
             </MainContainer>
             <DecorativeDivider></DecorativeDivider>
-            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+            <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
                 <Contact data={dataKontakt[0]}></Contact>
             </FullWidthSection>
             <BigDecal></BigDecal>

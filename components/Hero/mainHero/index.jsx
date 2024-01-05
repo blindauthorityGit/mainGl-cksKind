@@ -71,9 +71,12 @@ const MainHero = ({ data, bgColor }) => {
     }, [heightRef.current]);
 
     return (
-        <section className="col-span-12 min-h-[70vh] xl:min-h-0  bg-[#AFD3A2] md:bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-24">
+        <section
+            style={{ background: bgColor }}
+            className="col-span-12 min-h-[70vh] xl:min-h-0  bg-[#AFD3A2] md:bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-24"
+        >
             <div ref={heightRef} className="grid grid-cols-12 z-10 h-full lg:gap-24 relative">
-                <div className="col-span-12 lg:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
+                <div className="col-span-12  lg:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -124,7 +127,7 @@ const MainHero = ({ data, bgColor }) => {
                         ref={imgRef}
                     />
                     <motion.div
-                        className="flex-col justify-center flex text-center md:hidden mt-6"
+                        className="flex-col justify-center flex text-center md:hidden mt-6 px-4"
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
