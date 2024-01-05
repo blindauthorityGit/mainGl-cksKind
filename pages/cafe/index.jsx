@@ -22,10 +22,23 @@ import { BigDecal } from "../../components/decorative";
 import { DecorativeDivider } from "../../components/decorative";
 import FullWidthSection from "../../components/layout/fullWidthSection";
 
+//STORE
+import useStore from "../../store/store"; // Adjust the path to your store file
+
 //FUNCTIONS
 import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor";
 
 export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
+    const setIsCafe = useStore((state) => state.setIsCafe);
+
+    useEffect(() => {
+        setIsCafe(true); // Set isCafe to true when the component mounts
+
+        return () => {
+            setIsCafe(false); // Set isCafe to false when the component unmounts
+        };
+    }, [setIsCafe]);
+
     useEffect(() => {
         console.log(data, dataSpeisekarte, dataKontakt);
         changeBodyBackgroundColor(data);
@@ -33,22 +46,25 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
 
     return (
         <>
-            <MainContainer width="container mx-auto">
+            <MainContainer width="container mx-auto px-4 lg:px-0">
                 <Head>
                     <title>Site title</title>
                 </Head>
 
                 <BasicHero data={data.components[0]}></BasicHero>
                 <CardButtonHolder data={data.components[1].cardButtons} klasse="mt-[-3rem] z-20"></CardButtonHolder>
-                <Divider></Divider>
-
+                <div className="hidden 2xl:block">
+                    <Divider></Divider>
+                </div>
                 <PortableTextView blocks={data.components[2].content} data={data}></PortableTextView>
-                <Divider></Divider>
+                <div className="hidden 2xl:block">
+                    <Divider></Divider>
+                </div>
                 <Divider></Divider>
             </MainContainer>{" "}
-            <FullWidthSection klasse="bg-[#BF567C] py-20 lg:!py-32">
-                <div className="col-span-12 grid grid-cols-12 gap-12 lg:px-36">
-                    <div className="col-span-6">
+            <FullWidthSection klasse="bg-[#BF567C] px-4 lg:px-0 py-10 2xl:!py-32">
+                <div className="col-span-12 grid grid-cols-12 lg:gap-12 lg:px-36">
+                    <div className="col-span-12 lg:col-span-6">
                         <H3 klasse="!text-white">{dataSpeisekarte[0].categories[0].title}</H3>
                         <hr className="mb-10" />
                         {dataSpeisekarte[0].categories[0].items.map((e, i) => {
@@ -60,7 +76,7 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                             return <ListItem data={e}></ListItem>;
                         })}
                     </div>
-                    <div className="col-span-6">
+                    <div className="col-span-12 lg:col-span-6 mt-12 lg:mt-0">
                         <H3 klasse="!text-white">{dataSpeisekarte[0].categories[1].title}</H3>
                         <hr className="mb-10" />
                         {dataSpeisekarte[0].categories[1].items.map((e, i) => {
@@ -91,7 +107,7 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                     ></LinkGrid>
                 )} */}
             <DecorativeDivider></DecorativeDivider>
-            <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+            <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
                 <Contact data={dataKontakt[0]}></Contact>
             </FullWidthSection>
             <BigDecal></BigDecal>

@@ -47,13 +47,14 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
 
     useEffect(() => {
         console.log(filteredDataPartner);
+        console.log(dataEvents);
     }, [filteredDataPartner]);
 
     return (
         <>
             {data && dataEvents && dataPartner && dataKontakt ? (
                 <>
-                    <MainContainer width="container mx-auto">
+                    <MainContainer width="container mx-auto px-4 lg:px-0">
                         <Head>
                             <title>Site title</title>
                         </Head>
@@ -70,6 +71,9 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
                         <EventSlider isWorkshop={data.title == "Beratung & Workshops"} data={dataEvents}></EventSlider>
 
                         <Divider></Divider>
+                        <div className="block lg:hidden">
+                            <Divider></Divider>
+                        </div>
                         {filteredDataPartner && (
                             <LinkGrid
                                 isWorkshop={data.title == "Beratung & Workshops"}
@@ -81,7 +85,7 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
                     </MainContainer>
 
                     <DecorativeDivider></DecorativeDivider>
-                    <FullWidthSection klasse="bg-[#fff] py-20 lg:!py-32">
+                    <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
                         <Contact data={dataKontakt[0]}></Contact>
                     </FullWidthSection>
                     <BigDecal></BigDecal>

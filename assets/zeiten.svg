@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="31.39" height="28.899" viewBox="0 0 31.39 28.899">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rechteck_1304" data-name="Rechteck 1304" width="31.39" height="28.899" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g id="zeiten" transform="translate(0 0)">
+    <g id="Gruppe_302" data-name="Gruppe 302" transform="translate(0 0)" clip-path="url(#clip-path)">
+      <path id="Pfad_314" data-name="Pfad 314" d="M16.784,28.9C8.994,28.944.88,24.368.053,16.041c-.8-8.065,7.591-14.991,15-15.929,7.7-.976,18.09,4.506,16.084,13.154C28.476,24.736,24.9,28.851,16.784,28.9M26.11,5.919c-1.527-1.56-5.53-4.32-7.791-3.178-2.7,1.361-5.866.793-8.742,2.19a13.471,13.471,0,0,0-7.071,8.556C.734,21.168,9.557,26.536,16.164,26.316c7.035-.237,13.024-5.462,12.51-12.834-.1-5.224-.585-5.54-2.564-7.562" transform="translate(0 0)" fill="#fff" fill-rule="evenodd"/>
+      <path id="Pfad_315" data-name="Pfad 315" d="M22.1,13.781c.831,1.5,1.384,3.878,2.72,5.011,1.515,1.282,10.5-1.479,9.661,1.83-.544,2.14-2.8.491-4.029.373a7.165,7.165,0,0,0-3,.41c-1.594.539-4.346-.294-5.7-2.672-.9-1.584-1.769-3.288-2.319-4.374-.95-1.878,1.841-2.055,2.658-.578" transform="translate(-8.498 -5.65)" fill="#fff" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

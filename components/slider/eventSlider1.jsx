@@ -69,7 +69,7 @@ const EventSlider1 = (props) => {
     }, [props.data]);
 
     useEffect(() => {
-        console.log(typeof dataLen);
+        console.log(dataLen);
     }, [dataLen]);
 
     const textMotion = {
@@ -100,7 +100,7 @@ const EventSlider1 = (props) => {
         <div
             className={`${
                 isLoaded ? "opacity-100" : "opacity-0"
-            } col-span-12 px-10 md:px-8 lg:px-24 pt-6 lg:pt-0 relative ${props.colspan}`}
+            } col-span-12 px-8 md:px-8 lg:px-24 pt-6 lg:pt-0 relative ${props.colspan}`}
         >
             <div className="w-full z-50 ">
                 <div
@@ -136,7 +136,7 @@ const EventSlider1 = (props) => {
                 </h2>
             ) : null} */}
 
-            {dataLen > 0 && (
+            {dataLen && dataLen > 0 && (
                 <Swiper
                     // install Swiper modules
                     modules={[Pagination, Navigation, A11y]}
@@ -156,11 +156,11 @@ const EventSlider1 = (props) => {
                     breakpoints={{
                         // when window width is >= 640px
                         320: {
-                            slidesPerView: 2,
+                            slidesPerView: dataLen >= 2 ? 2 : 1,
                             spaceBetween: 15,
                         },
                         768: {
-                            slidesPerView: 3,
+                            slidesPerView: dataLen >= 3 ? 3 : dataLen,
 
                             spaceBetween: 15,
                         },
@@ -170,7 +170,7 @@ const EventSlider1 = (props) => {
                             spaceBetween: 15,
                         },
                         1280: {
-                            slidesPerView: 4,
+                            slidesPerView: dataLen >= 4 ? 4 : dataLen,
                             navigation: false,
                             spaceBetween: 15,
                         },
@@ -185,7 +185,7 @@ const EventSlider1 = (props) => {
                         return (
                             <SwiperSlide key={`sliderKey${i}`} className="2xl:px-6 sm:px-0 relative ">
                                 <SlideElement
-                                    aspectRatio={dataLen > 3 ? "1/1" : "2/1"}
+                                    aspectRatio={dataLen > 2 ? "1/1" : "1.5/1"}
                                     isWorkshop={props.isWorkshop}
                                     data={e}
                                 ></SlideElement>

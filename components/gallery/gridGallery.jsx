@@ -14,7 +14,7 @@ const GridGallery = ({ data }) => {
 
     return (
         <>
-            <div className="col-span-12 grid grid-cols-12 lg:gap-8 px-6 lg:px-24 lg:mt-[-3rem]">
+            <div className="col-span-12 grid grid-cols-12 gap-2 lg:gap-8 px-6 lg:px-24 mt-[-1rem] lg:mt-[-3rem]">
                 {data.map((e, i) => {
                     return (
                         <CoverImage
@@ -23,7 +23,7 @@ const GridGallery = ({ data }) => {
                             mobileSrc={urlFor(e).url()}
                             alt="Cover Background"
                             style={{ aspectRatio: "1/1" }}
-                            className={`w-full z-20 relative rounded-[40px] overflow-hidden col-span-3 `}
+                            className={`w-full z-20 relative rounded-[20px] lg:rounded-[40px] overflow-hidden col-span-4 lg:col-span-3 `}
                         />
                     );
                 })}

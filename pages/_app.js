@@ -10,14 +10,19 @@ import burger from "../assets/BURGER.svg";
 import { Menu1 } from "../components/menues";
 import Overlay from "../components/overlay";
 import { Modal } from "../components/modal";
-import { MobileBar1 } from "../components/mobileBar";
+import { MobileBar1, MobileBarCafe } from "../components/mobileBar";
 import { Full } from "../components/footer";
 import { Sub } from "../components/footer";
+
+//STORE
+import useStore from "../store/store"; // Adjust the path to your store file
 
 //FX
 import { ParallaxProvider } from "react-scroll-parallax";
 
 function MyApp({ Component, pageProps }) {
+    const isCafe = useStore((state) => state.isCafe);
+
     return (
         <>
             <Menu1
@@ -33,12 +38,21 @@ function MyApp({ Component, pageProps }) {
                     setIsOpen(true);
                 }}
             ></Menu1>{" "}
-            <MobileBar1
-                // data={dataSetting}
-                onClick={() => {
-                    console.log("IS CLICKED");
-                }}
-            ></MobileBar1>
+            {isCafe ? (
+                <MobileBarCafe
+                    // props for MobileBar1
+                    onClick={() => {
+                        console.log("IS CLICKED");
+                    }}
+                ></MobileBarCafe>
+            ) : (
+                <MobileBar1
+                    // props for MobileBar1
+                    onClick={() => {
+                        console.log("IS CLICKED");
+                    }}
+                ></MobileBar1>
+            )}
             <ParallaxProvider>
                 <Component {...pageProps} />
                 <Full></Full>

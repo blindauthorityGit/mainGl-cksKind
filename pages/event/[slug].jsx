@@ -52,6 +52,12 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
             })
         );
 
+        console.log(
+            dataAllKategorie.filter((e) => {
+                return e.name !== filterName;
+            })
+        );
+
         changeBodyBackgroundColor(data);
         setIsWorkshop(data.kategorie?.name == "Beratung & Workshops");
     }, [data]);

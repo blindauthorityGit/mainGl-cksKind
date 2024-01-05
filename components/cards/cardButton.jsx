@@ -61,7 +61,7 @@ const CardButton = ({ data, i }) => {
                     className="w-1/4  z-20 relative "
                 />
             </Link>
-            <div className="px-6 lg:px-12 rounded-b-[40px] py-8 mb-4 lg:mb-4">
+            <div className="px-6 2xl:px-12 rounded-b-[40px] lg:py-4 2xl:py-8 mb-0 2xl:mb-4">
                 <H3 klasse={`${data.isMain ? "!text-white" : null}`}>{data.title}</H3>
             </div>
         </motion.div>

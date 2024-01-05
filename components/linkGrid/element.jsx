@@ -59,12 +59,12 @@ const Element = ({ data, i, isWorkshop, isDetail }) => {
     return (
         <motion.div
             ref={ref}
-            className={`col-span-12 lg:col-span-4`}
+            className={`col-span-12 md:col-span-6 lg:col-span-4`}
             initial="hidden"
             animate={controls}
             variants={variants}
         >
-            <Link href={""}>
+            <Link href={"#"}>
                 <CoverImage
                     src={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
                     mobileSrc={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image

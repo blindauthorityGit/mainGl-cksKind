@@ -10,7 +10,9 @@ const ListItem = ({ data }) => {
                 <H4 klasse="!text-[#FFC5DA]">{data.title}</H4>
                 <H4 klasse="!text-[#FFC5DA]">{data.price}</H4>
             </div>
-            <P klasse="text-white">{data.description}</P>
+            <P klasse="text-white text-xs lg:text-sm mt-1 mb-3 lg:mb-0 lg:mt-0 max-w-[90%] lg:max-w-[100%]">
+                {data.description}
+            </P>
         </div>
     );
 };

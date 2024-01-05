@@ -13,7 +13,7 @@ const myPortableTextComponents = {
         imageGallery: ({ value }) => {
             console.log(value);
             return (
-                <div className="grid col-span-12 grid-cols-12 gap-4 my-24">
+                <div className="grid col-span-12 grid-cols-12 gap-2 xl:gap-4 my-8 xl:my-24">
                     {value.images.map((e, i) => (
                         <CoverImage
                             key={i}
@@ -42,7 +42,7 @@ const myPortableTextComponents = {
     },
     block: {
         // Styling for the "normal" paragraphs
-        normal: ({ children }) => <p className="text-base leading-7 font-sans">{children}</p>,
+        normal: ({ children }) => <P className="text-base leading-7 font-sans">{children}</P>,
         // Styling for the "h1" headings
         h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
         h2: ({ children, isWorkshop }) => <H2 klasse={`${isWorkshop ? "text-white" : "null"}`}>{children}</H2>,
@@ -53,7 +53,7 @@ const myPortableTextComponents = {
     },
     blockStyles: {
         // Styling for the "normal" paragraphs
-        normal: ({ children }) => <p className="text-base leading-7 font-sans">{children}</p>,
+        normal: ({ children }) => <P className="text-base leading-7 font-sans">{children}</P>,
         // Styling for the "h1" headings
         h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
         p: ({ children }) => <p className="font-sans">{children}</p>,
@@ -67,7 +67,7 @@ const PortableTextView = ({ blocks, data, isWorkshop }) => {
     console.log(blocks);
     return (
         <div
-            className={`col-span-8 richText lg:ml-64 font-sans text-xl font-medium leading-relaxed ${
+            className={`col-span-12 lg:col-span-8 richText lg:ml-64 font-sans text-xl font-medium leading-relaxed ${
                 isWorkshop ? "text-blueColor-100" : "text-textColor"
             }`}
         >

@@ -11,6 +11,9 @@ const useStore = create((set) => ({
     setModalPosition: (x, y) => set({ modalPosition: { x, y } }),
     modalContent: null,
     setModalContent: (content) => set({ modalContent: content }),
+
+    isCafe: false,
+    setIsCafe: (isCafe) => set({ isCafe }),
 }));
 
 export default useStore;

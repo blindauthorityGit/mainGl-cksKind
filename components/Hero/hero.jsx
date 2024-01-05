@@ -18,8 +18,10 @@ const Hero = ({ data, isEvent }) => {
                 src={urlFor(data.image).url()}
                 mobileSrc={urlFor(data.image).url()}
                 alt="Cover Background"
-                style={{ aspectRatio: isEvent ? "3/2" : "1642/650" }}
-                className="w-full z-20 relative rounded-[40px] overflow-hidden"
+                // style={{ aspectRatio: isEvent ? "3/2" : "1642/650" }}
+                className={`w-full z-20 relative rounded-[40px] overflow-hidden ${
+                    isEvent ? "aspect-[3/2] xl:aspect-[3/2]" : "aspect-[3/2] xl:aspect-[1642/650]"
+                }`}
             />
         </motion.div>
     );
