@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import React, { useState, useEffect } from "react";
 
 //ASSETS
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -21,7 +22,33 @@ import useStore from "../store/store"; // Adjust the path to your store file
 import { ParallaxProvider } from "react-scroll-parallax";
 
 function MyApp({ Component, pageProps }) {
+    const [showMobileBar, setShowMobileBar] = useState(false);
+
     const isCafe = useStore((state) => state.isCafe);
+    const showOverlay = useStore((state) => state.showOverlay);
+    const setShowOverlay = useStore((state) => state.setShowOverlay);
+
+    const showMobileMenu = useStore((state) => state.showMobileMenu);
+    const setShowMobileMenu = useStore((state) => state.setShowMobileMenu);
+
+    const setShowMobileModal = useStore((state) => state.setShowMobileModal);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 100) {
+                // Adjust this value based on your preference
+                setShowMobileBar(true);
+            } else {
+                setShowMobileBar(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     return (
         <>
@@ -38,20 +65,24 @@ function MyApp({ Component, pageProps }) {
                     setIsOpen(true);
                 }}
             ></Menu1>{" "}
+            {showOverlay ? (
+                <Overlay
+                    onClick={(e) => {
+                        setShowOverlay(false);
+                        setShowMobileMenu(false);
+                        setShowMobileModal(false);
+                    }}
+                ></Overlay>
+            ) : null}
+            {/* ...other components */}
             {isCafe ? (
-                <MobileBarCafe
-                    // props for MobileBar1
-                    onClick={() => {
-                        console.log("IS CLICKED");
-                    }}
-                ></MobileBarCafe>
+                <div className="">
+                    <MobileBarCafe onClick={() => console.log("IS CLICKED")} />
+                </div>
             ) : (
-                <MobileBar1
-                    // props for MobileBar1
-                    onClick={() => {
-                        console.log("IS CLICKED");
-                    }}
-                ></MobileBar1>
+                <div className="">
+                    <MobileBar1 onClick={() => console.log("IS CLICKED")} />
+                </div>
             )}
             <ParallaxProvider>
                 <Component {...pageProps} />

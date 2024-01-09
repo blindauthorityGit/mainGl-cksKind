@@ -5,6 +5,8 @@ import Error from "./error";
 import axios from "axios";
 import { Rings } from "react-loader-spinner";
 
+import { MainButton } from "../buttons";
+
 const Form1 = (props) => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -40,15 +42,15 @@ const Form1 = (props) => {
     }
 
     useEffect(() => {
-        console.log(props.bild);
+        // console.log(props.bild);
     }, []);
 
     return (
         <MainContainer width=" sm:pt-4 sm:pb-0  relative ">
-            <div className="col-span-12  grid grid-cols-12">
+            <div className="col-span-12  grid grid-cols-12 ">
                 <form
                     onSubmit={handleSubmit(onSubmitForm)}
-                    className="col-span-12 grid grid-cols-12 footer topKontakt sm:gap-4 text-sm sm:text-base"
+                    className="col-span-12 grid grid-cols-12 footer topKontakt gap-2 sm:gap-4 text-sm sm:text-base"
                     action=""
                 >
                     <div className="hidden">
@@ -77,7 +79,7 @@ const Form1 = (props) => {
                     <input
                         {...register("name", { required: true })}
                         id="name"
-                        className="col-span-12 border-b border-primaryColor-800 bg-transparent text-primaryColor-950 placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                        className="col-span-12 border-2 rounded-xl border-textColor bg-transparent text-primaryColor-950 placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                         type="text"
                         placeholder="Name"
                     />
@@ -89,7 +91,7 @@ const Form1 = (props) => {
                         {...register("email", { required: true })}
                         name="email"
                         id="email"
-                        className="col-span-12 border-b border-primaryColor-800 bg-transparent text-primaryColor-950 placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                        className="col-span-12 border-2 rounded-xl border-textColor bg-transparent text-primaryColor-950 placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                         type="email"
                         placeholder="Email"
                     />
@@ -113,7 +115,7 @@ const Form1 = (props) => {
 
                     <textarea
                         {...register("message", { required: true })}
-                        className="col-span-12 border-b border-primaryColor-800 bg-transparent text-primaryColor-950 placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                        className="col-span-12 border-2 font-regular rounded-xl border-textColor bg-transparent text-primaryColor-950 placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                         name="message"
                         id="message"
                         cols="20"
@@ -133,7 +135,7 @@ const Form1 = (props) => {
                             className="mr-4 text-primaryColor"
                             type="checkbox"
                         />
-                        <label htmlFor="checkbox" className="text-primaryColor-800 text-xs sm:text-sm">
+                        <label htmlFor="checkbox" className="text-textColor text-xs sm:text-sm">
                             Ich erlaube Datenverarbeitung für Kontaktaufnahme laut Datenschutzerklärung.
                         </label>
                         {errors.checkbox && (
@@ -155,12 +157,14 @@ const Form1 = (props) => {
                         </div>
                     ) : (
                         <div className="w-full col-span-12 sm:mb-8">
-                            <button
-                                className="bg-primaryColor-500 text-white mt-6 tracking-widest hover-underline-animation z-20 flex items-center justify-center lg:mt-8 py-2 text-sm sm:text-base sm:py-3 px-6 min-w-[10rem] w-full uppercase rounded-md md:mt-8"
+                            <MainButton
+                                // className="bg-primaryColor-500 text-white mt-6 tracking-widest hover-underline-animation z-20 flex items-center justify-center lg:mt-8 py-2 text-sm sm:text-base sm:py-3 px-6 min-w-[10rem] w-full uppercase rounded-md md:mt-8"
                                 type="submit"
+                                link="#"
+                                klasse="bg-primaryColor border-2 border-primaryColor"
                             >
                                 Absenden
-                            </button>
+                            </MainButton>
                         </div>
                     )}
                 </form>

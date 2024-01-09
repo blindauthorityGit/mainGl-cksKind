@@ -1,6 +1,12 @@
 import React from "react";
 import { Form1 } from "../contactForm";
 
+import { H4, P } from "../typography";
+
+// AOS
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 //ASSETS
 // import Getreide from "../../assets/SVG/getreide.svg";
 
@@ -11,12 +17,7 @@ const Contact = () => {
                 {/* <img src={Getreide.src} alt="" /> */}
             </div>
             <div className="col-span-12">
-                <h4
-                    data-aos="fade-left"
-                    className="font-thin font-freight text-3xl sm:text-xl text-darkText lg:text-4xl  mt-4 mb-4 lg:mb-6"
-                >
-                    Schreiben Sie mir!
-                </h4>
+                <H4 klasse="mt-4 mb-3 !text-xl">Schreiben Sie uns!</H4>
                 <Form1 contact />
             </div>
         </div>

@@ -18,10 +18,18 @@ import Mobile1 from "./mobile1";
 //Framer Motion
 import { motion, useScroll, useAnimation } from "framer-motion";
 
+//STORE
+import useStore from "../../store/store"; // Adjust the path to your store file
+
 const Menu1 = (props) => {
     const router = useRouter();
 
-    const [showOverlay, setShowOverlay] = useState(false);
+    //STORE
+    const showOverlay = useStore((state) => state.showOverlay);
+    const setShowOverlay = useStore((state) => state.setShowOverlay);
+
+    const showMobileMenu = useStore((state) => state.showMobileMenu);
+    const setShowMobileMenu = useStore((state) => state.setShowMobileMenu);
 
     const navRef = useRef(null);
     const animate = useAnimation();
@@ -148,9 +156,14 @@ const Menu1 = (props) => {
 
     return (
         <>
-            {showOverlay ? <Overlay onClick={(e) => setShowOverlay(false)}></Overlay> : null}
-            {showOverlay ? (
-                <Mobile1 socialMedia={props.socialMedia} onClick={(e) => setShowOverlay(false)}></Mobile1>
+            {showMobileMenu ? (
+                <Mobile1
+                    socialMedia={props.socialMedia}
+                    onClick={(e) => {
+                        setShowOverlay(false);
+                        setShowMobileMenu(false);
+                    }}
+                ></Mobile1>
             ) : null}
             {/* <motion.div
                 className="h-16 fixed top-0 left-0 right-0 origin-[0%] bg-white z-40"
@@ -231,7 +244,10 @@ const Menu1 = (props) => {
                         <div
                             className="block lg:hidden cursor-pointer"
                             onClick={(e) => {
+                                setShowMobileMenu(true);
                                 setShowOverlay(true);
+
+                                console.log(showMobileMenu);
                             }}
                         >
                             <img className="h-[1.7rem]" src={props.burgerIcon} alt="" />

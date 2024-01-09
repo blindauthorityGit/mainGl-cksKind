@@ -77,8 +77,27 @@ a {
   }
 }
 
+.slide-in-bottom{-webkit-animation:slide-in-bottom .35s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-bottom .35s cubic-bezier(.25,.46,.45,.94) both}
+
 #__next {
   overflow-x: hidden
+}
+
+.mobile-bar-animation {
+  animation: slideInFromBottom 0.5s ease-out forwards;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+@keyframes slideInFromBottom {
+  from {
+      transform: translateY(100%);
+  }
+  to {
+      transform: translateY(0);
+  }
 }
 
 

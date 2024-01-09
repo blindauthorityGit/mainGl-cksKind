@@ -4,6 +4,13 @@ import create from "zustand";
 const useStore = create((set) => ({
     showOverlay: false,
     setShowOverlay: (show) => set({ showOverlay: show }),
+
+    showMobileMenu: false,
+    setShowMobileMenu: (show) => set({ showMobileMenu: show }),
+
+    showMobileModal: false,
+    setShowMobileModal: (show) => set({ showMobileModal: show }),
+
     isModalOpen: false,
     modalPosition: { x: 0, y: 0 },
     openModal: (x, y) => set({ isModalOpen: true, modalPosition: { x, y } }),

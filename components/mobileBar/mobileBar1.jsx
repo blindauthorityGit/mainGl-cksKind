@@ -12,37 +12,42 @@ import Phone from "../../assets/phone.svg";
 import Email from "../../assets/email.svg";
 import Programm from "../../assets/programm.svg";
 
+//STORE
+import useStore from "../../store/store"; // Adjust the path to your store file
+
 const MobileBar = (props) => {
-    const [showOverlay, setShowOverlay] = useState(false);
+    //STORE
+    const showOverlay = useStore((state) => state.showOverlay);
+    const setShowOverlay = useStore((state) => state.setShowOverlay);
+    const showMobileModal = useStore((state) => state.showMobileModal);
+    const setShowMobileModal = useStore((state) => state.setShowMobileModal);
     const [showContact, setShowContact] = useState(false);
     const [showOpening, setShowOpening] = useState(false);
 
     return (
         <>
-            {showOverlay ? (
+            {showMobileModal ? (
                 <>
                     <ModalMobile
                         onClick={() => {
+                            setShowMobileModal(false);
                             setShowOverlay(false);
                         }}
                     >
                         {showOpening && <Opening data={props.data} />}
                         {showContact && <Contact />}
                     </ModalMobile>
-                    <Overlay
-                        onClick={() => {
-                            setShowOverlay(false);
-                        }}
-                    />
                 </>
             ) : null}
             <div className="fixed sm:hidden  z-50 bottom-0 w-full flex justify-center items-center bg-primaryColor text-sm ">
                 <a
+                    href="tel:+436508011900"
                     onClick={() => {
                         setShowOverlay((showOverlay) => !showOverlay);
                         setShowContact(false);
                         setShowOpening(true);
                     }}
+                    style={{ background: showContact ? "#33333!important" : null }}
                     className="w-1/3 p-3 flex border-r border-opacity-30 border-primaryColor-200 flex-col justify-center items-center text-primaryColor-200 hover:text-primaryColor"
                 >
                     <img className="h-[1.35rem]" src={Phone.src} alt="" />
@@ -53,14 +58,15 @@ const MobileBar = (props) => {
                         setShowOverlay((showOverlay) => !showOverlay);
                         setShowContact(true);
                         setShowOpening(false);
+                        setShowMobileModal(true);
                     }}
-                    className="w-1/3 p-3 flex flex-col border-r border-primaryColor-200 border-opacity-30  justify-center items-center text-primaryColor-200 hover:text-primaryColor"
+                    className="w-1/3 p-3 flex flex-col border-r border-primaryColor-200 border-opacity-30  justify-center items-center text-primaryColor-200 hover:text-primaryColor-300"
                 >
                     <img className="h-[1.35rem]" src={Email.src} alt="" />
                     <span className="text-xs font-base mt-1">Email</span>
                 </a>
                 <a
-                    href="tel:+436508011900"
+                    href="/programm"
                     className="w-1/3 p-3 border-r border-primaryColor-200 border-opacity-30 flex flex-col justify-center items-center text-primaryColor-200 hover:text-primaryColor "
                 >
                     <img className="h-[1.35rem]" src={Programm.src} alt="" />
