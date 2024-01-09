@@ -122,7 +122,7 @@ const MainHero = ({ data, bgColor }) => {
                         mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
                         alt="Cover Background"
                         // style={{ aspectRatio: aspectRatio }}
-                        className="w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/0.7] xl:aspect-[1/0.85]"
+                        className="w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/0.5] md:aspect-[1/0.7] xl:aspect-[1/0.85]"
                         data-aos={"fade-left"}
                         ref={imgRef}
                     />
