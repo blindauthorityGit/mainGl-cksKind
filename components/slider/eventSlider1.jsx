@@ -170,12 +170,12 @@ const EventSlider1 = (props) => {
                             spaceBetween: 15,
                         },
                         1280: {
-                            slidesPerView: dataLen >= 4 ? 4 : dataLen,
+                            slidesPerView: dataLen >= 4 ? 4 : dataLen === 1 ? 2 : dataLen,
                             navigation: false,
                             spaceBetween: 15,
                         },
                         1600: {
-                            slidesPerView: dataLen >= 5 ? 5 : dataLen,
+                            slidesPerView: dataLen >= 5 ? 5 : dataLen === 1 ? 2 : dataLen,
                             navigation: false,
                             spaceBetween: 10,
                         },

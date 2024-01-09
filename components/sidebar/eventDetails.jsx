@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { BasicPortableText } from "../content";
 
@@ -39,13 +39,15 @@ const Details = ({ data, isWorkshop }) => {
                 <H4 klasse={`mb-4  ${isWorkshop ? "!text-white" : "text-textColor"}`}>Kurs Leitung</H4>
                 <div className="flex w-full items-center">
                     <div className="image">
-                        <CoverImage
-                            src={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
-                            mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
-                            alt="Cover Background"
-                            style={{ aspectRatio: "1/1" }}
-                            className=" w-20 h-20 z-20 relative rounded-[40px] overflow-hidden  mr-4"
-                        />
+                        <Link href={`/partner/${data.eventDetails.partner.slug.current}`}>
+                            <CoverImage
+                                src={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
+                                mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
+                                alt="Cover Background"
+                                style={{ aspectRatio: "1/1" }}
+                                className=" w-20 h-20 z-20 relative rounded-[40px] overflow-hidden  mr-4"
+                            />
+                        </Link>
                     </div>{" "}
                     <P klasse={` ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
                         {data.eventDetails.partner.name}

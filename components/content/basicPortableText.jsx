@@ -6,7 +6,7 @@ import { CoverImage } from "../images";
 import urlFor from "../../functions/urlFor";
 
 //TYPO
-import { H2, P } from "../typography";
+import { H1, H2, H3, P } from "../typography";
 
 const myPortableTextComponents = {
     types: {
@@ -44,7 +44,7 @@ const myPortableTextComponents = {
         // Styling for the "normal" paragraphs
         normal: ({ children }) => <P className="lg:text-base lg:leading-7 font-sans">{children}</P>,
         // Styling for the "h1" headings
-        h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
+        h1: ({ children }) => <H1 className="text-4xl font-bold my-4">{children}</H1>,
         h2: ({ children, isWorkshop }) => <H2 klasse={`${isWorkshop ? "text-white" : "null"}`}>{children}</H2>,
         h3: ({ children, isWorkshop }) => <H3 klasse="!mb-4 !mt-10">{children}</H3>,
         p: ({ children }) => <p className="font-sans">{children}</p>,

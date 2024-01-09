@@ -41,7 +41,18 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
                           return <ElementEvent key={i} isDetail={isDetail} isWorkshop={isWorkshop} data={e} />;
                       })
                     : data.map((e, i) => {
-                          return <Element key={i} isDetail={isDetail} isWorkshop={isWorkshop} data={e} />;
+                          return (
+                              <Element
+                                  link={
+                                      e._type == "kategorie" ? "/kurse/" + e.button.link : "/partner/" + e.slug?.current
+                                  }
+                                  partner={e._type == "partner"}
+                                  key={i}
+                                  isDetail={isDetail}
+                                  isWorkshop={isWorkshop}
+                                  data={e}
+                              />
+                          );
                       })}
             </div>
         </>

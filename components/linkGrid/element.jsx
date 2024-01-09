@@ -6,7 +6,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 //COMPONENTS
-import { CoverImage } from "../images";
+import { CoverImage, ContainImage } from "../images";
 import { TextButton } from "../buttons";
 
 //TYPO
@@ -16,7 +16,7 @@ import { H3, H4, P } from "../typography";
 import urlFor from "../../functions/urlFor";
 import { useWindowDimensions } from "../../hooks/useWindowDimension";
 
-const Element = ({ data, i, isWorkshop, isDetail }) => {
+const Element = ({ data, i, isWorkshop, isDetail, link, partner }) => {
     const { width } = useWindowDimensions();
     const isMobile = width < 480; // You can adjust this threshold
 
@@ -59,21 +59,31 @@ const Element = ({ data, i, isWorkshop, isDetail }) => {
     return (
         <motion.div
             ref={ref}
-            className={`col-span-12 md:col-span-6 lg:col-span-4`}
+            className={`col-span-12 md:col-span-6 lg:col-span-4 `}
             initial="hidden"
             animate={controls}
             variants={variants}
         >
-            <Link href={"#"}>
-                <CoverImage
-                    src={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
-                    mobileSrc={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
-                    alt="Cover Background"
-                    // style={{ aspectRatio: "1/0.8" }}
-                    className="w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/0.5] xl:aspect-[1/0.8]"
-                />
+            <Link href={`${link ? link : "#"}`}>
+                {partner ? (
+                    <ContainImage
+                        src={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
+                        mobileSrc={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
+                        alt="Cover Background"
+                        // style={{ aspectRatio: "1/0.8" }}
+                        className="w-full z-20 bg-white relative rounded-[40px] overflow-hidden aspect-[1/0.5] xl:aspect-[1/0.8]"
+                    />
+                ) : (
+                    <CoverImage
+                        src={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
+                        mobileSrc={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
+                        alt="Cover Background"
+                        // style={{ aspectRatio: "1/0.8" }}
+                        className="w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/0.5] xl:aspect-[1/0.8]"
+                    />
+                )}
             </Link>
-            <div className="px-6 lg:px-8 rounded-[40px] py-4 lg:py-6 mb-2 lg:mb-2 text-center md:text-left">
+            <div className="px-6 lg:px-8 rounded-[40px] py-2 lg:py-6 mb-2 lg:mb-2 text-center md:text-left">
                 <H3 klasse={`mb-4 lg:mb-2 ${isWorkshop ? "!text-blueColor-100" : null}`}>{data.name}</H3>
                 {/* <P klasse="lg:!text-base !text-xs" style={{ color: data.farbe.value == "#3E55AB" ? "#E2EAF7" : null }}>
                     {data.description}

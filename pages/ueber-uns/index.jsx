@@ -24,7 +24,7 @@ import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor
 export default function Ueberuns({ dataAbout, dataPartner, dataKontakt }) {
     useEffect(() => {
         console.log(dataAbout);
-        console.log(dataPartner, dataAbout.components[0].content);
+        console.log(dataPartner);
         changeBodyBackgroundColor(dataAbout);
     }, []);
     return (

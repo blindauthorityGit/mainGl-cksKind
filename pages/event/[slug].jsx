@@ -78,7 +78,11 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                     isWorkshop={isWorkshop}
                                     blocks={data.content.content}
                                 ></PortableTextEvent>
-                                <RegularText isWorkshop={isWorkshop} data={data.eventDetails.partner}></RegularText>
+                                <RegularText
+                                    link={data.eventDetails.partner.slug.current}
+                                    isWorkshop={isWorkshop}
+                                    data={data.eventDetails.partner}
+                                ></RegularText>
                             </div>
                             {/* //SIDEBAR */}
                             <div className="col-span-12 hidden lg:block md:col-span-4 lg:mt-28 lg:pl-16">
