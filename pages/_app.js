@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 //ASSETS
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -32,6 +33,25 @@ function MyApp({ Component, pageProps }) {
     const setShowMobileMenu = useStore((state) => state.setShowMobileMenu);
 
     const setShowMobileModal = useStore((state) => state.setShowMobileModal);
+
+    //router
+    const router = useRouter();
+
+    useEffect(() => {
+        // Function to call when the route changes
+        const handleRouteChange = () => {
+            // Set the mobile menu state to false on route change
+            setShowMobileMenu(false);
+        };
+
+        // Add route change listeners
+        router.events.on("routeChangeStart", handleRouteChange);
+
+        // Clean up event listeners
+        return () => {
+            router.events.off("routeChangeStart", handleRouteChange);
+        };
+    }, [router.events, setShowMobileMenu]);
 
     useEffect(() => {
         const handleScroll = () => {

@@ -23,20 +23,18 @@ import FullWidthSection from "../../components/layout/fullWidthSection";
 import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor";
 
 export default function Partner({ data, dataKontakt, dataEvent }) {
+    const [filteredEvents, setFilteredEvents] = useState(null);
     useEffect(() => {
         changeBodyBackgroundColor("");
-
-        console.log(data, dataKontakt, dataEvent);
     }, []);
-
-    const partnerName = data.name;
-
-    // Filter events where the event's partner name matches the current partner's name
-    const filteredEvents = dataEvent.filter((event) => event.eventDetails.partner.name === partnerName);
+    useEffect(() => {
+        const partnerName = data.name;
+        setFilteredEvents(dataEvent.filter((event) => event.eventDetails.partner.name === partnerName));
+    }, [data, dataEvent]);
 
     return (
         <>
-            {data && dataKontakt ? (
+            {data && dataKontakt && filteredEvents ? (
                 <>
                     <MainContainer width="container mx-auto px-4 lg:px-0">
                         <Head>
