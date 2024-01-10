@@ -15,12 +15,16 @@ import { de } from "date-fns/locale";
 //COMPS
 import ToolTip from "./toolTip";
 import { H3, P } from "../typography";
+import { Events } from "../modalContent";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 //FUNCTION
 import getElementByID from "../../functions/getElementByID";
 
-const WEEKDAYS = ["Son", "Mon", "Die", "Mi", "Do", "Fr", "Sa"];
+//STORE
+import useStore from "../../store/store"; // Adjust the path to your store file
+
+const WEEKDAYS = ["So", "Mo", "Die", "Mi", "Do", "Fr", "Sa"];
 
 const Calendar = ({ data }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -32,6 +36,11 @@ const Calendar = ({ data }) => {
     const [flatData, setFlatData] = useState(null);
     const [showTooltip, setShowToolTip] = useState(false);
     const [tooltipData, setToolTipData] = useState(null);
+
+    //STORE
+    const setShowOverlay = useStore((state) => state.setShowOverlay);
+    const setShowModal = useStore((state) => state.setShowModal);
+    const setModalContent = useStore((state) => state.setModalContent);
 
     const daysInMonth = eachDayOfInterval({
         start: firstDayOfMonth,
@@ -87,6 +96,22 @@ const Calendar = ({ data }) => {
         }, {});
     }, [data]);
 
+    // CHECKL IF DAY HAS EVENT
+    const handleDayClick = (date) => {
+        const dateKey = format(date, "yyyy-MM-dd");
+        const events = eventsByDate[dateKey];
+        if (events && events.length > 0) {
+            // There are events on this day, handle them as needed
+            console.log("Events on this day:", events);
+            setModalContent(<Events></Events>);
+            setShowOverlay(true);
+            setShowModal(true);
+        } else {
+            // No events on this day
+            console.log("No events on this day");
+        }
+    };
+
     return (
         <div className="calendar col-span-12 mt-24 lg:mt-36 bg-white p-4 lg:p-12 rounded-xl text-textColor font-sans">
             <div className="flex justify-between items-center mb-4">
@@ -118,10 +143,10 @@ const Calendar = ({ data }) => {
                             className={` p-2 text-center 2xl:p-4  rounded-xl bg-slate-50 ${
                                 isToday(day) ? " font-bold !bg-primaryColor-100" : null
                             }`}
+                            onClick={() => handleDayClick(day)}
                         >
                             {format(day, "d")}
                             {todaysEvents.map((e, i) => {
-                                console.log(e);
                                 return (
                                     <div
                                         style={{ background: e.kategorie.farbe.value }}
@@ -131,11 +156,11 @@ const Calendar = ({ data }) => {
                                         key={e.headline}
                                         data-index={e._id}
                                         onClick={(e) => {
-                                            setShowToolTip(true);
-                                            setToolTipData(getElementByID(data, e.currentTarget.dataset.index));
-                                            console.log(e.currentTarget);
-                                            console.log(getElementByID(data, e.currentTarget.dataset.index));
-                                            console.log(data);
+                                            // setShowToolTip(true);
+                                            // setToolTipData(getElementByID(data, e.currentTarget.dataset.index));
+                                            // console.log(e.currentTarget);
+                                            // console.log(getElementByID(data, e.currentTarget.dataset.index));
+                                            // console.log(data);
                                         }}
                                     >
                                         <div className="hidden lg:block xl:text-xs">{e.headline}</div>

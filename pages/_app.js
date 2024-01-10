@@ -32,6 +32,12 @@ function MyApp({ Component, pageProps }) {
     const showMobileMenu = useStore((state) => state.showMobileMenu);
     const setShowMobileMenu = useStore((state) => state.setShowMobileMenu);
 
+    const showModal = useStore((state) => state.showModal);
+    const setShowModal = useStore((state) => state.setShowModal);
+
+    const modalContent = useStore((state) => state.modalContent);
+    const setModalContent = useStore((state) => state.setModalContent);
+
     const setShowMobileModal = useStore((state) => state.setShowMobileModal);
 
     //router
@@ -85,12 +91,23 @@ function MyApp({ Component, pageProps }) {
                     setIsOpen(true);
                 }}
             ></Menu1>{" "}
+            {showModal ? (
+                <Modal
+                    onClick={(e) => {
+                        setShowModal(false);
+                        setShowOverlay(false);
+                    }}
+                >
+                    {modalContent}
+                </Modal>
+            ) : null}
             {showOverlay ? (
                 <Overlay
                     onClick={(e) => {
                         setShowOverlay(false);
                         setShowMobileMenu(false);
                         setShowMobileModal(false);
+                        setShowModal(false);
                     }}
                 ></Overlay>
             ) : null}
