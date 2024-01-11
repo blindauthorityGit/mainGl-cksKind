@@ -17,6 +17,9 @@ const useStore = create((set) => ({
     isEventsModal: false,
     setIsEventsModal: (show) => set({ isEventsModal: show }),
 
+    modalColor: "#ffffff",
+    setModalColor: (show) => set({ modalColor: show }),
+
     openModal: (x, y) => set({ isModalOpen: true, modalPosition: { x, y } }),
     closeModal: () => set({ isModalOpen: false }),
     setModalPosition: (x, y) => set({ modalPosition: { x, y } }),

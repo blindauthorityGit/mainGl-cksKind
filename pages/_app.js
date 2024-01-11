@@ -35,6 +35,9 @@ function MyApp({ Component, pageProps }) {
     const showModal = useStore((state) => state.showModal);
     const setShowModal = useStore((state) => state.setShowModal);
 
+    const modalColor = useStore((state) => state.modalColor);
+    const setModalColor = useStore((state) => state.setModalColor);
+
     const modalContent = useStore((state) => state.modalContent);
     const setModalContent = useStore((state) => state.setModalContent);
 
@@ -93,6 +96,7 @@ function MyApp({ Component, pageProps }) {
             ></Menu1>{" "}
             {showModal ? (
                 <Modal
+                    background={modalColor}
                     onClick={(e) => {
                         setShowModal(false);
                         setShowOverlay(false);

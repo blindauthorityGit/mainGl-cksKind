@@ -41,6 +41,8 @@ const Calendar = ({ data }) => {
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setShowModal = useStore((state) => state.setShowModal);
     const setModalContent = useStore((state) => state.setModalContent);
+    const modalColor = useStore((state) => state.showModal);
+    const setModalColor = useStore((state) => state.setModalColor);
 
     const daysInMonth = eachDayOfInterval({
         start: firstDayOfMonth,
@@ -101,9 +103,9 @@ const Calendar = ({ data }) => {
         const dateKey = format(date, "yyyy-MM-dd");
         const events = eventsByDate[dateKey];
         if (events && events.length > 0) {
-            // There are events on this day, handle them as needed
-            console.log("Events on this day:", events);
-            setModalContent(<Events></Events>);
+            const index = flatData.findIndex((event) => format(event.date, "yyyy-MM-dd") === dateKey);
+            setModalContent(<Events events={flatData} currentIndex={index} />);
+            setModalColor(events[0].kategorie.farbe.value);
             setShowOverlay(true);
             setShowModal(true);
         } else {
