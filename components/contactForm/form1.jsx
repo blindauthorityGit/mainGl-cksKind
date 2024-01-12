@@ -79,7 +79,7 @@ const Form1 = (props) => {
                     <input
                         {...register("name", { required: true })}
                         id="name"
-                        className="col-span-12 border-2 rounded-xl border-textColor bg-transparent text-primaryColor-950 placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                        className="col-span-12 border-2 text-xs rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                         type="text"
                         placeholder="Name"
                     />
@@ -91,7 +91,7 @@ const Form1 = (props) => {
                         {...register("email", { required: true })}
                         name="email"
                         id="email"
-                        className="col-span-12 border-2 rounded-xl border-textColor bg-transparent text-primaryColor-950 placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                        className="col-span-12 text-xs  border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                         type="email"
                         placeholder="Email"
                     />
@@ -115,7 +115,7 @@ const Form1 = (props) => {
 
                     <textarea
                         {...register("message", { required: true })}
-                        className="col-span-12 border-2 font-regular rounded-xl border-textColor bg-transparent text-primaryColor-950 placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                        className="col-span-12 text-xs  border-2 font-regular rounded-[20px] border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                         name="message"
                         id="message"
                         cols="20"

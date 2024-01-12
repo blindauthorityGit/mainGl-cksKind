@@ -71,7 +71,7 @@ const Calendar = ({ data }) => {
         const sortedEvents = flattenedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         setFlatData(sortedEvents);
-        console.log(sortedEvents);
+        console.log("SYORTED EVENTS:", sortedEvents);
     }, [data]);
 
     // Preprocess events data to create a map for efficient lookup

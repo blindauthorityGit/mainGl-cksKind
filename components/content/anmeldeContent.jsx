@@ -4,14 +4,21 @@ import React from "react";
 import { H1, P } from "../typography";
 
 //COMPO
-import { MainButton } from "../buttons";
+import { MainButtonNOLink } from "../buttons";
+import { Anmeldung } from "../modalContent";
 
 //ASSETS
 import Pin from "../../assets/pinPink.svg";
 import Phone from "../../assets/phonePink.svg";
 import Mail from "../../assets/mailPink.svg";
 
+import useStore from "../../store/store";
+
 const AnmeldeContent = ({ data }) => {
+    const setShowModal = useStore((state) => state.setShowModal);
+    const setShowOverlay = useStore((state) => state.setShowOverlay);
+    const setModalContent = useStore((state) => state.setModalContent);
+
     return (
         <div className="col-span-12 px-6 lg:px-48 ">
             <H1 klasse="">Anmeldung</H1>
@@ -39,12 +46,18 @@ const AnmeldeContent = ({ data }) => {
                     <a href={`mailto:${data.email}`}></a> {data.email}
                 </P>
             </div>
-            <MainButton
+            <MainButtonNOLink
                 klasse={` max-w-[20rem] mt-8 lg:mt-12 bg-primaryColor border-2 border-primaryColor `}
-                link={"#"}
+                link={""}
+                onClick={() => {
+                    setShowOverlay(true);
+                    setShowModal(true);
+                    setModalContent(<Anmeldung></Anmeldung>);
+                    console.log("ANMELDUNG");
+                }}
             >
                 ONLINE ANMELDUNG
-            </MainButton>
+            </MainButtonNOLink>
         </div>
     );
 };

@@ -50,6 +50,7 @@ function MyApp({ Component, pageProps }) {
         // Function to call when the route changes
         const handleRouteChange = () => {
             // Set the mobile menu state to false on route change
+            setShowModal(false);
             setShowMobileMenu(false);
         };
 

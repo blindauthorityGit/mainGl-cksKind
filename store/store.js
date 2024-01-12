@@ -12,7 +12,15 @@ const useStore = create((set) => ({
     setShowMobileModal: (show) => set({ showMobileModal: show }),
 
     showModal: false,
-    setShowModal: (show) => set({ showModal: show }),
+    setShowModal: (show) =>
+        set((state) => {
+            if (!show) {
+                // If the modal is being closed
+                return { showModal: show, modalColor: "#ffffff" }; // Reset modalColor to white
+            } else {
+                return { showModal: show }; // Just open the modal without changing the color
+            }
+        }),
 
     isEventsModal: false,
     setIsEventsModal: (show) => set({ isEventsModal: show }),

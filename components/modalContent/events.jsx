@@ -26,6 +26,9 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 //COMPONENTS
 import EventsSlide from "./eventsSlide";
 
+//STORE
+import useStore from "../../store/store"; // Adjust the path to your store file
+
 //ImageBuilder
 import myConfiguredSanityClient from "../../client";
 
@@ -36,7 +39,16 @@ import imageUrlBuilder from "@sanity/image-url";
 const Events = ({ events, currentIndex }) => {
     const [swiper, setSwiper] = useState(null);
 
-    const handleNav = () => {
+    const modalColor = useStore((state) => state.showModal);
+    const setModalColor = useStore((state) => state.setModalColor);
+
+    const handleNav = (e) => {
+        if (swiper) {
+            const currentEvent = events[swiper.activeIndex];
+            if (currentEvent) {
+                setModalColor(currentEvent.kategorie.farbe.value);
+            }
+        }
         // if (swiper && swiper.activeIndex === 0) {
         //     setIsLastSlideLeft(true);
         // } else if (swiper.activeIndex === swiper.slides.length - 1) {
@@ -48,7 +60,7 @@ const Events = ({ events, currentIndex }) => {
     };
 
     return (
-        <div className={` col-span-12 px-8 md:px-8 lg:px-24 pt-6 lg:pt-0 relative `}>
+        <div className={` col-span-12 md:px-8 lg:px-24  lg:pt-0 relative `}>
             <div className="w-full z-50 ">
                 <div
                     onClick={() => {
@@ -78,15 +90,18 @@ const Events = ({ events, currentIndex }) => {
                         setSwiper(swiper);
                     }
                 }}
-                onSlideChange={() => {
-                    handleNav();
+                onSlideChange={(e) => {
+                    handleNav(e);
                 }}
                 // Add other Swiper parameters as needed
             >
                 {events.map((event, index) => (
                     <SwiperSlide key={index}>
                         {/* Render your event data here */}
-                        <EventsSlide data={event}></EventsSlide>
+                        <EventsSlide
+                            data={event}
+                            isWorkshop={event.kategorie.name == "Beratung & Workshops"}
+                        ></EventsSlide>
                         {/* Add more event details as needed */}
                     </SwiperSlide>
                 ))}

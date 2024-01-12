@@ -102,8 +102,14 @@ export const getStaticProps = async (context) => {
     const resEvents = await client.fetch(`
 *[_type == "event"]{
     ...,
-    kategorie->{...}
-  }
+        kategorie->{...},
+        eventDetails {
+            ...,
+            partner->{...},
+            location->{...},
+        }
+      }
+  
 `);
 
     const dataHome = await resData;

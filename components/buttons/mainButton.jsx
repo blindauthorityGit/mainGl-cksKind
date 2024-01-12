@@ -18,6 +18,7 @@ const MainButton = (props) => {
     return (
         <Link href={props.link} className="md:w-full" passHref>
             <motion.button
+                onClick={props.onClick}
                 type={props.type}
                 whileHover="hover"
                 animate="rest"
