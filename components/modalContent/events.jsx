@@ -60,31 +60,33 @@ const Events = ({ events, currentIndex }) => {
     };
 
     return (
-        <div className={` col-span-12 md:px-8 lg:px-24  lg:pt-0 relative `}>
+        <div className={` col-span-12  0 relative `}>
             <div className="w-full z-50 ">
                 <div
                     onClick={() => {
                         swiper.slidePrev();
                     }}
-                    className="absolute top-[30%] left-[16px]  transform -translate-x-1/2 z-30 "
+                    className="absolute top-[30%] left-[-16px]  transform -translate-x-1/2 z-40 "
                 >
-                    <button className=" rounded-full h-8  w-8 flex items-center justify-center">
-                        <FaChevronLeft className="text-textColor lg:text-5xl" />
+                    <button className=" rounded-full h-8 xl:w-12 xl:h-12 bg-white w-8 flex items-center justify-center">
+                        <FaChevronLeft className="text-textColor xl:text-4xl" />
                     </button>
                 </div>
                 <div
                     onClick={() => {
                         swiper.slideNext();
                     }}
-                    className="absolute  top-[30%] right-[-16px] transform -translate-x-1/2  z-30"
+                    className="absolute  top-[30%] right-[-32px]   z-30"
                 >
-                    <button className=" rounded-full h-8 w-8 flex items-center justify-center">
-                        <FaChevronRight className="text-textColor lg:text-5xl" />
+                    <button className=" rounded-full h-8 w-8 xl:w-12 xl:h-12 flex items-center justify-center bg-white">
+                        <FaChevronRight className="text-textColor xl:text-4xl" />
                     </button>
                 </div>
             </div>
             <Swiper
                 initialSlide={currentIndex}
+                slidesPerView={1}
+                spaceBetween={"15px"}
                 onSwiper={(swiper) => {
                     {
                         setSwiper(swiper);
@@ -92,19 +94,34 @@ const Events = ({ events, currentIndex }) => {
                 }}
                 onSlideChange={(e) => {
                     handleNav(e);
+                    console.log(e);
+                }}
+                breakpoints={{
+                    // when window width is >= 640px
+
+                    1600: {
+                        // slidesPerView: 2,
+                        // navigation: false,
+                        // spaceBetween: 10,
+                    },
                 }}
                 // Add other Swiper parameters as needed
             >
-                {events.map((event, index) => (
-                    <SwiperSlide key={index}>
-                        {/* Render your event data here */}
-                        <EventsSlide
-                            data={event}
-                            isWorkshop={event.kategorie.name == "Beratung & Workshops"}
-                        ></EventsSlide>
-                        {/* Add more event details as needed */}
-                    </SwiperSlide>
-                ))}
+                {events.map(
+                    (event, index) => (
+                        console.log(event.kategorie.name, event.kategorie.name == "Beratung & Workshops"),
+                        (
+                            <SwiperSlide key={index}>
+                                {/* Render your event data here */}
+                                <EventsSlide
+                                    data={event}
+                                    isWorkshop={event.kategorie.name == "Beratung & Workshops"}
+                                ></EventsSlide>
+                                {/* Add more event details as needed */}
+                            </SwiperSlide>
+                        )
+                    )
+                )}
             </Swiper>
         </div>
     );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //TYPO
 import { H1, P } from "../typography";
@@ -14,15 +14,19 @@ import Mail from "../../assets/mailPink.svg";
 
 import useStore from "../../store/store";
 
-const AnmeldeContent = ({ data }) => {
+const AnmeldeContent = ({ data, events }) => {
     const setShowModal = useStore((state) => state.setShowModal);
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setModalContent = useStore((state) => state.setModalContent);
 
+    useEffect(() => {
+        console.log(data, events);
+    }, [data]);
+
     return (
         <div className="col-span-12 px-6 lg:px-48 ">
             <H1 klasse="">Anmeldung</H1>
-            <div className="2xl::w-2/4 pt-3 lg:mt-6">
+            <div className="2xl:w-2/4 pt-3 lg:mt-6">
                 <P>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo dolores sed temporibus, deleniti
                     accusamus nihil culpa a pariatur rerum doloremque ab natus, itaque fugiat, eius facilis ducimus
@@ -52,7 +56,7 @@ const AnmeldeContent = ({ data }) => {
                 onClick={() => {
                     setShowOverlay(true);
                     setShowModal(true);
-                    setModalContent(<Anmeldung></Anmeldung>);
+                    setModalContent(<Anmeldung data={data} events={events}></Anmeldung>);
                     console.log("ANMELDUNG");
                 }}
             >

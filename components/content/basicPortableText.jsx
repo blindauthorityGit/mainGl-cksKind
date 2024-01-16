@@ -42,7 +42,11 @@ const myPortableTextComponents = {
     },
     block: {
         // Styling for the "normal" paragraphs
-        normal: ({ children }) => <P className="lg:text-base lg:leading-7 font-sans">{children}</P>,
+        normal: ({ children, isWorkshop }) => (
+            <P klasse={`RUMPIDUMPO lg:text-base lg:leading-7 font-sans ${isWorkshop ? "!text-white" : "NADADA"}`}>
+                {children}
+            </P>
+        ),
         // Styling for the "h1" headings
         h1: ({ children }) => <H1 className="text-4xl font-bold my-4">{children}</H1>,
         h2: ({ children, isWorkshop }) => <H2 klasse={`${isWorkshop ? "text-white" : "null"}`}>{children}</H2>,
@@ -53,7 +57,7 @@ const myPortableTextComponents = {
     },
     blockStyles: {
         // Styling for the "normal" paragraphs
-        normal: ({ children }) => <P className="lg:text-base lg:leading-7 font-sans">{children}</P>,
+        normal: ({ children }) => <P klasse="lg:text-base  lg:leading-7 font-sans">{children}</P>,
         // Styling for the "h1" headings
         h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
         p: ({ children }) => <p className="font-sans">{children}</p>,

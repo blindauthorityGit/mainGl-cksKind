@@ -20,8 +20,8 @@ module.exports = {
                 md: "680px",
                 lg: "840px",
                 xl: "1080px",
-                "2xl": "1536px",
-                "3xl": "1936px", // Adjust container width for 2880px
+                "2xl": "1236px",
+                "3xl": "1436px", // Adjust container width for 2880px
             },
         },
         extend: {

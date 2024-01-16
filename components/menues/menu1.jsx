@@ -198,7 +198,7 @@ const Menu1 = (props) => {
                                     >
                                         <Link
                                             href={`/${e.slug}`}
-                                            className="flex items-end font-sans font-semibold text-textColor uppercase text-sm xl:text-xs 2xl:text-sm"
+                                            className="flex items-end font-sans font-semibold text-textColor uppercase text-sm xl:text-xs 2xl:text-xs"
                                         >
                                             {e.title}{" "}
                                             {e.subMenu ? (

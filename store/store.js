@@ -28,6 +28,10 @@ const useStore = create((set) => ({
     modalColor: "#ffffff",
     setModalColor: (show) => set({ modalColor: show }),
 
+    formData: {},
+    setFormData: (data) => set({ formData: data }),
+    updateFormData: (newData) => set((state) => ({ formData: { ...state.formData, ...newData } })),
+
     openModal: (x, y) => set({ isModalOpen: true, modalPosition: { x, y } }),
     closeModal: () => set({ isModalOpen: false }),
     setModalPosition: (x, y) => set({ modalPosition: { x, y } }),

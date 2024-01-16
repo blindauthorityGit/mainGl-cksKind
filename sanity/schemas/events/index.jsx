@@ -126,6 +126,13 @@ export default {
       description: 'Der Inhalt der Veranstaltung (Text und Bilder)',
     },
     {
+      name: 'description',
+      title: 'Kurzbeschreibung',
+      type: 'text',
+
+      description: 'Der Inhalt der Veranstaltung (Text und Bilder, max 80 Zeichen)',
+    },
+    {
       name: 'galerie',
       title: 'Galerie',
       type: 'array',

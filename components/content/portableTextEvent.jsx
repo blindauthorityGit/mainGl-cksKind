@@ -42,12 +42,14 @@ const myPortableTextComponents = (isWorkshop) => ({
     },
     block: {
         // Styling for the "normal" paragraphs
-        normal: ({ children }) => <P klasse="font-sans">{children}</P>,
+        normal: ({ children }) => <P klasse={`font-sans ${isWorkshop ? "!text-white" : "NADADA"}`}>{children}</P>,
         // Styling for the "h1" headings
         h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
         h2: ({ children }) => <H2 klasse={`${isWorkshop ? "!text-white" : "null"}`}>{children}</H2>,
         h3: ({ children }) => <H3 klasse={`!mb-4 !mt-10 ${isWorkshop ? "!text-white" : "null"}`}>{children}</H3>,
-        p: ({ children }) => <P klasse="font-sans">{children}</P>,
+        p: ({ children, isWorkshop }) => (
+            <P klasse={`font-sans ${isWorkshop ? "!text-white" : "NADADA"}`}>{children}</P>
+        ),
 
         // Add more styles as needed
     },

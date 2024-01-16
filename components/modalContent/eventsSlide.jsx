@@ -35,12 +35,9 @@ import imageUrlBuilder from "@sanity/image-url";
 //ASETS
 // import Sackerl from "../../assets/SVG/sackl.svg";
 
-const EventsSlide = ({ data }) => {
-    let isWorkshop = false;
-
+const EventsSlide = ({ data, isWorkshop }) => {
     useEffect(() => {
-        console.log(data.kategorie.name, isWorkshop);
-        isWorkshop = data.kategorie.name == "Beratung & Workshops";
+        console.log(data.description, data);
     }, [data]);
 
     return (
@@ -50,9 +47,9 @@ const EventsSlide = ({ data }) => {
                 mobileSrc={urlFor(data.image).url()}
                 alt="Cover Background"
                 // style={{ aspectRatio: isEvent ? "3/2" : "1642/650" }}
-                className={`w-full col-span-12 z-20 relative rounded-[40px] overflow-hidden aspect-[4/2] xl:aspect-[3/2]`}
+                className={`w-full col-span-12 xl:col-span-6 z-20 relative rounded-[40px] overflow-hidden aspect-[5/2] xl:aspect-[3/3] 2xl:aspect-[3/4]`}
             />
-            <div className="col-span-12 pt-3 px-4">
+            <div className="col-span-12 xl:col-span-6 pt-3 px-4 relative xl:flex xl:flex-col xl:justify-center">
                 <H3 klasse={`${data.kategorie.name == "Beratung & Workshops" ? "!text-white" : "text-textColor"}`}>
                     {data.headline}
                 </H3>
@@ -63,8 +60,15 @@ const EventsSlide = ({ data }) => {
                 >
                     {formatStringToDate(data.date)}
                 </H4>
+                <P
+                    klasse={`text-xs ${
+                        data.kategorie.name == "Beratung & Workshops" ? "!text-white" : "text-textColor"
+                    }`}
+                >
+                    {data.description}
+                </P>
                 <div className={`wrapper mb-6 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
-                    <div className="flex w-full items-center">
+                    <div className="flex w-full items-center mt-6">
                         <div className="image">
                             <Link href={`/partner/${data.eventDetails.partner.slug.current}`}>
                                 <CoverImage
@@ -86,10 +90,8 @@ const EventsSlide = ({ data }) => {
                     </div>
                 </div>
                 <MainButton
-                    onClick={(e) => {
-                        console.log("BUIBUBUBUBUBUBUBUB");
-                    }}
-                    klasse="col-span-12 bg-primaryColor"
+                    onClick={(e) => {}}
+                    klasse="col-span-12 bg-primaryColor xl:mt-12"
                     link={`/event/${data.slug.current}`}
                 >
                     Mehr

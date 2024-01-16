@@ -9,7 +9,7 @@ import urlFor from "../../functions/urlFor";
 import { H2, H3, H4, P } from "../typography";
 
 import { MainButton } from "../buttons";
-import { Form1 } from "../contactForm";
+import { AnmeldeForm } from "../contactForm";
 
 // SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -36,16 +36,18 @@ import imageUrlBuilder from "@sanity/image-url";
 //ASETS
 // import Sackerl from "../../assets/SVG/sackl.svg";
 
-const Anmeldung = ({ data }) => {
+const Anmeldung = ({ data, events }) => {
     let isWorkshop = false;
 
-    useEffect(() => {}, [data]);
+    useEffect(() => {
+        console.log(events, data);
+    }, [events]);
 
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8">
             <div className="col-span-12 ">
                 <H3 klasse={``}>Anmeldung</H3>
-                <Form1></Form1>
+                <AnmeldeForm events={events} data={events.datum}></AnmeldeForm>
                 <MainButton
                     onClick={(e) => {
                         console.log("BUIBUBUBUBUBUBUBUB");

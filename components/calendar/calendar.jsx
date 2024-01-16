@@ -58,6 +58,7 @@ const Calendar = ({ data }) => {
     };
 
     useEffect(() => {
+        console.log(data);
         //CHECK CURRENT DATE
         const currentDate = new Date();
         // FLATTEN ARRAY TO SINGLE DATES AND FILTER OUT OUTDATED EVENTS
@@ -139,13 +140,15 @@ const Calendar = ({ data }) => {
                 {daysInMonth.map((day, i) => {
                     const dateKey = format(day, "yyyy-MM-dd");
                     const todaysEvents = eventsByDate[dateKey] || [];
+                    const hasEvents = todaysEvents.length > 0;
+
                     return (
                         <div
                             key={i}
-                            className={` p-2 text-center 2xl:p-4  rounded-xl bg-slate-50 ${
-                                isToday(day) ? " font-bold !bg-primaryColor-100" : null
-                            }`}
-                            onClick={() => handleDayClick(day)}
+                            className={`p-2 text-center 2xl:p-4 rounded-xl bg-slate-50 ${
+                                isToday(day) ? " font-bold !bg-primaryColor-100" : ""
+                            } ${hasEvents ? "cursor-pointer hover:bg-slate-100" : ""}`}
+                            onClick={() => hasEvents && handleDayClick(day)}
                         >
                             {format(day, "d")}
                             {todaysEvents.map((e, i) => {
