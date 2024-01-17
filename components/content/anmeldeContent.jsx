@@ -6,6 +6,7 @@ import { H1, P } from "../typography";
 //COMPO
 import { MainButtonNOLink } from "../buttons";
 import { Anmeldung } from "../modalContent";
+import StepOne from "../modalContent/steps/stepOne";
 
 //ASSETS
 import Pin from "../../assets/pinPink.svg";
@@ -56,7 +57,7 @@ const AnmeldeContent = ({ data, events }) => {
                 onClick={() => {
                     setShowOverlay(true);
                     setShowModal(true);
-                    setModalContent(<Anmeldung data={data} events={events}></Anmeldung>);
+                    setModalContent(<StepOne data={data} events={events}></StepOne>);
                     console.log("ANMELDUNG");
                 }}
             >

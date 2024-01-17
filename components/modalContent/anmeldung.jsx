@@ -39,6 +39,9 @@ import imageUrlBuilder from "@sanity/image-url";
 const Anmeldung = ({ data, events }) => {
     let isWorkshop = false;
 
+    const intro =
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus ut perferendis ratione, fugiat reminventore praesentium nulla quia ex iusto qui voluptas laborum aspernatur eveniet non, sapiente enimlaboriosam totam.";
+
     useEffect(() => {
         console.log(events, data);
     }, [events]);
@@ -47,16 +50,8 @@ const Anmeldung = ({ data, events }) => {
         <div className="container mx-auto grid grid-cols-12 sm:gap-8">
             <div className="col-span-12 ">
                 <H3 klasse={``}>Anmeldung</H3>
-                <AnmeldeForm events={events} data={events.datum}></AnmeldeForm>
-                <MainButton
-                    onClick={(e) => {
-                        console.log("BUIBUBUBUBUBUBUBUB");
-                    }}
-                    klasse="col-span-12 bg-primaryColor"
-                    link={`#`}
-                >
-                    Mehr
-                </MainButton>
+
+                <AnmeldeForm intro={intro} events={events} data={events.datum}></AnmeldeForm>
             </div>
         </div>
     );

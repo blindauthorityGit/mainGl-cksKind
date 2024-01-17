@@ -26,7 +26,7 @@ import useStore from "../../store/store"; // Adjust the path to your store file
 
 const WEEKDAYS = ["So", "Mo", "Die", "Mi", "Do", "Fr", "Sa"];
 
-const Calendar = ({ data }) => {
+const Calendar = ({ data, isSmallCalendar }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
 
     const firstDayOfMonth = startOfMonth(currentDate);
@@ -116,7 +116,11 @@ const Calendar = ({ data }) => {
     };
 
     return (
-        <div className="calendar col-span-12 mt-24 lg:mt-36 bg-white p-4 lg:p-12 rounded-xl text-textColor font-sans">
+        <div
+            className={`calendar col-span-12 ${
+                isSmallCalendar ? "lg:px-12 pt-0 pb-12" : "mt-24 lg:mt-36 lg:p-12"
+            } bg-white p-4  rounded-xl text-textColor font-sans`}
+        >
             <div className="flex justify-between items-center mb-4">
                 <button className="flex items-center text-xs lg:text-base" onClick={prevMonth}>
                     <BsChevronLeft />
@@ -148,7 +152,7 @@ const Calendar = ({ data }) => {
                             className={`p-2 text-center 2xl:p-4 rounded-xl bg-slate-50 ${
                                 isToday(day) ? " font-bold !bg-primaryColor-100" : ""
                             } ${hasEvents ? "cursor-pointer hover:bg-slate-100" : ""}`}
-                            onClick={() => hasEvents && handleDayClick(day)}
+                            onClick={() => hasEvents && !isSmallCalendar && handleDayClick(day)}
                         >
                             {format(day, "d")}
                             {todaysEvents.map((e, i) => {
@@ -168,7 +172,13 @@ const Calendar = ({ data }) => {
                                             // console.log(data);
                                         }}
                                     >
-                                        <div className="hidden lg:block xl:text-xs">{e.headline}</div>
+                                        <div
+                                            className={`${
+                                                isSmallCalendar ? "lg:hidden" : null
+                                            } hidden lg:block xl:text-xs`}
+                                        >
+                                            {e.headline}
+                                        </div>
                                         {/* {showTooltip ? <ToolTip data={tooltipData}></ToolTip> : null} */}
                                     </div>
                                 );

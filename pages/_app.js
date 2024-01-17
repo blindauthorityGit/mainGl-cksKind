@@ -128,6 +128,7 @@ function MyApp({ Component, pageProps }) {
             )}
             <ParallaxProvider>
                 <Component {...pageProps} />
+
                 <Full></Full>
                 <Sub></Sub>
             </ParallaxProvider>
