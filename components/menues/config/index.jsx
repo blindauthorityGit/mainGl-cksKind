@@ -8,16 +8,16 @@ const menuItems = [
         subMenuItems: [
             {
                 title: "Schwangerschaft",
-                slug: "/kurse/schwangerschaft",
+                slug: "kurse/schwangerschaft",
             },
             {
                 title: "Beratung & Workshops",
-                slug: "/kurse/beratung-&-workshops",
+                slug: "kurse/beratung-&-workshops",
             },
 
             {
                 title: "Baby & Kleinkind",
-                slug: "/kurse/baby-&-kleinkind",
+                slug: "kurse/baby-&-kleinkind",
             },
         ],
     },

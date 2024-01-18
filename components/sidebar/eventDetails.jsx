@@ -25,16 +25,20 @@ const Details = ({ data, isWorkshop }) => {
             </div>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse="!text-primaryColor mb-4">Preis</H4>
-                <BasicPortableText value={data.eventDetails.preis} />
+                <P>{data.eventDetails.preis}</P>
             </div>
-            <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
-                <H4 klasse="!text-primaryColor mb-4">Teilnehmeranzahl</H4>
-                <BasicPortableText value={data.eventDetails.teilnehmeranzahl} />
-            </div>
-            <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
-                <H4 klasse="!text-primaryColor mb-4">Altersgruppe</H4>
-                <BasicPortableText value={data.eventDetails.altersgruppe} />
-            </div>
+            {data.eventDetails.teilnehmeranzahl && (
+                <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
+                    <H4 klasse="!text-primaryColor mb-4">Teilnehmeranzahl</H4>
+                    <BasicPortableText value={data.eventDetails.teilnehmeranzahl} />
+                </div>
+            )}
+            {data.eventDetails.altersgruppe && (
+                <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
+                    <H4 klasse="!text-primaryColor mb-4">Altersgruppe</H4>
+                    <BasicPortableText value={data.eventDetails.altersgruppe} />
+                </div>
+            )}
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse={`mb-4  ${isWorkshop ? "!text-white" : "text-textColor"}`}>Kurs Leitung</H4>
                 <div className="flex w-full items-center">

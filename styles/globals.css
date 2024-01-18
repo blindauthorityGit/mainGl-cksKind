@@ -83,6 +83,11 @@ a {
   overflow-x: hidden
 }
 
+.linker > a {
+  font-weight: bold;
+  color: #df3288;
+}
+
 .mobile-bar-animation {
   animation: slideInFromBottom 0.5s ease-out forwards;
   position: fixed;

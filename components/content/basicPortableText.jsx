@@ -63,6 +63,27 @@ const myPortableTextComponents = {
         p: ({ children }) => <p className="font-sans">{children}</p>,
         // Add more styles as needed
     },
+    list: {
+        // Ex. 1: customizing common list types
+        bullet: ({ children }) => (
+            <ul className="font-sans lg:text-base font-semibold mb-8 pl-10 text-textColor">{children}</ul>
+        ),
+        number: ({ children }) => <ol className="mt-lg">{children}</ol>,
+
+        // Ex. 2: rendering custom lists
+        checkmarks: ({ children }) => <ol className="m-auto text-lg">{children}</ol>,
+    },
+    listItem: {
+        // Ex. 1: customizing common list types
+        bullet: ({ children }) => (
+            <li className="text-sm mb-2" style={{ listStyleType: "disc" }}>
+                {children}
+            </li>
+        ),
+
+        // Ex. 2: rendering custom list items
+        checkmarks: ({ children }) => <li>✅ {children}</li>,
+    },
 };
 
 const BasicPortableText = ({ value, data, isWorkshop }) => {

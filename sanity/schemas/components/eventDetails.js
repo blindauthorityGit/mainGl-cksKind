@@ -13,8 +13,7 @@ export default {
     {
       name: 'preis',
       title: 'Price',
-      type: 'array',
-      of: [{type: 'block'}], // Using 'block' for rich text
+      type: 'text',
     },
     {
       name: 'teilnehmeranzahl',

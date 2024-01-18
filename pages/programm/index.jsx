@@ -55,10 +55,14 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                     <H2>Unser Programm</H2>
                     <div className="lg:w-2/4">
                         <P>
-                            Entdecken Sie bei MainGlückskind ein vielfältiges Kursangebot, das die ganze Familie
-                            anspricht. Von kreativen Spielen bis zu bildenden Aktivitäten bieten wir individuelle
-                            Entwicklungsmöglichkeiten für jedes Familienmitglied. Tauchen Sie ein und finden Sie den
-                            perfekten Kurs oder Workshop für Ihr gemeinsames Lern- und Wachstumserlebnis.
+                            Entdecke bei MAIN GLÜCKSKIND vielfältige Angebote rund um das Familienleben.   Hier findest
+                            Du Babykurse wie{" "}
+                            <strong>
+                                PEKiP oder Musikgarten, Stillberatung, Trageberatung, Geburtsvorbereitung mit
+                                HypnoBirthing und Klassische Geburtsvorbereitungskurse, einen  Rückbildungskurs und
+                                Schlafberatung.
+                            </strong>{" "}
+                            Individuelle Coachings für Frauen und regelmäßige Workshops runden das Angebot ab.{" "}
                         </P>
                     </div>
                 </div>

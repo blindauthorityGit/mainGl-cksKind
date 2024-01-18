@@ -62,7 +62,7 @@ const TextImage2 = ({ data, overlap }) => {
                 <div ref={hRef} className="">
                     <H2 klasse="">{data.headline}</H2>
                 </div>
-                {hRef.current && (
+                {/* {hRef.current && (
                     <hr
                         style={{
                             top:
@@ -73,7 +73,7 @@ const TextImage2 = ({ data, overlap }) => {
                         }}
                         className="left-0 top-2/4 xl:w-[400px] 2xl:w-[650px]  h-1 border-textColor absolute"
                     />
-                )}
+                )} */}
                 <P>{data.text}</P>
             </div>
             <div

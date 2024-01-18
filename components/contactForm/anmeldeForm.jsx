@@ -39,10 +39,10 @@ const AnmeldeForm = ({ data, children, events, intro }) => {
         e.preventDefault();
         const result = await trigger(); // Triggers validation for all fields
         updateFormData({ kurs: events.headline });
-        console.log(events, result, formData);
+        updateFormData({ sum: events.headline });
         if (result) {
             // If form is valid
-            setModalContent(<Step2></Step2>);
+            setModalContent(<Step2 data={data} events={events}></Step2>);
             // Here, you can also handle saving the form data to state or context
         }
     };

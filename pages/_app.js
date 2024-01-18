@@ -94,7 +94,7 @@ function MyApp({ Component, pageProps }) {
                     console.log("IS CLICKED");
                     setIsOpen(true);
                 }}
-            ></Menu1>{" "}
+            ></Menu1>
             {showModal ? (
                 <Modal
                     background={modalColor}

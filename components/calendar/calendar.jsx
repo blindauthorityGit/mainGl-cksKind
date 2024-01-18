@@ -58,7 +58,6 @@ const Calendar = ({ data, isSmallCalendar }) => {
     };
 
     useEffect(() => {
-        console.log(data);
         //CHECK CURRENT DATE
         const currentDate = new Date();
         // FLATTEN ARRAY TO SINGLE DATES AND FILTER OUT OUTDATED EVENTS
@@ -72,7 +71,6 @@ const Calendar = ({ data, isSmallCalendar }) => {
         const sortedEvents = flattenedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         setFlatData(sortedEvents);
-        console.log("SYORTED EVENTS:", sortedEvents);
     }, [data]);
 
     // Preprocess events data to create a map for efficient lookup
@@ -94,7 +92,6 @@ const Calendar = ({ data, isSmallCalendar }) => {
                 acc[dateKey] = [];
             }
             acc[dateKey].push(event);
-            console.log(acc);
             return acc;
         }, {});
     }, [data]);

@@ -47,7 +47,7 @@ export default function Partner({ data, dataKontakt, dataEvent }) {
                             <BasicPortableText value={data.text.content} data={data}></BasicPortableText>
                         </div>
                         <Divider></Divider>
-                        <EventSlider data={filteredEvents}></EventSlider>
+                        {filteredEvents.length > 0 && <EventSlider data={filteredEvents}></EventSlider>}
 
                         <Divider></Divider>
                         <div className="block lg:hidden">
