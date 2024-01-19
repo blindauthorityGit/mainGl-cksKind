@@ -71,7 +71,7 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
                     className="w-full z-20 relative rounded-[40px] overflow-hidden border-[10px] lg:border-[12px] mb-3"
                 />
             </Link>
-            <div className="pl-2">
+            <div className="pl-2 hyphens-auto text-balance">
                 <H4 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.headline}</H4>
                 <P klasse={isWorkshop ? "!text-blueColor-100" : null}>{formatStringToDate(data.date)}</P>
             </div>
