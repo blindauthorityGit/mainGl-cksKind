@@ -24,6 +24,11 @@ const AnmeldeContent = ({ data, events }) => {
         console.log(data, events);
     }, [data]);
 
+    const createMarkup = (htmlString) => {
+        return { __html: htmlString };
+    };
+
+
     return (
         <div className="col-span-12 px-6 lg:px-48 ">
             <H1 klasse="">Anmeldung</H1>
@@ -38,8 +43,10 @@ const AnmeldeContent = ({ data, events }) => {
             </div>
             <div className="flex mt-10 space-x-12">
                 <img src={Pin.src} alt="" />
-                <P>{data.adresse}</P>
-            </div>
+                <p
+                        className="text-sm linker text-textColor sm:text-base font-sans font-[500]  xl:leading-relaxed lg:text-base xl:text-sm 2xl:text-base"
+                        dangerouslySetInnerHTML={createMarkup(data.adresse)}
+                    />            </div>
             <div className="flex mt-10 space-x-12">
                 <img src={Phone.src} alt="" />
                 <P>{data.telefon}</P>
