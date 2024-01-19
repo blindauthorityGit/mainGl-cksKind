@@ -30,6 +30,8 @@ class MyDocument extends Document {
                     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;700;800&family=Ultra&display=swap"
                     rel="stylesheet"
                 ></link>
+                <html lang="de" />
+
                 <body>
                     <Main />
                     <NextScript />

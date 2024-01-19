@@ -141,7 +141,7 @@ const EventSlider1 = (props) => {
                     // install Swiper modules
                     modules={[Pagination, Navigation, A11y]}
                     slidesPerView={4}
-                    pagination={{ clickable: true }}
+                    pagination={{ clickable: true, dynamicBullets: true }}
                     onSwiper={(swiper) => {
                         {
                             setSwiper(swiper);
