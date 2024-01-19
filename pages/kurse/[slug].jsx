@@ -42,6 +42,7 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
 
             changeBodyBackgroundColor(data);
         }
+        console.log(data.title == "Beratung & Workshops");
         // FILTER THE PARTNER
     }, [data]);
 

@@ -8,7 +8,7 @@ import urlFor from "../../functions/urlFor";
 //TYPO
 import { H2, P } from "../typography";
 
-const myPortableTextComponents = {
+const myPortableTextComponents = (isWorkshop) => ({
     types: {
         imageGallery: ({ value }) => {
             console.log(value);
@@ -42,8 +42,9 @@ const myPortableTextComponents = {
     },
     block: {
         // Styling for the "normal" paragraphs
-        normal: ({ children }) => <P className="text-base leading-7 font-sans">{children}</P>,
-        // Styling for the "h1" headings
+        normal: ({ children }) => (
+            <P klasse={`text-base  font-sans ${isWorkshop ? "!text-white" : "text-primaryColor-900"}`}>{children}</P>
+        ), // Styling for the "h1" headings
         h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
         h2: ({ children, isWorkshop }) => <H2 klasse={`${isWorkshop ? "text-white" : "null"}`}>{children}</H2>,
         h3: ({ children, isWorkshop }) => <H3 klasse="!mb-4 !mt-10">{children}</H3>,
@@ -53,13 +54,15 @@ const myPortableTextComponents = {
     },
     blockStyles: {
         // Styling for the "normal" paragraphs
-        normal: ({ children }) => <P className="text-base leading-7 font-sans">{children}</P>,
+        normal: ({ children }) => (
+            <P klasse={`text-base  font-sans ${isWorkshop ? "!text-white" : "text-primaryColor-900"}}`}>{children}</P>
+        ),
         // Styling for the "h1" headings
         h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
         p: ({ children }) => <p className="font-sans">{children}</p>,
         // Add more styles as needed
     },
-};
+});
 
 const PortableTextView = ({ blocks, data, isWorkshop }) => {
     const [imageSrc, setImageSrc] = useState("");
@@ -74,7 +77,7 @@ const PortableTextView = ({ blocks, data, isWorkshop }) => {
             <img src={imageSrc} alt="" />
             <H2 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].headline}</H2>
             <P klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].text}</P>
-            <PortableText value={blocks} components={myPortableTextComponents} />
+            <PortableText value={blocks} components={myPortableTextComponents(isWorkshop)} />
         </div>
     );
 };
