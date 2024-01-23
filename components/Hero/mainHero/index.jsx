@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/router";
 
 //COMPONENTS
 import { CoverImage } from "../../images";
-import { MainButton } from "../../buttons";
+import { MainButton, MainButtonNOLink } from "../../buttons";
+import { Raumvermietung } from "../../modalContent";
 
 //TYPO
 import { H1, P } from "../../typography";
@@ -10,23 +12,25 @@ import { H1, P } from "../../typography";
 //FUNCTIONS
 import urlFor from "../../../functions/urlFor";
 
-// AOS
-import AOS from "aos";
-import "aos/dist/aos.css";
-
 //FRAMER
 import { motion } from "framer-motion";
-
-//PARALLAX
-import { Parallax } from "react-scroll-parallax";
 
 //HOOKS
 import { useWindowDimensions } from "../../../hooks/useWindowDimension";
 
-const MainHero = ({ data, bgColor }) => {
+//STORE
+import useStore from "../../../store/store"; // Adjust the path to your store file
+
+const MainHero = ({ data, bgColor, modal, onClick }) => {
     const { width, height } = useWindowDimensions();
+    const router = useRouter();
 
     const [aspectRatio, setAspectRatio] = useState("1/0.75");
+
+    // GLOBAL STATES
+    const setShowOverlay = useStore((state) => state.setShowOverlay);
+    const setShowModal = useStore((state) => state.setShowModal);
+    const setModalContent = useStore((state) => state.setModalContent);
 
     // const [topDistance, setTopDistance]
     useEffect(() => {
@@ -51,18 +55,6 @@ const MainHero = ({ data, bgColor }) => {
         if (heightRef.current) {
             setBGHeightAbsolute(heightRef.current.clientHeight + 140 + "px");
         }
-
-        // if (width > 0) {
-        //     setAspectRatio(width < 480 ? "1/0.9" : "1/0.75");
-        // }
-
-        // // Add event listener
-        // window.addEventListener("resize", handleResize);
-
-        // // Cleanup
-        // return () => {
-        //     window.removeEventListener("resize", handleResize);
-        // };
     }, [heightRef.current, width, aspectRatio]);
 
     useEffect(() => {
@@ -96,16 +88,37 @@ const MainHero = ({ data, bgColor }) => {
                                     className="w-full"
                                     transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.9 + i * 0.2 }}
                                 >
-                                    <MainButton
-                                        klasse={`${
-                                            e.HauptButton
-                                                ? "bg-primaryColor border-2 border-primaryColor"
-                                                : "border-2 border-primaryColor-50"
-                                        }`}
-                                        link={e.link}
-                                    >
-                                        {e.label}
-                                    </MainButton>
+                                    {modal ? (
+                                        <MainButtonNOLink
+                                            klasse={`${
+                                                e.HauptButton
+                                                    ? "bg-primaryColor border-2 border-primaryColor"
+                                                    : "border-2 border-primaryColor-50"
+                                            }`}
+                                            onClick={() => {
+                                                e.HauptButton ? (setShowOverlay(true), setShowModal(true)) : null;
+                                                if (router.pathname === "/raumvermietung") {
+                                                    setModalContent(<Raumvermietung></Raumvermietung>);
+                                                }
+                                                if (router.pathname === "/kindergeburtstag") {
+                                                    setModalContent(<Raumvermietung></Raumvermietung>);
+                                                }
+                                            }}
+                                        >
+                                            {e.label}
+                                        </MainButtonNOLink>
+                                    ) : (
+                                        <MainButton
+                                            klasse={`${
+                                                e.HauptButton
+                                                    ? "bg-primaryColor border-2 border-primaryColor"
+                                                    : "border-2 border-primaryColor-50"
+                                            }`}
+                                            link={e.link}
+                                        >
+                                            {e.label}
+                                        </MainButton>
+                                    )}
                                 </motion.div>
                             );
                         })}
@@ -146,9 +159,29 @@ const MainHero = ({ data, bgColor }) => {
 
                 <div className="col-span-12 wrapper flex space-x-2 mt-6 lg:mt-8 justify-center lg:hidden">
                     {data.buttons.map((e, i) => {
-                        return (
+                        console.log(modal);
+                        return modal ? (
+                            <MainButtonNOLink
+                                klasse={`NOINONONO ${
+                                    e.HauptButton
+                                        ? "bg-primaryColor border-2 border-primaryColor"
+                                        : "border-2 border-primaryColor-50"
+                                }`}
+                                onClick={() => {
+                                    e.HauptButton ? (setShowOverlay(true), setShowModal(true)) : null;
+                                    if (router.pathname === "/raumvermietung") {
+                                        setModalContent(<Raumvermietung></Raumvermietung>);
+                                    }
+                                    if (router.pathname === "/kindergeburtstag") {
+                                        setModalContent(<Raumvermietung></Raumvermietung>);
+                                    }
+                                }}
+                            >
+                                {e.label}
+                            </MainButtonNOLink>
+                        ) : (
                             <MainButton
-                                klasse={`${
+                                klasse={`NOINONONO ${
                                     e.HauptButton
                                         ? "bg-primaryColor border-2 border-primaryColor"
                                         : "border-2 border-primaryColor-50"

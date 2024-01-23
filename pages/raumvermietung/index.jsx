@@ -34,7 +34,14 @@ export default function Raumvermietung({ data, dataKontakt }) {
                     <title>Site title</title>
                 </Head>
 
-                <MainHero data={data.components[0]}></MainHero>
+                <MainHero
+                    modal={true}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        console.log(data, "BUBUBU");
+                    }}
+                    data={data.components[0]}
+                ></MainHero>
                 <div className="hidden 2xl:block">
                     <Divider></Divider>
                 </div>

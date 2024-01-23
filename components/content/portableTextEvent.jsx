@@ -6,12 +6,11 @@ import { CoverImage } from "../images";
 import urlFor from "../../functions/urlFor";
 
 //TYPO
-import { H2, H3, P } from "../typography";
+import { H2, H3, H4, P } from "../typography";
 
 const myPortableTextComponents = (isWorkshop) => ({
     types: {
         imageGallery: ({ value }) => {
-            console.log(value);
             return (
                 <div className="grid col-span-12 grid-cols-12 gap-4 my-12 xl:my-24">
                     {value.images.map((e, i) => (
@@ -22,7 +21,6 @@ const myPortableTextComponents = (isWorkshop) => ({
                             alt="Cover Background"
                             style={{ aspectRatio: "1/1" }}
                             onClick={(e) => {
-                                console.log(e.target.srcset);
                                 setImageSrc(urlFor(e).url());
                             }}
                             className={`w-full z-20 relative rounded-[40px] overflow-hidden col-span-6  `}
@@ -47,6 +45,7 @@ const myPortableTextComponents = (isWorkshop) => ({
         h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
         h2: ({ children }) => <H2 klasse={`${isWorkshop ? "!text-white" : "null"}`}>{children}</H2>,
         h3: ({ children }) => <H3 klasse={`!mb-4 !mt-10 ${isWorkshop ? "!text-white" : "null"}`}>{children}</H3>,
+        h4: ({ children }) => <H4 klasse={`!mb-4 !mt-10 ${isWorkshop ? "!text-white" : "null"}`}>{children}</H4>,
         p: ({ children, isWorkshop }) => (
             <P klasse={`font-sans ${isWorkshop ? "!text-white" : "NADADA"}`}>{children}</P>
         ),
@@ -77,7 +76,6 @@ const myPortableTextComponents = (isWorkshop) => ({
 const PortableTextEvent = ({ blocks, data, isWorkshop }) => {
     const [imageSrc, setImageSrc] = useState("");
 
-    console.log(isWorkshop);
     return (
         <div
             className={`col-span-8 richText xl:ml-8 2xl:ml-28 lg:pr-20 pt-8 xl:pt-16 font-sans text-xl font-medium leading-relaxed ${

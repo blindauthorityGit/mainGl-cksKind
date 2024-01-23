@@ -70,16 +70,27 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                         {dataSpeisekarte[0].categories[0].items.map((e, i) => {
                             return <ListItem data={e}></ListItem>;
                         })}
+
+                        <H3 klasse="!text-white mt-12">{dataSpeisekarte[0].categories[1].title}</H3>
+                        <hr className="mb-10" />
+                        {dataSpeisekarte[0].categories[1].items.map((e, i) => {
+                            return <ListItem data={e}></ListItem>;
+                        })}
                         <H3 klasse="!text-white mt-12">{dataSpeisekarte[0].categories[2].title}</H3>
                         <hr className="mb-10" />
                         {dataSpeisekarte[0].categories[2].items.map((e, i) => {
                             return <ListItem data={e}></ListItem>;
                         })}
                     </div>
-                    <div className="col-span-12 lg:col-span-6 mt-12 lg:mt-0">
-                        <H3 klasse="!text-white">{dataSpeisekarte[0].categories[1].title}</H3>
+                    <div className="col-span-12 lg:col-span-6  lg:mt-0">
+                        <H3 klasse="!text-white">{dataSpeisekarte[0].categories[3].title}</H3>
                         <hr className="mb-10" />
-                        {dataSpeisekarte[0].categories[1].items.map((e, i) => {
+                        {dataSpeisekarte[0].categories[3].items.map((e, i) => {
+                            return <ListItem data={e}></ListItem>;
+                        })}
+                        <H3 klasse="!text-white mt-12">{dataSpeisekarte[0].categories[4].title}</H3>
+                        <hr className="mb-10" />
+                        {dataSpeisekarte[0].categories[4].items.map((e, i) => {
                             return <ListItem data={e}></ListItem>;
                         })}
                     </div>

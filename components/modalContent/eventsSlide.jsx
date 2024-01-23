@@ -36,9 +36,7 @@ import imageUrlBuilder from "@sanity/image-url";
 // import Sackerl from "../../assets/SVG/sackl.svg";
 
 const EventsSlide = ({ data, isWorkshop }) => {
-    useEffect(() => {
-        console.log(data.description, data);
-    }, [data]);
+    useEffect(() => {}, [data]);
 
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8">

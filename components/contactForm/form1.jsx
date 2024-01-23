@@ -5,7 +5,7 @@ import Error from "./error";
 import axios from "axios";
 import { Rings } from "react-loader-spinner";
 
-import { MainButton } from "../buttons";
+import { MainButton, MainButtonNOLink } from "../buttons";
 
 const Form1 = (props) => {
     const [loading, setLoading] = useState(false);
@@ -23,8 +23,7 @@ const Form1 = (props) => {
         setLoading(true);
         let config = {
             method: "post",
-            // url: `http://localhost:3000/api/contact`,
-            url: `/api/anfrage`,
+            url: `/api/contact`,
             headers: {
                 "Content-Type": "application/json",
             },
@@ -135,7 +134,7 @@ const Form1 = (props) => {
                             className="mr-4 text-primaryColor"
                             type="checkbox"
                         />
-                        <label htmlFor="checkbox" className="text-textColor text-xs sm:text-sm">
+                        <label htmlFor="checkbox" className="text-textColor font-sans text-xs sm:text-sm">
                             Ich erlaube Datenverarbeitung für Kontaktaufnahme laut Datenschutzerklärung.
                         </label>
                         {errors.checkbox && (
@@ -147,7 +146,7 @@ const Form1 = (props) => {
                             <Rings
                                 height="80"
                                 width="80"
-                                color="#b0ad98"
+                                color="#df3288"
                                 radius="6"
                                 wrapperStyle={{}}
                                 wrapperClass=""
@@ -157,14 +156,13 @@ const Form1 = (props) => {
                         </div>
                     ) : (
                         <div className="w-full col-span-12 sm:mb-8">
-                            <MainButton
+                            <MainButtonNOLink
                                 // className="bg-primaryColor-500 text-white mt-6 tracking-widest hover-underline-animation z-20 flex items-center justify-center lg:mt-8 py-2 text-sm sm:text-base sm:py-3 px-6 min-w-[10rem] w-full uppercase rounded-md md:mt-8"
                                 type="submit"
-                                link="#"
-                                klasse="bg-primaryColor border-2 border-primaryColor"
+                                klasse="bg-primaryColor border-2 border-primaryColor mt-4"
                             >
                                 Absenden
-                            </MainButton>
+                            </MainButtonNOLink>
                         </div>
                     )}
                 </form>

@@ -94,7 +94,6 @@ const Events = ({ events, currentIndex }) => {
                 }}
                 onSlideChange={(e) => {
                     handleNav(e);
-                    console.log(e);
                 }}
                 breakpoints={{
                     // when window width is >= 640px
@@ -107,21 +106,16 @@ const Events = ({ events, currentIndex }) => {
                 }}
                 // Add other Swiper parameters as needed
             >
-                {events.map(
-                    (event, index) => (
-                        console.log(event.kategorie.name, event.kategorie.name == "Beratung & Workshops"),
-                        (
-                            <SwiperSlide key={index}>
-                                {/* Render your event data here */}
-                                <EventsSlide
-                                    data={event}
-                                    isWorkshop={event.kategorie.name == "Beratung & Workshops"}
-                                ></EventsSlide>
-                                {/* Add more event details as needed */}
-                            </SwiperSlide>
-                        )
-                    )
-                )}
+                {events.map((event, index) => (
+                    <SwiperSlide key={index}>
+                        {/* Render your event data here */}
+                        <EventsSlide
+                            data={event}
+                            isWorkshop={event.kategorie.name == "Beratung & Workshops"}
+                        ></EventsSlide>
+                        {/* Add more event details as needed */}
+                    </SwiperSlide>
+                ))}
             </Swiper>
         </div>
     );

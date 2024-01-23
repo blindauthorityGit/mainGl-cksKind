@@ -6,3 +6,4 @@ export { default as Events } from "./events";
 export { default as Anmeldung } from "./anmeldung";
 export { default as StepOne } from "./steps/stepOne";
 export { default as StepTwo } from "./steps/stepTwo";
+export { default as Raumvermietung } from "./raumvermietung";
