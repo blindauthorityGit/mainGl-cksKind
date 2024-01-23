@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 //ASSETS
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -82,6 +83,10 @@ function MyApp({ Component, pageProps }) {
 
     return (
         <>
+            <Head>
+                <link rel="icon" href="/favicon.svg" />
+                {/* Other global head tags can also go here */}
+            </Head>
             <Menu1
                 logo={Logo.src}
                 menuItems={menuItems}

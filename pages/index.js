@@ -8,6 +8,7 @@ import MainContainer from "../components/layout/mainContainer";
 import client from "../client";
 
 //COMPS
+import Meta from "../components/SEO";
 import { MainHero } from "../components/Hero";
 import { EventSlider } from "../components/slider";
 import { CardHolder } from "../components/cards";
@@ -32,9 +33,7 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
     return (
         <>
             <MainContainer width="container mx-auto">
-                <Head>
-                    <title>Site title</title>
-                </Head>
+                <Meta data={dataHome.seo}></Meta>
                 <MainHero data={dataHome.components[0]}></MainHero>
                 <Divider></Divider>
 
