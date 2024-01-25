@@ -8,6 +8,7 @@ import client from "../../client";
 
 //COMPS
 import { BasicHero } from "../../components/Hero";
+import Meta from "../../components/SEO";
 import { EventSlider } from "../../components/slider";
 import { PortableTextView } from "../../components/content";
 import { LinkGrid } from "../../components/linkGrid";
@@ -28,10 +29,6 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
     useEffect(() => {
         if (data) {
             const filterName = data.title;
-            // const filteredDataPartner = dataPartner.filter((partner) => {
-            //     // Check if the 'kurse' array exists and has at least one entry matching the desired category
-            //     return partner.kurse && partner.kurse.some((kurs) => kurs.name === filterName);
-            // });
 
             setFilteredDataPartner(
                 dataPartner.filter((partner) => {
@@ -42,23 +39,17 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
 
             changeBodyBackgroundColor(data);
         }
-        console.log(data.title == "Beratung & Workshops");
         // FILTER THE PARTNER
     }, [data]);
 
-    useEffect(() => {
-        console.log(filteredDataPartner);
-        console.log(dataEvents);
-    }, [filteredDataPartner]);
+    useEffect(() => {}, [filteredDataPartner]);
 
     return (
         <>
             {data && dataEvents && dataPartner && dataKontakt ? (
                 <>
                     <MainContainer width="container mx-auto px-4 lg:px-0">
-                        <Head>
-                            <title>Site title</title>
-                        </Head>
+                        <Meta data={data.seo}></Meta>
 
                         <BasicHero data={data.components[0]}></BasicHero>
                         <Divider></Divider>
@@ -110,7 +101,6 @@ export const getStaticPaths = async () => {
     return {
         paths,
         fallback: true,
-        // fallback: process.env.NEXT_DEV === "true" ? false : true,
     };
 };
 

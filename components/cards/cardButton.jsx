@@ -15,7 +15,7 @@ import { H3, H4, P } from "../typography";
 //FUNCTIONS
 import urlFor from "../../functions/urlFor";
 
-const CardButton = ({ data, i }) => {
+const CardButton = ({ data, i, onClick }) => {
     const controls = useAnimation();
     const [ref, inView] = useInView({
         triggerOnce: true,
@@ -45,12 +45,16 @@ const CardButton = ({ data, i }) => {
     return (
         <motion.div
             ref={ref}
-            className={`col-span-12 lg:col-span-4 p-8 text-center rounded-[40px]  ${
+            className={`col-span-12 cursor-pointer hover:opacity-50 lg:col-span-4 p-8 text-center rounded-[40px]  ${
                 data.isMain ? "bg-primaryColor-600" : "bg-[#E9B4C7]"
             }`}
             initial="hidden"
             animate={controls}
             variants={variants}
+            data-id={data.title}
+            onClick={(e) => {
+                onClick(e);
+            }}
         >
             <Link className="text-center flex justify-center" href={`#`}>
                 <CoverImage

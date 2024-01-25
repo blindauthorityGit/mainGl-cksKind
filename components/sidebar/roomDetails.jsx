@@ -54,15 +54,15 @@ const RoomDetails = ({ data, isWorkshop }) => {
                                     className=" w-20 h-20 z-20 relative rounded-[40px] overflow-hidden  mr-4"
                                 />
                             </div>{" "}
-                            <P>{e.name}</P>
+                            <P isHtml htmlContent={e.name}></P>
                         </div>
                     );
                 })}
             </div>
-            <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
+            {/* <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse={`mb-4  ${isWorkshop ? "!text-white" : "text-textColor"}`}>Termine</H4>
                 KALENDER ZEUCH
-            </div>
+            </div> */}
         </>
     );
 };

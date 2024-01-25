@@ -102,34 +102,37 @@ const EventSlider1 = (props) => {
                 isLoaded ? "opacity-100" : "opacity-0"
             } col-span-12 px-8 md:px-8 lg:px-24 pt-6 lg:pt-0 relative ${props.colspan}`}
         >
-            <div className="w-full z-50 ">
-                <div
-                    onClick={() => {
-                        swiper.slidePrev();
-                    }}
-                    className="absolute top-[30%] left-[16px]  transform -translate-x-1/2 z-30 "
-                >
-                    <button
-                        style={{ opacity: isLastSlideLeft ? 0.5 : 1 }}
-                        className=" rounded-full h-8  w-8 flex items-center justify-center"
+            {dataLen && dataLen > 0 ? (
+                <div className="w-full z-50 ">
+                    <div
+                        onClick={() => {
+                            swiper.slidePrev();
+                        }}
+                        className="absolute top-[30%] left-[16px]  transform -translate-x-1/2 z-30 "
                     >
-                        <FaChevronLeft className="text-textColor lg:text-5xl" />
-                    </button>
-                </div>
-                <div
-                    onClick={() => {
-                        swiper.slideNext();
-                    }}
-                    className="absolute  top-[30%] right-[-16px] transform -translate-x-1/2  z-30"
-                >
-                    <button
-                        style={{ opacity: isLastSlideRight ? 0.5 : 1 }}
-                        className=" rounded-full h-8 w-8 flex items-center justify-center"
+                        <button
+                            style={{ opacity: isLastSlideLeft ? 0.5 : 1 }}
+                            className=" rounded-full h-8  w-8 flex items-center justify-center"
+                        >
+                            <FaChevronLeft className="text-textColor lg:text-5xl" />
+                        </button>
+                    </div>
+                    <div
+                        onClick={() => {
+                            swiper.slideNext();
+                        }}
+                        className="absolute  top-[30%] right-[-16px] transform -translate-x-1/2  z-30"
                     >
-                        <FaChevronRight className="text-textColor lg:text-5xl" />
-                    </button>
+                        <button
+                            style={{ opacity: isLastSlideRight ? 0.5 : 1 }}
+                            className=" rounded-full h-8 w-8 flex items-center justify-center"
+                        >
+                            <FaChevronRight className="text-textColor lg:text-5xl" />
+                        </button>
+                    </div>
                 </div>
-            </div>
+            ) : null}
+
             {/* {props.nonstart ? (
                 <h2 className="font-oswald text-4xl lg:text-6xl font-semibold mb-8 lg:mb-12">
                     Weitere Veranstaltungen:

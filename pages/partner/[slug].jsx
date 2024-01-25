@@ -1,6 +1,4 @@
-import Head from "next/head";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import MainContainer from "../../components/layout/mainContainer";
 
 // SANITY
@@ -8,9 +6,9 @@ import client from "../../client";
 
 //COMPS
 import { BasicHero } from "../../components/Hero";
+import Meta from "../../components/SEO";
 import { EventSlider } from "../../components/slider";
-import { PortableTextView, BasicPortableText } from "../../components/content";
-import { LinkGrid } from "../../components/linkGrid";
+import { BasicPortableText } from "../../components/content";
 import { Contact } from "../../components/content";
 
 import Divider from "../../components/layout/divider";
@@ -37,9 +35,7 @@ export default function Partner({ data, dataKontakt, dataEvent }) {
             {data && dataKontakt && filteredEvents ? (
                 <>
                     <MainContainer width="container mx-auto px-4 lg:px-0">
-                        <Head>
-                            <title>Site title</title>
-                        </Head>
+                        <Meta data={data.seo}></Meta>
 
                         <BasicHero data={data}></BasicHero>
                         <Divider></Divider>
@@ -53,13 +49,7 @@ export default function Partner({ data, dataKontakt, dataEvent }) {
                         <div className="block lg:hidden">
                             <Divider></Divider>
                         </div>
-                        {/* {filteredDataPartner && (
-                            <LinkGrid
-                                isWorkshop={data.title == "Beratung & Workshops"}
-                                data={filteredDataPartner}
-                                headline="Unsere Partner"
-                            ></LinkGrid>
-                        )} */}
+
                         <Divider></Divider>
                     </MainContainer>
 

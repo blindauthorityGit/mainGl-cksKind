@@ -21,6 +21,8 @@ import { BigDecal } from "../../components/decorative";
 import { DecorativeDivider } from "../../components/decorative";
 import FullWidthSection from "../../components/layout/fullWidthSection";
 
+import Meta from "../../components/SEO";
+
 //FUNCTIONS
 import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor";
 // ... other imports
@@ -62,9 +64,8 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
             {data && dataKontakt && dataAllEvents && dataAllKategorie ? (
                 <>
                     <MainContainer width="container mx-auto gap-8">
-                        <Head>
-                            <title>Site title</title>
-                        </Head>
+                        <Meta data={data.seo}></Meta>
+
                         <StickyContainer className="grid grid-cols-12 w-full col-span-12">
                             <div className="col-span-12 lg:col-span-8 px-4 md:px-0">
                                 {" "}

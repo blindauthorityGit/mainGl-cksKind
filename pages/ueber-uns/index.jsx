@@ -8,8 +8,9 @@ import client from "../../client";
 
 //COMPS
 import { BasicHero } from "../../components/Hero";
+import Meta from "../../components/SEO";
 import { LinkGrid } from "../../components/linkGrid";
-import { PortableTextView, Contact } from "../../components/content";
+import { PortableTextView, Contact, TextImagePortableText } from "../../components/content";
 import { TextImage2 } from "../../components/content";
 
 import Divider from "../../components/layout/divider";
@@ -24,15 +25,12 @@ import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor
 export default function Ueberuns({ dataAbout, dataPartner, dataKontakt }) {
     useEffect(() => {
         console.log(dataAbout);
-        console.log(dataPartner);
         changeBodyBackgroundColor(dataAbout);
     }, []);
     return (
         <>
             <MainContainer width="container mx-auto px-4 lg:px-0">
-                <Head>
-                    <title>Site title</title>
-                </Head>
+                <Meta data={dataAbout.seo}></Meta>
 
                 <BasicHero data={dataAbout.components[0]}></BasicHero>
                 <Divider></Divider>
@@ -40,8 +38,8 @@ export default function Ueberuns({ dataAbout, dataPartner, dataKontakt }) {
 
                 <Divider></Divider>
                 <Divider></Divider>
-                <TextImage2 data={dataAbout.components[2]}></TextImage2>
-                <TextImage2 data={dataAbout.components[3]}></TextImage2>
+                <TextImagePortableText data={dataAbout.components[2]}></TextImagePortableText>
+                <TextImagePortableText data={dataAbout.components[3]}></TextImagePortableText>
                 {/* <EventSlider data={dataEvents}></EventSlider> */}
 
                 <Divider></Divider>

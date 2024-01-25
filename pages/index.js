@@ -16,7 +16,7 @@ import { ContentCard } from "../components/cards";
 import Divider from "../components/layout/divider";
 import FullWidthSection from "../components/layout/fullWidthSection";
 import { CTAContent } from "../components/content";
-import { TextImage } from "../components/content";
+import { TextImage, TextImagePortableText } from "../components/content";
 import { Contact } from "../components/content";
 import { BigDecal } from "../components/decorative";
 import { DecorativeDivider } from "../components/decorative";
@@ -53,14 +53,14 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
             </FullWidthSectionBGImage>
             <MainContainer width="container mx-auto">
                 <div className="mt-8 lg:mt-0"></div>
-                <TextImage overlap data={dataHome.components[4]}></TextImage>
-                <TextImage data={dataHome.components[5]}></TextImage>
+                <TextImage richText overlap data={dataHome.components[4]}></TextImage>
+                <TextImage richText data={dataHome.components[5]}></TextImage>
             </MainContainer>
             {/* <FullWidthSectionBGImage klasse="lg:mt-[-4rem]" image={dataHome.components[6].image}>
                 <ContentCard data={dataHome.components[6]}></ContentCard>
             </FullWidthSectionBGImage> */}
             <MainContainer width="container mx-auto">
-                <TextImage overlap data={dataHome.components[7]}></TextImage>
+                <TextImage richText overlap data={dataHome.components[7]}></TextImage>
             </MainContainer>
             <Divider></Divider>
 

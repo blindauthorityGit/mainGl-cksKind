@@ -8,3 +8,4 @@ export { default as BasicPortableText } from "./basicPortableText";
 export { default as PortableTextEvent } from "./portableTextEvent";
 export { default as RegularText } from "./regularText";
 export { default as AnmeldeContent } from "./anmeldeContent";
+export { default as TextImagePortableText } from "./textImg3";

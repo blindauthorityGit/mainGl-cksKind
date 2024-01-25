@@ -9,6 +9,7 @@ import client from "../../client";
 
 //COMPS
 import { MainHero } from "../../components/Hero";
+import Meta from "../../components/SEO";
 import { PortableTextEvent } from "../../components/content";
 import { TextImage, Contact } from "../../components/content";
 import { RoomDetails } from "../../components/sidebar";
@@ -23,16 +24,13 @@ import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor
 
 export default function Kindergeburtstag({ data, dataKontakt }) {
     useEffect(() => {
-        console.log(data);
         changeBodyBackgroundColor(data);
     }, []);
 
     return (
         <>
             <MainContainer width="container mx-auto">
-                <Head>
-                    <title>Site title</title>
-                </Head>
+                <Meta data={data.seo}></Meta>
 
                 <MainHero modal bgColor="#E9B4C7" data={data.components[0]}></MainHero>
                 <div className="hidden 2xl:block">
@@ -67,7 +65,7 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
                 <CTAContentButton data={data.components[3]}></CTAContentButton>
             </FullWidthSection>
             <MainContainer width="container mx-auto">
-                <TextImage data={data.components[4]}></TextImage>
+                <TextImage richText data={data.components[4]}></TextImage>
             </MainContainer>
             <DecorativeDivider></DecorativeDivider>
             <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">

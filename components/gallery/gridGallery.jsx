@@ -9,7 +9,7 @@ import urlFor from "../../functions/urlFor";
 // TYPO
 import { H2, H4, P } from "../typography";
 
-const GridGallery = ({ data }) => {
+const GridGallery = ({ data, big }) => {
     useEffect(() => {}, [data]);
 
     return (
@@ -22,8 +22,10 @@ const GridGallery = ({ data }) => {
                             src={urlFor(e).url()}
                             mobileSrc={urlFor(e).url()}
                             alt="Cover Background"
-                            style={{ aspectRatio: "1/1" }}
-                            className={`w-full z-20 relative rounded-[20px] lg:rounded-[40px] overflow-hidden col-span-4 lg:col-span-3 `}
+                            style={{ aspectRatio: big ? "1/1.5" : "1/1" }}
+                            className={`w-full z-20 relative rounded-[20px] lg:rounded-[40px] overflow-hidden col-span-4 ${
+                                big ? "lg:col-span-4" : "lg:col-span-3"
+                            } `}
                         />
                     );
                 })}

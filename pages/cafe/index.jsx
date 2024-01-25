@@ -8,6 +8,7 @@ import client from "../../client";
 
 //COMPS
 import { BasicHero } from "../../components/Hero";
+import Meta from "../../components/SEO";
 import { EventSlider } from "../../components/slider";
 import { PortableTextView, TextImage } from "../../components/content";
 import { ListItem } from "../../components/list";
@@ -20,6 +21,7 @@ import Divider from "../../components/layout/divider";
 
 import { BigDecal } from "../../components/decorative";
 import { DecorativeDivider } from "../../components/decorative";
+import { CafeReservierung } from "../../components/modalContent";
 import FullWidthSection from "../../components/layout/fullWidthSection";
 
 //STORE
@@ -30,6 +32,9 @@ import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor
 
 export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
     const setIsCafe = useStore((state) => state.setIsCafe);
+    const setShowOverlay = useStore((state) => state.setShowOverlay);
+    const setShowModal = useStore((state) => state.setShowModal);
+    const setModalContent = useStore((state) => state.setModalContent);
 
     useEffect(() => {
         setIsCafe(true); // Set isCafe to true when the component mounts
@@ -47,12 +52,22 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
     return (
         <>
             <MainContainer width="container mx-auto px-4 lg:px-0">
-                <Head>
-                    <title>Site title</title>
-                </Head>
+                <Meta data={data.seo}></Meta>
 
                 <BasicHero data={data.components[0]}></BasicHero>
-                <CardButtonHolder data={data.components[1].cardButtons} klasse="mt-[-3rem] z-20"></CardButtonHolder>
+                <CardButtonHolder
+                    onClick={(e) => {
+                        console.log(e.currentTarget);
+                        const theme = e.currentTarget.dataset.id;
+                        if (theme === "Reservierung") {
+                            setShowOverlay(true);
+                            setShowModal(true);
+                            setModalContent(<CafeReservierung />);
+                        }
+                    }}
+                    data={data.components[1].cardButtons}
+                    klasse="mt-[-3rem] z-20"
+                ></CardButtonHolder>
                 <div className="hidden 2xl:block">
                     <Divider></Divider>
                 </div>
@@ -60,6 +75,10 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                 <div className="hidden 2xl:block">
                     <Divider></Divider>
                 </div>
+                <Divider></Divider>
+                <Divider></Divider>
+
+                <GridGallery big data={data.components[7].images}></GridGallery>
                 <Divider></Divider>
             </MainContainer>{" "}
             <FullWidthSection klasse="bg-[#BF567C] px-4 lg:px-0 py-10 2xl:!py-32">
@@ -101,10 +120,10 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
 
                 <Divider></Divider>
                 <Divider></Divider>
-                <TextImage overlap data={data.components[5]}></TextImage>
+                <TextImage richText overlap data={data.components[5]}></TextImage>
                 <Divider></Divider>
                 <Divider></Divider>
-                <TextImage overlap data={data.components[6]}></TextImage>
+                <TextImage richText overlap data={data.components[6]}></TextImage>
             </MainContainer>{" "}
             {/* <Divider></Divider>
                 <EventSlider isWorkshop={data.title == "Beratung & Workshops"} data={dataEvents}></EventSlider>

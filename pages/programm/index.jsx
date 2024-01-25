@@ -8,6 +8,7 @@ import client from "../../client";
 
 //COMPS
 import { BasicHero } from "../../components/Hero";
+import Meta from "../../components/SEO";
 import { LinkGrid } from "../../components/linkGrid";
 import { PortableTextView, Contact, CTAContent } from "../../components/content";
 import { CardHolder } from "../../components/cards";
@@ -31,23 +32,8 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
     return (
         <>
             <MainContainer width="container mx-auto">
-                <Head>
-                    <title>Site title</title>
-                </Head>
+                <Meta data={dataHome.seo}></Meta>
 
-                {/* <div className="w-full col-span-12 grid grid-cols-12">
-                    <div className="col-span-4 mt-48">
-                        <H2>Unser Programm</H2>
-                        <P>
-                            Entdecken Sie bei MainGlückskind ein vielfältiges Kursangebot, das die ganze Familie
-                            anspricht. Von kreativen Spielen bis zu bildenden Aktivitäten bieten wir individuelle
-                            Entwicklungsmöglichkeiten für jedes Familienmitglied. Tauchen Sie ein und finden Sie den
-                            perfekten Kurs oder Workshop für Ihr gemeinsames Lern- und Wachstumserlebnis.
-                        </P>
-                    </div>
-                    <div className="col-span-8 grid grid-cols-12">
-                    </div>
-                </div> */}
                 <Calendar data={dataEvents}></Calendar>
 
                 <Divider></Divider>
@@ -66,6 +52,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                         </P>
                     </div>
                 </div>
+                <Divider></Divider>
 
                 <LinkGrid isEvent data={dataEvents}></LinkGrid>
             </MainContainer>

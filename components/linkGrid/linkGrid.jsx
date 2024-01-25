@@ -76,7 +76,7 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
                 <div className="col-span-12 flex justify-center mt-4">
                     <MainButtonNOLink
                         onClick={loadMoreItems}
-                        klasse="mt-4 px-4 py-2 text-white bg-textColor max-w-[12rem] hover:bg-primaryColor"
+                        klasse="mt-4 px-4  py-2 text-white bg-textColor max-w-[12rem] hover:bg-primaryColor"
                     >
                         Mehr laden
                     </MainButtonNOLink>

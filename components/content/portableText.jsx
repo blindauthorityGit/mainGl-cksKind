@@ -6,7 +6,7 @@ import { CoverImage } from "../images";
 import urlFor from "../../functions/urlFor";
 
 //TYPO
-import { H2, P } from "../typography";
+import { H2, P, H4 } from "../typography";
 
 const myPortableTextComponents = (isWorkshop) => ({
     types: {
@@ -76,7 +76,8 @@ const PortableTextView = ({ blocks, data, isWorkshop }) => {
         >
             <img src={imageSrc} alt="" />
             <H2 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].headline}</H2>
-            <P klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].text}</P>
+            <H4 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].text}</H4>
+            <br />
             <PortableText value={blocks} components={myPortableTextComponents(isWorkshop)} />
         </div>
     );

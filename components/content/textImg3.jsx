@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 //TYPO
 import { H2, P } from "../typography";
@@ -15,12 +15,14 @@ import urlFor from "../../functions/urlFor";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const TextImage = ({ data, overlap, richText }) => {
+const TextImagePortableText = ({ data, overlap }) => {
     const controls = useAnimation();
     const [ref, inView] = useInView({
         triggerOnce: true,
         rootMargin: "-150px 0px", // Adjust the rootMargin for the threshold
     });
+
+    const hRef = useRef();
 
     useEffect(() => {
         if (inView) {
@@ -29,6 +31,11 @@ const TextImage = ({ data, overlap, richText }) => {
             controls.start("hidden");
         }
     }, [controls, inView]);
+
+    useEffect(() => {
+        console.log(hRef.current.clientHeight);
+        console.log(data);
+    }, [hRef.current]);
 
     const variants = {
         visible: {
@@ -45,33 +52,36 @@ const TextImage = ({ data, overlap, richText }) => {
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, x: data.rightImage ? 50 : -50 }}
+            initial="hidden"
             animate={controls}
             variants={variants}
-            className="col-span-12 grid grid-cols-12 px-6 xl:px-12 2xl:px-24 "
+            className="col-span-12 grid grid-cols-12 px-6 lg:px-24"
         >
             <div
-                className={`col-span-12 lg:col-span-6 2xl:col-span-5 flex flex-col justify-center mt-6 lg:mt-0 mb-12 lg:mb-0   ${
-                    !data.rightImage ? "order-last lg:pl-12 2xl:pl-36" : "lg:pr-36 order-last lg:order-first"
+                className={`col-span-12 lg:col-span-5 relative flex flex-col justify-center mt-6 lg:mt-0 mb-12 lg:mb-0   ${
+                    !data.rightImage ? "order-last xl:pl-12 2xl:pl-10" : "xl:pr-12 2xl:pr-10 order-last lg:order-first"
                 }`}
             >
-                <H2 klasse="">{data.headline}</H2>
-                {richText ? <BasicPortableText value={data.text}></BasicPortableText> : <P>{data.text}</P>}
-                {/* <P>{data.text}</P> */}
-                <MainButton
-                    klasse={` max-w-[20rem] mt-8 lg:mt-12 ${
-                        data.button.HauptButton
-                            ? "bg-primaryColor border-2 border-primaryColor"
-                            : "border-2 border-primaryColor-50"
-                    }`}
-                    link={data.button.link}
-                >
-                    {data.button.label}
-                </MainButton>
+                <div ref={hRef} className="">
+                    <H2 klasse="">{data.headline}</H2>
+                </div>
+                {/* {hRef.current && (
+                    <hr
+                        style={{
+                            top:
+                                hRef.current.offsetTop +
+                                hRef.current.children[0].clientHeight +
+                                hRef.current.children[0].clientHeight / 2 +
+                                "px",
+                        }}
+                        className="left-0 top-2/4 xl:w-[400px] 2xl:w-[650px]  h-1 border-textColor absolute"
+                    />
+                )} */}
+                <BasicPortableText value={data.text}></BasicPortableText>
             </div>
             <div
-                className={`col-span-12 lg:col-span-6 2xl:col-span-7 grid grid-cols-12 gap-2 lg:gap-8 ${
-                    overlap ? "xl:mt-[-3rem]" : "lg:mt-[-3rem]"
+                className={`col-span-12 lg:col-span-7 grid grid-cols-12 gap-2 lg:gap-8 ${
+                    overlap ? "mt-[-3rem]" : "lg:mt-[-3rem]"
                 }`}
             >
                 {data.image.map((e, i) => {
@@ -81,11 +91,9 @@ const TextImage = ({ data, overlap, richText }) => {
                             src={urlFor(e).url()}
                             mobileSrc={urlFor(e).url()}
                             alt="Cover Background"
-                            // style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1" }}
+                            style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1.35" }}
                             className={`w-full z-20 relative rounded-[40px] overflow-hidden ${
-                                data.image.length > 1
-                                    ? "col-span-6 aspect-[1/1.5] xl:aspect-[1/2]"
-                                    : "col-span-12 aspect-[1/0.7] xl:aspect-[1/1]"
+                                data.image.length > 1 ? "col-span-6" : "col-span-12"
                             }`}
                         />
                     );
@@ -95,4 +103,4 @@ const TextImage = ({ data, overlap, richText }) => {
     );
 };
 
-export default TextImage;
+export default TextImagePortableText;
