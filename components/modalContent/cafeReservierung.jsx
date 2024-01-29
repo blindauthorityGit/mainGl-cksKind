@@ -24,6 +24,8 @@ setDefaultLocale("de");
 
 const CafeReservierung = ({ image }) => {
     const [currentStep, setCurrentStep] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(null);
 
     const [startDate, setStartDate] = useState(null);
     const [time, setTime] = useState("");
@@ -46,19 +48,35 @@ const CafeReservierung = ({ image }) => {
 
     const checkAvailability = async (selectedDate, numberOfGuests) => {
         setIsFullyBooked(false);
-        const formattedDate = selectedDate.toISOString().split("T")[0];
+        const utcSelectedDate = new Date(
+            Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate())
+        );
+        const formattedDate = utcSelectedDate.toISOString().split("T")[0];
+
+        console.log(selectedDate, formattedDate);
 
         try {
             const reservations = await fetchFirestoreData("reservierung_cafe");
             const reservationsOnDate = reservations.filter((reservation) => {
-                const reservationDate = new Date(reservation.datum.seconds * 1000).toISOString().split("T")[0];
-                return reservationDate === formattedDate;
+                console.log(reservation.date);
+                const reservationDate = new Date(reservation.date);
+                console.log(reservationDate);
+
+                const formattedReservationDate = reservationDate.toISOString().split("T")[0];
+                console.log(formattedReservationDate, formattedDate);
+
+                return formattedReservationDate === formattedDate;
             });
 
             const availableSlotsWithSpaces = TIME_SLOTS.map((slot) => {
                 const totalGuestsInSlot = reservationsOnDate
-                    .filter((reservation) => reservation.zeit === slot)
-                    .reduce((total, current) => total + current.anzahl, 0);
+                    .filter((reservation) => reservation.timeSlot === slot)
+                    .reduce((total, current) => {
+                        // Use the correct field name 'guests'
+                        const guestsInCurrentReservation = parseInt(current.guests, 10) || 0;
+                        return total + guestsInCurrentReservation;
+                    }, 0);
+                console.log(`Slot: ${slot}, Total Guests: ${totalGuestsInSlot}`);
 
                 return {
                     slot: slot,
@@ -70,7 +88,6 @@ const CafeReservierung = ({ image }) => {
             setIsFullyBooked(availableSlotsWithSpaces.length === 0);
         } catch (error) {
             console.error("Error checking availability:", error);
-            // Handle error
         }
     };
 
@@ -98,10 +115,17 @@ const CafeReservierung = ({ image }) => {
             }
         } else if (currentStep === 2) {
             if (isStep2Complete) {
-                const dateTime = parseDateTime(startDate, time);
+                const adjustDateForTimezone = (date) => {
+                    const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+                    return utcDate.toISOString();
+                };
+                const adjustedDate = adjustDateForTimezone(startDate);
 
+                console.log(startDate, adjustedDate);
+                setLoading(true);
                 const reservationData = {
-                    datum: dateTime,
+                    date: adjustedDate, // JavaScript Date object
+                    timeSlot: time, // String e.g., "09:30 - 11:30"
                     email,
                     guests,
                     name,
@@ -119,10 +143,15 @@ const CafeReservierung = ({ image }) => {
 
                     if (response.ok) {
                         console.log("Reservation successful");
+                        setLoading(false);
+                        setSuccess(true);
                         // Handle success...
                     } else {
                         console.log("Reservation failed");
                         // Handle failure...
+                        setLoading(false);
+
+                        setSuccess(false);
                     }
                 } catch (error) {
                     console.error("Error:", error);
@@ -169,8 +198,12 @@ const CafeReservierung = ({ image }) => {
                                     selected={startDate}
                                     onChange={(date) => {
                                         setStartDate(date);
+                                        setTime(""); // Reset the time
                                         setAvailableTimeSlots([]);
                                         setIsFullyBooked(false);
+                                        if (guests) {
+                                            checkAvailability(date, guests); // Recheck availability with the same number of guests
+                                        }
                                     }}
                                     locale="de-DE"
                                     placeholderText="Datum auswählen"
@@ -239,7 +272,7 @@ const CafeReservierung = ({ image }) => {
                             {/* Render a summary of the selected date, time, and number of guests */}
                             <div className="wrapper mb-4">
                                 <p>
-                                    <strong>Datum:</strong> {startDate.toISOString()}
+                                    <strong>Datum:</strong> {startDate.toLocaleDateString("de-DE")}
                                 </p>
                                 <p>
                                     <strong>Zeitfenster:</strong> {time}
@@ -274,24 +307,31 @@ const CafeReservierung = ({ image }) => {
                             />
                         </div>
                     )}
+                    {loading ? (
+                        "LOADING"
+                    ) : success ? (
+                        <div className="w-full col-span-12 sm:mb-8 text-green-500">
+                            <p>Ihre Reservierung wurde erfolgreich aufgenommen. Vielen Dank!</p>
+                        </div>
+                    ) : (
+                        <div className="w-full col-span-12 sm:mb-8 flex space-x-4">
+                            {/* Back Button (only shown in step 2) */}
+                            {currentStep === 2 && (
+                                <MainButtonNOLink onClick={handleBack} klasse="bg-textColor mt-4">
+                                    Zurück
+                                </MainButtonNOLink>
+                            )}
 
-                    <div className="w-full col-span-12 sm:mb-8 flex space-x-4">
-                        {/* Back Button (only shown in step 2) */}
-                        {currentStep === 2 && (
-                            <MainButtonNOLink onClick={handleBack} klasse="bg-textColor mt-4">
-                                Zurück
+                            {/* Submit Button */}
+                            <MainButtonNOLink
+                                disabled={currentStep === 1 ? !isStep1Complete : !isStep2Complete}
+                                type="submit"
+                                klasse="bg-primaryColor border-2 border-primaryColor mt-4"
+                            >
+                                {currentStep === 1 ? "Weiter zu Schritt 2" : "Reservierung bestätigen"}
                             </MainButtonNOLink>
-                        )}
-
-                        {/* Submit Button */}
-                        <MainButtonNOLink
-                            disabled={currentStep === 1 ? !isStep1Complete : !isStep2Complete}
-                            type="submit"
-                            klasse="bg-primaryColor border-2 border-primaryColor mt-4"
-                        >
-                            {currentStep === 1 ? "Weiter zu Schritt 2" : "Reservierung bestätigen"}
-                        </MainButtonNOLink>
-                    </div>
+                        </div>
+                    )}
                 </form>
             </div>
             <div className="xl:col-span-6 pl-8">

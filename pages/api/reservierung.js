@@ -32,8 +32,8 @@ export default async function handler(req, res) {
                 from: "office@atelierbuchner.at",
                 to: req.body.email,
                 subject: "Reservierungs Bestätigung",
-                text: "Your reservation details...",
-                html: "<b>Your reservation details...</b>",
+                text: `Liebe/r ${req.body.name}, vielen Dank für Deine Reservierung in unserem Cafe am ${req.body.date} um ${req.body.timeSlot}! Wir freuen uns auf dich! Main Glückskind`,
+                html: `Liebe/r ${req.body.name}, </br>vielen Dank für Deine Reservierung in unserem Cafe am ${req.body.date} um ${req.body.timeSlot}! </br> Wir freuen uns auf dich! <p>Main Glückskind</p>`,
             };
 
             // Email content for the owners
