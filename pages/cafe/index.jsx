@@ -56,13 +56,14 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
 
                 <BasicHero data={data.components[0]}></BasicHero>
                 <CardButtonHolder
+                    isCafe
                     onClick={(e) => {
-                        console.log(e.currentTarget);
+                        console.log(e.currentTarget, e.currentTarget.dataset.id);
                         const theme = e.currentTarget.dataset.id;
                         if (theme === "Reservierung") {
                             setShowOverlay(true);
                             setShowModal(true);
-                            setModalContent(<CafeReservierung />);
+                            setModalContent(<CafeReservierung image={data.reservationImage} />);
                         }
                     }}
                     data={data.components[1].cardButtons}

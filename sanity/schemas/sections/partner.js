@@ -44,6 +44,16 @@ export default {
       type: 'string',
     },
     {
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+    },
+    {
+      name: 'website',
+      title: 'Website',
+      type: 'string',
+    },
+    {
       name: 'kurse',
       title: 'Kurse',
       type: 'array',

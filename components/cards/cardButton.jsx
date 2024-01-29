@@ -15,7 +15,7 @@ import { H3, H4, P } from "../typography";
 //FUNCTIONS
 import urlFor from "../../functions/urlFor";
 
-const CardButton = ({ data, i, onClick }) => {
+const CardButton = ({ data, i, onClick, isCafe }) => {
     const controls = useAnimation();
     const [ref, inView] = useInView({
         triggerOnce: true,
@@ -56,7 +56,28 @@ const CardButton = ({ data, i, onClick }) => {
                 onClick(e);
             }}
         >
-            <Link className="text-center flex justify-center" href={`#`}>
+            {isCafe ? (
+                <div className="text-center flex justify-center" href={`#`}>
+                    <CoverImage
+                        src={urlFor(data.icon).url()} // Replace with the actual path to your image
+                        mobileSrc={urlFor(data.icon).url()} // Replace with the actual path to your image
+                        alt="Cover Background"
+                        style={{ aspectRatio: data.aspectRatio }}
+                        className="w-1/4  z-20 relative "
+                    />
+                </div>
+            ) : (
+                <Link className="text-center flex justify-center" href={`#`}>
+                    <CoverImage
+                        src={urlFor(data.icon).url()} // Replace with the actual path to your image
+                        mobileSrc={urlFor(data.icon).url()} // Replace with the actual path to your image
+                        alt="Cover Background"
+                        style={{ aspectRatio: data.aspectRatio }}
+                        className="w-1/4  z-20 relative "
+                    />
+                </Link>
+            )}
+            {/* <Link className="text-center flex justify-center" href={`#`}>
                 <CoverImage
                     src={urlFor(data.icon).url()} // Replace with the actual path to your image
                     mobileSrc={urlFor(data.icon).url()} // Replace with the actual path to your image
@@ -64,7 +85,7 @@ const CardButton = ({ data, i, onClick }) => {
                     style={{ aspectRatio: data.aspectRatio }}
                     className="w-1/4  z-20 relative "
                 />
-            </Link>
+            </Link> */}
             <div className="px-6 2xl:px-12 rounded-b-[40px] lg:py-4 2xl:py-8 mb-0 2xl:mb-4">
                 <H3 klasse={`${data.isMain ? "!text-white" : null}`}>{data.title}</H3>
             </div>

@@ -21,10 +21,10 @@ const myPortableTextComponents = (isWorkshop) => ({
                             mobileSrc={urlFor(e).url()}
                             alt="Cover Background"
                             style={{ aspectRatio: "1/1" }}
-                            onClick={(e) => {
-                                console.log(e.target.srcset);
-                                setImageSrc(urlFor(e).url());
-                            }}
+                            // onClick={(e) => {
+                            //     console.log(e.target.srcset);
+                            //     setImageSrc(urlFor(e).url());
+                            // }}
                             className={`w-full z-20 relative rounded-[40px] overflow-hidden col-span-6  `}
                         />
                     ))}
@@ -67,7 +67,6 @@ const myPortableTextComponents = (isWorkshop) => ({
 const PortableTextView = ({ blocks, data, isWorkshop }) => {
     const [imageSrc, setImageSrc] = useState("");
 
-    console.log(blocks);
     return (
         <div
             className={`col-span-12 xl:col-span-10 2xl:col-span-8 richText lg:ml-64 font-sans text-xl font-medium leading-relaxed ${
@@ -78,6 +77,7 @@ const PortableTextView = ({ blocks, data, isWorkshop }) => {
             <H2 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].headline}</H2>
             <H4 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].text}</H4>
             <br />
+
             <PortableText value={blocks} components={myPortableTextComponents(isWorkshop)} />
         </div>
     );

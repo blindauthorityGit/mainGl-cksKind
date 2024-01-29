@@ -60,6 +60,11 @@ export default {
         // Add other custom component types as needed
       ],
     },
+    {
+      name: 'reservationImage',
+      title: 'Bild Reservierung',
+      type: 'image',
+    },
     // Add other fields or components as needed
   ],
 }
