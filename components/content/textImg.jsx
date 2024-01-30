@@ -5,7 +5,7 @@ import { H2, P } from "../typography";
 
 //COMPONENTS
 import { CoverImage } from "../images";
-import { MainButton } from "../buttons";
+import { MainButton, MainButtonNOLink } from "../buttons";
 import { BasicPortableText } from "./";
 
 //FUNCTIONS
@@ -15,7 +15,7 @@ import urlFor from "../../functions/urlFor";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const TextImage = ({ data, overlap, richText }) => {
+const TextImage = ({ data, overlap, richText, onClick, noLink }) => {
     const controls = useAnimation();
     const [ref, inView] = useInView({
         triggerOnce: true,
@@ -58,16 +58,29 @@ const TextImage = ({ data, overlap, richText }) => {
                 <H2 klasse="">{data.headline}</H2>
                 {richText ? <BasicPortableText value={data.text}></BasicPortableText> : <P>{data.text}</P>}
                 {/* <P>{data.text}</P> */}
-                <MainButton
-                    klasse={` max-w-[20rem] mt-8 lg:mt-12 ${
-                        data.button.HauptButton
-                            ? "bg-primaryColor border-2 border-primaryColor"
-                            : "border-2 border-primaryColor-50"
-                    }`}
-                    link={data.button.link}
-                >
-                    {data.button.label}
-                </MainButton>
+                {noLink ? (
+                    <MainButtonNOLink
+                        klasse={` max-w-[20rem] mt-8 lg:mt-12 ${
+                            data.button.HauptButton
+                                ? "bg-primaryColor border-2 border-primaryColor"
+                                : "border-2 border-primaryColor-50"
+                        }`}
+                        onClick={onClick}
+                    >
+                        {data.button.label}
+                    </MainButtonNOLink>
+                ) : (
+                    <MainButton
+                        klasse={` max-w-[20rem] mt-8 lg:mt-12 ${
+                            data.button.HauptButton
+                                ? "bg-primaryColor border-2 border-primaryColor"
+                                : "border-2 border-primaryColor-50"
+                        }`}
+                        link={data.button.link}
+                    >
+                        {data.button.label}
+                    </MainButton>
+                )}
             </div>
             <div
                 className={`col-span-12 lg:col-span-6 2xl:col-span-7 grid grid-cols-12 gap-2 lg:gap-8 ${

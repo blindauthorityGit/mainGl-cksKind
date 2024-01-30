@@ -67,7 +67,7 @@ const Contact = ({ data, overlap }) => {
                 />
 
                 {/* <P>{dangerouslySetInnerHTML={createMarkup(data.text)}} </P> */}
-                <div className="flex mt-10 space-x-12">
+                <div className="flex mt-10 space-x-12 items-center">
                     <img src={Pin.src} alt="" />
 
                     <p
@@ -75,11 +75,11 @@ const Contact = ({ data, overlap }) => {
                         dangerouslySetInnerHTML={createMarkup(data.adresse)}
                     />
                 </div>
-                <div className="flex mt-10 space-x-12">
+                <div className="flex mt-10 space-x-12 items-center">
                     <img src={Phone.src} alt="" />
                     <P>{data.telefon}</P>
                 </div>
-                <div className="flex mt-10 space-x-12">
+                <div className="flex mt-10 space-x-12 items-center">
                     <img src={Mail.src} alt="" />
                     <P>
                         {" "}

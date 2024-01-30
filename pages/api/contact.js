@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const sendEmail = async (to, subject, html, email) => {
+const sendEmail = async (to, subject, html, email, cafe, raum, kindergeburtstag) => {
     console.log(process.env.NEXT_DEV);
     try {
         // create a transporter object
@@ -31,7 +31,21 @@ const sendEmail = async (to, subject, html, email) => {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req, res) => {
-    const { firstName, name, email, message } = req.body;
+    console.log(req.body);
+    const { firstName, name, email, message, cafe, raum, kindergeburtstag } = req.body;
+    console.log(firstName, name, email, message, cafe, raum, kindergeburtstag);
+    let subjectLine = "Email von " + name; // Default subject line
+
+    // Determine the subject line based on the props
+    if (cafe) {
+        subjectLine = "Anfrage Vermietung Cafe von " + name;
+    } else if (raum) {
+        subjectLine = "Anfrage Raumvermietung von " + name;
+    } else if (kindergeburtstag) {
+        subjectLine = "Anfrage Kindergeburtstag von " + name;
+    } else {
+        subjectLine = "Email von " + name;
+    }
 
     if (!firstName) {
         // construct the html message
@@ -42,7 +56,7 @@ export default async (req, res) => {
         `;
 
         // send the email
-        await sendEmail("office@atelierbuchner.at", `Email von ${name}`, html, email);
+        await sendEmail("office@atelierbuchner.at", subjectLine, html, email);
 
         // return success response
         res.status(200).json(req.body);

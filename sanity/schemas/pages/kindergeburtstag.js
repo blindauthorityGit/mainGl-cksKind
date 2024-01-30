@@ -54,6 +54,12 @@ export default {
         // Add other custom component types as needed
       ],
     },
+
+    {
+      name: 'anfrageImage',
+      title: 'Bild Anfrage',
+      type: 'image',
+    },
     // Add other fields or components as needed
   ],
 }

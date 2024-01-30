@@ -4,7 +4,7 @@ import { FaPhone, FaEnvelope, FaWhatsapp } from "react-icons/fa";
 // COMPS
 import Overlay from "../overlay";
 import ModalMobile from "../modal/modalMobile";
-import { Opening, Contact } from "../modalContent";
+import { Opening, Contact, Öffnungszeiten, CafeReservierung } from "../modalContent";
 import { AiOutlineClockCircle } from "react-icons/ai";
 
 //ASSETS
@@ -17,6 +17,7 @@ const MobileBar = (props) => {
     const [showOverlay, setShowOverlay] = useState(false);
     const [showContact, setShowContact] = useState(false);
     const [showOpening, setShowOpening] = useState(false);
+    const [showReserve, setShowReserve] = useState(false);
 
     return (
         <>
@@ -27,8 +28,9 @@ const MobileBar = (props) => {
                             setShowOverlay(false);
                         }}
                     >
-                        {showOpening && <Opening data={props.data} />}
+                        {showOpening && <Öffnungszeiten data={props.data} />}
                         {showContact && <Contact />}
+                        {showReserve && <CafeReservierung />}
                     </ModalMobile>
                     <Overlay
                         onClick={() => {
@@ -52,8 +54,9 @@ const MobileBar = (props) => {
                 <a
                     onClick={() => {
                         setShowOverlay((showOverlay) => !showOverlay);
-                        setShowContact(true);
-                        setShowOpening(false);
+                        setShowContact(false);
+                        setShowOpening(true);
+                        setShowReserve(false);
                     }}
                     className="w-1/3 p-3 flex flex-col border-r border-primaryColor-200 border-opacity-30  justify-center items-center text-primaryColor-50 hover:text-primaryColor"
                 >
@@ -61,8 +64,13 @@ const MobileBar = (props) => {
                     <span className="text-xs md:text-base font-base mt-1">Zeiten</span>
                 </a>
                 <a
-                    href="tel:+436508011900"
                     className="w-1/3 p-3 border-r bg-primaryColor-600 border-primaryColor-200 border-opacity-30 flex flex-col justify-center items-center text-primaryColor-200 hover:text-primaryColor "
+                    onClick={() => {
+                        setShowOverlay((showOverlay) => !showOverlay);
+                        setShowContact(false);
+                        setShowOpening(false);
+                        setShowReserve(true);
+                    }}
                 >
                     <img className="h-[1.35rem] md:h-10" src={Programm.src} alt="" />
                     <span className="text-xs md:text-base mt-1">Reservierung</span>

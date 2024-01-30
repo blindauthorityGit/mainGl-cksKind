@@ -11,6 +11,8 @@ import { isAfter, isToday, getDay } from "date-fns";
 import { FaChevronDown } from "react-icons/fa";
 import { CoverImage } from "../images";
 
+import ClipLoader from "react-spinners/ClipLoader";
+
 //FUNCTIONS
 import urlFor from "../../functions/urlFor";
 import parseDateTime from "../../functions/parseDateTime";
@@ -308,7 +310,9 @@ const CafeReservierung = ({ image }) => {
                         </div>
                     )}
                     {loading ? (
-                        "LOADING"
+                        <div className="flex justify-center items-center">
+                            <ClipLoader size={50} color={"#123abc"} loading={loading} />
+                        </div>
                     ) : success ? (
                         <div className="w-full col-span-12 sm:mb-8 text-green-500">
                             <p>Ihre Reservierung wurde erfolgreich aufgenommen. Vielen Dank!</p>

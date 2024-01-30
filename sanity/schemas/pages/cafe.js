@@ -65,6 +65,37 @@ export default {
       title: 'Bild Reservierung',
       type: 'image',
     },
+    {
+      name: 'oeffnungszeiten',
+      title: 'Öffnungszeiten',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          title: 'Öffnungszeit',
+          fields: [
+            {
+              name: 'day',
+              title: 'Tag',
+              type: 'string',
+              description: 'Wochentag, z.B. "Montag"',
+            },
+            {
+              name: 'time',
+              title: 'Zeit',
+              type: 'string',
+              description: 'Öffnungszeit, z.B. "08:00 - 18:00"',
+            },
+          ],
+          preview: {
+            select: {
+              title: 'day',
+              subtitle: 'time',
+            },
+          },
+        },
+      ],
+    },
     // Add other fields or components as needed
   ],
 }

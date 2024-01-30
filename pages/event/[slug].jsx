@@ -102,7 +102,11 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                         <div className="col-span-12 lg:hidden px-6">
                             <Details isWorkshop={isWorkshop} data={data}></Details> <hr className="mb-4" />
                         </div>
-                        <AnmeldeContent events={data} data={dataKontakt[0]}></AnmeldeContent>
+                        <AnmeldeContent
+                            email={data.eventDetails.partner.email}
+                            events={data}
+                            data={dataKontakt[0]}
+                        ></AnmeldeContent>
                     </FullWidthSection>
                     <MainContainer width="container mx-auto gap-8">
                         <div className="hidden md:block">

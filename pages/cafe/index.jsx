@@ -21,7 +21,7 @@ import Divider from "../../components/layout/divider";
 
 import { BigDecal } from "../../components/decorative";
 import { DecorativeDivider } from "../../components/decorative";
-import { CafeReservierung } from "../../components/modalContent";
+import { CafeReservierung, Öffnungszeiten, Anfrage } from "../../components/modalContent";
 import FullWidthSection from "../../components/layout/fullWidthSection";
 
 //STORE
@@ -65,6 +65,23 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                             setShowModal(true);
                             setModalContent(<CafeReservierung image={data.reservationImage} />);
                         }
+                        if (theme === "Öffnungszeiten") {
+                            setShowOverlay(true);
+                            setShowModal(true);
+                            setModalContent(
+                                <Öffnungszeiten
+                                    dataKontakt={dataKontakt[0]}
+                                    data={data}
+                                    image={data.reservationImage}
+                                />
+                            );
+                        }
+                        if (theme === "Speisekarte") {
+                            const speisekarteSection = document.getElementById("speisekarte");
+                            if (speisekarteSection) {
+                                speisekarteSection.scrollIntoView({ behavior: "smooth" });
+                            }
+                        }
                     }}
                     data={data.components[1].cardButtons}
                     klasse="mt-[-3rem] z-20"
@@ -82,7 +99,7 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                 <GridGallery big data={data.components[7].images}></GridGallery>
                 <Divider></Divider>
             </MainContainer>{" "}
-            <FullWidthSection klasse="bg-[#BF567C] px-4 lg:px-0 py-10 2xl:!py-32">
+            <FullWidthSection klasse="bg-[#BF567C] px-4 lg:px-0 py-10 2xl:!py-32" id="speisekarte">
                 <div className="col-span-12 grid grid-cols-12 lg:gap-12 lg:px-36">
                     <div className="col-span-12 lg:col-span-6">
                         <H3 klasse="!text-white">{dataSpeisekarte[0].categories[0].title}</H3>
@@ -121,7 +138,17 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
 
                 <Divider></Divider>
                 <Divider></Divider>
-                <TextImage richText overlap data={data.components[5]}></TextImage>
+                <TextImage
+                    richText
+                    overlap
+                    noLink
+                    data={data.components[5]}
+                    onClick={() => {
+                        setShowOverlay(true);
+                        setShowModal(true);
+                        setModalContent(<Anfrage cafe={true} image={data.reservationImage} />);
+                    }}
+                ></TextImage>
                 <Divider></Divider>
                 <Divider></Divider>
                 <TextImage richText overlap data={data.components[6]}></TextImage>

@@ -15,7 +15,7 @@ import Mail from "../../assets/mailPink.svg";
 
 import useStore from "../../store/store";
 
-const AnmeldeContent = ({ data, events }) => {
+const AnmeldeContent = ({ data, events, email, phone }) => {
     const setShowModal = useStore((state) => state.setShowModal);
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setModalContent = useStore((state) => state.setModalContent);
@@ -27,7 +27,6 @@ const AnmeldeContent = ({ data, events }) => {
     const createMarkup = (htmlString) => {
         return { __html: htmlString };
     };
-
 
     return (
         <div className="col-span-12 px-6 lg:px-48 ">
@@ -44,9 +43,10 @@ const AnmeldeContent = ({ data, events }) => {
             <div className="flex mt-10 space-x-12">
                 <img src={Pin.src} alt="" />
                 <p
-                        className="text-sm linker text-textColor sm:text-base font-sans font-[500]  xl:leading-relaxed lg:text-base xl:text-sm 2xl:text-base"
-                        dangerouslySetInnerHTML={createMarkup(data.adresse)}
-                    />            </div>
+                    className="text-sm linker text-textColor sm:text-base font-sans font-[500]  xl:leading-relaxed lg:text-base xl:text-sm 2xl:text-base"
+                    dangerouslySetInnerHTML={createMarkup(data.adresse)}
+                />{" "}
+            </div>
             <div className="flex mt-10 space-x-12">
                 <img src={Phone.src} alt="" />
                 <P>{data.telefon}</P>
@@ -55,7 +55,7 @@ const AnmeldeContent = ({ data, events }) => {
                 <img src={Mail.src} alt="" />
                 <P>
                     {" "}
-                    <a href={`mailto:${data.email}`}></a> {data.email}
+                    <a href={`mailto:${email}`}></a> {email}
                 </P>
             </div>
             <MainButtonNOLink

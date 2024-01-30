@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 //COMPONENTS
 import { CoverImage } from "../../images";
 import { MainButton, MainButtonNOLink } from "../../buttons";
-import { Raumvermietung } from "../../modalContent";
+import { Raumvermietung, Anfrage } from "../../modalContent";
 
 //TYPO
 import { H1, P } from "../../typography";
@@ -98,10 +98,12 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                                             onClick={() => {
                                                 e.HauptButton ? (setShowOverlay(true), setShowModal(true)) : null;
                                                 if (router.pathname === "/raumvermietung") {
-                                                    setModalContent(<Raumvermietung></Raumvermietung>);
+                                                    setModalContent(<Anfrage image={data.image} raum={true}></Anfrage>);
                                                 }
                                                 if (router.pathname === "/kindergeburtstag") {
-                                                    setModalContent(<Raumvermietung></Raumvermietung>);
+                                                    setModalContent(
+                                                        <Anfrage image={data.image} kindergeburtstag={true}></Anfrage>
+                                                    );
                                                 }
                                             }}
                                         >

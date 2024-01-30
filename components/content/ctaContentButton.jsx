@@ -4,9 +4,9 @@ import React from "react";
 import { H1, P } from "../typography";
 
 //COMPO
-import { MainButton } from "../buttons";
+import { MainButton, MainButtonNOLink } from "../buttons";
 
-const CTAContentButton = ({ data }) => {
+const CTAContentButton = ({ data, onClick }) => {
     return (
         <div className="col-span-12 px-6 lg:px-48 text-center flex flex-col items-center">
             <H1 klasse="!text-white">{data.headline}</H1>
@@ -14,12 +14,13 @@ const CTAContentButton = ({ data }) => {
                 <P>{data.text}</P>
             </div>
             {data?.button && (
-                <MainButton
+                <MainButtonNOLink
                     klasse="bg-primaryColor border-2 border-primaryColor mt-16 mx-auto max-w-[16rem]"
-                    link={data?.button.link}
+                    // link={data?.button.link}
+                    onClick={onClick}
                 >
                     {data?.button.label}
-                </MainButton>
+                </MainButtonNOLink>
             )}
         </div>
     );

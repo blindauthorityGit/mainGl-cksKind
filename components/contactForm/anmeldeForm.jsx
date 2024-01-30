@@ -27,6 +27,7 @@ const AnmeldeForm = ({ data, children, events, intro }) => {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         updateFormData({ [name]: value });
+        console.log({ [name]: value });
     };
 
     const {
@@ -40,9 +41,10 @@ const AnmeldeForm = ({ data, children, events, intro }) => {
         const result = await trigger(); // Triggers validation for all fields
         updateFormData({ kurs: events.headline });
         updateFormData({ sum: events.headline });
+        console.log(formData, events.headline);
         if (result) {
             // If form is valid
-            setModalContent(<Step2 data={data} events={events}></Step2>);
+            setModalContent(<Step2 data={data} formData={formData} events={events}></Step2>);
             // Here, you can also handle saving the form data to state or context
         }
     };
@@ -144,10 +146,11 @@ const AnmeldeForm = ({ data, children, events, intro }) => {
                         <select
                             {...register("date", { required: true })}
                             id="date"
+                            onChange={handleInputChange}
                             className="text-xs w-full border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                         >
                             {data.map((date, index) => (
-                                <option key={index} value={date}>
+                                <option key={index} value={formatStringToDate(date.startDateTime)}>
                                     {formatStringToDate(date.startDateTime)}
                                 </option>
                             ))}

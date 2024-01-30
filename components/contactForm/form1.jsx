@@ -27,7 +27,12 @@ const Form1 = (props) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            data: values,
+            data: {
+                ...values,
+                cafe: props.cafe,
+                raum: props.raum,
+                kindergeburtstag: props.kindergeburtstag,
+            },
         };
 
         try {

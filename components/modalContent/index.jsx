@@ -8,3 +8,5 @@ export { default as StepOne } from "./steps/stepOne";
 export { default as StepTwo } from "./steps/stepTwo";
 export { default as Raumvermietung } from "./raumvermietung";
 export { default as CafeReservierung } from "./cafeReservierung";
+export { default as Öffnungszeiten } from "./oeffnungszeiten";
+export { default as Anfrage } from "./anfrage";
