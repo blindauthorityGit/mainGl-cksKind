@@ -318,7 +318,7 @@ const CafeReservierung = ({ image }) => {
                             <p>Ihre Reservierung wurde erfolgreich aufgenommen. Vielen Dank!</p>
                         </div>
                     ) : (
-                        <div className="w-full col-span-12 sm:mb-8 flex space-x-4">
+                        <div className="w-full col-span-12 sm:mb-8 flex space-x-1 lg:space-x-4">
                             {/* Back Button (only shown in step 2) */}
                             {currentStep === 2 && (
                                 <MainButtonNOLink onClick={handleBack} klasse="bg-textColor mt-4">
@@ -339,15 +339,17 @@ const CafeReservierung = ({ image }) => {
                 </form>
             </div>
             <div className="xl:col-span-6 pl-8">
-                <CoverImage
-                    key={"imageresver"}
-                    src={urlFor(image).url()}
-                    mobileSrc={urlFor(image).url()}
-                    alt="Cover Background"
-                    // style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1" }}
-                    className={`w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/1.5] xl:aspect-[1/1.25]
+                {image ? (
+                    <CoverImage
+                        key={"imageresver"}
+                        src={urlFor(image).url()}
+                        mobileSrc={urlFor(image).url()}
+                        alt="Cover Background"
+                        // style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1" }}
+                        className={`w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/1.5] xl:aspect-[1/1.25]
                     }`}
-                />
+                    />
+                ) : null}
             </div>
         </div>
     );

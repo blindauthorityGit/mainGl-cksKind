@@ -11,7 +11,7 @@ const Impressum = () => {
     }, []);
     return (
         <MainContainer width="container mx-auto">
-            <div className="col-span-12 pt-48 pb-24">
+            <div className="col-span-12 px-8 lg:px-0 pt-24 pb-36 lg:pt-48  lg:pb-24">
                 <H1>Impressum</H1>
                 <P>
                     Hoessle und Kreil GbR - MAIN GLÜCKSKIND

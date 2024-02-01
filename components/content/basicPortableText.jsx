@@ -8,7 +8,7 @@ import urlFor from "../../functions/urlFor";
 //TYPO
 import { H1, H2, H3, P } from "../typography";
 
-const myPortableTextComponents = {
+const myPortableTextComponents = (isWorkshop) => ({
     types: {
         imageGallery: ({ value }) => {
             console.log(value);
@@ -84,14 +84,14 @@ const myPortableTextComponents = {
         // Ex. 2: rendering custom list items
         checkmarks: ({ children }) => <li>✅ {children}</li>,
     },
-};
+});
 
 const BasicPortableText = ({ value, data, isWorkshop }) => {
     const [imageSrc, setImageSrc] = useState("");
 
     return (
         <>
-            <PortableText value={value} components={myPortableTextComponents} />
+            <PortableText value={value} components={myPortableTextComponents(isWorkshop)} />
         </>
     );
 };

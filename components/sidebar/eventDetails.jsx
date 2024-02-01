@@ -28,9 +28,9 @@ const Details = ({ data, isWorkshop }) => {
         <>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse="!text-primaryColor mb-4">Location</H4>
-                <BasicPortableText value={data.eventDetails.location.location} />
+                <BasicPortableText isWorkshop value={data.eventDetails.location.location} />
             </div>
-            <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
+            <div className={`wrapper mb-6 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse="!text-primaryColor mb-4">Preis</H4>
                 <P>{data.eventDetails.preis}</P>
             </div>

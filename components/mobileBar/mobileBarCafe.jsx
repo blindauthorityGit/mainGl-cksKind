@@ -13,38 +13,34 @@ import Email from "../../assets/email.svg";
 import Programm from "../../assets/programm.svg";
 import Zeiten from "../../assets/zeiten.svg";
 
+//STORE
+import useStore from "../../store/store"; // Adjust the path to your store file
+
 const MobileBar = (props) => {
-    const [showOverlay, setShowOverlay] = useState(false);
-    const [showContact, setShowContact] = useState(false);
-    const [showOpening, setShowOpening] = useState(false);
-    const [showReserve, setShowReserve] = useState(false);
+    const setIsCafe = useStore((state) => state.setIsCafe);
+    const setShowOverlay = useStore((state) => state.setShowOverlay);
+    const setShowModal = useStore((state) => state.setShowModal);
+    const setModalContent = useStore((state) => state.setModalContent);
+
+    const showModal = useStore((state) => state.showModal);
+    const cafeData = useStore((state) => state.cafeData);
+
+    useEffect(() => {
+        console.log(cafeData);
+    }, []);
 
     return (
         <>
-            {showOverlay ? (
-                <>
-                    <ModalMobile
-                        onClick={() => {
-                            setShowOverlay(false);
-                        }}
-                    >
-                        {showOpening && <Öffnungszeiten data={props.data} />}
-                        {showContact && <Contact />}
-                        {showReserve && <CafeReservierung />}
-                    </ModalMobile>
-                    <Overlay
-                        onClick={() => {
-                            setShowOverlay(false);
-                        }}
-                    />
-                </>
-            ) : null}
-            <div className="fixed lg:hidden  z-50 bottom-0 w-full flex justify-center items-center bg-textColor text-sm ">
+            <div
+                className={`fixed lg:hidden  ${
+                    showModal ? "z-10" : "z-30"
+                } bottom-0 w-full flex justify-center items-center bg-textColor text-sm`}
+            >
                 <a
                     onClick={() => {
-                        setShowOverlay((showOverlay) => !showOverlay);
-                        setShowContact(false);
-                        setShowOpening(true);
+                        // setShowOverlay((showOverlay) => !showOverlay);
+                        // setShowContact(false);
+                        // setShowOpening(true);
                     }}
                     className="w-1/3 p-3 flex border-r border-opacity-30 border-primaryColor-200 flex-col justify-center items-center text-primaryColor-50 hover:text-primaryColor"
                 >
@@ -53,10 +49,15 @@ const MobileBar = (props) => {
                 </a>
                 <a
                     onClick={() => {
-                        setShowOverlay((showOverlay) => !showOverlay);
-                        setShowContact(false);
-                        setShowOpening(true);
-                        setShowReserve(false);
+                        setShowOverlay(true);
+                        setShowModal(true);
+                        setModalContent(
+                            <Öffnungszeiten
+                                dataKontakt={cafeData.dataKontakt}
+                                data={cafeData}
+                                // image={data.reservationImage}
+                            />
+                        );
                     }}
                     className="w-1/3 p-3 flex flex-col border-r border-primaryColor-200 border-opacity-30  justify-center items-center text-primaryColor-50 hover:text-primaryColor"
                 >
@@ -66,10 +67,9 @@ const MobileBar = (props) => {
                 <a
                     className="w-1/3 p-3 border-r bg-primaryColor-600 border-primaryColor-200 border-opacity-30 flex flex-col justify-center items-center text-primaryColor-200 hover:text-primaryColor "
                     onClick={() => {
-                        setShowOverlay((showOverlay) => !showOverlay);
-                        setShowContact(false);
-                        setShowOpening(false);
-                        setShowReserve(true);
+                        setShowOverlay(true);
+                        setShowModal(true);
+                        setModalContent(<CafeReservierung image={null} />);
                     }}
                 >
                     <img className="h-[1.35rem] md:h-10" src={Programm.src} alt="" />

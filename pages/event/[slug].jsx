@@ -74,6 +74,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                     isWorkshop={isWorkshop}
                                     blocks={data.content.content}
                                 ></PortableTextEvent>
+                                <Divider></Divider>
                                 <RegularText
                                     link={data.eventDetails.partner.slug.current}
                                     isWorkshop={isWorkshop}

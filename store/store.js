@@ -41,6 +41,13 @@ const useStore = create((set) => ({
 
     isCafe: false,
     setIsCafe: (isCafe) => set({ isCafe }),
+
+    cafeData: {}, // Initialisieren Sie cafeData als leeres Objekt
+    setCafeData: (data) => set({ cafeData: data }), // Funktion zum Setzen von cafeData
+    updateCafeData: (newData) =>
+        set((state) => ({
+            cafeData: { ...state.cafeData, ...newData },
+        })), // Funktion zum Aktualisieren von cafeData
 }));
 
 export default useStore;

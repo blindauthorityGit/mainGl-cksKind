@@ -8,7 +8,7 @@ const Full = () => {
     return (
         <FullWidthSection klasse="bg-[#F8F7FB]">
             <div className="container mx-auto grid grid-cols-12 col-span-12 font-sans text-textColor text-sm px-8">
-                <div className="lg:col-span-6">Newsletter</div>
+                <div className="lg:col-span-6"></div>
                 <div className="lg:col-span-2"></div>
                 <div className="col-span-12 lg:col-span-2 flex flex-col font-semibold space-y-2 ">
                     <Link href="/programm">KURSPROGRAMM</Link>

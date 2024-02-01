@@ -33,7 +33,7 @@ const Öffnungszeiten = ({ data, image, dataKontakt }) => {
                 </P> */}
                 {data.oeffnungszeiten.map((e, i) => {
                     return (
-                        <div className="wrapper flex font-sans mb-2 text-lg text-textColor">
+                        <div className="wrapper flex font-sans mb-2 lg:text-lg text-textColor">
                             <div className="left w-16">{e.day}</div>
                             <div className="left font-bold">{e.time}</div>
                         </div>
@@ -49,29 +49,31 @@ const Öffnungszeiten = ({ data, image, dataKontakt }) => {
                             dangerouslySetInnerHTML={createMarkup(dataKontakt.adresse)}
                         />
                     </div>
-                    <div className="flex mt-10 space-x-12 items-center">
+                    {/* <div className="flex mt-10 space-x-12 items-center">
                         <img src={Phone.src} alt="" />
                         <P>{dataKontakt.telefon}</P>
-                    </div>
+                    </div> */}
                     <div className="flex mt-10 space-x-12 items-center">
                         <img src={Mail.src} alt="" />
                         <P>
                             {" "}
-                            <a href={`mailto:${dataKontakt.email}`}></a> {dataKontakt.email}
+                            <a href={`mailto:${"cafe@mainglueckskind.de"}`}></a> {"cafe@mainglueckskind.de"}
                         </P>
                     </div>
                 </div>
             </div>
             <div className="xl:col-span-6 pl-8">
-                <CoverImage
-                    key={"imageresver"}
-                    src={urlFor(image).url()}
-                    mobileSrc={urlFor(image).url()}
-                    alt="Cover Background"
-                    // style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1" }}
-                    className={`w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/1.5] xl:aspect-[1/1.25]
+                {image ? (
+                    <CoverImage
+                        key={"imageresver"}
+                        src={urlFor(image).url()}
+                        mobileSrc={urlFor(image).url()}
+                        alt="Cover Background"
+                        // style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1" }}
+                        className={`w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/1.5] xl:aspect-[1/1.25]
                     }`}
-                />
+                    />
+                ) : null}
             </div>
         </div>
     );

@@ -35,6 +35,7 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setShowModal = useStore((state) => state.setShowModal);
     const setModalContent = useStore((state) => state.setModalContent);
+    const updateCafeData = useStore((state) => state.updateCafeData);
 
     useEffect(() => {
         setIsCafe(true); // Set isCafe to true when the component mounts
@@ -47,6 +48,12 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
     useEffect(() => {
         console.log(data, dataSpeisekarte, dataKontakt);
         changeBodyBackgroundColor(data);
+        updateCafeData({
+            oeffnungszeiten: data.oeffnungszeiten,
+            dataKontakt: dataKontakt[0],
+            phone: dataKontakt[0].telefon,
+            email: dataKontakt[0].email,
+        });
     }, []);
 
     return (
