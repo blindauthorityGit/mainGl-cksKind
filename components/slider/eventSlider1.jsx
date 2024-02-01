@@ -108,7 +108,7 @@ const EventSlider1 = (props) => {
                         onClick={() => {
                             swiper.slidePrev();
                         }}
-                        className="absolute top-[30%] left-[16px]  transform -translate-x-1/2 z-30 "
+                        className="absolute top-[30%] left-[16px]  transform -translate-x-1/2 z-20 "
                     >
                         <button
                             style={{ opacity: isLastSlideLeft ? 0.5 : 1 }}
@@ -121,7 +121,7 @@ const EventSlider1 = (props) => {
                         onClick={() => {
                             swiper.slideNext();
                         }}
-                        className="absolute  top-[30%] right-[-16px] transform -translate-x-1/2  z-30"
+                        className="absolute  top-[30%] right-[-16px] transform -translate-x-1/2  z-20"
                     >
                         <button
                             style={{ opacity: isLastSlideRight ? 0.5 : 1 }}

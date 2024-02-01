@@ -1,67 +1,89 @@
 const nodemailer = require("nodemailer");
+import { addDoc, collection } from "firebase/firestore/lite";
+import { db } from "../../config/firebase"; // Adjust this import according to your firebase config file path
 
-const sendEmail = async (to, subject, html, email, cafe, raum, kindergeburtstag) => {
-    console.log(process.env.NEXT_DEV);
+export default async function handler(req, res) {
+    console.log(req.body);
     try {
-        // create a transporter object
+        // Save to Firestore
+        if (req.body.kindergeburtstag) {
+            const docRef = await addDoc(collection(db, "kindergeburtstag"), req.body);
+            console.log("Document ID: ", docRef.id);
+        }
+
+        // Set up Nodemailer
         const transporter = nodemailer.createTransport({
-            host: process.env.NEXT_DEV == "true" ? "smtp.world4you.com" : "smtp.world4you.com",
-            port: process.env.NEXT_DEV == "true" ? 587 : 587,
+            host: process.env.NEXT_DEV === "true" ? "smtp.world4you.com" : "smtp.world4you.com",
+            port: 587,
             secure: false,
             auth: {
-                user: process.env.NEXT_DEV == "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_W4YUSER,
-                pass: process.env.NEXT_DEV == "true" ? process.env.NEXT_W4YPASSWORD : process.env.NEXT_W4YPASSWORD,
+                user: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_W4YUSER,
+                pass: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YPASSWORD : process.env.NEXT_W4YPASSWORD,
             },
         });
 
-        // send the email
-        await transporter.sendMail({
-            from: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "office@atelierbuchner.at",
-            to,
-            replyTo: email,
-            subject,
-            html,
-        });
+        let subjectLine = "Email von " + req.body.name; // Default subject line
+
+        // Determine the subject line based on the props
+        if (req.body.cafe) {
+            subjectLine = "Anfrage Vermietung Cafe von " + req.body.name;
+        } else if (req.body.raum) {
+            subjectLine = "Anfrage Raumvermietung von " + req.body.name;
+        } else if (req.body.kindergeburtstag) {
+            subjectLine = "Anfrage Kindergeburtstag von " + req.body.name;
+        } else {
+            subjectLine = "Email von " + req.body.name;
+        }
+
+        const userMailOptions = {
+            from: "office@atelierbuchner.at",
+            to: req.body.email,
+            subject: "Anfrage Bestätigung",
+            text: `Liebe/r ${req.body.name}, vielen Dank für Deine Anfrage in unserem Cafe am ${new Date(
+                req.body.date
+            ).toLocaleDateString("de-DE")} um ${req.body.timeSlot}! Wir freuen uns auf dich! Main Glückskind`,
+            html: `
+                <p>Liebe/r ${req.body.name},</p>
+                <p>vielen Dank für deine Anmeldung zu <strong>${req.body.kurs}</strong> am <strong>${req.body.date}</strong>.</p>
+                <p>Unser Trainer wird sich mit dir in Verbindung setzen und dir weitere DetailInfos mitteilen.</p>
+                <p>Wir freuen uns auf dich!</p>
+                <p>Main Glückskind</p>
+            `,
+        };
+
+        const adminMailOptions = {
+            from: "office@atelierbuchner.at",
+            to: "johabuch@gmail.com", // Replace with your admin email
+            cc: "office@atelierbuchner.at", // CC email
+            subject: subjectLine,
+            // text: `...`, // Your Text email content for admin
+            html: `
+                        <p><strong>Name:</strong> ${req.body.name}</p>
+                        <p><strong>Email:</strong> ${req.body.email}</p>
+                        ${req.body.timeSlot ? `<p><strong>Zeitraum:</strong> ${req.body.timeSlot}</p>` : ""}
+                        ${
+                            req.body.date
+                                ? `<p><strong>Datum:</strong> ${new Date(req.body.date).toLocaleDateString(
+                                      "de-DE"
+                                  )}</p>`
+                                : ""
+                        }
+                        ${req.body.dekoration ? `<p><strong>Dekoration:</strong> ${req.body.dekoration}</p>` : ""}
+                        ${
+                            req.body.reinigung ? `<p><strong>Reinigung:</strong> ${req.body.reinigung}</p>` : ""
+                        }                
+                        <p><strong>Nachricht:</strong><br/> ${req.body.message.replace(/\n/g, "<br>")}</p>
+                    `,
+        };
+
+        // Send emails
+        await transporter.sendMail(userMailOptions);
+        await transporter.sendMail(adminMailOptions);
+
+        res.status(200).json({ message: "Anmeldung erfolgreich gespeichert und bestätigt" });
 
         console.log("Email sent successfully");
     } catch (error) {
         console.log("Error sending email: ", error);
     }
-};
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default async (req, res) => {
-    console.log(req.body);
-    const { firstName, name, email, message, cafe, raum, kindergeburtstag } = req.body;
-    console.log(firstName, name, email, message, cafe, raum, kindergeburtstag);
-    let subjectLine = "Email von " + name; // Default subject line
-
-    // Determine the subject line based on the props
-    if (cafe) {
-        subjectLine = "Anfrage Vermietung Cafe von " + name;
-    } else if (raum) {
-        subjectLine = "Anfrage Raumvermietung von " + name;
-    } else if (kindergeburtstag) {
-        subjectLine = "Anfrage Kindergeburtstag von " + name;
-    } else {
-        subjectLine = "Email von " + name;
-    }
-
-    if (!firstName) {
-        // construct the html message
-        const html = `
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Nachricht:<br/></strong> ${message.replace(/\n/g, "<br>")}</p>
-        `;
-
-        // send the email
-        await sendEmail("office@atelierbuchner.at", subjectLine, html, email);
-
-        // return success response
-        res.status(200).json(req.body);
-    } else {
-        // return error response
-        res.status(403).json({ error: "First name is required" });
-    }
-};
+}

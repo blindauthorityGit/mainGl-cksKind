@@ -18,6 +18,7 @@ import useStore from "../../store/store"; // Adjust the path to your store file
 const MobileBar = (props) => {
     //STORE
     const showOverlay = useStore((state) => state.showOverlay);
+    const showModal = useStore((state) => state.showModal);
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const showMobileModal = useStore((state) => state.showMobileModal);
     const setShowMobileModal = useStore((state) => state.setShowMobileModal);
@@ -39,7 +40,11 @@ const MobileBar = (props) => {
                     </ModalMobile>
                 </>
             ) : null}
-            <div className="fixed sm:hidden  z-50 bottom-0 w-full flex justify-center items-center bg-primaryColor text-sm ">
+            <div
+                className={`fixed sm:hidden ${
+                    showModal ? "z-10" : "z-30"
+                }  bottom-0 w-full flex justify-center items-center bg-primaryColor text-sm `}
+            >
                 <a
                     href="tel:+436508011900"
                     onClick={() => {

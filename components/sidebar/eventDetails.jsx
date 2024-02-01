@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { BasicPortableText } from "../content";
@@ -13,6 +13,13 @@ import { H2, H3, H4, H5, P } from "../typography";
 import formatDateTime from "../../functions/formatDateTime";
 
 const Details = ({ data, isWorkshop }) => {
+    const [displayedItems, setDisplayedItems] = useState([]);
+    const [itemsToShow, setItemsToShow] = useState(8);
+
+    useEffect(() => {
+        setDisplayedItems(data.datum.slice(0, itemsToShow));
+    }, [data.datum, itemsToShow]);
+
     useEffect(() => {
         console.log("FIRED");
     }, []);
@@ -60,9 +67,16 @@ const Details = ({ data, isWorkshop }) => {
             </div>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse={`mb-4  ${isWorkshop ? "!text-white" : "text-textColor"}`}>Termine</H4>
-                {data.datum.map((e, i) => {
-                    return <P klasse="font-bold">{formatDateTime(e.startDateTime, e.endDateTime)}</P>;
-                })}
+                {displayedItems.map((e, i) => (
+                    <P key={i} klasse="font-bold">
+                        {formatDateTime(e.startDateTime, e.endDateTime)}
+                    </P>
+                ))}
+                {data.datum.length > itemsToShow && (
+                    <button onClick={() => setItemsToShow(itemsToShow + 8)} className="mt-2 text-primaryColor">
+                        Mehr...
+                    </button>
+                )}
             </div>
         </>
     );

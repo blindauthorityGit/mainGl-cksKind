@@ -14,14 +14,14 @@ const Modal = (props) => {
     };
 
     return (
-        <div onClick={handleClickOutside} className="fixed  inset-0 flex items-center justify-center p-2 z-50">
+        <div onClick={handleClickOutside} className="fixed z-[99] inset-0 flex items-center justify-center p-2 lg:z-50">
             <motion.div
                 ref={modalRef}
-                className="w-full relative rounded-xl modalClass transition-colors duration-500 max-w-[95%] min-h-[80%] lg:h-auto 2xl:min-h-[66%] lg:max-w-[80%] 2xl:max-w-[60%] max-h-full bg-white py-6 px-6 md:p-12 lg:p-12 xl:p-16 "
+                className="w-full relative rounded-xl modalClass transition-colors duration-500 max-w-[98%] min-h-[80%] lg:h-auto 2xl:min-h-[66%] lg:max-w-[80%] 2xl:max-w-[60%] lg:max-h-full bg-white py-6 px-6 md:p-12 lg:p-12 xl:p-16 overflow-y-auto"
+                style={{ maxHeight: "90vh", background: props.background }} // Setzen Sie die maximale Höhe und fügen Sie overflow-y hinzu
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                style={{ background: props.background }}
             >
                 <div
                     className="closer absolute top-2 right-2 text-xl lg:text-4xl cursor-pointer transition hover:opacity-50 z-50"

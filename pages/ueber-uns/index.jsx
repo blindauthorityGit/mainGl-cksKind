@@ -24,9 +24,13 @@ import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor
 
 export default function Ueberuns({ dataAbout, dataPartner, dataKontakt }) {
     useEffect(() => {
-        console.log(dataAbout);
+        console.log(dataAbout, dataPartner);
         changeBodyBackgroundColor(dataAbout);
     }, []);
+
+    const filteredDataPartner = dataPartner.filter(
+        (partner) => partner.title !== "Arlett von Hoessle" && partner.title !== "Anja Kreil"
+    );
     return (
         <>
             <MainContainer width="container mx-auto px-4 lg:px-0">
@@ -45,7 +49,7 @@ export default function Ueberuns({ dataAbout, dataPartner, dataKontakt }) {
                 <Divider></Divider>
                 <Divider></Divider>
 
-                <LinkGrid data={dataPartner} headline="Unsere Partner"></LinkGrid>
+                <LinkGrid data={filteredDataPartner} headline="Unsere Partner"></LinkGrid>
 
                 {/* <h1 className="font-sans">Hallo ich bin ein Textor</h1> */}
             </MainContainer>

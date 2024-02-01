@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import MainContainer from "../layout/mainContainer";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { FaChevronDown } from "react-icons/fa"; // St
 import Error from "./error";
 import axios from "axios";
 import { Rings } from "react-loader-spinner";
 
 import { MainButton, MainButtonNOLink } from "../buttons";
+
+const TIME_SLOTS = ["09:30 - 11:30", "11:30 - 13:30"];
 
 const Form1 = (props) => {
     const [loading, setLoading] = useState(false);
@@ -15,7 +20,7 @@ const Form1 = (props) => {
         register,
         handleSubmit,
         formState: { errors },
-        reset,
+        control,
     } = useForm();
 
     async function onSubmitForm(values) {
@@ -117,6 +122,98 @@ const Form1 = (props) => {
                         <Error klasse="col-span-12 lg:col-span-6">Bitte geben Sie Ihre Telefonnummer an</Error>
                     )} */}
 
+                    {props.kindergeburtstag && (
+                        <>
+                            <div className=" items-center space-x-4 col-span-12 grid grid-cols-12">
+                                <label
+                                    htmlFor="timeSlot"
+                                    className="block col-span-4 text-base font-medium font-sans text-textColor  mb-1"
+                                >
+                                    Zeitfenster wählen:
+                                </label>
+                                <select
+                                    {...register("timeSlot", { required: props.kindergeburtstag })}
+                                    id="timeSlot"
+                                    className="col-span-8    text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                                >
+                                    <option disabled value="">
+                                        Zeitfenster wählen
+                                    </option>
+                                    {TIME_SLOTS.map((slot, index) => (
+                                        <option key={index} value={slot}>
+                                            {slot}
+                                        </option>
+                                    ))}
+                                </select>
+                                {errors.timeSlot && (
+                                    <Error klasse="col-span-12 text-themeRed text-xs">
+                                        Bitte wählen Sie ein Zeitfenster
+                                    </Error>
+                                )}
+                            </div>
+                            <div className=" items-center  space-x-4 col-span-12 grid grid-cols-12">
+                                <label
+                                    htmlFor="date-picker"
+                                    className="block col-span-4 text-base font-medium font-sans text-textColor  mb-1"
+                                >
+                                    Datum auswählen:
+                                </label>
+                                <Controller
+                                    control={control}
+                                    name="date"
+                                    rules={{ required: true }} // Fügen Sie hier Ihre Validierungsregeln hinzu
+                                    render={({ field }) => (
+                                        <div className="relative col-span-8">
+                                            <DatePicker
+                                                id="date-picker"
+                                                className="col-span-12 text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4  w-full"
+                                                placeholderText="Datum auswählen"
+                                                dateFormat="dd/MM/yyyy"
+                                                onChange={(date) => field.onChange(date)}
+                                                selected={field.value}
+                                                locale="de-DE"
+                                            />
+                                            <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" />
+                                        </div>
+                                    )}
+                                />
+                                {errors.date && (
+                                    <Error klasse="col-span-12 text-themeRed text-xs">Bitte wählen Sie ein Datum</Error>
+                                )}
+                            </div>
+                            <div className="col-span-12 flex space-x-4 items-center">
+                                <div className="flex items-center">
+                                    <input
+                                        {...register("reinigung")}
+                                        id="reinigung"
+                                        type="checkbox"
+                                        className="text-primaryColor"
+                                    />
+                                    <label
+                                        htmlFor="cleaningIncluded"
+                                        className="ml-2 font-sans text-xs sm:text-sm text-textColor"
+                                    >
+                                        inkl. Endreinigung
+                                    </label>
+                                </div>
+                                <div className="flex items-center">
+                                    <input
+                                        {...register("dekoration")}
+                                        id="dekoration"
+                                        type="checkbox"
+                                        className="text-primaryColor"
+                                    />
+                                    <label
+                                        htmlFor="decorationIncluded"
+                                        className="ml-2 font-sans text-xs sm:text-sm text-textColor"
+                                    >
+                                        inkl. Dekoration
+                                    </label>
+                                </div>
+                            </div>
+                        </>
+                    )}
+
                     <textarea
                         {...register("message", { required: true })}
                         className="col-span-12 text-xs  border-2 font-regular rounded-[20px] border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
@@ -132,7 +229,7 @@ const Form1 = (props) => {
                         </Error>
                     )}
 
-                    <div className="check col-span-12 mt-2 sm:mt-6 flex ">
+                    <div className="check col-span-12 mt-2  flex ">
                         <input
                             {...register("checkbox", { required: true })}
                             id="checkbox"
