@@ -3,7 +3,7 @@ import { addDoc, collection } from "firebase/firestore/lite";
 import { db } from "../../config/firebase"; // Adjust this import according to your firebase config file path
 
 export default async function handler(req, res) {
-    console.log(req.body);
+    console.log(req.body.trainerEmail);
     if (req.method === "POST") {
         try {
             // Save to Firestore
@@ -39,7 +39,7 @@ export default async function handler(req, res) {
 
             const adminMailOptions = {
                 from: "office@atelierbuchner.at",
-                to: "johabuch@gmail.com", // Replace with your admin email
+                to: process.env.NEXT_DEV === "true" ? "office@atelierbuchner.at" : req.body.trainerEmail, // Replace with your admin email
                 cc: "office@atelierbuchner.at", // CC email
                 subject: `TEST: Buchung von ${req.body.name} für ${req.body.kurs} am ${req.body.date}`,
                 // text: `...`, // Your Text email content for admin

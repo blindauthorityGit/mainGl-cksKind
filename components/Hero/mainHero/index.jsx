@@ -33,12 +33,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
     const setModalContent = useStore((state) => state.setModalContent);
 
     // const [topDistance, setTopDistance]
-    useEffect(() => {
-        console.log(urlFor(data.image).url(), imgRef.current.clientHeight);
-        setBGHeight(imgRef.current.clientHeight);
-        console.log(imgRef.current.getBoundingClientRect().top);
-        console.log(width, height);
-    }, []);
+    useEffect(() => {}, []);
 
     const imgRef = useRef();
     const heightRef = useRef();
@@ -58,7 +53,6 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
     }, [heightRef.current, width, aspectRatio]);
 
     useEffect(() => {
-        console.log(heightRef.current.clientHeight);
         setBGHeightAbsolute(heightRef.current.clientHeight + 140 + "px");
     }, [heightRef.current]);
 

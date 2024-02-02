@@ -45,7 +45,7 @@ export default async function handler(req, res) {
             // Email content for the owners
             const ownerMailOptions = {
                 from: '"office@atelierbuchner.at',
-                to: "cafe@mainglueckskind.de",
+                to: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
                 cc: "office@atelierbuchner.at",
                 subject: `Reservierung von ${req.body.name} am ${new Date(req.body.date).toLocaleDateString(
                     "de-DE"

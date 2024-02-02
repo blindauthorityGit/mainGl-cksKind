@@ -89,6 +89,10 @@ const AnmeldeForm = ({ data, children, events, intro, kategorie }) => {
         });
     }, [events]);
 
+    useEffect(() => {
+        console.log(events);
+    }, []);
+
     const shouldShowBirthDateField =
         events.kategorie.name === "Baby & Kleinkind" || events.headline.includes("Rückbildung");
 
@@ -244,7 +248,7 @@ const AnmeldeForm = ({ data, children, events, intro, kategorie }) => {
                             htmlFor="date"
                             className="text-xs col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
                         >
-                            Termin wählen
+                            {events.isBlock ? "Starttermin wählen" : "Termin wählen"}
                         </label>
                         <select
                             {...register("date", { required: true })}

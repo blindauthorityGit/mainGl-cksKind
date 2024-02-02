@@ -25,6 +25,10 @@ const MobileBar = (props) => {
     const [showContact, setShowContact] = useState(false);
     const [showOpening, setShowOpening] = useState(false);
 
+    useEffect(() => {
+        console.log(props.data);
+    }, [props.data]);
+
     return (
         <>
             {showMobileModal ? (
@@ -46,12 +50,7 @@ const MobileBar = (props) => {
                 }  bottom-0 w-full flex justify-center items-center bg-primaryColor text-sm `}
             >
                 <a
-                    href="tel:+436508011900"
-                    onClick={() => {
-                        setShowOverlay((showOverlay) => !showOverlay);
-                        setShowContact(false);
-                        setShowOpening(true);
-                    }}
+                    href="tel:01606091569"
                     style={{ background: showContact ? "#33333!important" : null }}
                     className="w-1/3 p-3 flex border-r border-opacity-30 border-primaryColor-200 flex-col justify-center items-center text-primaryColor-200 hover:text-primaryColor"
                 >

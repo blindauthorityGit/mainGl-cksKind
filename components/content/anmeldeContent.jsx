@@ -30,7 +30,7 @@ const AnmeldeContent = ({ data, events, email, phone }) => {
 
     return (
         <div className="col-span-12 px-6 lg:px-48 ">
-            <H1 klasse="">Anmeldung</H1>
+            <H1 klasse=""> {events.anfrage ? "Anfrage" : "Anmeldung"}</H1>
             <div className="2xl:w-2/4 pt-3 lg:mt-6">
                 {/* <P>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo dolores sed temporibus, deleniti
@@ -39,6 +39,19 @@ const AnmeldeContent = ({ data, events, email, phone }) => {
                     Necessitatibus voluptatem corporis omnis quas inventore temporibus ut quis, ex sed, quos natus.
                     Sequi labore dolor illo, ratione ut molestiae error libero.
                 </P> */}
+                {events.isBlock ? (
+                    <>
+                        <P>
+                            Dieser Kurs ist ein BLOCK Kurs.
+                            {events.blockLength > 0 &&
+                                ` Er beinhaltet ${events.blockLength} Einheiten, die frei nach den vorhandenen Terminen gewählt werden können.`}
+                        </P>
+                        <P klasse="mt-4">
+                            Wähle ein Startdatum aus den vorhandenen Terminen, und wähle die restlichen Termine frei
+                            nach Verfügbarkeit.
+                        </P>
+                    </>
+                ) : null}
             </div>
             <div className="flex mt-10 space-x-12">
                 <img src={Pin.src} alt="" />
@@ -68,7 +81,7 @@ const AnmeldeContent = ({ data, events, email, phone }) => {
                     console.log("ANMELDUNG");
                 }}
             >
-                ONLINE ANMELDUNG
+                {events.anfrage ? "Online Anfrage" : "ONLINE ANMELDUNG"}
             </MainButtonNOLink>
         </div>
     );

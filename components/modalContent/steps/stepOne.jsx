@@ -16,7 +16,10 @@ const Anmeldung = ({ data, events }) => {
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8">
             <div className="col-span-12 ">
-                <H2 klasse={``}>Anmeldung {events.headline}</H2>
+                <H2 klasse={``}>
+                    {" "}
+                    {events.anfrage ? "Anfrage" : "Anmeldung"} {events.headline}
+                </H2>
 
                 <AnmeldeForm intro={intro} events={events} data={events.datum}></AnmeldeForm>
             </div>

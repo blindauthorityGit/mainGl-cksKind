@@ -17,6 +17,9 @@ import { MobileBar1, MobileBarCafe } from "../components/mobileBar";
 import { Full } from "../components/footer";
 import { Sub } from "../components/footer";
 
+//COOKIE
+import CookieConsent from "react-cookie-consent";
+
 //STORE
 import useStore from "../store/store"; // Adjust the path to your store file
 
@@ -133,6 +136,19 @@ function MyApp({ Component, pageProps }) {
             )}
             <ParallaxProvider>
                 <Component {...pageProps} />
+                <CookieConsent
+                    location="bottom"
+                    buttonText="OK"
+                    cookieName="myAwesomeCookieName2"
+                    style={{ background: "#2B373B" }}
+                    buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
+                    expires={150}
+                >
+                    Wir nutzen Cookies, um unsere Website zu optimieren.
+                    {/* <span className="pl-4" style={{ fontSize: "10px" }}>
+                        Mit deinem Klick auf "Akzeptieren" stimmst du ihrer Verwendung zu
+                    </span> */}
+                </CookieConsent>
 
                 <Full></Full>
                 <Sub></Sub>

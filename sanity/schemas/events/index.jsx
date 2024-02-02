@@ -111,6 +111,26 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'isBlock',
+      title: 'Ist Block',
+      type: 'boolean',
+      description: 'Gibt an, ob die Veranstaltung ein Blockangebot hat',
+    },
+    {
+      name: 'blockLength',
+      title: 'Blocklänge',
+      type: 'number',
+      description: 'Die Länge der Blocks in EInheiten',
+      validation: (Rule) =>
+        Rule.min(1).max(24).warning('Die Blocklänge sollte zwischen 1 und 24 Stunden liegen.'),
+    },
+    {
+      name: 'anfrage',
+      title: 'Anfrage',
+      type: 'boolean',
+      description: 'Gibt an, ob die Veranstaltung auf Anfrage ist',
+    },
+    {
       name: 'image',
       title: 'Hauptbild',
       type: 'image',

@@ -318,7 +318,7 @@ const CafeReservierung = ({ image }) => {
                             <p>Ihre Reservierung wurde erfolgreich aufgenommen. Vielen Dank!</p>
                         </div>
                     ) : (
-                        <div className="w-full col-span-12 sm:mb-8 flex space-x-1 lg:space-x-4">
+                        <div className="w-full col-span-12 sm:mb-8 flex lg:space-x-4">
                             {/* Back Button (only shown in step 2) */}
                             {currentStep === 2 && (
                                 <MainButtonNOLink onClick={handleBack} klasse="bg-textColor mt-4">
