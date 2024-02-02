@@ -3,7 +3,11 @@ import { addDoc, collection } from "firebase/firestore/lite";
 import { db } from "../../config/firebase"; // Adjust this import according to your firebase config file path
 
 export default async function handler(req, res) {
-    console.log(process.env.NEXT_DEV);
+    console.log(
+        process.env.NEXT_MAIL_CAFE_LIVE,
+        process.env.NEXT_MAIL_KONTAKT_LIVE,
+        process.env.NEXT_MAIL_GEBURTSTAG_LIVE
+    );
     console.log(req.body);
     try {
         // Save to Firestore
@@ -12,32 +16,45 @@ export default async function handler(req, res) {
             console.log("Document ID: ", docRef.id);
         }
 
+        let emailTo = ""; // Default subject line
+        let subjectLine = "Email von " + req.body.name; // Default subject line
+        if (req.body.cafe) {
+            emailTo = process.env.NEXT_MAIL_CAFE_LIVE;
+            subjectLine = "Anfrage Vermietung Cafe von " + req.body.name;
+            console.log(emailTo);
+        } else if (req.body.raum) {
+            emailTo = process.env.NEXT_MAIL_KONTAKT_LIVE;
+            subjectLine = "Anfrage Raumvermietung von " + req.body.name;
+            console.log(emailTo);
+        } else if (req.body.kindergeburtstag) {
+            emailTo = process.env.NEXT_MAIL_GEBURTSTAG_LIVE;
+            subjectLine = "Anfrage Kindergeburtstag von " + req.body.name;
+            console.log(emailTo);
+        } else {
+            emailTo = process.env.NEXT_MAIL_KONTAKT_LIVE;
+            subjectLine = "Email von " + req.body.name;
+            console.log(emailTo);
+        }
+
+        console.log(emailTo);
+        // Set up Nodemailer
         // Set up Nodemailer
         const transporter = nodemailer.createTransport({
-            host: process.env.NEXT_DEV === "true" ? "smtp.world4you.com" : "smtp.world4you.com",
+            host: process.env.NEXT_DEV === "true" ? "smtp.world4you.com" : "smtp.strato.de",
             port: 587,
             secure: false,
             auth: {
-                user: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_W4YUSER,
-                pass: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YPASSWORD : process.env.NEXT_W4YPASSWORD,
+                user: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : emailTo,
+                pass: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YPASSWORD : process.env.NEXT_MAIL_PW_LIVE,
             },
         });
 
-        let subjectLine = "Email von " + req.body.name; // Default subject line
+        // let subjectLine = "Email von " + req.body.name; // Default subject line
 
         // Determine the subject line based on the props
-        if (req.body.cafe) {
-            subjectLine = "Anfrage Vermietung Cafe von " + req.body.name;
-        } else if (req.body.raum) {
-            subjectLine = "Anfrage Raumvermietung von " + req.body.name;
-        } else if (req.body.kindergeburtstag) {
-            subjectLine = "Anfrage Kindergeburtstag von " + req.body.name;
-        } else {
-            subjectLine = "Email von " + req.body.name;
-        }
 
         const userMailOptions = {
-            from: "office@atelierbuchner.at",
+            from: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : emailTo,
             to: req.body.email,
             subject: "Anfrage Bestätigung",
             text: `Liebe/r ${req.body.name}, vielen Dank für Deine Anfrage in unserem Cafe am ${new Date(
@@ -53,8 +70,8 @@ export default async function handler(req, res) {
         };
 
         const adminMailOptions = {
-            from: "office@atelierbuchner.at",
-            to: process.env.NEXT_DEV === "true" ? "office@atelierbuchner.at" : "kontakt@mainglueckskind.de",
+            from: process.env.NEXT_DEV === "true" ? "office@atelierbuchner.at" : emailTo,
+            to: process.env.NEXT_DEV === "true" ? "office@atelierbuchner.at" : emailTo,
             cc: "office@atelierbuchner.at", // CC email
             subject: subjectLine,
             // text: `...`, // Your Text email content for admin

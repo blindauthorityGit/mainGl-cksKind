@@ -12,12 +12,14 @@ export default async function handler(req, res) {
 
             // Set up Nodemailer
             const transporter = nodemailer.createTransport({
-                host: process.env.NEXT_DEV === "true" ? "smtp.world4you.com" : "smtp.world4you.com",
+                host: process.env.NEXT_DEV === "true" ? "smtp.world4you.com" : "smtp.strato.de",
                 port: 587,
                 secure: false,
                 auth: {
-                    user: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_W4YUSER,
-                    pass: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YPASSWORD : process.env.NEXT_W4YPASSWORD,
+                    user:
+                        process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_MAIL_BUCHUNG_LIVE,
+                    pass:
+                        process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YPASSWORD : process.env.NEXT_MAIL_PW_LIVE,
                 },
             });
 
@@ -38,7 +40,7 @@ export default async function handler(req, res) {
             };
 
             const adminMailOptions = {
-                from: "office@atelierbuchner.at",
+                from: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_MAIL_BUCHUNG_LIVE,
                 to: process.env.NEXT_DEV === "true" ? "office@atelierbuchner.at" : req.body.trainerEmail, // Replace with your admin email
                 cc: "office@atelierbuchner.at", // CC email
                 subject: `TEST: Buchung von ${req.body.name} für ${req.body.kurs} am ${req.body.date}`,
