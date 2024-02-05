@@ -46,6 +46,13 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'blocks',
+      title: 'Blöcke',
+      type: 'array',
+      of: [{type: 'eventBlock'}],
+      description: 'Blöcke mit Terminen für die Veranstaltung',
+    },
+    {
       name: 'datum',
       title: 'Termine',
       type: 'array',

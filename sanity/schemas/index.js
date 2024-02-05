@@ -29,6 +29,8 @@ import cardButtons from './components/cardButton'
 import cardButtonCollection from './components/cardButtonCollection'
 import menuItem from './components/menuItem'
 import speiseKategorie from './components/speiseKategorie'
+import datumField from './components/datumField'
+import eventBlock from './components/block'
 //SECTIONS
 import partner from './sections/partner'
 import location from './sections/location'
@@ -68,5 +70,7 @@ export const schemaTypes = [
   speisekarte,
   menuItem,
   speiseKategorie,
+  datumField,
+  eventBlock,
   // Add more schema types as needed
 ]

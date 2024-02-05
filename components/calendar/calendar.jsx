@@ -19,7 +19,8 @@ import { Events } from "../modalContent";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 //FUNCTION
-import getElementByID from "../../functions/getElementByID";
+import processEvents from "../../functions/processEvents";
+import useEventsByDate from "../../functions/useEventsByDate"; // Adjust the path as needed
 
 //STORE
 import useStore from "../../store/store"; // Adjust the path to your store file
@@ -48,6 +49,7 @@ const Calendar = ({ data, isSmallCalendar }) => {
         start: firstDayOfMonth,
         end: lastDayOfMonth,
     });
+    const eventsByDate = useEventsByDate(data);
 
     const nextMonth = () => {
         setCurrentDate((prevDate) => addMonths(prevDate, 1));
@@ -58,43 +60,32 @@ const Calendar = ({ data, isSmallCalendar }) => {
     };
 
     useEffect(() => {
-        //CHECK CURRENT DATE
-        const currentDate = new Date();
-        // FLATTEN ARRAY TO SINGLE DATES AND FILTER OUT OUTDATED EVENTS
-        const flattenedEvents = data.flatMap((event) =>
-            event.datum
-                .map((date) => ({ ...event, date: date.startDateTime }))
-                .filter((event) => new Date(event.date) >= currentDate)
-        );
-
-        // Sort the flattened events by date
-        const sortedEvents = flattenedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
-
+        const sortedEvents = processEvents(data);
         setFlatData(sortedEvents);
     }, [data]);
 
-    // Preprocess events data to create a map for efficient lookup
-    const eventsByDate = useMemo(() => {
-        const currentDate = new Date();
-        // FLATTEN ARRAY TO SINGLE DATES AND FILTER OUT OUTDATED EVENTS
-        const flattenedEvents = data.flatMap((event) =>
-            event.datum
-                .map((date) => ({ ...event, date: date.startDateTime }))
-                .filter((event) => new Date(event.date) >= currentDate)
-        );
+    // // Preprocess events data to create a map for efficient lookup
+    // const eventsByDate = useMemo(() => {
+    //     const currentDate = new Date();
+    //     // FLATTEN ARRAY TO SINGLE DATES AND FILTER OUT OUTDATED EVENTS
+    //     const flattenedEvents = data.flatMap((event) =>
+    //         event.datum
+    //             .map((date) => ({ ...event, date: date.startDateTime }))
+    //             .filter((event) => new Date(event.date) >= currentDate)
+    //     );
 
-        // Sort the flattened events by date
-        const sortedEvents = flattenedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+    //     // Sort the flattened events by date
+    //     const sortedEvents = flattenedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        return sortedEvents.reduce(function (acc, event) {
-            const dateKey = format(event.date, "yyyy-MM-dd");
-            if (!acc[dateKey]) {
-                acc[dateKey] = [];
-            }
-            acc[dateKey].push(event);
-            return acc;
-        }, {});
-    }, [data]);
+    //     return sortedEvents.reduce(function (acc, event) {
+    //         const dateKey = format(event.date, "yyyy-MM-dd");
+    //         if (!acc[dateKey]) {
+    //             acc[dateKey] = [];
+    //         }
+    //         acc[dateKey].push(event);
+    //         return acc;
+    //     }, {});
+    // }, [data]);
 
     // CHECKL IF DAY HAS EVENT
     const handleDayClick = (date) => {
@@ -155,11 +146,14 @@ const Calendar = ({ data, isSmallCalendar }) => {
                             {todaysEvents.map((e, i) => {
                                 return (
                                     <div
-                                        style={{ background: e.kategorie.farbe.value }}
+                                        style={{
+                                            background: e.kategorie.farbe.value,
+                                            opacity: e.ausgebucht ? "0.3" : "1",
+                                        }}
                                         className={`rounded-lg py-1 px-2 2xl:font-semibold text-sm relative ${
                                             todaysEvents.length > 1 ? "mb-1" : null
                                         } ${e.kategorie.name == "Beratung & Workshops" ? "!text-blueColor-100" : null}`}
-                                        key={e.headline}
+                                        key={e.headline + i}
                                         data-index={e._id}
                                         onClick={(e) => {
                                             // setShowToolTip(true);

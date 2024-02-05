@@ -78,6 +78,7 @@ const Element = ({ data, i, isWorkshop, isDetail, link, partner }) => {
                         src={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
                         mobileSrc={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
                         alt="Cover Background"
+                        klasse={data.ausgebucht ? "opacity-30" : "null"}
                         // style={{ aspectRatio: "1/0.8" }}
                         className="w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/0.5] xl:aspect-[1/0.8]"
                     />

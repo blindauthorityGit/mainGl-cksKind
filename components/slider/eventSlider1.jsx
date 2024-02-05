@@ -16,6 +16,9 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 //COMPONENTS
 import SlideElement from "./slideElement";
 
+//functions
+import processEvents from "../../functions/processEvents";
+
 const EventSlider1 = (props) => {
     const [isLoaded, setisLoaded] = useState(false);
     const [swiper, setSwiper] = useState(null);
@@ -38,17 +41,7 @@ const EventSlider1 = (props) => {
     useEffect(() => {
         setisLoaded(true);
 
-        //CHECK CURRENT DATE
-        const currentDate = new Date();
-        // FLATTEN ARRAY TO SINGLE DATES AND FILTER OUT OUTDATED EVENTS
-        const flattenedEvents = props.data.flatMap((event) =>
-            event.datum
-                .map((date) => ({ ...event, date: date.startDateTime }))
-                .filter((event) => new Date(event.date) >= currentDate)
-        );
-
-        // Sort the flattened events by date
-        const sortedEvents = flattenedEvents.sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, 15);
+        const sortedEvents = processEvents(props.data);
 
         setFlatData(sortedEvents);
         setDataLen(sortedEvents.length);
@@ -137,6 +130,7 @@ const EventSlider1 = (props) => {
                     }}
                 >
                     {flatData?.map((e, i) => {
+                        console.log(e.ausgebucht);
                         return (
                             <SwiperSlide key={`sliderKey${i}`} className="2xl:px-6 sm:px-0 relative ">
                                 <SlideElement

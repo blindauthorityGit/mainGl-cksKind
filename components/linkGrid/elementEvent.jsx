@@ -62,14 +62,20 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
 
     return (
         <div className="wrapper col-span-6 md:col-span-4 lg:col-span-3">
-            <Link href={`/event/${data.slug.current}`}>
+            <Link href={`/event/${data.slug.current}`} className="relative">
                 <CoverImage
                     src={urlFor(data.image).url()} // Replace with the actual path to your image
                     mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
                     alt="Cover Background"
+                    klasse={data.ausgebucht ? "opacity-20" : "null"}
                     style={{ aspectRatio: "1/1", borderColor: data.kategorie.farbe.value }}
                     className="w-full z-20 relative rounded-[40px] overflow-hidden border-[10px] lg:border-[12px] mb-3"
                 />
+                {data.ausgebucht ? (
+                    <div className="ausgebucht  xl:text-xl text-primaryColor-700 absolute z-30 flex justify-center items-center inset-0 font-sans font-bold">
+                        Ausgebucht
+                    </div>
+                ) : null}
             </Link>
             <div className="pl-2 hyphens-auto text-balance">
                 <H4 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.headline}</H4>

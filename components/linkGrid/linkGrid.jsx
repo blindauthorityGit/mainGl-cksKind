@@ -8,6 +8,8 @@ import ElementEvent from "./elementEvent"; // Assuming this component exists
 import { H2, H4, P } from "../typography";
 import { MainButtonNOLink } from "../buttons";
 
+//FUNCTIONS
+
 const ITEMS_PER_PAGE = 12; // Define how many items you want per page
 
 const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
@@ -19,23 +21,33 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
 
     useEffect(() => {
         if (isEvent) {
-            //CHECK CURRENT DATE
             const currentDate = new Date();
-            // FLATTEN ARRAY TO SINGLE DATES AND FILTER OUT OUTDATED EVENTS
-            const flattenedEvents = data.flatMap((event) =>
-                event.datum
-                    .map((date) => ({ ...event, date: date.startDateTime }))
-                    .filter((event) => new Date(event.date) >= currentDate)
-            );
 
-            // Sort the flattened events by date
-            const sortedEvents = flattenedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+            const processedEvents = data.flatMap((event) => {
+                if (event.blocks && event.blocks.length > 0) {
+                    // If the event has blocks, map over them
+                    return event.blocks.flatMap((block) => {
+                        // Map over the dates in each block
+                        const isBlockAusgebucht = block.ausgebucht || false;
+
+                        return block.dates
+                            .map((date) => ({ ...event, date: date.startDateTime, ausgebucht: isBlockAusgebucht }))
+                            .filter((event) => new Date(event.date) >= currentDate);
+                    });
+                } else {
+                    // If there are no blocks, use the regular dates
+                    return event.datum
+                        .map((date) => ({ ...event, date: date.startDateTime }))
+                        .filter((event) => new Date(event.date) >= currentDate);
+                }
+            });
+
+            // Sort the processed events by date and take the first 15
+            const sortedEvents = processedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
             setFlatData(sortedEvents);
             setAllItems(sortedEvents); // Set all items
             setDisplayedItems(sortedEvents.slice(0, ITEMS_PER_PAGE)); // Set initial displayed items
-
-            // setDataLen(sortedEvents.length);
         }
     }, [data, isEvent]);
 

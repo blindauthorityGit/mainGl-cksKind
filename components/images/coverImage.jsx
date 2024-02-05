@@ -2,7 +2,10 @@ import React, { forwardRef, useState } from "react";
 import Image from "next/image";
 import BeatLoader from "react-spinners/BeatLoader";
 
-const CoverImage = ({ src, mobileSrc, alt, height, onClick, width, position, className, style, aspectRatio }, ref) => {
+const CoverImage = (
+    { src, mobileSrc, alt, height, klasse, onClick, width, position, className, style, aspectRatio },
+    ref
+) => {
     const [isLoading, setLoading] = useState(true);
 
     const handleLoadingComplete = () => {
@@ -46,7 +49,7 @@ const CoverImage = ({ src, mobileSrc, alt, height, onClick, width, position, cla
                     layout="fill"
                     objectFit="cover"
                     quality={100}
-                    className="block lg:hidden"
+                    className={`block lg:hidden ${klasse}`}
                     onClick={onClick}
                     style={{ aspectRatio: aspectRatio }}
                     onLoadingComplete={handleLoadingComplete}
@@ -61,7 +64,7 @@ const CoverImage = ({ src, mobileSrc, alt, height, onClick, width, position, cla
                     layout="fill"
                     objectFit="cover"
                     quality={100}
-                    className="hidden lg:block"
+                    className={`hidden lg:block ${klasse}`}
                     onClick={onClick}
                     style={{ aspectRatio: aspectRatio }}
                     onLoadingComplete={handleLoadingComplete}
