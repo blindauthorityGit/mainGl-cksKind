@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import React, { useState, useEffect, useMemo } from "react";
+import dynamic from "next/dynamic"; // Import dynamic from next/dynamic
+
 // SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, A11y, Navigation } from "swiper";
@@ -8,27 +9,12 @@ import { Pagination, A11y, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-
-// animations
-import { motion } from "framer-motion";
 
 // icons
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 //COMPONENTS
 import SlideElement from "./slideElement";
-
-//ImageBuilder
-import myConfiguredSanityClient from "../../client";
-
-import imageUrlBuilder from "@sanity/image-url";
-
-const builder = imageUrlBuilder(myConfiguredSanityClient);
-
-function urlFor(source) {
-    return builder.image(source);
-}
 
 const EventSlider1 = (props) => {
     const [isLoaded, setisLoaded] = useState(false);
@@ -62,39 +48,11 @@ const EventSlider1 = (props) => {
         );
 
         // Sort the flattened events by date
-        const sortedEvents = flattenedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+        const sortedEvents = flattenedEvents.sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, 15);
 
         setFlatData(sortedEvents);
         setDataLen(sortedEvents.length);
     }, [props.data]);
-
-    useEffect(() => {
-        console.log(dataLen);
-    }, [dataLen]);
-
-    const textMotion = {
-        rest: {
-            x: -50,
-            opacity: 0,
-
-            transition: {
-                duration: 0.85,
-                type: "tween",
-                ease: "easeIn",
-            },
-        },
-        hover: {
-            // color: "blue",
-            x: 0,
-            opacity: 1,
-
-            transition: {
-                duration: 0.5,
-                type: "tween",
-                ease: "easeOut",
-            },
-        },
-    };
 
     return (
         <div
@@ -133,17 +91,12 @@ const EventSlider1 = (props) => {
                 </div>
             ) : null}
 
-            {/* {props.nonstart ? (
-                <h2 className="font-oswald text-4xl lg:text-6xl font-semibold mb-8 lg:mb-12">
-                    Weitere Veranstaltungen:
-                </h2>
-            ) : null} */}
-
             {dataLen && dataLen > 0 && (
                 <Swiper
                     // install Swiper modules
                     modules={[Pagination, Navigation, A11y]}
                     slidesPerView={4}
+                    lazy
                     pagination={{ clickable: true, dynamicBullets: true }}
                     onSwiper={(swiper) => {
                         {
@@ -152,7 +105,6 @@ const EventSlider1 = (props) => {
                     }}
                     onSlideChange={() => {
                         handleNav();
-                        console.log(isLastSlideRight, swiper.activeIndex, swiper.slides.length - 1);
                     }}
                     className="h-full eventSlider"
                     // style={{ paddingBottom: "3.75rem!important" }}
@@ -191,6 +143,7 @@ const EventSlider1 = (props) => {
                                     aspectRatio={dataLen > 2 ? "1/1" : "1.5/1"}
                                     isWorkshop={props.isWorkshop}
                                     data={e}
+                                    loading="lazy"
                                 ></SlideElement>
                             </SwiperSlide>
                         );

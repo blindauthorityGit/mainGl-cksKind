@@ -1,33 +1,35 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import { useEffect } from "react";
+import dynamic from "next/dynamic";
+
 import MainContainer from "../components/layout/mainContainer";
 
 // SANITY
 import client from "../client";
 
 //COMPS
-import Meta from "../components/SEO";
-import { MainHero } from "../components/Hero";
-import { EventSlider } from "../components/slider";
-import { CardHolder } from "../components/cards";
-import { ContentCard } from "../components/cards";
-import Divider from "../components/layout/divider";
-import FullWidthSection from "../components/layout/fullWidthSection";
-import { CTAContent } from "../components/content";
-import { TextImage, TextImagePortableText } from "../components/content";
-import { Contact } from "../components/content";
-import { BigDecal } from "../components/decorative";
-import { DecorativeDivider } from "../components/decorative";
-import FullWidthSectionBGImage from "../components/layout/fullWidthSectionBGImage";
+const Meta = dynamic(() => import("../components/SEO"));
+const MainHero = dynamic(() => import("../components/Hero/mainHero"));
+
+const EventSlider = dynamic(() => import("../components/slider").then((mod) => mod.EventSlider));
+const CardHolder = dynamic(() => import("../components/cards").then((mod) => mod.CardHolder));
+const ContentCard = dynamic(() => import("../components/cards").then((mod) => mod.ContentCard));
+const Divider = dynamic(() => import("../components/layout/divider").then((mod) => mod.default));
+const FullWidthSection = dynamic(() => import("../components/layout/fullWidthSection").then((mod) => mod.default));
+const CTAContent = dynamic(() => import("../components/content").then((mod) => mod.CTAContent));
+const TextImage = dynamic(() => import("../components/content").then((mod) => mod.TextImage));
+const Contact = dynamic(() => import("../components/content").then((mod) => mod.Contact));
+const BigDecal = dynamic(() => import("../components/decorative").then((mod) => mod.BigDecal));
+const DecorativeDivider = dynamic(() => import("../components/decorative").then((mod) => mod.DecorativeDivider));
+const FullWidthSectionBGImage = dynamic(() =>
+    import("../components/layout/fullWidthSectionBGImage").then((mod) => mod.default)
+);
 
 //FUNCTIONS
 import changeBodyBackgroundColor from "../functions/changeBodyBackgroundColor";
 
 export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt }) {
     useEffect(() => {
-        console.log(dataHome, dataEvents, dataKategorie, dataKontakt);
         changeBodyBackgroundColor(dataHome);
     }, []);
     return (
@@ -42,8 +44,6 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
                 <Divider></Divider>
                 <CardHolder data={dataKategorie}></CardHolder>
                 <Divider></Divider>
-
-                {/* <h1 className="font-sans">Hallo ich bin ein Textor</h1> */}
             </MainContainer>
             <FullWidthSection klasse="bg-[#AFD3A2] py-20 2xl:!py-32">
                 <CTAContent data={dataHome.components[3]}></CTAContent>
@@ -56,9 +56,6 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
                 <TextImage richText overlap data={dataHome.components[4]}></TextImage>
                 <TextImage richText data={dataHome.components[5]}></TextImage>
             </MainContainer>
-            {/* <FullWidthSectionBGImage klasse="lg:mt-[-4rem]" image={dataHome.components[6].image}>
-                <ContentCard data={dataHome.components[6]}></ContentCard>
-            </FullWidthSectionBGImage> */}
             <MainContainer width="container mx-auto">
                 <TextImage richText overlap data={dataHome.components[7]}></TextImage>
             </MainContainer>
