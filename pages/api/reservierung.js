@@ -29,7 +29,7 @@ export default async function handler(req, res) {
 
             // Email content for the user
             const userMailOptions = {
-                from: "office@atelierbuchner.at",
+                from: "cafe@mainglueckskind.de",
                 to: req.body.email,
                 subject: "Reservierungs Bestätigung",
                 text: `Liebe/r ${req.body.name}, vielen Dank für Deine Reservierung in unserem Cafe am ${new Date(
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
 
             // Email content for the owners
             const ownerMailOptions = {
-                from: '"office@atelierbuchner.at',
+                from: '"cafe@mainglueckskind.de',
                 to: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
                 cc: "office@atelierbuchner.at",
                 subject: `Reservierung von ${req.body.name} am ${new Date(req.body.date).toLocaleDateString(

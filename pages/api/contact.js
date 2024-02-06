@@ -72,7 +72,7 @@ export default async function handler(req, res) {
         const adminMailOptions = {
             from: process.env.NEXT_DEV === "true" ? "office@atelierbuchner.at" : emailTo,
             to: process.env.NEXT_DEV === "true" ? "office@atelierbuchner.at" : emailTo,
-            cc: "office@atelierbuchner.at", // CC email
+            cc: "info@mainglueckskind.de", // CC email
             subject: subjectLine,
             // text: `...`, // Your Text email content for admin
             html: `

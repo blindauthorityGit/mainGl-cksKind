@@ -24,7 +24,7 @@ export default async function handler(req, res) {
             });
 
             const userMailOptions = {
-                from: "office@atelierbuchner.at",
+                from: "info@mainglueckskind.de",
                 to: req.body.email,
                 subject: "Anmelde Bestätigung",
                 text: `Liebe/r ${req.body.name}, vielen Dank für Deine Reservierung in unserem Cafe am ${new Date(
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
             const adminMailOptions = {
                 from: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_MAIL_BUCHUNG_LIVE,
                 to: process.env.NEXT_DEV === "true" ? "office@atelierbuchner.at" : req.body.trainerEmail, // Replace with your admin email
-                cc: "office@atelierbuchner.at", // CC email
+                cc: "info@mainglueckskind.de", // CC email
                 subject: `TEST: Buchung von ${req.body.name} für ${req.body.kurs} am ${req.body.date}`,
                 // text: `...`, // Your Text email content for admin
                 html: `
