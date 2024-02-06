@@ -69,7 +69,7 @@ const Card = ({ data, i }) => {
             animate={controls}
             variants={variants}
         >
-            <Link href={`kurse/${data.button.link}`}>
+            <Link href={`${data.button.link}`}>
                 <CoverImage
                     src={urlFor(data.image).url()} // Replace with the actual path to your image
                     mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image

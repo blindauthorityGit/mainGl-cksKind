@@ -136,7 +136,7 @@ const StepTwo = ({ data, events, formData }) => {
                         onClick={isCheckboxChecked ? handleSubmit : null}
                         disabled={!isCheckboxChecked} // Deaktiviert den Button, wenn die Checkbox nicht ausgewählt ist
                     >
-                        Jetzt anmelden
+                        {formData.waitingList ? "In Warteliste eintragen" : "Jetzt anmelden"}
                     </MainButtonNOLink>
                 )}
                 {/* <StripePaymentComponent

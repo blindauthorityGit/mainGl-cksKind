@@ -9,6 +9,11 @@ export default {
       title: 'Block Titel',
       type: 'string',
     },
+    {
+      name: 'blockSubline',
+      title: 'Block Subtitel',
+      type: 'string',
+    },
 
     {
       name: 'dates',
@@ -23,6 +28,16 @@ export default {
     {
       name: 'ausgebucht',
       title: 'Ausgebucht',
+      type: 'boolean',
+    },
+    {
+      name: 'warteliste',
+      title: 'Warteliste',
+      type: 'boolean',
+    },
+    {
+      name: 'einstieg',
+      title: 'Späterer Einstieg möglich',
       type: 'boolean',
     },
   ],

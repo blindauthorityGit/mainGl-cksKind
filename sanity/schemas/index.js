@@ -31,6 +31,7 @@ import menuItem from './components/menuItem'
 import speiseKategorie from './components/speiseKategorie'
 import datumField from './components/datumField'
 import eventBlock from './components/block'
+import recurringEvent from './components/recurringEvent'
 //SECTIONS
 import partner from './sections/partner'
 import location from './sections/location'
@@ -72,5 +73,6 @@ export const schemaTypes = [
   speiseKategorie,
   datumField,
   eventBlock,
+  recurringEvent,
   // Add more schema types as needed
 ]

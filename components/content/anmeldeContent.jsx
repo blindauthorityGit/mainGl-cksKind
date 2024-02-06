@@ -39,16 +39,11 @@ const AnmeldeContent = ({ data, events, email, phone }) => {
                     Necessitatibus voluptatem corporis omnis quas inventore temporibus ut quis, ex sed, quos natus.
                     Sequi labore dolor illo, ratione ut molestiae error libero.
                 </P> */}
-                {events.isBlock ? (
+                {events.anfrage ? (
                     <>
-                        <P>
-                            Dieser Kurs ist ein BLOCK Kurs.
-                            {events.blockLength > 0 &&
-                                ` Er beinhaltet ${events.blockLength} Einheiten, die frei nach den vorhandenen Terminen gewählt werden können.`}
-                        </P>
+                        <P>Hast du Interesse an unserem Kurs?</P>
                         <P klasse="mt-4">
-                            Wähle ein Startdatum aus den vorhandenen Terminen, und wähle die restlichen Termine frei
-                            nach Verfügbarkeit.
+                            Schicke uns eine Anfrage und wir melden uns bei dir sobald es genug Verfügbarkeiten gibt!
                         </P>
                     </>
                 ) : null}

@@ -53,6 +53,12 @@ export default {
       description: 'Blöcke mit Terminen für die Veranstaltung',
     },
     {
+      name: 'recurringDate',
+      title: 'Dauerhafter Termin',
+      type: 'recurringEvent',
+      description: 'Blöcke mit Terminen für die Veranstaltung',
+    },
+    {
       name: 'datum',
       title: 'Termine',
       type: 'array',
@@ -115,7 +121,7 @@ export default {
         },
       ],
       description: 'Die Termine der Veranstaltung',
-      validation: (Rule) => Rule.required(),
+      // validation: (Rule) => Rule.required(),
     },
     {
       name: 'isBlock',

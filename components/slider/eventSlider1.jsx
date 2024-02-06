@@ -41,8 +41,8 @@ const EventSlider1 = (props) => {
     useEffect(() => {
         setisLoaded(true);
 
-        const sortedEvents = processEvents(props.data);
-
+        const sortedEvents = processEvents(props.data, true);
+        console.log(sortedEvents);
         setFlatData(sortedEvents);
         setDataLen(sortedEvents.length);
     }, [props.data]);
@@ -130,7 +130,6 @@ const EventSlider1 = (props) => {
                     }}
                 >
                     {flatData?.map((e, i) => {
-                        console.log(e.ausgebucht);
                         return (
                             <SwiperSlide key={`sliderKey${i}`} className="2xl:px-6 sm:px-0 relative ">
                                 <SlideElement

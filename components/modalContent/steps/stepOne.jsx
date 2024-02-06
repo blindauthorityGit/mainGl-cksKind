@@ -10,7 +10,7 @@ const Anmeldung = ({ data, events }) => {
     const intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus ut perferendis ratione.";
 
     useEffect(() => {
-        console.log(events, data);
+        console.log(events, data, events.blocks);
     }, [events]);
 
     return (
