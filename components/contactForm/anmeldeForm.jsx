@@ -263,7 +263,7 @@ const AnmeldeForm = ({ data, children, events, intro, kategorie }) => {
                                 htmlFor="siblings"
                                 className="text-xs mb-2 lg:mb-0 col-span-12 lg:col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
                             >
-                                Gibt es Geschwisterkinder?
+                                Geschwister?
                             </label>
                             <select
                                 {...register("siblings", { required: shouldShowBabyFields })}
