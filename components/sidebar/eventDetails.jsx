@@ -41,8 +41,13 @@ const Details = ({ data, isWorkshop }) => {
         console.log(data);
     }, [data]);
 
+    useEffect(() => {
+        console.log(isWorkshop);
+    }, []);
+
     // Function to render dates for both block and non-block events
-    const renderDates = () => {
+    const renderDates = (isWorkshop) => {
+        console.log(isWorkshop);
         if (data.isBlock && data.blocks && data.blocks.length > 0) {
             return data.blocks.map((block, blockIndex) => {
                 const key = block._key || `block-${blockIndex}`;
@@ -54,7 +59,12 @@ const Details = ({ data, isWorkshop }) => {
                         <H4 klasse="font-bold">{block.blockTitle}</H4>
                         {block.blockSubline ? <div className="mt-1">{block.blockSubline}</div> : null}
                         {datesToShow.map((date, dateIndex) => (
-                            <P key={dateIndex} klasse="font-bold">
+                            <P
+                                key={dateIndex}
+                                klasse={`font-bold ${
+                                    isWorkshop ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"
+                                }`}
+                            >
                                 {formatDateTime(date.startDateTime, date.endDateTime)}
                             </P>
                         ))}
@@ -72,7 +82,10 @@ const Details = ({ data, isWorkshop }) => {
         } else {
             // Rendering non-block events, same as before
             return data.datum.slice(0, itemsToShow).map((e, i) => (
-                <P key={i} klasse="font-bold">
+                <P
+                    key={i}
+                    klasse={`font-bold ${isWorkshop ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"}`}
+                >
                     {formatDateTime(e.startDateTime, e.endDateTime)}
                 </P>
             ));
@@ -83,11 +96,11 @@ const Details = ({ data, isWorkshop }) => {
         <>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse="!text-primaryColor mb-4">Location</H4>
-                <BasicPortableText isWorkshop value={data.eventDetails.location.location} />
+                <BasicPortableText isWorkshop={isWorkshop} value={data.eventDetails.location.location} />
             </div>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse="!text-primaryColor mb-4">Preis</H4>
-                <P>{data.eventDetails.preis}</P>
+                <P klasse={isWorkshop ? "!text-blueColor-100" : "text-textColor"}>{data.eventDetails.preis}</P>
             </div>
             {data.eventDetails.teilnehmeranzahl && (
                 <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
@@ -122,7 +135,7 @@ const Details = ({ data, isWorkshop }) => {
             </div>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse={`mb-4  ${isWorkshop ? "!text-white" : "text-textColor"}`}>Termine</H4>
-                {renderDates()}
+                {renderDates(isWorkshop)}
                 {!data.isBlock && data.datum.length > itemsToShow && (
                     <button onClick={() => setItemsToShow(itemsToShow + 8)} className="mt-2 text-primaryColor">
                         Mehr...

@@ -42,7 +42,7 @@ const myPortableTextComponents = (isWorkshop) => ({
     },
     block: {
         // Styling for the "normal" paragraphs
-        normal: ({ children, isWorkshop }) => (
+        normal: ({ children }) => (
             <P klasse={`RUMPIDUMPO lg:text-base lg:leading-7 font-sans ${isWorkshop ? "!text-white" : "NADADA"}`}>
                 {children}
             </P>
