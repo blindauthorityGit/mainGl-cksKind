@@ -13,6 +13,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'isHidden',
+      title: 'Keine eigene Seite',
+      type: 'boolean',
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',

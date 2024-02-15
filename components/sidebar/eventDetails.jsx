@@ -41,13 +41,29 @@ const Details = ({ data, isWorkshop }) => {
         console.log(data);
     }, [data]);
 
-    useEffect(() => {
-        console.log(isWorkshop);
-    }, []);
-
     // Function to render dates for both block and non-block events
     const renderDates = (isWorkshop) => {
-        console.log(isWorkshop);
+        // Function to map day numbers to day names in German
+        const dayOfWeekToGerman = (dayNum) => {
+            const days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+            return days[dayNum];
+        };
+
+        // Check and render recurring events
+        if (data.recurringDates && data.recurringDates.length > 0) {
+            return data.recurringDates.map((recurringEvent, index) => {
+                const dayOfWeek = dayOfWeekToGerman(recurringEvent.dayOfWeek);
+                const timeslots = recurringEvent.timeslot
+                    ? `${recurringEvent.timeslot.startTime} - ${recurringEvent.timeslot.endTime}`
+                    : "";
+                return (
+                    <P key={index} klasse={`font-bold ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
+                        {"jeden " + dayOfWeek + " um " + timeslots}
+                    </P>
+                );
+            });
+        }
+
         if (data.isBlock && data.blocks && data.blocks.length > 0) {
             return data.blocks.map((block, blockIndex) => {
                 const key = block._key || `block-${blockIndex}`;
@@ -118,7 +134,7 @@ const Details = ({ data, isWorkshop }) => {
                 <H4 klasse={`mb-4  ${isWorkshop ? "!text-white" : "text-textColor"}`}>Kurs Leitung</H4>
                 <div className="flex w-full items-center">
                     <div className="image">
-                        <Link href={`/partner/${data.eventDetails.partner.slug.current}`}>
+                        {data.eventDetails.partner.isHidden ? (
                             <CoverImage
                                 src={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
                                 mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
@@ -126,7 +142,17 @@ const Details = ({ data, isWorkshop }) => {
                                 style={{ aspectRatio: "1/1" }}
                                 className=" w-20 h-20 z-20 relative rounded-[40px] overflow-hidden  mr-4"
                             />
-                        </Link>
+                        ) : (
+                            <Link href={`/partner/${data.eventDetails.partner.slug.current}`}>
+                                <CoverImage
+                                    src={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
+                                    mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
+                                    alt="Cover Background"
+                                    style={{ aspectRatio: "1/1" }}
+                                    className=" w-20 h-20 z-20 relative rounded-[40px] overflow-hidden  mr-4"
+                                />
+                            </Link>
+                        )}
                     </div>{" "}
                     <P klasse={` ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
                         {data.eventDetails.partner.name}

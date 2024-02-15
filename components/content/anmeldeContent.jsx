@@ -15,7 +15,7 @@ import Mail from "../../assets/mailPink.svg";
 
 import useStore from "../../store/store";
 
-const AnmeldeContent = ({ data, events, email, phone }) => {
+const AnmeldeContent = ({ data, events, email, phone, isPekip }) => {
     const setShowModal = useStore((state) => state.setShowModal);
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setModalContent = useStore((state) => state.setModalContent);
@@ -72,7 +72,7 @@ const AnmeldeContent = ({ data, events, email, phone }) => {
                 onClick={() => {
                     setShowOverlay(true);
                     setShowModal(true);
-                    setModalContent(<StepOne data={data} events={events}></StepOne>);
+                    setModalContent(<StepOne isPekip={isPekip} data={data} events={events}></StepOne>);
                     console.log("ANMELDUNG");
                 }}
             >

@@ -1,13 +1,21 @@
 import { eachWeekOfInterval, add, parseISO, isAfter, formatISO, startOfDay } from "date-fns";
 
 function computeWeeklyOccurrences(startDate, endDate, dayOfWeek) {
-    const occurrences = eachWeekOfInterval({
-        start: parseISO(startDate),
-        end: endDate ? parseISO(endDate) : add(parseISO(startDate), { years: 1 }),
-    })
-        .map((date) => startOfDay(date))
-        .filter((date) => date.getDay() === dayOfWeek)
-        .map((date) => formatISO(date, { representation: "date" }));
+    const start = parseISO(startDate);
+    const end = endDate ? parseISO(endDate) : add(start, { years: 1 });
+    const occurrences = [];
+
+    // Adjust the start date to the first occurrence of the specified dayOfWeek
+    let current = start;
+    while (current.getDay() !== dayOfWeek) {
+        current = add(current, { days: 1 });
+    }
+
+    // Now that we have the first correct day, iterate weekly until the end date
+    while (current <= end) {
+        occurrences.push(formatISO(current, { representation: "date" }));
+        current = add(current, { weeks: 1 });
+    }
 
     return occurrences;
 }
@@ -18,16 +26,30 @@ export default function processEvents(data, forSlider = false) {
     return data
         .flatMap((event) => {
             // Handle recurring events
-            if (event.recurringDate && event.recurringDate.startDate) {
-                const { startDate, endDate, dayOfWeek } = event.recurringDate;
-                const occurrences = computeWeeklyOccurrences(startDate, endDate, dayOfWeek);
-                return occurrences
-                    .map((date) => ({
-                        ...event,
-                        date: `${date}T${event.recurringDate.timeslot.startTime}`,
-                        ausgebucht: event.ausgebucht || false,
-                    }))
-                    .filter((event) => isAfter(new Date(event.date), currentDate));
+            if (event.recurringDates && event.recurringDates.length > 0) {
+                // Use a Map to track the first occurrence of each date
+                const firstOccurrences = new Map();
+
+                event.recurringDates.flatMap((recurringEvent) => {
+                    const { startDate, endDate, dayOfWeek, timeslot } = recurringEvent;
+                    const occurrences = computeWeeklyOccurrences(startDate, endDate, dayOfWeek);
+
+                    occurrences.forEach((date) => {
+                        // If the date isn't already in the map, add it
+                        if (!firstOccurrences.has(date)) {
+                            firstOccurrences.set(date, {
+                                ...event,
+                                date: `${date}T${timeslot.startTime}`,
+                                ausgebucht: event.ausgebucht || false,
+                            });
+                        }
+                    });
+                });
+
+                // Convert the Map values to an array and filter out past events
+                return Array.from(firstOccurrences.values()).filter((recEvent) =>
+                    isAfter(new Date(recEvent.date), currentDate)
+                );
             }
             // Adjusted logic for block events with dynamic date selection
             else if (event.isBlock && event.blocks && event.blocks.length > 0) {

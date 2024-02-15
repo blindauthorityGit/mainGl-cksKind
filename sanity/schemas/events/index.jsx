@@ -53,10 +53,11 @@ export default {
       description: 'Blöcke mit Terminen für die Veranstaltung',
     },
     {
-      name: 'recurringDate',
-      title: 'Dauerhafter Termin',
-      type: 'recurringEvent',
-      description: 'Blöcke mit Terminen für die Veranstaltung',
+      name: 'recurringDates',
+      title: 'Dauerhafte Termine',
+      type: 'array', // Change this to array to allow multiple recurring events
+      of: [{type: 'recurringEvent'}],
+      description: 'Blöcke mit wiederkehrenden Terminen für die Veranstaltung',
     },
     {
       name: 'datum',

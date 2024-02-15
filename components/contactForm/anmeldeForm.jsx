@@ -18,7 +18,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import useStore from "../../store/store"; // adjust the path as necessary
 
-const AnmeldeForm = ({ data, children, events, intro, kategorie }) => {
+const AnmeldeForm = ({ data, children, events, intro, kategorie, isPekip }) => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [waitingList, setWaitingList] = useState(false);
@@ -118,6 +118,11 @@ const AnmeldeForm = ({ data, children, events, intro, kategorie }) => {
             trainer: events.eventDetails.partner.name,
         });
     }, [events]);
+
+    useEffect(() => {
+        console.log(data);
+        console.log("IS PEKIP?", isPekip);
+    }, []);
 
     useEffect(() => {
         // This function is called when the component mounts or when waitingList updates.
@@ -285,32 +290,33 @@ const AnmeldeForm = ({ data, children, events, intro, kategorie }) => {
                     )}
 
                     {/* Date Dropdown */}
-                    <div className=" items-center space-x-4 col-span-12 grid grid-cols-12">
-                        <label
-                            htmlFor="date"
-                            className="text-xs col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
-                        >
-                            {events.isBlock ? "Starttermin wählen" : "Termin wählen"}
-                        </label>
-                        <select
-                            {...register("date", { required: true })}
-                            id="date"
-                            onChange={handleInputChange}
-                            className="text-xs col-span-8 border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
-                            defaultValue="" // Set the default value to an empty string
-                        >
-                            {/* Add this line */}
-                            <option value="" disabled>
-                                {events.isBlock ? "Starttermin für Block wählen" : "Kurstermin wählen"}
-                            </option>
-                            {dateOptions.map((date, index) => (
-                                <option key={index} value={formatStringToDate(date.startDateTime)}>
-                                    {formatStringToDate(date.startDateTime)}
+                    {!isPekip && (
+                        <div className=" items-center space-x-4 col-span-12 grid grid-cols-12">
+                            <label
+                                htmlFor="date"
+                                className="text-xs col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
+                            >
+                                {events.isBlock ? "Starttermin wählen" : "Termin wählen"}
+                            </label>
+                            <select
+                                {...register("date", { required: true })}
+                                id="date"
+                                onChange={handleInputChange}
+                                className="text-xs col-span-8 border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                                defaultValue="" // Set the default value to an empty string
+                            >
+                                {/* Add this line */}
+                                <option value="" disabled>
+                                    {events.isBlock ? "Starttermin für Block wählen" : "Kurstermin wählen"}
                                 </option>
-                            ))}
-                        </select>
-                    </div>
-
+                                {dateOptions.map((date, index) => (
+                                    <option key={index} value={formatStringToDate(date.startDateTime)}>
+                                        {formatStringToDate(date.startDateTime)}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
                     <textarea
                         {...register("message", { required: false })}
                         className="col-span-12 text-xs  border-2 font-regular rounded-[20px] border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"

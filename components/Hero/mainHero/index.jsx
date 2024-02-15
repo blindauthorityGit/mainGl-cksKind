@@ -132,8 +132,9 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         alt="Cover Background"
                         // style={{ aspectRatio: aspectRatio }}
                         className="w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/0.5] md:aspect-[1/0.7] xl:aspect-[1/0.85]"
-                        data-aos={"fade-left"}
+                        // data-aos={"fade-left"}
                         ref={imgRef}
+                        priority={true}
                     />
                     <motion.div
                         className="flex-col justify-center flex text-center md:hidden mt-6 px-4"

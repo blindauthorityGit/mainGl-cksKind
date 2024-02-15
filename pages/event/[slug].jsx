@@ -42,6 +42,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
             return;
         }
         console.log(data);
+        console.log("IS PEKIP ? :", data.slug.current.includes("pekip"));
         const filterName = data.kategorie?.name;
         if (!filterName || !dataAllKategorie) {
             // Handle the case where filterName or dataAllKategorie is undefined
@@ -75,11 +76,13 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                     blocks={data.content.content}
                                 ></PortableTextEvent>
                                 <Divider></Divider>
-                                <RegularText
-                                    link={data.eventDetails.partner.slug.current}
-                                    isWorkshop={isWorkshop}
-                                    data={data.eventDetails.partner}
-                                ></RegularText>
+                                {!data.eventDetails.partner.isHidden && (
+                                    <RegularText
+                                        link={data.eventDetails.partner.slug.current}
+                                        isWorkshop={isWorkshop}
+                                        data={data.eventDetails.partner}
+                                    ></RegularText>
+                                )}
                             </div>
                             {/* //SIDEBAR */}
                             <div className="col-span-12 hidden lg:block md:col-span-4 lg:mt-28 lg:pl-16">
@@ -107,6 +110,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                             email={data.eventDetails.partner.email}
                             events={data}
                             data={dataKontakt[0]}
+                            isPekip={data.slug.current.includes("pekip")}
                         ></AnmeldeContent>
                     </FullWidthSection>
                     <MainContainer width="container mx-auto gap-8">

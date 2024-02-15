@@ -40,10 +40,16 @@ const EventSlider1 = (props) => {
 
     useEffect(() => {
         setisLoaded(true);
-
         const sortedEvents = processEvents(props.data, true);
-        console.log(sortedEvents);
-        setFlatData(sortedEvents);
+
+        // Check if there are more events than the limit
+        const limitedEvents = sortedEvents.slice(0, 15);
+        if (sortedEvents.length > 15) {
+            // Add a placeholder object for the 'View All' slide
+            limitedEvents.push({ viewAll: true });
+        }
+
+        setFlatData(limitedEvents);
         setDataLen(sortedEvents.length);
     }, [props.data]);
 
@@ -130,16 +136,31 @@ const EventSlider1 = (props) => {
                     }}
                 >
                     {flatData?.map((e, i) => {
-                        return (
-                            <SwiperSlide key={`sliderKey${i}`} className="2xl:px-6 sm:px-0 relative ">
-                                <SlideElement
-                                    aspectRatio={dataLen > 2 ? "1/1" : "1.5/1"}
-                                    isWorkshop={props.isWorkshop}
-                                    data={e}
-                                    loading="lazy"
-                                ></SlideElement>
-                            </SwiperSlide>
-                        );
+                        // Check if the current item is the 'View All' placeholder
+                        if (e.viewAll) {
+                            return (
+                                <SwiperSlide key={`viewAllSlide`} className="2xl:px-6 sm:px-0 relative">
+                                    <div className="w-full h-2/3 rounded-2xl flex items-center justify-center bg-primaryColor-600">
+                                        {/* Adjust the link as necessary */}
+                                        <a href="/programm" className="font-sans text-primaryColor-100 font-semibold">
+                                            Alle anzeigen
+                                        </a>
+                                    </div>
+                                </SwiperSlide>
+                            );
+                        } else {
+                            // Normal event slide rendering
+                            return (
+                                <SwiperSlide key={`sliderKey${i}`} className="2xl:px-6 sm:px-0 relative">
+                                    <SlideElement
+                                        aspectRatio={dataLen > 2 ? "1/1" : "1.5/1"}
+                                        isWorkshop={props.isWorkshop}
+                                        data={e}
+                                        loading="lazy"
+                                    ></SlideElement>
+                                </SwiperSlide>
+                            );
+                        }
                     })}
                 </Swiper>
             )}
