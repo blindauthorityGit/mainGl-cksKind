@@ -18,6 +18,7 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
+        console.log(data);
         const computeWeeklyOccurrences = (startDate, endDate, dayOfWeek, timeslot) => {
             let occurrences = [];
             const start = parseISO(startDate);
@@ -89,21 +90,32 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
             </H2>
 
             <div className="col-span-12 grid grid-cols-12 gap-4 lg:gap-8 px-6 lg:px-24">
-                {displayedItems.map((e, i) =>
-                    isEvent ? (
-                        <ElementEvent key={i} isDetail={isDetail} isWorkshop={isWorkshop} data={e} />
-                    ) : (
-                        <Element
-                            link={e._type == "kategorie" ? `/kurse/${e.button.link}` : `/partner/${e.slug?.current}`}
-                            partner={e._type == "partner"}
-                            key={i}
-                            isDetail={isDetail}
-                            isWorkshop={isWorkshop}
-                            data={e}
-                        />
-                    )
-                )}
+                {isEvent
+                    ? displayedItems?.map((e, i) => {
+                          return <ElementEvent key={i} isDetail={isDetail} isWorkshop={isWorkshop} data={e} />;
+                      })
+                    : data.map((e, i) => {
+                          if (e.isHidden) {
+                              return;
+                          } else {
+                              return (
+                                  <Element
+                                      link={
+                                          e._type == "kategorie"
+                                              ? "/kurse/" + e.button.link
+                                              : "/partner/" + e.slug?.current
+                                      }
+                                      partner={e._type == "partner"}
+                                      key={i}
+                                      isDetail={isDetail}
+                                      isWorkshop={isWorkshop}
+                                      data={e}
+                                  />
+                              );
+                          }
+                      })}
             </div>
+
             {allItems.length > displayedItems.length && (
                 <div className="col-span-12 flex justify-center mt-4">
                     <MainButtonNOLink
