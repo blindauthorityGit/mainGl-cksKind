@@ -4,7 +4,6 @@ const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
     const [activeFilter, setActiveFilter] = useState("Alle");
     const [showDropdown, setShowDropdown] = useState(false);
 
-    // Define your filters for easier management
     const filters = [
         { name: "Alle", color: "#df3288" },
         { name: "Baby & Kleinkind", color: "#F3E584" },
@@ -14,19 +13,28 @@ const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
 
     const handleFilterClick = (filterName) => {
         setActiveFilter(filterName);
-        if (filterName === "Alle") {
-            setFilteredEvents(dataEvents);
-        } else {
-            const filtered = dataEvents.filter((e) => e.kategorie.name === filterName);
-            setFilteredEvents(filtered);
-        }
+        setFilteredEvents(
+            filterName === "Alle" ? dataEvents : dataEvents.filter((e) => e.kategorie.name === filterName)
+        );
         setShowDropdown(false);
     };
 
-    const getTextClass = (name) => {
-        if (name === "Alle") return "text-primaryColor-50";
-        if (name === "Beratung & Workshops") return "text-blueColor-50";
-        return "text-textColor";
+    // Mobile-specific text color logic, ensuring background colors are also correctly applied
+    const getMobileStyles = (filterName, isActive) => {
+        let textColor = "text-textColor"; // Default text color
+        let backgroundColor = "white"; // Default background color for non-active buttons
+
+        if (isActive) {
+            backgroundColor = filters.find((filter) => filter.name === filterName).color; // Apply specific background color for active button
+            textColor =
+                filterName === "Alle"
+                    ? "text-primaryColor-50"
+                    : filterName === "Beratung & Workshops"
+                    ? "text-blueColor-50"
+                    : "text-white"; // Special text color for active "Alle" and "Beratung & Workshops"
+        }
+
+        return { backgroundColor, textColor };
     };
 
     return (
@@ -41,20 +49,22 @@ const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
                 </button>
                 {showDropdown && (
                     <div className="absolute mt-1 w-full shadow-lg rounded-md z-40">
-                        {filters.map((filter) => (
-                            <div
-                                key={filter.name}
-                                className={`cursor-pointer text-xs px-4 py-2 w-full hover:bg-opacity-80 ${
-                                    activeFilter === filter.name ? `bg-[${filter.color}] text-white` : "bg-white"
-                                }`}
-                                style={{
-                                    color: activeFilter === filter.name ? "white" : getTextClass(filter.name),
-                                }}
-                                onClick={() => handleFilterClick(filter.name)}
-                            >
-                                {filter.name}
-                            </div>
-                        ))}
+                        {filters.map((filter) => {
+                            const { textColor, backgroundColor } = getMobileStyles(
+                                filter.name,
+                                activeFilter === filter.name
+                            );
+                            return (
+                                <div
+                                    key={filter.name}
+                                    className={`cursor-pointer text-xs px-4 py-2 w-full hover:bg-opacity-80 ${textColor}`}
+                                    style={{ backgroundColor }}
+                                    onClick={() => handleFilterClick(filter.name)}
+                                >
+                                    {filter.name}
+                                </div>
+                            );
+                        })}
                     </div>
                 )}
             </div>
@@ -64,13 +74,14 @@ const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
                 {filters.map((filter) => (
                     <div
                         key={filter.name}
-                        className={`cursor-pointer text-base px-4 py-2 rounded-lg hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                            activeFilter === filter.name ? "border-2 border-white" : ""
-                        } ${getTextClass(filter.name)}`}
-                        style={{
-                            backgroundColor: filter.color,
-                            borderColor: activeFilter === filter.name ? "white" : "transparent",
-                        }}
+                        className={`cursor-pointer flex items-center justify-center text-base px-4 py-2 rounded-lg hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                            filter.name === "Alle"
+                                ? "text-primaryColor-50"
+                                : filter.name === "Beratung & Workshops"
+                                ? "text-blueColor-50"
+                                : "text-textColor"
+                        } ${activeFilter === filter.name ? "border-4 border-white rounded-lg" : ""}`}
+                        style={{ backgroundColor: filter.color }}
                         onClick={() => handleFilterClick(filter.name)}
                     >
                         {filter.name}
