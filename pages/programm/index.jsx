@@ -9,7 +9,7 @@ import client from "../../client";
 //COMPS
 import { BasicHero } from "../../components/Hero";
 import Meta from "../../components/SEO";
-import { LinkGrid } from "../../components/linkGrid";
+import { LinkGrid, FilterComponent } from "../../components/linkGrid";
 import { PortableTextView, Contact, CTAContent } from "../../components/content";
 import { CardHolder } from "../../components/cards";
 import { Calendar } from "../../components/calendar";
@@ -25,8 +25,11 @@ import FullWidthSection from "../../components/layout/fullWidthSection";
 import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor";
 
 export default function Programm({ dataHome, dataKontakt, dataEvents, dataKategorie }) {
+    const [filteredEvents, setFilteredEvents] = useState([]);
+
     useEffect(() => {
         console.log(dataEvents);
+        setFilteredEvents(dataEvents);
         changeBodyBackgroundColor("");
     }, []);
     return (
@@ -53,8 +56,13 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                     </div>
                 </div>
                 <Divider></Divider>
+                <FilterComponent
+                    dataEvents={dataEvents}
+                    filteredEvents={filteredEvents}
+                    setFilteredEvents={setFilteredEvents}
+                />
 
-                <LinkGrid isEvent data={dataEvents}></LinkGrid>
+                <LinkGrid isEvent data={filteredEvents}></LinkGrid>
             </MainContainer>
             <Divider></Divider>
 
