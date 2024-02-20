@@ -27,11 +27,11 @@ const SlideElement = ({ data, isWorkshop, aspectRatio }) => {
                     }}
                     className="w-full z-20 relative rounded-[40px] overflow-hidden border-[6px] xl:border-[8px] 2xl:border-[12px] mb-3"
                 />
-                {data.ausgebucht ? (
+                {/* {data.ausgebucht ? (
                     <div className="ausgebucht top-20 left-6 xl:text-xl text-primaryColor-700 absolute z-30 flex justify-center items-center font-sans font-bold">
                         Ausgebucht
                     </div>
-                ) : null}
+                ) : null} */}
             </Link>
             <div className="pl-2 hyphens-auto text-balance">
                 <H4 klasse={isWorkshop ? "!text-blueColor-100 hyphens-auto text-balance" : null}>{data.headline}</H4>

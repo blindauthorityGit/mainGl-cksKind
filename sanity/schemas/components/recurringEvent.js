@@ -34,7 +34,8 @@ export default {
       name: 'dayOfWeek',
       title: 'Day of Week',
       type: 'number',
-      description: 'For weekly events, the day of the week the event occurs on',
+      description:
+        'For weekly events, the day of the week the event occurs on: 0 = Sunday, 1= Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday',
       validation: (Rule) => Rule.min(0).max(6).integer(),
     },
     {

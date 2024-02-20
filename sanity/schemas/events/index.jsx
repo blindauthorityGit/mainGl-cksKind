@@ -61,7 +61,7 @@ export default {
     },
     {
       name: 'datum',
-      title: 'Termine',
+      title: 'Einzel-Termine',
       type: 'array',
       of: [
         {
@@ -121,7 +121,7 @@ export default {
           },
         },
       ],
-      description: 'Die Termine der Veranstaltung',
+      description: 'Die Einzeltermine der Veranstaltung',
       // validation: (Rule) => Rule.required(),
     },
     {
