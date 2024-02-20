@@ -15,7 +15,7 @@ import formatStringToDate from "../../functions/formatStringToDate";
 const SlideElement = ({ data, isWorkshop, aspectRatio }) => {
     return (
         <div className="wrapper ">
-            <Link href={`/event/${data.slug.current}`} className="relative">
+            <Link href={`/event/${data.slug.current}`} className="relative w-full h-full">
                 <CoverImage
                     src={urlFor(data.image).url()} // Replace with the actual path to your image
                     mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
