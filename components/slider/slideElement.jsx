@@ -28,16 +28,7 @@ const SlideElement = ({ data, isWorkshop, aspectRatio }) => {
                     className="w-full z-20 relative rounded-[40px] overflow-hidden border-[6px] xl:border-[8px] 2xl:border-[12px] mb-3"
                 />
                 {data.ausgebucht ? (
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            width: "100%", // Ensure it spans the full width of the parent
-                            height: "100%", // Ensure it spans the full height of the parent
-                        }}
-                        className="ausgebucht top-0 xl:text-xl text-primaryColor-700 absolute z-30 flex justify-center items-center inset-0 font-sans font-bold"
-                    >
+                    <div className="ausgebucht w-full h-full top-0 xl:text-xl text-primaryColor-700 absolute z-30 text-center pt-[40%]  inset-0 font-sans font-bold">
                         Ausgebucht
                     </div>
                 ) : null}
