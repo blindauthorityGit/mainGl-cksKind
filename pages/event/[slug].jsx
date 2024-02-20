@@ -104,7 +104,8 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                     <Divider></Divider>
                     <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-16 2xl:!py-32">
                         <div className="col-span-12 lg:hidden px-6">
-                            <Details isWorkshop={isWorkshop} data={data}></Details> <hr className="mb-4" />
+                            <Details isWorkshop={isWorkshop} isMobile={true} data={data}></Details>{" "}
+                            <hr className="mb-4" />
                         </div>
                         <AnmeldeContent
                             email={data.eventDetails.partner.email}

@@ -8,7 +8,7 @@ import urlFor from "../../functions/urlFor";
 //TYPO
 import { H1, H2, H3, P } from "../typography";
 
-const myPortableTextComponents = (isWorkshop) => ({
+const myPortableTextComponents = (isWorkshop, isMobile) => ({
     types: {
         imageGallery: ({ value }) => {
             console.log(value);
@@ -43,7 +43,11 @@ const myPortableTextComponents = (isWorkshop) => ({
     block: {
         // Styling for the "normal" paragraphs
         normal: ({ children }) => (
-            <P klasse={`RUMPIDUMPO lg:text-base lg:leading-7 font-sans ${isWorkshop ? "!text-white" : "NADADA"}`}>
+            <P
+                klasse={`RUMPIDUMPO lg:text-base lg:leading-7 font-sans ${
+                    isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"
+                }`}
+            >
                 {children}
             </P>
         ),
@@ -86,12 +90,12 @@ const myPortableTextComponents = (isWorkshop) => ({
     },
 });
 
-const BasicPortableText = ({ value, data, isWorkshop }) => {
+const BasicPortableText = ({ value, data, isWorkshop, isMobile }) => {
     const [imageSrc, setImageSrc] = useState("");
 
     return (
         <>
-            <PortableText value={value} components={myPortableTextComponents(isWorkshop)} />
+            <PortableText value={value} components={myPortableTextComponents(isWorkshop, isMobile)} />
         </>
     );
 };

@@ -12,7 +12,7 @@ import { H2, H3, H4, H5, P } from "../typography";
 //FUNCTION
 import formatDateTime from "../../functions/formatDateTime";
 
-const Details = ({ data, isWorkshop }) => {
+const Details = ({ data, isWorkshop, isMobile }) => {
     const [itemsToShow, setItemsToShow] = useState(8);
     const [blockVisibility, setBlockVisibility] = useState({});
 
@@ -57,7 +57,10 @@ const Details = ({ data, isWorkshop }) => {
                     ? `${recurringEvent.timeslot.startTime} - ${recurringEvent.timeslot.endTime}`
                     : "";
                 return (
-                    <P key={index} klasse={`font-bold ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
+                    <P
+                        key={index}
+                        klasse={`font-bold ${isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}`}
+                    >
                         {"jeden " + dayOfWeek + " um " + timeslots}
                     </P>
                 );
@@ -72,13 +75,15 @@ const Details = ({ data, isWorkshop }) => {
 
                 return (
                     <div key={key} className={`mb-4 ${block.ausgebucht ? "opacity-30" : null}`}>
-                        <H4 klasse="font-bold">{block.blockTitle}</H4>
+                        <H4 klasse={`font-bold ${isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}`}>
+                            {block.blockTitle}
+                        </H4>
                         {block.blockSubline ? <div className="mt-1">{block.blockSubline}</div> : null}
                         {datesToShow.map((date, dateIndex) => (
                             <P
                                 key={dateIndex}
                                 klasse={`font-bold ${
-                                    isWorkshop ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"
+                                    isWorkshop && !isMobile ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"
                                 }`}
                             >
                                 {formatDateTime(date.startDateTime, date.endDateTime)}
@@ -112,11 +117,17 @@ const Details = ({ data, isWorkshop }) => {
         <>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse="!text-primaryColor mb-4">Location</H4>
-                <BasicPortableText isWorkshop={isWorkshop} value={data.eventDetails.location.location} />
+                <BasicPortableText
+                    isWorkshop={isWorkshop}
+                    isMobile={isMobile}
+                    value={data.eventDetails.location.location}
+                />
             </div>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse="!text-primaryColor mb-4">Preis</H4>
-                <P klasse={isWorkshop ? "!text-blueColor-100" : "text-textColor"}>{data.eventDetails.preis}</P>
+                <P klasse={isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}>
+                    {data.eventDetails.preis}
+                </P>
             </div>
             {data.eventDetails.teilnehmeranzahl && (
                 <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
@@ -131,7 +142,7 @@ const Details = ({ data, isWorkshop }) => {
                 </div>
             )}
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
-                <H4 klasse={`mb-4  ${isWorkshop ? "!text-white" : "text-textColor"}`}>Kurs Leitung</H4>
+                <H4 klasse={`mb-4  ${isWorkshop && !isMobile ? "!text-white" : "text-textColor"}`}>Kurs Leitung</H4>
                 <div className="flex w-full items-center">
                     <div className="image">
                         {data.eventDetails.partner.isHidden ? (
@@ -154,13 +165,17 @@ const Details = ({ data, isWorkshop }) => {
                             </Link>
                         )}
                     </div>{" "}
-                    <P klasse={` ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
+                    <P klasse={` ${isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}`}>
                         {data.eventDetails.partner.name}
                     </P>
                 </div>
             </div>
-            <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
-                <H4 klasse={`mb-4  ${isWorkshop ? "!text-white" : "text-textColor"}`}>Termine</H4>
+            <div
+                className={`wrapper mb-6 font-sans ${
+                    isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"
+                }`}
+            >
+                <H4 klasse={`mb-4  ${isWorkshop && !isMobile ? "!text-white" : "text-textColor"}`}>Termine</H4>
                 {renderDates(isWorkshop)}
                 {!data.isBlock && data.datum.length > itemsToShow && (
                     <button onClick={() => setItemsToShow(itemsToShow + 8)} className="mt-2 text-primaryColor">
