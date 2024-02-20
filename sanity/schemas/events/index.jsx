@@ -148,7 +148,7 @@ export default {
       name: 'image',
       title: 'Hauptbild',
       type: 'image',
-      description: 'Das Hauptbild für die Veranstaltung',
+      description: 'Das Hauptbild für die Veranstaltung, optimale Auflösung 1600px x 1068px',
       validation: (Rule) => Rule.required(),
     },
     {
@@ -170,13 +170,6 @@ export default {
       type: 'text',
 
       description: 'Der Inhalt der Veranstaltung (Text und Bilder, max 80 Zeichen)',
-    },
-    {
-      name: 'galerie',
-      title: 'Galerie',
-      type: 'array',
-      of: [{type: 'image'}],
-      description: 'Bildergalerie zur Veranstaltung',
     },
   ],
   preview: {

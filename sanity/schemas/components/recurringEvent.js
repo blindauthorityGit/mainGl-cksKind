@@ -1,7 +1,7 @@
 export default {
   name: 'recurringEvent',
   title: 'Recurring Event',
-  type: 'document',
+  type: 'object',
   fields: [
     {
       name: 'title',
