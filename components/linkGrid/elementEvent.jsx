@@ -71,11 +71,11 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
                     style={{ aspectRatio: "1/1", borderColor: data.kategorie.farbe.value }}
                     className="w-full z-20 relative rounded-[40px] overflow-hidden border-[10px] lg:border-[12px] mb-3"
                 />
-                {data.ausgebucht ? (
+                {/* {data.ausgebucht ? (
                     <div className="ausgebucht  xl:text-xl text-primaryColor-700 absolute z-30 flex justify-center items-center inset-0 font-sans font-bold">
                         Ausgebucht
                     </div>
-                ) : null}
+                ) : null} */}
             </Link>
             <div className="pl-2 hyphens-auto text-balance">
                 <H4 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.headline}</H4>
