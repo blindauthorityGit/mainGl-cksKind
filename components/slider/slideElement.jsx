@@ -15,7 +15,7 @@ import formatStringToDate from "../../functions/formatStringToDate";
 const SlideElement = ({ data, isWorkshop, aspectRatio }) => {
     return (
         <div className="wrapper ">
-            <Link href={`/event/${data.slug.current}`} className="relative ">
+            <Link href={`/event/${data.slug.current}`} className="relative">
                 <CoverImage
                     src={urlFor(data.image).url()} // Replace with the actual path to your image
                     mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
@@ -28,14 +28,7 @@ const SlideElement = ({ data, isWorkshop, aspectRatio }) => {
                     className="w-full z-20 relative rounded-[40px] overflow-hidden border-[6px] xl:border-[8px] 2xl:border-[12px] mb-3"
                 />
                 {data.ausgebucht ? (
-                    <div
-                        className="ausgebucht absolute z-30 font-sans font-bold top-1/2 left-1/2 xl:text-xl text-primaryColor-700"
-                        style={{
-                            transform: "translate(-50%, -50%)", // Center the div
-                            width: "100%", // Optional: Ensure it spans the full width of the parent
-                            textAlign: "center", // Ensure text is centered within the div
-                        }}
-                    >
+                    <div className="ausgebucht top-20 left-6 xl:text-xl text-primaryColor-700 absolute z-30 flex justify-center items-center font-sans font-bold">
                         Ausgebucht
                     </div>
                 ) : null}
