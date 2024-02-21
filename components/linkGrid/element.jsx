@@ -50,6 +50,7 @@ const Element = ({ data, i, isWorkshop, isDetail, link, partner }) => {
     };
 
     useEffect(() => {
+        console.log(link);
         if (inView) {
             controls.start("visible");
         } else {

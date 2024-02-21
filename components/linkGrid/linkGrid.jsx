@@ -100,11 +100,7 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
                           } else {
                               return (
                                   <Element
-                                      link={
-                                          e._type == "kategorie"
-                                              ? "/kurse/" + e.button.link
-                                              : "/partner/" + e.slug?.current
-                                      }
+                                      link={e._type == "kategorie" ? e.button.link : "/partner/" + e.slug?.current}
                                       partner={e._type == "partner"}
                                       key={i}
                                       isDetail={isDetail}
