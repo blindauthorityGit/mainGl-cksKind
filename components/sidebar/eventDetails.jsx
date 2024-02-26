@@ -177,11 +177,11 @@ const Details = ({ data, isWorkshop, isMobile }) => {
             >
                 <H4 klasse={`mb-4  ${isWorkshop && !isMobile ? "!text-white" : "text-textColor"}`}>Termine</H4>
                 {renderDates(isWorkshop)}
-                {!data.isBlock && data.datum.length > itemsToShow && (
+                {!data.isBlock && data.datum?.length > itemsToShow ? (
                     <button onClick={() => setItemsToShow(itemsToShow + 8)} className="mt-2 text-primaryColor">
                         Mehr...
                     </button>
-                )}
+                ) : null}
             </div>
         </>
     );
