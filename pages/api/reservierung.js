@@ -167,11 +167,15 @@ import { addDoc, collection } from "firebase/firestore/lite";
 import { db } from "../../config/firebase"; // Adjust this import according to your firebase config file path
 
 export default async function handler(req, res) {
+    console.log(req);
     if (req.method === "POST") {
         try {
             console.log(req.body);
             // Save to Firestore
-            const reservationRef = await addDoc(collection(db, "reservierung_cafe"), req.body);
+            const reservationRef = await addDoc(
+                collection(db, process.env.NEXT_DEV == "true" ? "dev_cafe" : "reservierung_cafe"),
+                req.body
+            );
             console.log("Reservation ID: ", reservationRef.id);
 
             // Set up Nodemailer
@@ -192,7 +196,7 @@ export default async function handler(req, res) {
 
             // Email content for the user
             const userMailOptions = {
-                from: "cafe@mainglueckskind.de",
+                from: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
                 to: req.body.email,
                 subject: "Reservierungs Bestätigung",
                 text: `Liebe/r ${req.body.name}, vielen Dank für Deine Reservierung in unserem Cafe am ${new Date(
@@ -207,7 +211,7 @@ export default async function handler(req, res) {
 
             // Email content for the owners
             const ownerMailOptions = {
-                from: '"cafe@mainglueckskind.de',
+                from: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
                 to: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
                 cc: "office@atelierbuchner.at",
                 subject: `Reservierung von ${req.body.name} am ${new Date(req.body.date).toLocaleDateString(
@@ -227,10 +231,14 @@ export default async function handler(req, res) {
                             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${req.body.name}</td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Personen:</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Erwachsene:</td>
                             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${
                                 req.body.guests
                             }</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Kinder:</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${req.body.kids}</td>
                         </tr>
                         <tr>
                             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Datum:</td>

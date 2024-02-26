@@ -19,7 +19,7 @@ import parseDateTime from "../../functions/parseDateTime";
 
 // FIREBASE
 import { fetchFirestoreData } from "../../config/firebase";
-const TIME_SLOTS = ["09:30 - 11:30", "11:30 - 13:30"];
+const TIME_SLOTS = ["09:30", "11:30"];
 
 registerLocale("de", de);
 setDefaultLocale("de");
@@ -32,6 +32,7 @@ const CafeReservierung = ({ image }) => {
     const [startDate, setStartDate] = useState(null);
     const [time, setTime] = useState("");
     const [guests, setGuests] = useState(null);
+    const [kids, setKids] = useState(null);
 
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
     const [isFullyBooked, setIsFullyBooked] = useState(false);
@@ -130,6 +131,7 @@ const CafeReservierung = ({ image }) => {
                     timeSlot: time, // String e.g., "09:30 - 11:30"
                     email,
                     guests,
+                    kids,
                     name,
                     telefon,
                 };
@@ -189,7 +191,7 @@ const CafeReservierung = ({ image }) => {
                         <>
                             <label
                                 htmlFor="date-picker"
-                                className="block text-lg font-medium font-sans text-textColor mb-1"
+                                className="block text-sm lg:text-lg font-semibold font-sans text-textColor mb-1"
                             >
                                 Datum auswählen:
                             </label>
@@ -220,24 +222,48 @@ const CafeReservierung = ({ image }) => {
                                 <>
                                     <label
                                         htmlFor="guest-number"
-                                        className="block text-lg font-medium font-sans text-textColor   mb-1"
+                                        className="block text-sm lg:text-lg font-semibold font-sans text-textColor mb-1"
                                     >
-                                        Anzahl der Gäste:
+                                        Anzahl der Erwachsenen:
                                     </label>
                                     <input
                                         id="guest-number"
                                         className="col-span-6 w-full  mb-4 text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                                         type="number"
                                         value={guests}
-                                        placeHolder="Anzahl der Gäste, z.B. 2"
+                                        placeHolder="Anzahl der Erwachsenen, z.B. 2"
                                         onChange={(e) => {
                                             setGuests(e.target.value);
-                                            if (e.target.value && startDate) {
+                                            if (e.target.value && startDate && kids !== null) {
                                                 checkAvailability(startDate, e.target.value);
                                             }
                                         }}
                                         min="1"
                                         max="32"
+                                    />
+                                    <label
+                                        htmlFor="kids-number"
+                                        className="block text-sm lg:text-lg font-semibold font-sans text-textColor mb-1"
+                                    >
+                                        Anzahl der Kinder:
+                                    </label>
+                                    <input
+                                        id="kids-number"
+                                        className="col-span-6 w-full mb-4 text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                                        type="number"
+                                        value={kids}
+                                        placeholder="Anzahl der Kinder, z.B. 1"
+                                        onChange={(e) => {
+                                            setKids(e.target.value);
+                                            if (guests && startDate) {
+                                                // Check guests is set
+                                                checkAvailability(
+                                                    startDate,
+                                                    parseInt(guests, 10) + parseInt(e.target.value || "0", 10)
+                                                );
+                                            }
+                                        }}
+                                        min="0" // Assuming zero or more kids are allowed
                                     />
                                 </>
                             )}
@@ -245,7 +271,7 @@ const CafeReservierung = ({ image }) => {
                                 <>
                                     <label
                                         htmlFor="time-select"
-                                        className="block text-lg font-medium font-sans text-textColor  mb-1"
+                                        className="block text-sm lg:text-lg font-semibold font-sans text-textColor mb-1"
                                     >
                                         Zeitfenster wählen:
                                     </label>
@@ -259,7 +285,7 @@ const CafeReservierung = ({ image }) => {
                                             Zeitfenster wählen
                                         </option>
                                         {availableTimeSlots.map(({ slot, availableSpaces }, index) => (
-                                            <option key={index} value={slot}>
+                                            <option className="text-textColor text-sm mb-4" key={index} value={slot}>
                                                 {slot} (Verfügbare Plätze: {availableSpaces})
                                             </option>
                                         ))}
@@ -273,15 +299,18 @@ const CafeReservierung = ({ image }) => {
                         <div>
                             {/* Render a summary of the selected date, time, and number of guests */}
                             <div className="wrapper mb-4">
-                                <p>
+                                <P>
                                     <strong>Datum:</strong> {startDate.toLocaleDateString("de-DE")}
-                                </p>
-                                <p>
+                                </P>
+                                <P>
                                     <strong>Zeitfenster:</strong> {time}
-                                </p>
-                                <p>
-                                    <strong>Anzahl der Gäste:</strong> {guests}
-                                </p>
+                                </P>
+                                <P>
+                                    <strong>Anzahl der Erwachsenen:</strong> {guests}
+                                </P>
+                                <P>
+                                    <strong>Anzahl der Kinder:</strong> {kids}
+                                </P>
                             </div>
                             <input
                                 type="text"
@@ -318,7 +347,7 @@ const CafeReservierung = ({ image }) => {
                             <p>Ihre Reservierung wurde erfolgreich aufgenommen. Vielen Dank!</p>
                         </div>
                     ) : (
-                        <div className="w-full col-span-12 sm:mb-8 flex lg:space-x-4">
+                        <div className="w-full col-span-12 sm:mb-8 flex space-x-2 lg:space-x-4">
                             {/* Back Button (only shown in step 2) */}
                             {currentStep === 2 && (
                                 <MainButtonNOLink onClick={handleBack} klasse="bg-textColor mt-4">
@@ -332,7 +361,7 @@ const CafeReservierung = ({ image }) => {
                                 type="submit"
                                 klasse="bg-primaryColor border-2 border-primaryColor mt-4"
                             >
-                                {currentStep === 1 ? "Weiter zu Schritt 2" : "Reservierung bestätigen"}
+                                {currentStep === 1 ? "Weiter zu Schritt 2" : "Bestätigen"}
                             </MainButtonNOLink>
                         </div>
                     )}
