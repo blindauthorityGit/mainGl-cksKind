@@ -213,7 +213,7 @@ export default async function handler(req, res) {
             const ownerMailOptions = {
                 from: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
                 to: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
-                cc: "office@atelierbuchner.at",
+                // cc: "office@atelierbuchner.at",
                 subject: `Reservierung von ${req.body.name} am ${new Date(req.body.date).toLocaleDateString(
                     "de-DE"
                 )} um ${req.body.timeSlot}`,

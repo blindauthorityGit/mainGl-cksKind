@@ -226,6 +226,8 @@ const Calendar = ({ data, isSmallCalendar }) => {
 
     useEffect(() => {
         const sortedEvents = processEvents(data);
+        console.log(data.filter((e) => e.headline == "Känguru Salsa & Känguru Belly"));
+        console.log(sortedEvents.filter((e) => e.headline == "Känguru Salsa & Känguru Belly"));
         setFlatData(sortedEvents);
     }, [data]);
 

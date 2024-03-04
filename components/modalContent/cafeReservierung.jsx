@@ -41,7 +41,7 @@ const CafeReservierung = ({ image }) => {
     const [telefon, setTelefon] = useState("");
     const [email, setEmail] = useState("");
 
-    const MAX_CAPACITY = 32;
+    const MAX_CAPACITY = 15;
 
     // Updated isStep1Complete logic
     const isStep1Complete = startDate && guests && availableTimeSlots.some((slotObj) => slotObj.slot === time);
