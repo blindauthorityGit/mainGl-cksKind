@@ -19,6 +19,7 @@ import { Sub } from "../components/footer";
 
 //COOKIE
 import CookieConsent from "react-cookie-consent";
+import Cookies from "js-cookie";
 
 //STORE
 import useStore from "../store/store"; // Adjust the path to your store file
@@ -46,6 +47,22 @@ function MyApp({ Component, pageProps }) {
     const setModalContent = useStore((state) => state.setModalContent);
 
     const setShowMobileModal = useStore((state) => state.setShowMobileModal);
+
+    const [showCookieConsent, setShowCookieConsent] = useState(false);
+
+    useEffect(() => {
+        const consentCookie = Cookies.get("user-consent"); // Check if the consent cookie exists
+        if (!consentCookie) {
+            setShowCookieConsent(true); // Show the consent modal if the cookie doesn't exist
+            setShowOverlay(true); // Show overlay with cookie banner
+        }
+    }, [setShowOverlay]);
+
+    const handleAcceptCookies = () => {
+        Cookies.set("user-consent", "true", { expires: 365 }); // Set a cookie for 1 year
+        setShowCookieConsent(false); // Hide the modal
+        setShowOverlay(false); // Hide overlay when cookie consent is given
+    };
 
     //router
     const router = useRouter();
@@ -136,7 +153,46 @@ function MyApp({ Component, pageProps }) {
             )}
             <ParallaxProvider>
                 <Component {...pageProps} />
-                <CookieConsent
+                {showCookieConsent && (
+                    <div
+                        style={{
+                            position: "fixed",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            zIndex: 1000,
+                            background: "#FFF",
+                            padding: "20px",
+                            borderRadius: "10px",
+                            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)",
+                            maxWidth: "500px",
+                            width: "90%",
+                            textAlign: "center",
+                        }}
+                    >
+                        <p className="font-sans" style={{ marginBottom: "15px", fontSize: "16px", lineHeight: "1.5" }}>
+                            Wir verwenden Cookies, um Ihr Surferlebnis auf unserer Website zu verbessern.
+                            <br /> <br /> Durch die weitere Nutzung der Seite stimmen Sie der Verwendung von Cookies zu.
+                        </p>
+                        <button
+                            onClick={handleAcceptCookies}
+                            lassName="font-sans"
+                            style={{
+                                background: "#df3288",
+                                color: "white",
+                                border: "none",
+                                padding: "10px 60px",
+                                borderRadius: "5px",
+                                cursor: "pointer",
+                                fontSize: "16px",
+                            }}
+                        >
+                            OK
+                        </button>
+                    </div>
+                )}
+
+                {/* <CookieConsent
                     location="bottom"
                     buttonText="OK"
                     cookieName="myAwesomeCookieName2"
@@ -145,10 +201,8 @@ function MyApp({ Component, pageProps }) {
                     expires={150}
                 >
                     Wir nutzen Cookies, um unsere Website zu optimieren.
-                    {/* <span className="pl-4" style={{ fontSize: "10px" }}>
-                        Mit deinem Klick auf "Akzeptieren" stimmst du ihrer Verwendung zu
-                    </span> */}
-                </CookieConsent>
+
+                </CookieConsent> */}
 
                 <Full></Full>
                 <Sub></Sub>

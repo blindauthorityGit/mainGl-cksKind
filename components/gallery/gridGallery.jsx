@@ -9,8 +9,12 @@ import urlFor from "../../functions/urlFor";
 // TYPO
 import { H2, H4, P } from "../typography";
 
-const GridGallery = ({ data, big }) => {
-    useEffect(() => {}, [data]);
+const GridGallery = ({ data, big, selectedImage, onClose }) => {
+    const [currentIndex, setCurrentIndex] = useState(selectedImage);
+
+    useEffect(() => {
+        setCurrentIndex(selectedImage);
+    }, [selectedImage]);
 
     return (
         <>

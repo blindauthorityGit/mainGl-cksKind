@@ -198,7 +198,7 @@ const CafeReservierung = ({ image }) => {
                             <div className="relative col-span-12">
                                 <DatePicker
                                     id="date-picker"
-                                    className="col-span-12  text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
+                                    className="col-span-12 text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
                                     selected={startDate}
                                     onChange={(date) => {
                                         setStartDate(date);
@@ -209,6 +209,11 @@ const CafeReservierung = ({ image }) => {
                                             checkAvailability(date, guests); // Recheck availability with the same number of guests
                                         }
                                     }}
+                                    filterDate={(date) => {
+                                        const day = getDay(date);
+                                        return day !== 0 && day !== 6; // Returns true if the day is not a Saturday (6) or Sunday (0)
+                                    }}
+                                    minDate={new Date()} // Disable past dates
                                     locale="de-DE"
                                     placeholderText="Datum auswählen"
                                     dateFormat="dd/MM/yyyy"
@@ -216,6 +221,7 @@ const CafeReservierung = ({ image }) => {
                                         isWeekdayAndFutureDate(date) ? "weekday bg-primaryColor-200" : ""
                                     }
                                 />
+
                                 <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" />
                             </div>
                             {startDate && (
