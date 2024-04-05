@@ -95,20 +95,24 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
                           return <ElementEvent key={i} isDetail={isDetail} isWorkshop={isWorkshop} data={e} />;
                       })
                     : data.map((e, i) => {
-                          if (e.isHidden) {
-                              return;
-                          } else {
-                              return (
-                                  <Element
-                                      link={e._type == "kategorie" ? e.button.link : "/partner/" + e.slug?.current}
-                                      partner={e._type == "partner"}
-                                      key={i}
-                                      isDetail={isDetail}
-                                      isWorkshop={isWorkshop}
-                                      data={e}
-                                  />
-                              );
-                          }
+                          console.log(e.isHidden);
+
+                          return (
+                              <Element
+                                  link={
+                                      !e.isHidden
+                                          ? e._type == "kategorie"
+                                              ? e.button.link
+                                              : "/partner/" + e.slug?.current
+                                          : "#"
+                                  }
+                                  partner={e._type == "partner"}
+                                  key={i}
+                                  isDetail={isDetail}
+                                  isWorkshop={isWorkshop}
+                                  data={e}
+                              />
+                          );
                       })}
             </div>
 

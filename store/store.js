@@ -11,6 +11,10 @@ const useStore = create((set) => ({
     showMobileModal: false,
     setShowMobileModal: (show) => set({ showMobileModal: show }),
 
+    isFullHeightModal: false,
+    setIsFullHeightModal: (isFullHeight) => set({ isFullHeightModal: isFullHeight }),
+    resetModalHeight: () => set({ isFullHeightModal: false }),
+
     showModal: false,
     setShowModal: (show) =>
         set((state) => {

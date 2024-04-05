@@ -26,6 +26,7 @@ export default function Ueberuns({ dataAbout, dataPartner, dataKontakt }) {
     useEffect(() => {
         console.log(dataAbout, dataPartner);
         changeBodyBackgroundColor(dataAbout);
+        console.log(filteredDataPartner);
     }, []);
 
     const filteredDataPartner = dataPartner.filter(
