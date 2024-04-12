@@ -1,5 +1,6 @@
 export default function changeBackgroundColor(data) {
     console.log(data._type, data.title, data.kategorie?.name);
+    console.log(data.title, data.title === "Beratung & Coachings & Workshops");
     if (data._type == "home" || data._type == "raumvermietung" || data._type == "ueberuns") {
         document.body.style.backgroundColor = "#CDE4C4";
         return;
@@ -13,11 +14,7 @@ export default function changeBackgroundColor(data) {
         return;
     }
 
-    if (
-        data._type == "schwangerschaft" ||
-        data.title === "Schwangerschaft" ||
-        data.kategorie?.name == "Schwangerschaft"
-    ) {
+    if (data._type == "erwachsene" || data.title === "Erwachsene" || data.kategorie?.name == "Erwachsene") {
         document.body.style.backgroundColor = "#C8C1E1";
         return;
     }
@@ -30,9 +27,10 @@ export default function changeBackgroundColor(data) {
         return;
     }
     if (
-        data._type == "beratung-&-workshops" ||
-        data.title === "Beratung & Workshops" ||
-        data.kategorie?.name == "Beratung & Workshops"
+        data._type == "beratung-&-coachings" ||
+        data.title === "Beratung, Coachings & Workshops" ||
+        data.kategorie?.name == "Beratung, Coachings & Workshops" ||
+        data.kategorie?.name == "Beratung & Coachings"
     ) {
         document.body.style.backgroundColor = "#3E55AB";
         return;

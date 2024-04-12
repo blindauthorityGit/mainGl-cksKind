@@ -28,8 +28,9 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
 
     useEffect(() => {
         if (data) {
-            const filterName = data.title;
+            const filterName = data.title === "Beratung, Coachings & Workshops" ? "Beratung & Coachings" : data.title;
 
+            console.log(dataPartner);
             setFilteredDataPartner(
                 dataPartner.filter((partner) => {
                     // Check if the 'kurse' array exists and has at least one entry matching the desired category
@@ -54,13 +55,16 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
                         <BasicHero data={data.components[0]}></BasicHero>
                         <Divider></Divider>
                         <PortableTextView
-                            isWorkshop={data.title == "Beratung & Workshops"}
+                            isWorkshop={data.title == "Beratung, Coachings & Workshops"}
                             blocks={data.components[1].content}
                             data={data}
                         ></PortableTextView>
 
                         <Divider></Divider>
-                        <EventSlider isWorkshop={data.title == "Beratung & Workshops"} data={dataEvents}></EventSlider>
+                        <EventSlider
+                            isWorkshop={data.title == "Beratung, Coachings & Workshops"}
+                            data={dataEvents}
+                        ></EventSlider>
 
                         <Divider></Divider>
                         <div className="block lg:hidden">
@@ -68,7 +72,7 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
                         </div>
                         {filteredDataPartner && (
                             <LinkGrid
-                                isWorkshop={data.title == "Beratung & Workshops"}
+                                isWorkshop={data.title == "Beratung, Coachings & Workshops"}
                                 data={filteredDataPartner}
                                 headline="Unsere Partner"
                             ></LinkGrid>
@@ -112,7 +116,7 @@ export const getStaticProps = async (context) => {
     const data = await res[0];
 
     const desiredCategoryName = data?.title;
-    console.log(desiredCategoryName);
+    console.log("KATTT NAME =", desiredCategoryName);
 
     const resEvents = await client.fetch(`
 *[_type == "event" && kategorie->name == "${desiredCategoryName}"]{

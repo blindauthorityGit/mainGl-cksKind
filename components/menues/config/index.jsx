@@ -7,12 +7,12 @@ const menuItems = [
         subMenu: true,
         subMenuItems: [
             {
-                title: "Schwangerschaft",
-                slug: "kurse/schwangerschaft",
+                title: "Erwachsene",
+                slug: "kurse/erwachsene",
             },
             {
                 title: "Beratung & Workshops",
-                slug: "kurse/beratung-&-workshops",
+                slug: "kurse/beratung-&-coachings",
             },
 
             {

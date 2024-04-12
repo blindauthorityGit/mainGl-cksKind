@@ -310,6 +310,7 @@ const Calendar = ({ data, isSmallCalendar }) => {
                         >
                             {format(day, "d")}
                             {todaysEvents.map((e, i) => {
+                                console.log(e.kategorie.name);
                                 return (
                                     <div
                                         style={{
@@ -318,7 +319,7 @@ const Calendar = ({ data, isSmallCalendar }) => {
                                         }}
                                         className={`rounded-lg py-1 px-2 2xl:font-semibold text-sm relative ${
                                             todaysEvents.length > 1 ? "mb-1" : null
-                                        } ${e.kategorie.name == "Beratung & Workshops" ? "!text-blueColor-100" : null}`}
+                                        } ${e.kategorie.name == "Beratung & Coachings" ? "!text-blueColor-100" : null}`}
                                         key={e.headline + i}
                                         data-index={e._id}
                                         onClick={(e) => {
