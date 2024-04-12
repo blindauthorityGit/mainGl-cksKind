@@ -2,14 +2,20 @@
 import Head from "next/head";
 
 import urlFor from "../../functions/urlFor";
+import Logo from "../../assets/logo.svg";
 
 const Meta = ({ data }) => {
+    const fallbackDescription = "Kurse bei MainGlückskind - Wo kleine Herzen groß werden";
+
     return (
         <Head>
             <title>{data.mainSEO.title}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <meta charSet="utf-8" />
-            <meta name="description" content={data.mainSEO.description} />
+            <meta
+                name="description"
+                content={data.mainSEO.description ? data.mainSEO.description : fallbackDescription}
+            />
             {data.mainSEO.keywords ? (
                 <meta name="keywords" content={data.mainSEO.keywords.map((e) => e)} />
             ) : (
@@ -21,8 +27,11 @@ const Meta = ({ data }) => {
             {/* <meta property="og:url" content={url} /> */}
             <meta property="og:title" content={data.mainSEO.title} />
             <meta property="og:description" content={data.mainSEO.description} />
-            <meta property="og:image" content={urlFor(data.advancedSEO.ogImage)} />
-
+            {/* Use ternary operator to check for ogImage existence */}
+            <meta
+                property="og:image"
+                content={data.advancedSEO.ogImage ? urlFor(data.advancedSEO.ogImage) : Logo.src}
+            />
             {/* Twitter */}
             <meta property="twitter:card" content="summary_large_image" />
             {/* <meta property="twitter:url" content={url} /> */}
