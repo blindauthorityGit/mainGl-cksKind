@@ -28,6 +28,7 @@ const CafeReservierung = ({ image }) => {
     const [currentStep, setCurrentStep] = useState(1);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(null);
+    const [formIsValid, setFormIsValid] = useState(false);
 
     const [startDate, setStartDate] = useState(null);
     const [time, setTime] = useState("");
@@ -41,7 +42,7 @@ const CafeReservierung = ({ image }) => {
     const [telefon, setTelefon] = useState("");
     const [email, setEmail] = useState("");
 
-    const MAX_CAPACITY = 15;
+    const MAX_CAPACITY = 20;
 
     // Updated isStep1Complete logic
     const isStep1Complete = startDate && guests && availableTimeSlots.some((slotObj) => slotObj.slot === time);
@@ -49,6 +50,38 @@ const CafeReservierung = ({ image }) => {
     // For Step 2
     const isStep2Complete = name && telefon && email;
 
+    useEffect(() => {
+        const validateForm = () => {
+            const guestsNumber = parseInt(guests, 10);
+            const validGuests = guestsNumber > 0;
+            const validDate = !!startDate;
+            const validTimeSlot = time && availableTimeSlots.some((slotObj) => slotObj.slot === time);
+
+            setFormIsValid(validDate && validGuests && validTimeSlot);
+        };
+
+        validateForm();
+    }, [startDate, guests, time, availableTimeSlots]); // Ensure these are the only dependencies that affect form validation.
+
+    // Check if the selected date is a Thursday and assign the new timeslot with different capacity
+    useEffect(() => {
+        if (startDate) {
+            const dayOfWeek = getDay(startDate);
+            const newTimeSlots = ["09:30", "11:30"];
+            if (dayOfWeek === 4) {
+                // 4 corresponds to Thursday
+                newTimeSlots.push("15:00");
+            }
+            setAvailableTimeSlots(
+                newTimeSlots.map((slot) => ({
+                    slot: slot,
+                    capacity: slot === "15:00" ? 25 : 20,
+                }))
+            );
+        }
+    }, [startDate]);
+
+    // Adjusted the checkAvailability function to handle different capacities
     const checkAvailability = async (selectedDate, numberOfGuests) => {
         setIsFullyBooked(false);
         const utcSelectedDate = new Date(
@@ -56,37 +89,31 @@ const CafeReservierung = ({ image }) => {
         );
         const formattedDate = utcSelectedDate.toISOString().split("T")[0];
 
-        console.log(selectedDate, formattedDate);
-
         try {
             const reservations = await fetchFirestoreData("reservierung_cafe");
             const reservationsOnDate = reservations.filter((reservation) => {
-                console.log(reservation.date);
                 const reservationDate = new Date(reservation.date);
-                console.log(reservationDate);
-
-                const formattedReservationDate = reservationDate.toISOString().split("T")[0];
-                console.log(formattedReservationDate, formattedDate);
-
-                return formattedReservationDate === formattedDate;
+                return reservationDate.toISOString().split("T")[0] === formattedDate;
             });
+            console.log(reservationsOnDate);
+            const availableSlotsWithSpaces = availableTimeSlots
+                .map(({ slot, capacity }) => {
+                    const totalGuestsInSlot = reservationsOnDate
+                        .filter((reservation) => reservation.timeSlot === slot)
+                        .reduce((total, current) => {
+                            console.log(`Current reservation guests before parsing: ${current.guests}`);
+                            const guestsInCurrentReservation = parseInt(current.guests, 10) || 0;
+                            console.log(`Parsed guests: ${guestsInCurrentReservation}`);
+                            return total + guestsInCurrentReservation;
+                        }, 0);
+                    console.log(`Total guests in ${slot}: ${totalGuestsInSlot}`);
 
-            const availableSlotsWithSpaces = TIME_SLOTS.map((slot) => {
-                const totalGuestsInSlot = reservationsOnDate
-                    .filter((reservation) => reservation.timeSlot === slot)
-                    .reduce((total, current) => {
-                        // Use the correct field name 'guests'
-                        const guestsInCurrentReservation = parseInt(current.guests, 10) || 0;
-                        return total + guestsInCurrentReservation;
-                    }, 0);
-                console.log(`Slot: ${slot}, Total Guests: ${totalGuestsInSlot}`);
-
-                return {
-                    slot: slot,
-                    availableSpaces: MAX_CAPACITY - totalGuestsInSlot,
-                };
-            }).filter((slot) => slot.availableSpaces >= numberOfGuests);
-
+                    return {
+                        slot: slot,
+                        availableSpaces: capacity - totalGuestsInSlot,
+                    };
+                })
+                .filter(({ availableSpaces }) => availableSpaces >= numberOfGuests);
             setAvailableTimeSlots(availableSlotsWithSpaces);
             setIsFullyBooked(availableSlotsWithSpaces.length === 0);
         } catch (error) {
@@ -240,12 +267,14 @@ const CafeReservierung = ({ image }) => {
                                         placeHolder="Anzahl der Erwachsenen, z.B. 2"
                                         onChange={(e) => {
                                             setGuests(e.target.value);
-                                            if (e.target.value && startDate && kids !== null) {
+                                            console.log(e.target.value);
+                                            console.log(formIsValid);
+                                            if (e.target.value && startDate) {
                                                 checkAvailability(startDate, e.target.value);
                                             }
                                         }}
                                         min="1"
-                                        max="32"
+                                        max="25"
                                     />
                                     <label
                                         htmlFor="kids-number"
@@ -261,13 +290,12 @@ const CafeReservierung = ({ image }) => {
                                         placeholder="Anzahl der Kinder, z.B. 1"
                                         onChange={(e) => {
                                             setKids(e.target.value);
-                                            if (guests && startDate) {
-                                                // Check guests is set
-                                                checkAvailability(
-                                                    startDate,
-                                                    parseInt(guests, 10) + parseInt(e.target.value || "0", 10)
-                                                );
-                                            }
+                                            // if (guests && startDate) {
+                                            //     // Check guests is set
+                                            //     checkAvailability(
+                                            //         startDate,
+                                            //         parseInt(guests, 10) + parseInt(e.target.value || "0", 10)
+                                            //     );
                                         }}
                                         min="0" // Assuming zero or more kids are allowed
                                     />
@@ -363,7 +391,7 @@ const CafeReservierung = ({ image }) => {
 
                             {/* Submit Button */}
                             <MainButtonNOLink
-                                disabled={currentStep === 1 ? !isStep1Complete : !isStep2Complete}
+                                disabled={!formIsValid} // Use the state set by the validation logic
                                 type="submit"
                                 klasse="bg-primaryColor border-2 border-primaryColor mt-4"
                             >
