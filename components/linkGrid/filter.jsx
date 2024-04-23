@@ -7,8 +7,8 @@ const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
     const filters = [
         { name: "Alle", color: "#df3288" },
         { name: "Baby & Kleinkind", color: "#F3E584" },
-        { name: "Schwangerschaft", color: "#C8C1E1" },
-        { name: "Beratung & Workshops", color: "#3E55AB" },
+        { name: "Erwachsene", color: "#C8C1E1" },
+        { name: "Beratung & Coachings", color: "#3E55AB" },
     ];
 
     const handleFilterClick = (filterName) => {
@@ -29,7 +29,7 @@ const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
             textColor =
                 filterName === "Alle"
                     ? "text-primaryColor-50"
-                    : filterName === "Beratung & Workshops"
+                    : filterName === "Beratung & Coachings"
                     ? "text-blueColor-50"
                     : "text-white"; // Special text color for active "Alle" and "Beratung & Workshops"
         }
@@ -77,7 +77,7 @@ const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
                         className={`cursor-pointer flex items-center justify-center text-base px-4 py-2 rounded-lg hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                             filter.name === "Alle"
                                 ? "text-primaryColor-50"
-                                : filter.name === "Beratung & Workshops"
+                                : filter.name === "Beratung & Coachings"
                                 ? "text-blueColor-50"
                                 : "text-textColor"
                         } ${activeFilter === filter.name ? "border-4 border-white rounded-lg" : ""}`}

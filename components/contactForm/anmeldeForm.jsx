@@ -177,7 +177,7 @@ const AnmeldeForm = ({ data, children, events, intro, kategorie, isPekip }) => {
                         <Error klasse="col-span-12 text-themeRed text-xs">Bitte geben Sie Ihren vollen Namen an</Error>
                     )}
                     <input
-                        {...register("wohnort", { required: true })}
+                        {...register("wohnort", { required: false })}
                         onChange={handleInputChange}
                         type="text"
                         placeholder="Wohnort"
