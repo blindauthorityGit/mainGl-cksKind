@@ -24,6 +24,7 @@ export default async function handler(req, res) {
             });
 
             const userMailOptions = {
+                // from: "office@atelierbuchner.at",
                 from: "info@mainglueckskind.de",
                 to: req.body.email,
                 subject: "Anmelde Bestätigung",
@@ -54,8 +55,9 @@ export default async function handler(req, res) {
                         ${req.body.siblings ? `<p><strong>Geschwister:</strong> ${req.body.siblings}</p>` : ""}
                         ${req.body.twins ? `<p><strong>Zwillinge:</strong> ${req.body.twins}</p>` : ""}                
                         <p><strong>Termin:</strong> ${req.body.date}</p>
-                        <p><strong>Nachricht:</strong><br/> ${req.body.message.replace(/\n/g, "<br>")}</p>
-                    `,
+                        <p><strong>Nachricht:</strong><br/> ${
+                            req.body.message ? req.body.message.replace(/\n/g, "<br>") : "keine Nachricht angegeben"
+                        }</p>`,
             };
 
             // Send emails
