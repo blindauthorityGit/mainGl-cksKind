@@ -18,7 +18,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import useStore from "../../store/store"; // adjust the path as necessary
 
-const AnmeldeForm = ({ data, children, events, intro, kategorie, isPekip }) => {
+const AnmeldeForm = ({ data, children, events, intro, kategorie, isPekip, recurring }) => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [waitingList, setWaitingList] = useState(false);
@@ -122,6 +122,7 @@ const AnmeldeForm = ({ data, children, events, intro, kategorie, isPekip }) => {
     useEffect(() => {
         console.log(data);
         console.log("IS PEKIP?", isPekip);
+        console.log("IS RECURRIUNG?", recurring);
     }, []);
 
     useEffect(() => {
@@ -290,7 +291,7 @@ const AnmeldeForm = ({ data, children, events, intro, kategorie, isPekip }) => {
                     )}
 
                     {/* Date Dropdown */}
-                    {!isPekip && (
+                    {!isPekip && !recurring && (
                         <div className=" items-center space-x-4 col-span-12 grid grid-cols-12">
                             <label
                                 htmlFor="date"

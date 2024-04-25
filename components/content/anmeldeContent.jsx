@@ -21,7 +21,7 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip }) => {
     const setModalContent = useStore((state) => state.setModalContent);
 
     useEffect(() => {
-        console.log(data, events);
+        console.log("DAT THE DATA", data, events, events.recurringDates, events.recurringDates?.length > 0);
     }, [data]);
 
     const createMarkup = (htmlString) => {
@@ -72,7 +72,14 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip }) => {
                 onClick={() => {
                     setShowOverlay(true);
                     setShowModal(true);
-                    setModalContent(<StepOne isPekip={isPekip} data={data} events={events}></StepOne>);
+                    setModalContent(
+                        <StepOne
+                            recurring={events.recurringDates?.length > 0}
+                            isPekip={isPekip}
+                            data={data}
+                            events={events}
+                        ></StepOne>
+                    );
                     console.log("ANMELDUNG");
                 }}
             >

@@ -4,7 +4,7 @@ import { H2, H3, H4, P } from "../../typography";
 
 import { AnmeldeForm } from "../../contactForm";
 
-const Anmeldung = ({ data, events, isPekip }) => {
+const Anmeldung = ({ data, events, isPekip, recurring }) => {
     let isWorkshop = false;
 
     const intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus ut perferendis ratione.";
@@ -21,7 +21,13 @@ const Anmeldung = ({ data, events, isPekip }) => {
                     {events.anfrage ? "Anfrage" : "Anmeldung"} {events.headline}
                 </H2>
 
-                <AnmeldeForm isPekip={isPekip} intro={intro} events={events} data={events.datum}></AnmeldeForm>
+                <AnmeldeForm
+                    recurring={recurring}
+                    isPekip={isPekip}
+                    intro={intro}
+                    events={events}
+                    data={events.datum}
+                ></AnmeldeForm>
             </div>
         </div>
     );
