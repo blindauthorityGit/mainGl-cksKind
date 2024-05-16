@@ -17,7 +17,7 @@ export default async function handler(req, res) {
             // Set up Nodemailer
             // Generate cancellation link
             const cancellationLink = `${
-                process.env.NEXT_DEV == "true" ? "http://localhost:3000" : "hhtps://www.mainglueckskind.de"
+                process.env.NEXT_DEV == "true" ? "http://localhost:3000" : "https://www.mainglueckskind.de"
             }/api/cancel-reservation?reservationId=${reservationRef.id}`;
 
             const transporter = nodemailer.createTransport({
