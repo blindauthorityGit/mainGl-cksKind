@@ -16,9 +16,9 @@ const Impressum = () => {
                 <P>
                     Hoessle und Kreil GbR - MAIN GLÜCKSKIND
                     <br />
-                    Frankfurter Str. 63
+                    Robert-Bosch-Straße 28
                     <br />
-                    63303 Dreieich
+                    63303 Dreieich-Sprendlingen
                     <br />
                     Deutschland
                     <br />
