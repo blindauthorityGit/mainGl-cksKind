@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { H2, H3, H4, P } from "../typography";
+import { H2, P } from "../typography";
 import { MainButtonNOLink } from "../buttons";
 
 import { registerLocale, setDefaultLocale } from "react-datepicker";
@@ -13,13 +13,11 @@ import { CoverImage } from "../images";
 
 import ClipLoader from "react-spinners/ClipLoader";
 
-//FUNCTIONS
+// FUNCTIONS
 import urlFor from "../../functions/urlFor";
-import parseDateTime from "../../functions/parseDateTime";
 
 // FIREBASE
 import { fetchFirestoreData } from "../../config/firebase";
-const TIME_SLOTS = ["09:30", "11:30"];
 
 registerLocale("de", de);
 setDefaultLocale("de");
@@ -32,8 +30,8 @@ const CafeReservierung = ({ image }) => {
 
     const [startDate, setStartDate] = useState(null);
     const [time, setTime] = useState("");
-    const [guests, setGuests] = useState(null);
-    const [kids, setKids] = useState(null);
+    const [guests, setGuests] = useState("");
+    const [kids, setKids] = useState("");
 
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
     const [isFullyBooked, setIsFullyBooked] = useState(false);
@@ -44,10 +42,7 @@ const CafeReservierung = ({ image }) => {
 
     const MAX_CAPACITY = 20;
 
-    // Updated isStep1Complete logic
     const isStep1Complete = startDate && guests && availableTimeSlots.some((slotObj) => slotObj.slot === time);
-
-    // For Step 2
     const isStep2Complete = name && telefon && email;
 
     useEffect(() => {
@@ -61,27 +56,22 @@ const CafeReservierung = ({ image }) => {
         };
 
         validateForm();
-    }, [startDate, guests, time, availableTimeSlots]); // Ensure these are the only dependencies that affect form validation.
+    }, [startDate, guests, time, availableTimeSlots]);
 
-    // Check if the selected date is a Thursday and assign the new timeslot with different capacity
-    useEffect(() => {
-        if (startDate) {
-            const dayOfWeek = getDay(startDate);
-            const newTimeSlots = ["09:30", "11:30"];
-            if (dayOfWeek === 4) {
-                // 4 corresponds to Thursday
-                newTimeSlots.push("15:00");
-            }
-            setAvailableTimeSlots(
-                newTimeSlots.map((slot) => ({
-                    slot: slot,
-                    capacity: slot === "15:00" ? 25 : 20,
-                }))
-            );
+    const updateAvailableTimeSlots = (date) => {
+        const dayOfWeek = getDay(date);
+        const newTimeSlots = ["09:30", "11:30"];
+        if (dayOfWeek === 4) {
+            newTimeSlots.push("15:00");
         }
-    }, [startDate]);
+        setAvailableTimeSlots(
+            newTimeSlots.map((slot) => ({
+                slot: slot,
+                capacity: slot === "15:00" ? 25 : 20,
+            }))
+        );
+    };
 
-    // Adjusted the checkAvailability function to handle different capacities
     const checkAvailability = async (selectedDate, numberOfGuests) => {
         setIsFullyBooked(false);
         const utcSelectedDate = new Date(
@@ -90,23 +80,22 @@ const CafeReservierung = ({ image }) => {
         const formattedDate = utcSelectedDate.toISOString().split("T")[0];
 
         try {
-            const reservations = await fetchFirestoreData("reservierung_cafe");
+            const reservations = await fetchFirestoreData(
+                process.env.NEXT_DEV === "true" ? "dev_cafe" : "reservierung_cafe"
+            );
             const reservationsOnDate = reservations.filter((reservation) => {
                 const reservationDate = new Date(reservation.date);
                 return reservationDate.toISOString().split("T")[0] === formattedDate;
             });
-            console.log(reservationsOnDate);
-            const availableSlotsWithSpaces = availableTimeSlots
+
+            const updatedAvailableTimeSlots = availableTimeSlots
                 .map(({ slot, capacity }) => {
                     const totalGuestsInSlot = reservationsOnDate
                         .filter((reservation) => reservation.timeSlot === slot)
                         .reduce((total, current) => {
-                            console.log(`Current reservation guests before parsing: ${current.guests}`);
                             const guestsInCurrentReservation = parseInt(current.guests, 10) || 0;
-                            console.log(`Parsed guests: ${guestsInCurrentReservation}`);
                             return total + guestsInCurrentReservation;
                         }, 0);
-                    console.log(`Total guests in ${slot}: ${totalGuestsInSlot}`);
 
                     return {
                         slot: slot,
@@ -114,26 +103,30 @@ const CafeReservierung = ({ image }) => {
                     };
                 })
                 .filter(({ availableSpaces }) => availableSpaces >= numberOfGuests);
-            setAvailableTimeSlots(availableSlotsWithSpaces);
-            setIsFullyBooked(availableSlotsWithSpaces.length === 0);
+
+            setAvailableTimeSlots(updatedAvailableTimeSlots);
+            setIsFullyBooked(updatedAvailableTimeSlots.length === 0);
         } catch (error) {
             console.error("Error checking availability:", error);
         }
     };
 
     useEffect(() => {
-        fetchFirestoreData("reservierung_cafe")
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
-    }, []);
+        if (startDate) {
+            updateAvailableTimeSlots(startDate);
+        }
+    }, [startDate]);
+
+    useEffect(() => {
+        if (startDate && guests) {
+            checkAvailability(startDate, guests);
+        }
+    }, [guests]);
 
     const handleBack = () => {
         setCurrentStep(1);
     };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -147,22 +140,20 @@ const CafeReservierung = ({ image }) => {
             if (isStep2Complete) {
                 const adjustDateForTimezone = (date) => {
                     const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-                    return utcDate.toISOString();
+                    return utcDate.toISOString().split("T")[0];
                 };
                 const adjustedDate = adjustDateForTimezone(startDate);
 
-                console.log(startDate, adjustedDate);
                 setLoading(true);
                 const reservationData = {
-                    date: adjustedDate, // JavaScript Date object
-                    timeSlot: time, // String e.g., "09:30 - 11:30"
+                    date: adjustedDate,
+                    timeSlot: time,
                     email,
                     guests,
                     kids,
                     name,
                     telefon,
                 };
-                console.log("Submitting reservation:", reservationData);
                 try {
                     const response = await fetch("/api/reservierung", {
                         method: "POST",
@@ -173,22 +164,16 @@ const CafeReservierung = ({ image }) => {
                     });
 
                     if (response.ok) {
-                        console.log("Reservation successful");
                         setLoading(false);
                         setSuccess(true);
-                        // Handle success...
                     } else {
-                        console.log("Reservation failed");
-                        // Handle failure...
                         setLoading(false);
-
                         setSuccess(false);
                     }
                 } catch (error) {
                     console.error("Error:", error);
-                    // Handle network error...
+                    setLoading(false);
                 }
-                // Implement submission logic...
             } else {
                 console.log("Please fill all fields correctly.");
             }
@@ -197,9 +182,7 @@ const CafeReservierung = ({ image }) => {
 
     const isWeekdayAndFutureDate = (date) => {
         const day = getDay(date);
-        const isWeekday = day !== 0 && day !== 6; // 0 is Sunday, 6 is Saturday
-
-        // Check if the date is today or in the future
+        const isWeekday = day !== 0 && day !== 6;
         return isWeekday && (isToday(date) || isAfter(date, new Date()));
     };
 
@@ -229,18 +212,17 @@ const CafeReservierung = ({ image }) => {
                                     selected={startDate}
                                     onChange={(date) => {
                                         setStartDate(date);
-                                        setTime(""); // Reset the time
+                                        setTime("");
+                                        setGuests("");
                                         setAvailableTimeSlots([]);
                                         setIsFullyBooked(false);
-                                        if (guests) {
-                                            checkAvailability(date, guests); // Recheck availability with the same number of guests
-                                        }
+                                        updateAvailableTimeSlots(date);
                                     }}
                                     filterDate={(date) => {
                                         const day = getDay(date);
-                                        return day !== 0 && day !== 6; // Returns true if the day is not a Saturday (6) or Sunday (0)
+                                        return day !== 0 && day !== 6;
                                     }}
-                                    minDate={new Date()} // Disable past dates
+                                    minDate={new Date()}
                                     locale="de-DE"
                                     placeholderText="Datum auswählen"
                                     dateFormat="dd/MM/yyyy"
@@ -264,13 +246,13 @@ const CafeReservierung = ({ image }) => {
                                         className="col-span-6 w-full  mb-4 text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                                         type="number"
                                         value={guests}
-                                        placeHolder="Anzahl der Erwachsenen, z.B. 2"
+                                        placeholder="Anzahl der Erwachsenen, z.B. 2"
                                         onChange={(e) => {
-                                            setGuests(e.target.value);
-                                            console.log(e.target.value);
-                                            console.log(formIsValid);
-                                            if (e.target.value && startDate) {
-                                                checkAvailability(startDate, e.target.value);
+                                            const numGuests = e.target.value;
+                                            setGuests(numGuests);
+                                            setTime("");
+                                            if (startDate && numGuests) {
+                                                checkAvailability(startDate, numGuests); // Check availability when guests change
                                             }
                                         }}
                                         min="1"
@@ -290,18 +272,12 @@ const CafeReservierung = ({ image }) => {
                                         placeholder="Anzahl der Kinder, z.B. 1"
                                         onChange={(e) => {
                                             setKids(e.target.value);
-                                            // if (guests && startDate) {
-                                            //     // Check guests is set
-                                            //     checkAvailability(
-                                            //         startDate,
-                                            //         parseInt(guests, 10) + parseInt(e.target.value || "0", 10)
-                                            //     );
                                         }}
-                                        min="0" // Assuming zero or more kids are allowed
+                                        min="0"
                                     />
                                 </>
                             )}
-                            {guests && availableTimeSlots.length > 0 && (
+                            {startDate && guests && availableTimeSlots.length > 0 && (
                                 <>
                                     <label
                                         htmlFor="time-select"
@@ -326,12 +302,12 @@ const CafeReservierung = ({ image }) => {
                                     </select>
                                 </>
                             )}
+                            {isFullyBooked && <P>Leider sind keine Zeitfenster für das gewählte Datum verfügbar.</P>}
                         </>
                     )}
 
                     {currentStep === 2 && (
                         <div>
-                            {/* Render a summary of the selected date, time, and number of guests */}
                             <div className="wrapper mb-4">
                                 <P>
                                     <strong>Datum:</strong> {startDate.toLocaleDateString("de-DE")}
@@ -382,16 +358,13 @@ const CafeReservierung = ({ image }) => {
                         </div>
                     ) : (
                         <div className="w-full col-span-12 sm:mb-8 flex space-x-2 lg:space-x-4">
-                            {/* Back Button (only shown in step 2) */}
                             {currentStep === 2 && (
                                 <MainButtonNOLink onClick={handleBack} klasse="bg-textColor mt-4">
                                     Zurück
                                 </MainButtonNOLink>
                             )}
-
-                            {/* Submit Button */}
                             <MainButtonNOLink
-                                disabled={!formIsValid} // Use the state set by the validation logic
+                                disabled={!formIsValid}
                                 type="submit"
                                 klasse="bg-primaryColor border-2 border-primaryColor mt-4"
                             >
@@ -408,7 +381,6 @@ const CafeReservierung = ({ image }) => {
                         src={urlFor(image).url()}
                         mobileSrc={urlFor(image).url()}
                         alt="Cover Background"
-                        // style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1" }}
                         className={`w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/1.5] xl:aspect-[1/1.25]
                     }`}
                     />

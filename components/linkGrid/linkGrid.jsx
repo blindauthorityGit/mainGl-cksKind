@@ -18,7 +18,10 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        console.log(data);
+        console.log(
+            "DATA",
+            data.sort((a, b) => new Date(a._createdAt) - new Date(b._createdAt))
+        );
         const computeWeeklyOccurrences = (startDate, endDate, dayOfWeek, timeslot) => {
             let occurrences = [];
             const start = parseISO(startDate);
