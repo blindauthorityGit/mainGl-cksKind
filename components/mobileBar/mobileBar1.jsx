@@ -47,9 +47,9 @@ const MobileBar = (props) => {
             <div
                 className={`fixed sm:hidden ${
                     showModal ? "z-10" : "z-30"
-                }  bottom-0 w-full flex justify-center items-center bg-primaryColor text-sm `}
+                }  bottom-0 w-full flex justify-center items-center bg-textColor text-sm h-[7vh] `}
             >
-                <a
+                {/* <a
                     href="tel:01606091569"
                     style={{ background: showContact ? "#33333!important" : null }}
                     className="w-1/3 p-3 flex border-r border-opacity-30 border-primaryColor-200 flex-col justify-center items-center text-primaryColor-200 hover:text-primaryColor"
@@ -75,7 +75,7 @@ const MobileBar = (props) => {
                 >
                     <img className="h-[1.35rem]" src={Programm.src} alt="" />
                     <span className="text-xs  mt-1">Programm</span>
-                </a>
+                </a> */}
             </div>
         </>
     );

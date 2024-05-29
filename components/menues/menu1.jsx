@@ -177,7 +177,8 @@ const Menu1 = (props) => {
                         <Link className="flex" href="/">
                             <img
                                 src={props.logo}
-                                className="max-h-[5.75rem] sm:max-h-[8.75rem] fill-current-[#fff] absolute top-0"
+                                className="w-[26vw] fill-current-[#fff] absolute top-0"
+                                // className="max-h-[5.75rem] sm:max-h-[8.75rem] fill-current-[#fff] absolute top-0"
                                 alt="Logo"
                             />
                         </Link>

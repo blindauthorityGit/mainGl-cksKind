@@ -30,6 +30,10 @@ module.exports = {
                 ueber: ["Ultra", "serif"],
                 sans: ["Montserrat", "sans-serif"],
             },
+            fontSize: {
+                "responsive-h1": "calc(32px + (32 / 320) * (100vw - 320px))",
+                tester: "2rem",
+            },
             colors: {
                 primaryColor: {
                     DEFAULT: "#e22e88",

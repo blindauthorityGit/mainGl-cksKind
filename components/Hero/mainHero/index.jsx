@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { CoverImage } from "../../images";
 import { MainButton, MainButtonNOLink } from "../../buttons";
 import { Raumvermietung, Anfrage } from "../../modalContent";
+import { CatCard } from "../../cards";
+import SmallerDecal from "../../decorative/smallerDecal";
 
 //TYPO
 import { H1, P } from "../../typography";
@@ -21,19 +23,68 @@ import { useWindowDimensions } from "../../../hooks/useWindowDimension";
 //STORE
 import useStore from "../../../store/store"; // Adjust the path to your store file
 
+//ASSETS
+import CafeIcon from "../../../assets/cafeIcon.svg";
+import ProgrammIcon from "../../../assets/programmIcon.svg";
+import PartyIcon from "../../../assets/partyIcon.svg";
+import AboutIcon from "../../../assets/aboutIcon.svg";
+
 const MainHero = ({ data, bgColor, modal, onClick }) => {
     const { width, height } = useWindowDimensions();
     const router = useRouter();
 
     const [aspectRatio, setAspectRatio] = useState("1/0.75");
 
+    const cards = [
+        { text: "Unser Café", bgColor: "#EE4799", icon: CafeIcon.src, isWhite: true },
+        { text: "Kursprogramm", bgColor: "#F3E584", icon: ProgrammIcon.src },
+        { text: "Geburtstagsfeiern", bgColor: "#CDE4C4", icon: PartyIcon.src },
+        { text: "Das sind wir", bgColor: "#E2EAF7", icon: AboutIcon.src },
+    ];
+
     // GLOBAL STATES
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setShowModal = useStore((state) => state.setShowModal);
     const setModalContent = useStore((state) => state.setModalContent);
 
+    //ANIMATIONM PROPS
+    const animationProps = {
+        initial: { opacity: 0, scale: 0.1, rotate: 0 },
+        animate: {
+            opacity: 1,
+            scale: [0.1, 0.4, 0.9, 1.1, 1],
+            rotate: [0, 360],
+        },
+        transition: {
+            delay: 1,
+            duration: 1,
+            ease: "easeOut",
+            type: "spring",
+            stiffness: 500,
+            damping: 20,
+            times: [0, 0.2, 0.5, 0.7, 1],
+        },
+    };
+    const animationProps2 = {
+        initial: { opacity: 0, scale: 0.1, rotate: 0 },
+        animate: {
+            opacity: 1,
+            scale: [0.1, 0.4, 0.9, 1.1, 1],
+            rotate: [0, 310],
+        },
+        transition: {
+            delay: 1.2,
+            duration: 1,
+            ease: "easeOut",
+            type: "spring",
+            stiffness: 500,
+            damping: 20,
+            // times: [0, 0.2, 0.5, 0.7, 1],
+        },
+    };
+
     // const [topDistance, setTopDistance]
-    useEffect(() => {}, []);
+    useEffect(() => {}, [console.log(CafeIcon.src)]);
 
     const imgRef = useRef();
     const heightRef = useRef();
@@ -68,7 +119,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
                     >
-                        <H1 klasse="!mb-10 lg:mb-0 xl:!mb-6">{data.headline}</H1>
+                        <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6">{data.headline}</H1>
                         <P klasse="hidden md:block md:mb-10 lg:mb-0">{data.text}</P>
                     </motion.div>
 
@@ -124,9 +175,9 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.6, duration: 0.8 }}
-                    className="col-span-12 lg:col-span-7 relative z-10 mt-10 md:mt-0 lg:mt-12"
+                    className="col-span-12 lg:col-span-7 relative z-10  md:mt-0 lg:mt-12"
                 >
-                    <CoverImage
+                    {/* <CoverImage
                         src={urlFor(data.image).url()} // Replace with the actual path to your image
                         mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
                         alt="Cover Background"
@@ -135,15 +186,19 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         // data-aos={"fade-left"}
                         ref={imgRef}
                         priority={true}
-                    />
+                    /> */}
                     <motion.div
-                        className="flex-col justify-center flex text-center md:hidden mt-6 px-4"
+                        className="flex-col justify-center flex text-center md:hidden mt-[18vh] px-4"
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
                     >
-                        <H1 klasse="!mb-4 lg:mb-0 xl:!mb-6">{data.headline}</H1>
-                        <P klasse="text-xs px-4 md:px-0 md:block md:mb-10 lg:mb-0">{data.text}</P>
+                        <H1 klasse="!mb-[5vh] lg:mb-0 xl:!mb-6">{data.headline}</H1>
+                        {/* <P klasse="text-xs px-4 md:px-0 md:block md:mb-10 lg:mb-0">{data.text}</P> */}
+                        <P klasse="text-xs font-semibold px-0 md:px-0 md:block md:mb-10 lg:mb-0">
+                            Willkommen bei MainGlückskind, dem Ort, an dem Kinder lernen, sich entfalten und die Welt
+                            mit einem Lächeln erkunden.{" "}
+                        </P>
                     </motion.div>
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
@@ -152,9 +207,19 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         style={{ height: `${bgHeight * 0.89}px` }}
                         className="absolute  lg:block bg-themeGreen-50 w-[104%] md:w-[106%] left-[-0.5rem] md:left-[-1rem] rounded-[40px] h-full top-[-4rem] md:top-[-1rem] lg:top-[-2rem] lg:w-full lg:right-[-2rem] lg:left-auto lg:translate-x-0 z-[0]"
                     ></motion.div>
+
+                    {/* //CARDS */}
+
+                    <div className="col-span-12 grid grid-cols-2 gap-2 px-4 mt-[4vh]">
+                        {cards.map((e, i) => {
+                            return (
+                                <CatCard text={e.text} bgColor={e.bgColor} icon={e.icon} isWhite={e.isWhite}></CatCard>
+                            );
+                        })}
+                    </div>
                 </motion.div>
 
-                <div className="col-span-12 wrapper flex space-x-2 mt-6 lg:mt-8 justify-center lg:hidden">
+                {/* <div className="col-span-12 wrapper flex space-x-2 mt-6 lg:mt-8 justify-center lg:hidden">
                     {data.buttons.map((e, i) => {
                         console.log(modal);
                         return modal ? (
@@ -189,12 +254,21 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                             </MainButton>
                         );
                     })}
-                </div>
+                </div> */}
                 {/* <div
                     style={{ height: bgHeight * 0.89 + "px" }}
                     className="absolute bg-themeGreen-50 w-[97%] lg:hidden rounded-[40px] h-full top-[0] lg:top-32 lg:w-2/4 lg:right-32 lg:left-auto left-1/2 transform translate-x-[-50%] lg:translate-x-0 z-[0]"
                 ></div> */}
             </div>
+            <SmallerDecal
+                klasse="absolute top-[8vh] w-[44vw]  left-[29vw] z-0 opacity-20"
+                motionProps={animationProps}
+            />
+            <SmallerDecal
+                klasse="absolute top-[8vh] w-[16vw]  left-[60vw] z-0 opacity-20"
+                motionProps={animationProps2}
+            />
+
             <motion.div
                 translateY={["-90vh", "90vh"]}
                 initial={{ x: "-100%", opacity: 0.5 }}

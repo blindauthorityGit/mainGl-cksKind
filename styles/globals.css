@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .text-responsive-h1 {
+    font-size: calc(32px + (32 / 320) * (100vw - 320px));
+  }
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;700;800&family=Ultra&display=swap');
