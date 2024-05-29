@@ -110,7 +110,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
     return (
         <section
             style={{ background: bgColor }}
-            className="col-span-12 h-screen xl:min-h-0  bg-[#AFD3A2] md:bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-24"
+            className="col-span-12 h-[100svh] xl:min-h-0  bg-[#AFD3A2] md:bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-24"
         >
             <div ref={heightRef} className="grid grid-cols-12 z-10 h-full lg:gap-24 relative">
                 <div className="col-span-12  lg:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
