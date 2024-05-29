@@ -188,12 +188,12 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         priority={true}
                     /> */}
                     <motion.div
-                        className="flex-col justify-center flex text-center md:hidden mt-[18vh] px-4"
+                        className="flex-col justify-center flex text-center md:hidden mt-[18svh] px-4"
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
                     >
-                        <H1 klasse="!mb-[5vh] lg:mb-0 xl:!mb-6">{data.headline}</H1>
+                        <H1 klasse="!mb-[5svh] lg:mb-0 xl:!mb-6">{data.headline}</H1>
                         {/* <P klasse="text-xs px-4 md:px-0 md:block md:mb-10 lg:mb-0">{data.text}</P> */}
                         <P klasse="text-xs font-semibold px-0 md:px-0 md:block md:mb-10 lg:mb-0">
                             Willkommen bei MainGlückskind, dem Ort, an dem Kinder lernen, sich entfalten und die Welt
@@ -210,7 +210,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
 
                     {/* //CARDS */}
 
-                    <div className="col-span-12 grid grid-cols-2 gap-2 px-4 mt-[4vh]">
+                    <div className="col-span-12 grid grid-cols-2 gap-2 px-4 mt-[4svh]">
                         {cards.map((e, i) => {
                             return (
                                 <CatCard text={e.text} bgColor={e.bgColor} icon={e.icon} isWhite={e.isWhite}></CatCard>
@@ -261,11 +261,11 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                 ></div> */}
             </div>
             <SmallerDecal
-                klasse="absolute top-[8vh] w-[44vw]  left-[29vw] z-0 opacity-20"
+                klasse="absolute top-[8svh] w-[44svw]  left-[29svw] z-0 opacity-20"
                 motionProps={animationProps}
             />
             <SmallerDecal
-                klasse="absolute top-[8vh] w-[16vw]  left-[60vw] z-0 opacity-20"
+                klasse="absolute top-[8svh] w-[16vw]  left-[60svw] z-0 opacity-20"
                 motionProps={animationProps2}
             />
 
