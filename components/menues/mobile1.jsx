@@ -57,7 +57,7 @@ const Mobile1 = (props) => {
                 animate={showMenu ? "visible" : "hidden"}
                 variants={slideInVariants}
                 className={`navbar ${props.klasse} 
-                w-[90%] right-0 h-screen bg-white fixed z-50 top-0 `}
+                w-[90%] right-0 h-[100svh] bg-white fixed z-50 top-0 `}
             >
                 <div onClick={handleClose} className="closer absolute text-xl rounded-full p-1 right-4 top-3">
                     <GrClose className=""></GrClose>

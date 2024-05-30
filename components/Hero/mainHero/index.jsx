@@ -139,22 +139,64 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
     return (
         <section
             style={{ background: bgColor }}
-            className="col-span-12 h-[100svh] xl:min-h-0  bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-24"
+            className="col-span-12 h-[100svh] xl:min-h-0  bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-0"
         >
-            <div ref={heightRef} className="grid grid-cols-12 z-10 h-full lg:gap-24 relative">
-                <div className="col-span-12  lg:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
-                    <motion.div>
-                        <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6">
-                            <motion.div
-                                initial={{ scale: 0.5, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
-                            >
-                                {data.headline}
-                            </motion.div>
-                        </H1>
-                        <P klasse="hidden md:block md:mb-10 lg:mb-0">{data.text}</P>
+            {/* TEXT ABSILUTE DESKTOP */}
+            <div className="absolute hidden lg:block top-[25svh] z-20 w-[42svw]">
+                <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6 ">
+                    <motion.div
+                        initial={{ scale: 0.5, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 260,
+                            damping: 20,
+                            delay: 0.4,
+                            duration: 0.85,
+                        }}
+                    >
+                        {data.headline}
                     </motion.div>
+                </H1>
+            </div>
+            <div className="absolute hidden lg:block top-[54svh] z-20 w-[42svw]">
+                <motion.div
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 20,
+                        delay: 0.4,
+                        duration: 0.85,
+                    }}
+                >
+                    <P klasse="hidden md:block md:mb-10 lg:mb-0">{data.text}</P>
+                </motion.div>
+            </div>
+
+            <div ref={heightRef} className="grid grid-cols-12 z-10 h-full lg:gap-24 xl:gap-0 relative">
+                <div className="col-span-12  lg:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
+                    {/* <motion.div className="lg:mt-[25svh]">
+                        <div className="relative">
+                            <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6 ">
+                                <motion.div
+                                    initial={{ scale: 0.5, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    transition={{
+                                        type: "spring",
+                                        stiffness: 260,
+                                        damping: 20,
+                                        delay: 0.4,
+                                        duration: 0.85,
+                                    }}
+                                >
+                                    {data.headline}
+                                </motion.div>
+                            </H1>
+                        </div>
+                        <P klasse="hidden md:block md:mb-10 lg:mb-0">{data.text}</P>
+                    </motion.div> */}
 
                     <div className="wrapper  space-x-6 hidden lg:flex mt-12">
                         {data.buttons.map((e, i) => {
@@ -189,7 +231,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                                         </MainButtonNOLink>
                                     ) : (
                                         <MainButton
-                                            klasse={`${
+                                            klasse={`hidden ${
                                                 e.HauptButton
                                                     ? "bg-primaryColor border-2 border-primaryColor"
                                                     : "border-2 border-primaryColor-50"
@@ -204,17 +246,18 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         })}
                     </div>
                 </div>
-                <motion.div className="col-span-12 lg:col-span-7 relative z-10  md:mt-0 lg:mt-12">
-                    {/* <CoverImage
+                <motion.div className="col-span-12 lg:col-span-7 relative z-10  md:mt-0 lg:mt-[8svh]">
+                    <CoverImage
                         src={urlFor(data.image).url()} // Replace with the actual path to your image
                         mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
                         alt="Cover Background"
                         // style={{ aspectRatio: aspectRatio }}
-                        className="w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/0.5] md:aspect-[1/0.7] xl:aspect-[1/0.85]"
+                        className="w-full z-20 hidden lg:block relative rounded-[40px] overflow-hidden aspect-[1/0.5] md:aspect-[1/0.7] 2xl:aspect-[1/0.77]"
                         // data-aos={"fade-left"}
                         ref={imgRef}
                         priority={true}
-                    /> */}
+                    />
+
                     <motion.div className="flex-col justify-center flex text-center md:hidden mt-[18svh] px-4">
                         <H1 klasse="!mb-[5svh] lg:mb-0 xl:!mb-6">
                             <motion.div
@@ -244,11 +287,8 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         style={{ height: `${bgHeight * 0.89}px` }}
                         className="absolute  lg:block bg-themeGreen-50 w-[104%] md:w-[106%] left-[-0.5rem] md:left-[-1rem] rounded-[40px] h-full top-[-4rem] md:top-[-1rem] lg:top-[-2rem] lg:w-full lg:right-[-2rem] lg:left-auto lg:translate-x-0 z-[0]"
                     ></motion.div>
-
-                    {/* //CARDS */}
-
                     <motion.div
-                        className="col-span-12 grid grid-cols-2 gap-2 px-4 mt-[4svh]"
+                        className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-2 px-4 mt-[4svh] lg:hidden"
                         variants={container}
                         initial="hidden"
                         animate="visible"
@@ -265,8 +305,27 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                             );
                         })}
                     </motion.div>
-                </motion.div>
 
+                    {/* //CARDS */}
+                </motion.div>
+                <motion.div
+                    className="col-span-12  grid-cols-2 lg:grid-cols-4 gap-2 px-4 hidden lg:grid"
+                    variants={container}
+                    initial="hidden"
+                    animate="visible"
+                >
+                    {cards.map((e, i) => {
+                        return (
+                            <CatCard
+                                text={e.text}
+                                bgColor={e.bgColor}
+                                icon={e.icon}
+                                isWhite={e.isWhite}
+                                // animationProps={{ variants: cardVariants }}
+                            ></CatCard>
+                        );
+                    })}
+                </motion.div>
                 {/* <div className="col-span-12 wrapper flex space-x-2 mt-6 lg:mt-8 justify-center lg:hidden">
                     {data.buttons.map((e, i) => {
                         console.log(modal);
