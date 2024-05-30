@@ -36,10 +36,10 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
     const [aspectRatio, setAspectRatio] = useState("1/0.75");
 
     const cards = [
-        { text: "Unser Café", bgColor: "#EE4799", icon: CafeIcon.src, isWhite: true },
-        { text: "Kursprogramm", bgColor: "#F3E584", icon: ProgrammIcon.src },
-        { text: "Geburtstagsfeiern", bgColor: "#CDE4C4", icon: PartyIcon.src },
-        { text: "Das sind wir", bgColor: "#E2EAF7", icon: AboutIcon.src },
+        { text: "Unser Café", bgColor: "#EE4799", icon: CafeIcon.src, isWhite: true, order: "xl:order-3" },
+        { text: "Kursprogramm", bgColor: "#F3E584", icon: ProgrammIcon.src, order: "xl:order-4" },
+        { text: "Geburtstagsfeiern", bgColor: "#CDE4C4", icon: PartyIcon.src, order: "xl:order-2" },
+        { text: "Das sind wir", bgColor: "#E2EAF7", icon: AboutIcon.src, order: "xl:order-1" },
     ];
 
     // GLOBAL STATES
@@ -142,7 +142,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
             className="col-span-12 h-[100svh] xl:min-h-0  bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-0"
         >
             {/* TEXT ABSILUTE DESKTOP */}
-            <div className="absolute hidden lg:block top-[25svh] z-20 w-[42svw]">
+            <div className="absolute hidden lg:block top-[23svh] z-20 w-[42svw]">
                 <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6 ">
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
@@ -159,7 +159,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                     </motion.div>
                 </H1>
             </div>
-            <div className="absolute hidden lg:block top-[54svh] z-20 w-[42svw]">
+            <div className="absolute hidden lg:block xl:top-[52svh] 2xl:top-[50svh] z-20 w-[29svw]">
                 <motion.div
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -269,7 +269,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                             </motion.div>
                         </H1>
                         {/* <P klasse="text-xs px-4 md:px-0 md:block md:mb-10 lg:mb-0">{data.text}</P> */}
-                        <P klasse="text-xs font-semibold px-0 md:px-0 md:block md:mb-10 lg:mb-0">
+                        <P klasse="text-xs  px-0 md:px-0 md:block md:mb-10 lg:mb-0">
                             <motion.span
                                 initial={{ scale: 0.5, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
@@ -317,6 +317,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                     {cards.map((e, i) => {
                         return (
                             <CatCard
+                                order={e.order}
                                 text={e.text}
                                 bgColor={e.bgColor}
                                 icon={e.icon}
@@ -368,11 +369,15 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                 ></div> */}
             </div>
             <SmallerDecal
-                klasse="absolute top-[8svh] w-[44svw]  left-[29svw] z-0 opacity-20"
+                klasse="absolute top-[8svh] xl:hidden w-[44svw]  left-[29svw] z-0 opacity-20"
                 motionProps={animationProps}
             />
             <SmallerDecal
-                klasse="absolute top-[8svh] w-[16vw]  left-[60svw] z-0 opacity-20"
+                klasse="absolute top-[8svh] w-[16vw] xl:hidden left-[60svw] z-0 opacity-20"
+                motionProps={animationProps2}
+            />
+            <SmallerDecal
+                klasse="absolute top-[5svh] w-[10vw] xl:hidden left-[50svw] z-0 opacity-20 !rotate-6"
                 motionProps={animationProps2}
             />
 
