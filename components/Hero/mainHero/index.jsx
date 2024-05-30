@@ -50,12 +50,15 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
     //ANIMATIONM PROPS
 
     const container = {
-        hidden: { opacity: 1 },
+        hidden: { opacity: 0, scale: 0 },
         visible: {
             opacity: 1,
-            delay: 0.6,
+            scale: 1,
             transition: {
-                staggerChildren: 0.2,
+                delay: 1,
+                duration: 0.6,
+
+                // staggerChildren: 0.6,
             },
         },
     };
@@ -74,7 +77,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
     };
 
     const animationProps = {
-        initial: { opacity: 0, scale: 0.1, rotate: 0 },
+        initial: { opacity: 0, scale: 0, rotate: 0 },
         animate: {
             opacity: 1,
             scale: [0.1, 1.2, 0.8, 1.05, 1],
@@ -82,7 +85,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
         },
         transition: {
             delay: 1,
-            duration: 1,
+            duration: 2,
             type: "spring",
             stiffness: 600,
             damping: 15,
@@ -92,7 +95,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
     };
 
     const animationProps2 = {
-        initial: { opacity: 0, scale: 0.1, rotate: 0 },
+        initial: { opacity: 0, scale: 0, rotate: 0 },
         animate: {
             opacity: 1,
             scale: [0.1, 1.2, 0.8, 1.05, 1],
@@ -100,9 +103,9 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
         },
         transition: {
             delay: 1.2,
-            duration: 1,
+            duration: 2.4,
             type: "spring",
-            stiffness: 600,
+            stiffness: 900,
             damping: 15,
             mass: 0.8,
             times: [0, 0.3, 0.6, 0.8, 1],
@@ -257,7 +260,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                                     bgColor={e.bgColor}
                                     icon={e.icon}
                                     isWhite={e.isWhite}
-                                    animationProps={{ variants: cardVariants }}
+                                    // animationProps={{ variants: cardVariants }}
                                 ></CatCard>
                             );
                         })}

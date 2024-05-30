@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Overlay = ({ onClick }) => {
     return (
-        <AnimatePresence>
+        <>
             {/* Use AnimatePresence to enable exit animations */}
             <motion.div
                 className="fixed inset-0 bg-black opacity-70 z-30"
@@ -12,7 +12,7 @@ const Overlay = ({ onClick }) => {
                 animate={{ opacity: 0.7 }} // Animation state (visible)
                 exit={{ opacity: 0 }} // Exit state (hidden)
             />
-        </AnimatePresence>
+        </>
     );
 };
 

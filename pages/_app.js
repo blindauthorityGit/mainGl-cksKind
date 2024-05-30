@@ -26,6 +26,7 @@ import useStore from "../store/store"; // Adjust the path to your store file
 
 //FX
 import { ParallaxProvider } from "react-scroll-parallax";
+import { AnimatePresence } from "framer-motion";
 
 function MyApp({ Component, pageProps }) {
     const [showMobileBar, setShowMobileBar] = useState(false);
@@ -112,35 +113,34 @@ function MyApp({ Component, pageProps }) {
                 menuItems={menuItems}
                 socialMedia={socialMedia}
                 burgerIcon={burger.src}
-                onBurgerClick={(e) => {
-                    console.log(e);
-                }}
+                onBurgerClick={(e) => {}}
                 onClick={() => {
-                    console.log("IS CLICKED");
                     setIsOpen(true);
                 }}
             ></Menu1>
-            {showModal ? (
-                <Modal
-                    background={modalColor}
-                    onClick={(e) => {
-                        setShowModal(false);
-                        setShowOverlay(false);
-                    }}
-                >
-                    {modalContent}
-                </Modal>
-            ) : null}
-            {showOverlay ? (
-                <Overlay
-                    onClick={(e) => {
-                        setShowOverlay(false);
-                        setShowMobileMenu(false);
-                        setShowMobileModal(false);
-                        setShowModal(false);
-                    }}
-                ></Overlay>
-            ) : null}
+            <AnimatePresence>
+                {showModal && (
+                    <Modal
+                        background={modalColor}
+                        onClick={(e) => {
+                            setShowModal(false);
+                            setShowOverlay(false);
+                        }}
+                    >
+                        {modalContent}
+                    </Modal>
+                )}
+                {showOverlay && (
+                    <Overlay
+                        onClick={(e) => {
+                            setShowOverlay(false);
+                            setShowMobileMenu(false);
+                            setShowMobileModal(false);
+                            setShowModal(false);
+                        }}
+                    />
+                )}
+            </AnimatePresence>
             {/* ...other components */}
             {isCafe ? (
                 <div className="">

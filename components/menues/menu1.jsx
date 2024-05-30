@@ -159,9 +159,12 @@ const Menu1 = (props) => {
             {showMobileMenu ? (
                 <Mobile1
                     socialMedia={props.socialMedia}
+                    showMenu={showMobileMenu}
                     onClick={(e) => {
-                        setShowOverlay(false);
-                        setShowMobileMenu(false);
+                        setTimeout(() => {
+                            setShowOverlay(false);
+                            setShowMobileMenu(false);
+                        }, 100);
                     }}
                 ></Mobile1>
             ) : null}
@@ -247,8 +250,6 @@ const Menu1 = (props) => {
                             onClick={(e) => {
                                 setShowMobileMenu(true);
                                 setShowOverlay(true);
-
-                                console.log(showMobileMenu);
                             }}
                         >
                             <img className="h-[1.7rem]" src={props.burgerIcon} alt="" />

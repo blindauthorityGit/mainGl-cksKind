@@ -3,10 +3,9 @@ import { P } from "../typography";
 import { motion } from "framer-motion";
 
 const CatCard = ({ bgColor, icon, text, link, isWhite, animationProps }) => {
-    console.log(icon);
     return (
         <motion.div
-            className={`bg-[${bgColor}] h-[17svh] rounded-[10px] flex flex-col justify-center items-center font-sans font-semibold text-text`}
+            className={`bg-[${bgColor}] h-[17svh] rounded-[10px] space-y-2 flex flex-col justify-center items-center font-sans font-semibold text-text`}
             style={{ backgroundColor: bgColor }}
             {...animationProps}
         >
