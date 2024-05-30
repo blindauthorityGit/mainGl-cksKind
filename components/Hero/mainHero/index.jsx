@@ -48,38 +48,64 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
     const setModalContent = useStore((state) => state.setModalContent);
 
     //ANIMATIONM PROPS
+
+    const container = {
+        hidden: { opacity: 1 },
+        visible: {
+            opacity: 1,
+            delay: 0.6,
+            transition: {
+                staggerChildren: 0.2,
+            },
+        },
+    };
+
+    const cardVariants = {
+        hidden: { opacity: 0, scale: 0 },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                type: "spring",
+                stiffness: 500,
+                damping: 20,
+            },
+        },
+    };
+
     const animationProps = {
         initial: { opacity: 0, scale: 0.1, rotate: 0 },
         animate: {
             opacity: 1,
-            scale: [0.1, 0.4, 0.9, 1.1, 1],
+            scale: [0.1, 1.2, 0.8, 1.05, 1],
             rotate: [0, 360],
         },
         transition: {
             delay: 1,
             duration: 1,
-            ease: "easeOut",
             type: "spring",
-            stiffness: 500,
-            damping: 20,
-            times: [0, 0.2, 0.5, 0.7, 1],
+            stiffness: 600,
+            damping: 15,
+            mass: 0.8,
+            times: [0, 0.3, 0.6, 0.8, 1],
         },
     };
+
     const animationProps2 = {
         initial: { opacity: 0, scale: 0.1, rotate: 0 },
         animate: {
             opacity: 1,
-            scale: [0.1, 0.4, 0.9, 1.1, 1],
+            scale: [0.1, 1.2, 0.8, 1.05, 1],
             rotate: [0, 310],
         },
         transition: {
             delay: 1.2,
             duration: 1,
-            ease: "easeOut",
             type: "spring",
-            stiffness: 500,
-            damping: 20,
-            // times: [0, 0.2, 0.5, 0.7, 1],
+            stiffness: 600,
+            damping: 15,
+            mass: 0.8,
+            times: [0, 0.3, 0.6, 0.8, 1],
         },
     };
 
@@ -110,16 +136,20 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
     return (
         <section
             style={{ background: bgColor }}
-            className="col-span-12 h-[100svh] xl:min-h-0  bg-[#AFD3A2] md:bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-24"
+            className="col-span-12 h-[100svh] xl:min-h-0  bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-24"
         >
             <div ref={heightRef} className="grid grid-cols-12 z-10 h-full lg:gap-24 relative">
                 <div className="col-span-12  lg:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
-                    <motion.div
-                        initial={{ scale: 0.5, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
-                    >
-                        <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6">{data.headline}</H1>
+                    <motion.div>
+                        <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6">
+                            <motion.div
+                                initial={{ scale: 0.5, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
+                            >
+                                {data.headline}
+                            </motion.div>
+                        </H1>
                         <P klasse="hidden md:block md:mb-10 lg:mb-0">{data.text}</P>
                     </motion.div>
 
@@ -171,12 +201,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         })}
                     </div>
                 </div>
-                <motion.div
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.6, duration: 0.8 }}
-                    className="col-span-12 lg:col-span-7 relative z-10  md:mt-0 lg:mt-12"
-                >
+                <motion.div className="col-span-12 lg:col-span-7 relative z-10  md:mt-0 lg:mt-12">
                     {/* <CoverImage
                         src={urlFor(data.image).url()} // Replace with the actual path to your image
                         mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
@@ -187,17 +212,26 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         ref={imgRef}
                         priority={true}
                     /> */}
-                    <motion.div
-                        className="flex-col justify-center flex text-center md:hidden mt-[18svh] px-4"
-                        initial={{ scale: 0.5, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
-                    >
-                        <H1 klasse="!mb-[5svh] lg:mb-0 xl:!mb-6">{data.headline}</H1>
+                    <motion.div className="flex-col justify-center flex text-center md:hidden mt-[18svh] px-4">
+                        <H1 klasse="!mb-[5svh] lg:mb-0 xl:!mb-6">
+                            <motion.div
+                                initial={{ scale: 0.5, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.2, duration: 0.85 }}
+                            >
+                                {data.headline}
+                            </motion.div>
+                        </H1>
                         {/* <P klasse="text-xs px-4 md:px-0 md:block md:mb-10 lg:mb-0">{data.text}</P> */}
                         <P klasse="text-xs font-semibold px-0 md:px-0 md:block md:mb-10 lg:mb-0">
-                            Willkommen bei MainGlückskind, dem Ort, an dem Kinder lernen, sich entfalten und die Welt
-                            mit einem Lächeln erkunden.{" "}
+                            <motion.span
+                                initial={{ scale: 0.5, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
+                            >
+                                Willkommen bei MainGlückskind, dem Ort, an dem Kinder lernen, sich entfalten und die
+                                Welt mit einem Lächeln erkunden.
+                            </motion.span>
                         </P>
                     </motion.div>
                     <motion.div
@@ -210,13 +244,24 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
 
                     {/* //CARDS */}
 
-                    <div className="col-span-12 grid grid-cols-2 gap-2 px-4 mt-[4svh]">
+                    <motion.div
+                        className="col-span-12 grid grid-cols-2 gap-2 px-4 mt-[4svh]"
+                        variants={container}
+                        initial="hidden"
+                        animate="visible"
+                    >
                         {cards.map((e, i) => {
                             return (
-                                <CatCard text={e.text} bgColor={e.bgColor} icon={e.icon} isWhite={e.isWhite}></CatCard>
+                                <CatCard
+                                    text={e.text}
+                                    bgColor={e.bgColor}
+                                    icon={e.icon}
+                                    isWhite={e.isWhite}
+                                    animationProps={{ variants: cardVariants }}
+                                ></CatCard>
                             );
                         })}
-                    </div>
+                    </motion.div>
                 </motion.div>
 
                 {/* <div className="col-span-12 wrapper flex space-x-2 mt-6 lg:mt-8 justify-center lg:hidden">
@@ -276,6 +321,15 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                 transition={{ type: "spring", stiffness: 95, damping: 15 }}
                 style={{ height: bgHeightAbsolute, background: bgColor }}
                 className="absolute bg-[#AFD3A2]  w-2/4 left-0 top-0 z-[-10] hidden md:block"
+            ></motion.div>
+
+            <motion.div
+                // translateY={["-90vh", "90vh"]}
+                initial={{ y: "-100%", opacity: 0.5 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 95, damping: 15 }}
+                style={{ background: bgColor }}
+                className="absolute bg-[#AFD3A2] h-[75svh]  w-full left-0 bottom-0 z-[-10]  md:hidden"
             ></motion.div>
         </section>
     );

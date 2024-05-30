@@ -11,7 +11,7 @@ const BigDecal = () => {
     return (
         <Parallax
             translateY={["-90vh", "90vh"]}
-            className="w-[100vw] opacity-60 h-screen absolute top-0 z-[-2] overflow-hidden"
+            className="w-[100vw] opacity-60 h-screen absolute top-0 z-[-2] overflow-hidden hidden lg:block"
         >
             <CoverImage
                 src={Graphic.src} // Replace with the actual path to your image

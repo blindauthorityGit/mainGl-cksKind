@@ -1,12 +1,14 @@
 import React from "react";
 import { P } from "../typography";
+import { motion } from "framer-motion";
 
-const CatCard = ({ bgColor, icon, text, link, isWhite }) => {
+const CatCard = ({ bgColor, icon, text, link, isWhite, animationProps }) => {
     console.log(icon);
     return (
-        <div
+        <motion.div
             className={`bg-[${bgColor}] h-[17svh] rounded-[10px] flex flex-col justify-center items-center font-sans font-semibold text-text`}
             style={{ backgroundColor: bgColor }}
+            {...animationProps}
         >
             {icon && <img src={icon} alt="icon" />}
             <P
@@ -16,7 +18,7 @@ const CatCard = ({ bgColor, icon, text, link, isWhite }) => {
             >
                 {text}
             </P>
-        </div>
+        </motion.div>
     );
 };
 
