@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 //BUTTON
 import { MainButton } from "../buttons";
 
-// Overlay
-import Overlay from "../overlay";
+// ASSETS
+import LogoSimple from "../../assets/logoSimple.svg";
 // Modal
 import Modal from "../modal/modal1";
 
@@ -23,16 +23,15 @@ import useStore from "../../store/store"; // Adjust the path to your store file
 
 const Menu1 = (props) => {
     const router = useRouter();
+    const [scrolled, setScrolled] = useState(false);
 
     //STORE
-    const showOverlay = useStore((state) => state.showOverlay);
     const setShowOverlay = useStore((state) => state.setShowOverlay);
 
     const showMobileMenu = useStore((state) => state.showMobileMenu);
     const setShowMobileMenu = useStore((state) => state.setShowMobileMenu);
 
     const navRef = useRef(null);
-    const animate = useAnimation();
 
     const ref = useRef(null);
 
@@ -45,10 +44,12 @@ const Menu1 = (props) => {
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > navRef.current.offsetTop) {
+                setScrolled(true);
                 navRef.current.classList.add("fixed", "top-0");
                 ref.current.classList.remove("hidden");
                 ref.current.classList.add("scale-up-hor-left", "block");
             } else {
+                setScrolled(false);
                 // navRef.current.classList.remove("fixed");
             }
         };
@@ -178,11 +179,14 @@ const Menu1 = (props) => {
                     {/* Background Image */}
                     <div className="logo col-span-4 md:col-span-2 ">
                         <Link className="flex" href="/">
-                            <img
+                            <motion.img
+                                // src={scrolled ? LogoSimple.src : props.logo}
                                 src={props.logo}
                                 className="w-[26vw] lg:w-[10svw] fill-current-[#fff] absolute top-0"
-                                // className="max-h-[5.75rem] sm:max-h-[8.75rem] fill-current-[#fff] absolute top-0"
                                 alt="Logo"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.5 }}
                             />
                         </Link>
                     </div>

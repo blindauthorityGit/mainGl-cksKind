@@ -36,10 +36,23 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
     const [aspectRatio, setAspectRatio] = useState("1/0.75");
 
     const cards = [
-        { text: "Unser Café", bgColor: "#EE4799", icon: CafeIcon.src, isWhite: true, order: "xl:order-3" },
-        { text: "Kursprogramm", bgColor: "#F3E584", icon: ProgrammIcon.src, order: "xl:order-4" },
-        { text: "Geburtstagsfeiern", bgColor: "#CDE4C4", icon: PartyIcon.src, order: "xl:order-2" },
-        { text: "Das sind wir", bgColor: "#E2EAF7", icon: AboutIcon.src, order: "xl:order-1" },
+        {
+            text: "Unser Café",
+            bgColor: "#EE4799",
+            icon: CafeIcon.src,
+            isWhite: true,
+            order: "xl:order-3",
+            link: "/cafe",
+        },
+        { text: "Kursprogramm", bgColor: "#F3E584", icon: ProgrammIcon.src, order: "xl:order-4", link: "/programm" },
+        {
+            text: "Feiern & mehr",
+            bgColor: "#CDE4C4",
+            icon: PartyIcon.src,
+            order: "xl:order-2",
+            link: "/kindergeburtstag",
+        },
+        { text: "Das sind wir", bgColor: "#E2EAF7", icon: AboutIcon.src, order: "xl:order-1", link: "/ueber-uns" },
     ];
 
     // GLOBAL STATES
@@ -55,8 +68,8 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
             opacity: 1,
             scale: 1,
             transition: {
-                delay: 1,
-                duration: 0.6,
+                delay: 0.5,
+                duration: 0.4,
 
                 // staggerChildren: 0.6,
             },
@@ -269,7 +282,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                             </motion.div>
                         </H1>
                         {/* <P klasse="text-xs px-4 md:px-0 md:block md:mb-10 lg:mb-0">{data.text}</P> */}
-                        <P klasse="text-xs  px-0 md:px-0 md:block md:mb-10 lg:mb-0">
+                        <P klasse="text-sm  px-0 md:px-0 md:block md:mb-10 lg:mb-0">
                             <motion.span
                                 initial={{ scale: 0.5, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
@@ -288,7 +301,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         className="absolute  lg:block bg-themeGreen-50 w-[104%] md:w-[106%] left-[-0.5rem] md:left-[-1rem] rounded-[40px] h-full top-[-4rem] md:top-[-1rem] lg:top-[-2rem] lg:w-full lg:right-[-2rem] lg:left-auto lg:translate-x-0 z-[0]"
                     ></motion.div>
                     <motion.div
-                        className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-2 px-4 mt-[4svh] lg:hidden"
+                        className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-2  px-4 mt-[4svh] lg:hidden"
                         variants={container}
                         initial="hidden"
                         animate="visible"
@@ -300,6 +313,8 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                                     bgColor={e.bgColor}
                                     icon={e.icon}
                                     isWhite={e.isWhite}
+                                    link={e.link}
+
                                     // animationProps={{ variants: cardVariants }}
                                 ></CatCard>
                             );
@@ -309,7 +324,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                     {/* //CARDS */}
                 </motion.div>
                 <motion.div
-                    className="col-span-12  grid-cols-2 lg:grid-cols-4 gap-2 px-4 hidden lg:grid"
+                    className="col-span-12  grid-cols-2 lg:grid-cols-4 gap-6 px-4 hidden lg:grid"
                     variants={container}
                     initial="hidden"
                     animate="visible"
@@ -322,6 +337,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                                 bgColor={e.bgColor}
                                 icon={e.icon}
                                 isWhite={e.isWhite}
+                                link={e.link}
                                 // animationProps={{ variants: cardVariants }}
                             ></CatCard>
                         );
@@ -396,7 +412,7 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 95, damping: 15 }}
                 style={{ background: bgColor }}
-                className="absolute bg-[#AFD3A2] h-[75svh]  w-full left-0 bottom-0 z-[-10]  md:hidden"
+                className="absolute bg-[#AFD3A2] h-[68svh]  w-full left-0 bottom-0 z-[-10]  md:hidden"
             ></motion.div>
         </section>
     );

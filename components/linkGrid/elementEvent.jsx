@@ -17,6 +17,13 @@ import urlFor from "../../functions/urlFor";
 import formatStringToDate from "../../functions/formatStringToDate";
 import { useWindowDimensions } from "../../hooks/useWindowDimension";
 
+//ASSETS
+import Calendar from "../../assets/calendar.svg";
+import Time from "../../assets/time.svg";
+
+//FUNCTION
+import shortenYear from "../../functions/shortenYear";
+
 const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
     const [flatData, setFlatData] = useState(null);
 
@@ -53,6 +60,7 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
     };
 
     useEffect(() => {
+        console.log(data);
         if (inView) {
             controls.start("visible");
         } else {
@@ -61,25 +69,70 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
     }, [controls, inView, isMobile]); //
 
     return (
-        <div className="wrapper col-span-6 md:col-span-4 lg:col-span-3">
+        <div className="wrapper col-span-6 md:col-span-4 lg:col-span-3 bg-white rounded-[10px] pb-4">
             <Link href={`/event/${data.slug.current}`} className="relative">
                 <CoverImage
                     src={urlFor(data.image).url()} // Replace with the actual path to your image
                     mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
                     alt="Cover Background"
                     klasse={data.ausgebucht ? "opacity-20" : "null"}
-                    style={{ aspectRatio: "1/1", borderColor: data.kategorie.farbe.value }}
-                    className="w-full z-20 relative rounded-[40px] overflow-hidden border-[10px] lg:border-[12px] mb-3"
+                    style={{ aspectRatio: "30/17", borderColor: data.kategorie.farbe.value }}
+                    className="w-full z-20 relative rounded-t-[10px] overflow-hidden mb-3"
                 />
+
                 {/* {data.ausgebucht ? (
                     <div className="ausgebucht  xl:text-xl text-primaryColor-700 absolute z-30 flex justify-center items-center inset-0 font-sans font-bold">
                         Ausgebucht
                     </div>
                 ) : null} */}
             </Link>
-            <div className="pl-2 hyphens-auto text-balance">
-                <H4 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.headline}</H4>
-                <P klasse={isWorkshop ? "!text-blueColor-100" : null}>{formatStringToDate(data.date)}</P>
+            <div className="px-4 hyphens-auto text-balance">
+                <H4 klasse={`${isWorkshop ? "!text-blueColor-100" : null} !font-sans !font-semibold`}>
+                    {data.headline}
+                </H4>
+                <div className="flex w-full items-center mt-4">
+                    <div className="image">
+                        {data.eventDetails.partner.isHidden ? (
+                            <CoverImage
+                                src={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
+                                mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
+                                alt="Cover Background"
+                                style={{ aspectRatio: "1/1" }}
+                                className=" w-8 h-8 z-20 relative rounded-[40px] overflow-hidden  mr-4"
+                            />
+                        ) : (
+                            <Link href={`/partner/${data.eventDetails.partner.slug.current}`}>
+                                <CoverImage
+                                    src={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
+                                    mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
+                                    alt="Cover Background"
+                                    style={{ aspectRatio: "1/1" }}
+                                    className=" w-8 h-8 z-20 relative rounded-[40px] overflow-hidden  mr-4"
+                                />
+                            </Link>
+                        )}
+                    </div>{" "}
+                    <P klasse={`text-xs ${isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}`}>
+                        {data.eventDetails.partner.name}
+                    </P>
+                </div>
+                <hr className="my-2" />
+                <div className="flex space-x-4 ">
+                    <div className="date flex space-x-1 items-center">
+                        <img src={Calendar.src} alt="" />
+                        <P klasse={`${isWorkshop ? "!text-blueColor-100" : null} !text-xs`}>
+                            {shortenYear(formatStringToDate(data.date).split(" ")[0])}
+                        </P>
+                    </div>
+                    <div className="time flex space-x-1 items-center">
+                        <img src={Time.src} alt="" />
+                        <P klasse={`${isWorkshop ? "!text-blueColor-100" : null} !text-xs`}>
+                            {" "}
+                            {formatStringToDate(data.date).split(" ")[1]}
+                        </P>
+                    </div>
+                </div>
+                {/* <P klasse={isWorkshop ? "!text-blueColor-100" : null}>{formatStringToDate(data.date)}</P> */}
             </div>
         </div>
     );

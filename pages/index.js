@@ -40,8 +40,8 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
                 <MainHero data={dataHome.components[0]}></MainHero>
                 <Divider></Divider>
 
-                <EventSlider data={dataEvents}></EventSlider>
-                <Divider></Divider>
+                {/* <EventSlider data={dataEvents}></EventSlider> */}
+                {/* <Divider></Divider> */}
                 <Divider></Divider>
                 <CardHolder data={dataKategorie}></CardHolder>
                 <Divider></Divider>
