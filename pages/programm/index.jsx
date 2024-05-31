@@ -180,6 +180,20 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                 <div className="col-span-12 px-4 lg:px-0 py-6 min-h-[100svh] relative pt-[17svh]">
                     <div className="wrap">
                         <H2>Unser Programm</H2>
+                        {showData ? (
+                            <span
+                                className="font-semibold mb-4"
+                                onClick={() => {
+                                    setShowData(false);
+                                    router.push(``, undefined, { shallow: true });
+
+                                    // Filter the data based on the selected category
+                                    // setFilteredEvents(data);
+                                }}
+                            >
+                                zurück
+                            </span>
+                        ) : null}
                         {!showData ? (
                             <>
                                 <div className="lg:w-2/4">
