@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 //ASSETS
-import Down from "../../assets/Down.svg";
+import Down from "../../assets/down.svg";
 
 const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
     const [activeFilter, setActiveFilter] = useState("Alle");
