@@ -34,7 +34,7 @@ const H3 = ({ children, klasse, style }) => {
 const H4 = ({ children, klasse }) => {
     return (
         <h4
-            className={`text-xs md:text-sm lg:text-lg xl:text-sm 2xl:text-base font-thin font-ueber text-textColor ${klasse}`}
+            className={`text-sm md:text-sm lg:text-lg xl:text-sm 2xl:text-base font-black font-sans text-textColor ${klasse}`}
         >
             {children}
         </h4>

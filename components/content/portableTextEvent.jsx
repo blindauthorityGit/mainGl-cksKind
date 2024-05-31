@@ -45,7 +45,7 @@ const myPortableTextComponents = (isWorkshop) => ({
         h1: ({ children }) => <h1 className="text-4xl font-bold my-4">{children}</h1>,
         h2: ({ children }) => <H2 klasse={`${isWorkshop ? "!text-white" : "null"}`}>{children}</H2>,
         h3: ({ children }) => <H3 klasse={`!mb-4 !mt-10 ${isWorkshop ? "!text-white" : "null"}`}>{children}</H3>,
-        h4: ({ children }) => <H4 klasse={`!mb-4 !mt-10 ${isWorkshop ? "!text-white" : "null"}`}>{children}</H4>,
+        h4: ({ children }) => <H4 klasse={`!mb-4 !mt-4 ${isWorkshop ? "!text-white" : "null"}`}>{children}</H4>,
         p: ({ children, isWorkshop }) => (
             <P klasse={`font-sans ${isWorkshop ? "!text-white" : "NADADA"}`}>{children}</P>
         ),
