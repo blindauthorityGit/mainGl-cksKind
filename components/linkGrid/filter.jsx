@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //ASSETS
 import Down from "../../assets/down.svg";
 
-const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
-    const [activeFilter, setActiveFilter] = useState("Alle");
+const FilterComponent = ({ dataEvents, setFilteredEvents, activeFilter, setActiveFilter }) => {
     const [showDropdown, setShowDropdown] = useState(false);
 
     const filters = [
@@ -23,7 +22,6 @@ const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
     };
 
     const getTextColorClass = (filterName) => {
-        console.log(filterName);
         return filterName === "Erwachsene" || filterName === "Baby & Kleinkind" ? "text-textColor" : "text-white";
     };
 
@@ -33,7 +31,7 @@ const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
     const activeFilterTextColor = getTextColorClass(activeFilter);
 
     return (
-        <div className="flex flex-wrap gap-4 lg:gap-2 col-span-12  mb-8 font-sans font-semibold relative">
+        <div className="flex flex-wrap gap-4 lg:gap-2 col-span-6 mb-8 font-sans font-semibold relative">
             {/* Mobile Dropdown */}
             <div className="lg:hidden w-full">
                 <button

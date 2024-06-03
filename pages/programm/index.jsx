@@ -27,19 +27,31 @@ import FullWidthSection from "../../components/layout/fullWidthSection";
 import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor";
 
 //ASSETS
-import CafeIcon from "../../assets/cafeIcon.svg";
-import ProgrammIcon from "../../assets/programmIcon.svg";
-import PartyIcon from "../../assets/partyIcon.svg";
-import AboutIcon from "../../assets/aboutIcon.svg";
+import Adult from "../../assets/adult.svg";
+import Baby from "../../assets/baby.svg";
+import Workshop from "../../assets/workshop.svg";
+import All from "../../assets/all.svg";
+import SmallerDecal from "../../components/decorative/smallerDecal";
+import Down from "../../assets/down.svg";
 
 export default function Programm({ dataHome, dataKontakt, dataEvents, dataKategorie }) {
     const router = useRouter();
     const [filteredEvents, setFilteredEvents] = useState([]);
+    const [activeFilter, setActiveFilter] = useState("Alle");
+
 
     const [showCards, setShowCards] = useState(true);
     const [showData, setShowData] = useState(false);
 
+    const [bgStyle, setBgStyle] = useState({
+        bottom: 0,
+        height: "43svh",
+        top: "auto",
+    });
+
     const cardClicker = (category, cardIndex) => {
+        // set stylke for bgt elenment
+
         // Encode the category name for the URL
         const encodedCategory = encodeURIComponent(category);
 
@@ -49,9 +61,20 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
         // Filter the data based on the selected category
         const filtered = dataEvents.filter((event) => event.kategorie.name === category);
         setFilteredEvents(filtered);
+        setActiveFilter(category);
+
         setTimeout(() => {
             setShowData(true);
         }, 500);
+        setTimeout(() => {
+            setBgStyle({
+                bottom: "auto",
+                top: "5rem",
+                height: "100%",
+                right: 0,
+                width: "66%",
+            });
+        }, 700);
         // Hide the cards
         setShowCards(false);
     };
@@ -68,11 +91,15 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
             const filtered = dataEvents.filter((event) => event.kategorie.name === decodedCategory);
             console.log("THE DATA: ", filtered);
             setFilteredEvents(filtered);
+            setActiveFilter(decodedCategory);
+
             // Hide the cards
             setShowCards(false);
         } else {
             // If no category is specified, show all events
             setFilteredEvents(dataEvents);
+            setActiveFilter("Alle");
+
             // Show the cards
             setShowCards(true);
         }
@@ -82,7 +109,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
         {
             text: "Erwachsene",
             bgColor: "#C8C1E1",
-            icon: CafeIcon.src,
+            icon: Adult.src,
             isWhite: false,
             order: "xl:order-3",
             onClick: () => cardClicker("Erwachsene"),
@@ -90,14 +117,14 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
         {
             text: "Baby & Kleinkind",
             bgColor: "#F3E584",
-            icon: ProgrammIcon.src,
+            icon: Baby.src,
             order: "xl:order-4",
             onClick: () => cardClicker("Baby & Kleinkind"),
         },
         {
             text: "Workshops & Coachings",
             bgColor: "#3E55AB",
-            icon: PartyIcon.src,
+            icon: Workshop.src,
             order: "xl:order-2",
             isWorkshop: true,
             onClick: () => cardClicker("Beratung & Coachings"),
@@ -105,7 +132,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
         {
             text: "Alle anzeigen",
             bgColor: "#E22E88",
-            icon: AboutIcon.src,
+            icon: All.src,
             order: "xl:order-1",
             isWhite: true,
             onClick: () => cardClicker("alle"),
@@ -162,11 +189,49 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
         },
     };
 
+    const animationProps2 = {
+        initial: { opacity: 0, scale: 0, rotate: 0 },
+        animate: {
+            opacity: 1,
+            scale: [0.1, 1.2, 0.8, 1.05, 1],
+            rotate: [0, 310],
+        },
+        transition: {
+            delay: 1.2,
+            duration: 2.4,
+            type: "spring",
+            stiffness: 900,
+            damping: 15,
+            mass: 0.8,
+            times: [0, 0.3, 0.6, 0.8, 1],
+        },
+    };
+
     useEffect(() => {
         console.log(dataEvents);
         setFilteredEvents(dataEvents);
         changeBodyBackgroundColor("");
     }, []);
+
+    useEffect(() => {
+        setBgStyle({
+            bottom: 0,
+            height: 0,
+            opacity: 0,
+            top: "auto",
+        });
+        if (!showData) {
+            setTimeout(() => {
+                setBgStyle({
+                    opacity: 1,
+
+                    bottom: 0,
+                    height: "43svh",
+                    top: "auto",
+                });
+            }, 1000);
+        }
+    }, [showData]);
     return (
         <>
             <MainContainer width="container mx-auto">
@@ -178,11 +243,15 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
 
                 {/* SECTION */}
                 <div className="col-span-12 px-4 lg:px-0 py-6 min-h-[100svh] relative pt-[17svh]">
+                    <SmallerDecal
+                        klasse="absolute top-[7svh] w-[16vw] xl:hidden left-[75svw] z-0 opacity-20 !rotate-6"
+                        motionProps={animationProps2}
+                    />
                     <div className="wrap">
                         <H2>Unser Programm</H2>
                         {showData ? (
                             <span
-                                className="font-semibold mb-4"
+                                className="font-semibold mb-4 flex items-center space-x-2"
                                 onClick={() => {
                                     setShowData(false);
                                     router.push(``, undefined, { shallow: true });
@@ -191,7 +260,8 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                                     // setFilteredEvents(data);
                                 }}
                             >
-                                zurück
+                                <img className="rotate-90" src={Down.src} alt="" />
+                                <span>zurück</span>
                             </span>
                         ) : null}
                         {!showData ? (
@@ -232,21 +302,23 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                         ) : null}
 
                         <motion.div
-                            // translateY={["-90vh", "90vh"]}
-                            initial={{ y: "-100%", opacity: 0.5 }}
-                            animate={{ y: 0, opacity: 1 }}
+                            // initial={{ y: "-100%", opacity: 0.5 }}
+                            animate={bgStyle}
                             transition={{ type: "spring", stiffness: 95, damping: 15 }}
-                            className="absolute bg-[#AFD3A2] h-[43svh]  w-full left-0 bottom-0 z-[-10]  md:hidden"
-                        ></motion.div>
+                            className="absolute BGBGBG bg-[#AFD3A2] transition w-full left-0 bottom-0 z-[-10] md:hidden"
+                        />
                     </div>
                     <AnimatePresence>
                         {showData ? (
                             <motion.div exit="exit" variants={container2} initial="hidden" animate="visible">
                                 {" "}
                                 <FilterComponent
-                                    dataEvents={dataEvents}
-                                    filteredEvents={filteredEvents}
-                                    setFilteredEvents={setFilteredEvents}
+                                              dataEvents={dataEvents}
+                                              filteredEvents={filteredEvents}
+                                              setFilteredEvents={setFilteredEvents}
+                                              activeFilter={activeFilter}
+                                              setActiveFilter={setActiveFilter}
+          
                                 />
                                 <LinkGrid isEvent data={filteredEvents}></LinkGrid>{" "}
                             </motion.div>

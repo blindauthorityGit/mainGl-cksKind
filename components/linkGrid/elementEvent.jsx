@@ -71,6 +71,7 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
     return (
         <div className="wrapper col-span-6 md:col-span-4 lg:col-span-3 bg-white rounded-[10px] pb-4">
             <Link href={`/event/${data.slug.current}`} className="relative">
+                {/* <div className="absolute w-6 h-6 right-2 top-2 rounded-full bg-primaryColor z-30"></div> */}
                 <CoverImage
                     src={urlFor(data.image).url()} // Replace with the actual path to your image
                     mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
@@ -98,7 +99,7 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
                                 mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
                                 alt="Cover Background"
                                 style={{ aspectRatio: "1/1" }}
-                                className=" w-8 h-8 z-20 relative rounded-[40px] overflow-hidden  mr-4"
+                                className=" w-10 h-10 z-20 relative rounded-[40px] overflow-hidden  mr-4"
                             />
                         ) : (
                             <Link href={`/partner/${data.eventDetails.partner.slug.current}`}>
@@ -107,7 +108,7 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
                                     mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
                                     alt="Cover Background"
                                     style={{ aspectRatio: "1/1" }}
-                                    className=" w-8 h-8 z-20 relative rounded-[40px] overflow-hidden  mr-4"
+                                    className=" w-10 h-10 z-20 relative rounded-[40px] overflow-hidden  mr-4"
                                 />
                             </Link>
                         )}
