@@ -277,7 +277,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                         <H2>Unser Programm</H2>
                         {showData ? (
                             <span
-                                className="font-semibold mb-4 flex items-center space-x-2"
+                                className="font-semibold mb-4 flex items-center space-x-2 text-textColor"
                                 onClick={() => {
                                     setShowData(false);
                                     router.push(``, undefined, { shallow: true });

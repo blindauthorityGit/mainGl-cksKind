@@ -20,7 +20,7 @@ const CatCard = ({ bgColor, icon, text, link, onClick, isWhite, order, isWorksho
 
     const CardContent = (
         <motion.div
-            className={`bg-[${bgColor}] ${order} h-[17svh] rounded-[10px] space-y-2 xl:space-y-4 flex flex-col justify-center items-center font-sans font-semibold text-text`}
+            className={`bg-[${bgColor}] ${order} h-[17svh] text-center px-2 rounded-[10px] space-y-2 xl:space-y-4 flex flex-col justify-center items-center font-sans font-semibold text-text`}
             style={{ backgroundColor: bgColor }}
             initial="initial"
             whileTap="whileTap"
