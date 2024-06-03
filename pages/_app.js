@@ -119,21 +119,25 @@ function MyApp({ Component, pageProps }) {
                     setIsOpen(true);
                 }}
             ></Menu1>
+            {showModal && (
+                <Modal
+                    background={modalColor}
+                    onClick={(e) => {
+                        setShowModal(false);
+                        console.log("I CLICKED MODAL CLOSE");
+                        setShowOverlay(false);
+                        console.log(showOverlay);
+                    }}
+                >
+                    {modalContent}
+                </Modal>
+            )}{" "}
             <AnimatePresence>
-                {showModal && (
-                    <Modal
-                        background={modalColor}
-                        onClick={(e) => {
-                            setShowModal(false);
-                            setShowOverlay(false);
-                        }}
-                    >
-                        {modalContent}
-                    </Modal>
-                )}
                 {showOverlay && (
                     <Overlay
                         onClick={(e) => {
+                            console.log("I CLICKED OVERLAY CLOSE");
+                            console.log(showOverlay);
                             setShowOverlay(false);
                             setShowMobileMenu(false);
                             setShowMobileModal(false);

@@ -74,14 +74,6 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                     isWorkshop={isWorkshop}
                                     blocks={data.content.content}
                                 ></PortableTextEvent>
-                                <Divider></Divider>
-                                {!data.eventDetails.partner.isHidden && (
-                                    <RegularText
-                                        link={data.eventDetails.partner.slug.current}
-                                        isWorkshop={isWorkshop}
-                                        data={data.eventDetails.partner}
-                                    ></RegularText>
-                                )}
                             </div>
                             {/* //SIDEBAR */}
                             <div className="col-span-12 hidden lg:block md:col-span-4 lg:mt-28 lg:pl-16">
@@ -98,7 +90,9 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                             </div>
                         </StickyContainer>
 
-                        <Divider></Divider>
+                        <div className="hidden md:block">
+                            <Divider></Divider>
+                        </div>
                     </MainContainer>{" "}
                     <Divider></Divider>
                     <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-16 2xl:!py-32">
@@ -114,6 +108,17 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                         ></AnmeldeContent>
                     </FullWidthSection>
                     <MainContainer width="container mx-auto gap-8">
+                        <div className="">
+                            <Divider></Divider>
+                        </div>
+
+                        {!data.eventDetails.partner.isHidden && (
+                            <RegularText
+                                link={data.eventDetails.partner.slug.current}
+                                isWorkshop={isWorkshop}
+                                data={data.eventDetails.partner}
+                            ></RegularText>
+                        )}
                         <div className="hidden md:block">
                             <Divider></Divider>
                         </div>

@@ -72,7 +72,7 @@ const Element = ({ data, i, isWorkshop, isDetail, link, partner }) => {
                         mobileSrc={urlFor(isDetail ? data.image : data.logo).url()} // Replace with the actual path to your image
                         alt="Cover Background"
                         // style={{ aspectRatio: "1/0.8" }}
-                        className="w-full z-20 bg-white relative rounded-[40px] overflow-hidden aspect-[1/0.5] xl:aspect-[1/0.8]"
+                        className="w-full z-20 bg-white relative rounded-[10px] overflow-hidden aspect-[1/0.5] xl:aspect-[1/0.8]"
                     />
                 ) : (
                     <CoverImage
@@ -81,12 +81,14 @@ const Element = ({ data, i, isWorkshop, isDetail, link, partner }) => {
                         alt="Cover Background"
                         klasse={data.ausgebucht ? "opacity-30" : "null"}
                         // style={{ aspectRatio: "1/0.8" }}
-                        className="w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/0.5] xl:aspect-[1/0.8]"
+                        className="w-full z-20 relative rounded-[10px] overflow-hidden aspect-[1/0.5] xl:aspect-[1/0.8]"
                     />
                 )}
             </Link>
             <div className="px-6 lg:px-8 rounded-[40px] py-2 lg:py-6 mb-2 lg:mb-2 text-center md:text-left">
-                <H3 klasse={`mb-4 lg:mb-2 ${isWorkshop ? "!text-blueColor-100" : null}`}>{data.name}</H3>
+                <H3 klasse={`mb-4 !font-sans !font-bold lg:mb-2 ${isWorkshop ? "!text-blueColor-100" : null}`}>
+                    {data.name}
+                </H3>
                 {/* <P klasse="lg:!text-base !text-xs" style={{ color: data.farbe.value == "#3E55AB" ? "#E2EAF7" : null }}>
                     {data.description}
                 </P>

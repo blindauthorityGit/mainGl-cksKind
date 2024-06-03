@@ -73,10 +73,9 @@ const PortableTextView = ({ blocks, data, isWorkshop }) => {
                 isWorkshop ? "text-blueColor-100" : "text-textColor"
             }`}
         >
-            <img src={imageSrc} alt="" />
-            <H2 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].headline}</H2>
+            {/* <H2 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].headline}</H2>
             <H4 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].text}</H4>
-            <br />
+            <br /> */}
 
             <PortableText value={blocks} components={myPortableTextComponents(isWorkshop)} />
         </div>

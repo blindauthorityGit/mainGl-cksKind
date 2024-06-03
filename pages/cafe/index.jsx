@@ -16,6 +16,7 @@ import { Contact } from "../../components/content";
 import { CardButtonHolder } from "../../components/cards";
 import { H3, H4, P } from "../../components/typography";
 import { GridGallery } from "../../components/gallery";
+import { MainButtonNOLink } from "../../components/buttons";
 
 import Divider from "../../components/layout/divider";
 
@@ -29,6 +30,9 @@ import useStore from "../../store/store"; // Adjust the path to your store file
 
 //FUNCTIONS
 import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor";
+
+//ASSETS
+import Reservation from "../../assets/reservation.svg";
 
 export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
     const setIsCafe = useStore((state) => state.setIsCafe);
@@ -96,6 +100,9 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                 <div className="hidden 2xl:block">
                     <Divider></Divider>
                 </div>
+                <div className="block 2xl:hidden">
+                    <Divider></Divider>
+                </div>
                 <PortableTextView blocks={data.components[2].content} data={data}></PortableTextView>
                 <div className="hidden 2xl:block">
                     <Divider></Divider>
@@ -105,6 +112,19 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
 
                 <GridGallery big data={data.components[7].images}></GridGallery>
                 <Divider></Divider>
+                <MainButtonNOLink
+                    klasse="col-span-12 bg-primaryColor mb-8 mt-4"
+                    onClick={() => {
+                        setShowOverlay(true);
+                        setShowModal(true);
+                        setModalContent(<CafeReservierung image={null} />);
+                    }}
+                >
+                    <div className="flex items-center space-x-4">
+                        <img src={Reservation.src} alt="" />
+                        <div>Plätze reservieren</div>
+                    </div>
+                </MainButtonNOLink>
             </MainContainer>{" "}
             <FullWidthSection klasse="bg-[#BF567C] px-4 lg:px-0 py-10 2xl:!py-32" id="speisekarte">
                 <div className="col-span-12 grid grid-cols-12 lg:gap-12 lg:px-36">

@@ -9,9 +9,9 @@ import { Anmeldung } from "../modalContent";
 import StepOne from "../modalContent/steps/stepOne";
 
 //ASSETS
-import Pin from "../../assets/pinPink.svg";
+import Pin from "../../assets/location.svg";
 import Phone from "../../assets/phonePink.svg";
-import Mail from "../../assets/mailPink.svg";
+import Mail from "../../assets/emailNew.svg";
 
 import useStore from "../../store/store";
 
@@ -48,8 +48,8 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip }) => {
                     </>
                 ) : null}
             </div>
-            <div className="flex mt-10 space-x-12">
-                <img src={Pin.src} alt="" />
+            <div className="flex items-center lg:mt-10 space-x-12">
+                <img className="w-14" src={Pin.src} alt="" />
                 <p
                     className="text-sm linker text-textColor sm:text-base font-sans font-[500]  xl:leading-relaxed lg:text-base xl:text-sm 2xl:text-base"
                     dangerouslySetInnerHTML={createMarkup(data.adresse)}
@@ -59,8 +59,8 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip }) => {
                 <img src={Phone.src} alt="" />
                 <P>{data.telefon}</P>
             </div> */}
-            <div className="flex mt-10 space-x-12">
-                <img src={Mail.src} alt="" />
+            <div className="flex items-center lg:mt-10 space-x-12 mt-4">
+                <img className="w-14" src={Mail.src} alt="" />
                 <P>
                     {" "}
                     <a href={`mailto:${email}`}></a> {email}

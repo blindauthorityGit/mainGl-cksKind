@@ -39,7 +39,6 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [activeFilter, setActiveFilter] = useState("Alle");
 
-
     const [showCards, setShowCards] = useState(true);
     const [showData, setShowData] = useState(false);
 
@@ -105,6 +104,33 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
         }
     }, [router.query, dataEvents]);
 
+    useEffect(() => {
+        const { cat } = router.query;
+        if (cat && cat != "alle") {
+            // Decode the category name from the URL
+            const decodedCategory = decodeURIComponent(cat);
+
+            // Filter the data based on the URL query parameter
+            const filtered = dataEvents.filter((event) => event.kategorie.name === decodedCategory);
+            console.log("THE DATA: ", filtered);
+            setFilteredEvents(filtered);
+            setActiveFilter(decodedCategory);
+            setTimeout(() => {
+                setShowData(true);
+            }, 500);
+            // Hide the cards
+            setShowCards(false);
+        } else {
+            // If no category is specified, show all events
+
+            setFilteredEvents(dataEvents);
+            setActiveFilter("Alle");
+
+            // Show the cards
+            setShowCards(true);
+        }
+    }, [router.query]);
+
     const cards = [
         {
             text: "Erwachsene",
@@ -145,10 +171,10 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
             opacity: 1,
             scale: 1,
             transition: {
-                delay: 0.2,
+                delay: 0.1,
                 type: "spring",
-                stiffness: 500,
-                damping: 50,
+                stiffness: 250,
+                damping: 15,
             },
         },
         exit: {
@@ -158,8 +184,8 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                 delay: 0.18,
                 duration: 0.4,
                 type: "spring",
-                stiffness: 500,
-                damping: 30,
+                stiffness: 250,
+                damping: 15,
             },
         },
     };
@@ -292,6 +318,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                                                         isWhite={e.isWhite}
                                                         link={e.link}
                                                         onClick={e.onClick}
+                                                        isWorkshop={e.isWorkshop}
                                                     ></CatCard>
                                                 );
                                             })}
@@ -313,12 +340,11 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                             <motion.div exit="exit" variants={container2} initial="hidden" animate="visible">
                                 {" "}
                                 <FilterComponent
-                                              dataEvents={dataEvents}
-                                              filteredEvents={filteredEvents}
-                                              setFilteredEvents={setFilteredEvents}
-                                              activeFilter={activeFilter}
-                                              setActiveFilter={setActiveFilter}
-          
+                                    dataEvents={dataEvents}
+                                    filteredEvents={filteredEvents}
+                                    setFilteredEvents={setFilteredEvents}
+                                    activeFilter={activeFilter}
+                                    setActiveFilter={setActiveFilter}
                                 />
                                 <LinkGrid isEvent data={filteredEvents}></LinkGrid>{" "}
                             </motion.div>

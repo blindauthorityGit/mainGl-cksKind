@@ -15,6 +15,7 @@ const Modal = (props) => {
         if (modalRef.current && !modalRef.current.contains(event.target)) {
             // Clicked outside the modal
             //Close the modal
+            console.log("I CLICKED OUTSIDE");
             props.onClick();
             resetModalHeight();
         }
@@ -37,6 +38,7 @@ const Modal = (props) => {
                 style={{ maxHeight: "90vh", background: props.background }} // Setzen Sie die maximale Höhe und fügen Sie overflow-y hinzu
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
             >
                 <div

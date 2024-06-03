@@ -26,7 +26,7 @@ const RegularText = ({ data, isWorkshop, link }) => {
                         mobileSrc={urlFor(data.image).url()}
                         alt="Cover Background"
                         // style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1" }}
-                        className={`w-full lg:w-[400px] z-20  relative rounded-[40px] overflow-hidden  ${
+                        className={`w-full lg:w-[400px] z-20  relative rounded-[10px] overflow-hidden  ${
                             data.image.length > 1
                                 ? "col-span-6  xl:aspect-[1/2]"
                                 : "col-span-12 aspect-[1/0.66] xl:aspect-[1/1]"

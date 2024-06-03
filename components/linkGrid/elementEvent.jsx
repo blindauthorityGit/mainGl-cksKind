@@ -88,7 +88,11 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
                 ) : null} */}
             </Link>
             <div className="px-4 hyphens-auto text-balance">
-                <H4 klasse={`${isWorkshop ? "!text-blueColor-100" : null} !font-sans !font-semibold`}>
+                <H4
+                    klasse={`${
+                        isWorkshop ? "!text-blueColor-100" : null
+                    } !font-sans !text-sm !font-semibold !leading-snug`}
+                >
                     {data.headline}
                 </H4>
                 <div className="flex w-full items-center mt-4">

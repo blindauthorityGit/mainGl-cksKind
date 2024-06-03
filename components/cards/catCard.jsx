@@ -3,7 +3,7 @@ import { P } from "../typography";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-const CatCard = ({ bgColor, icon, text, link, onClick, isWhite, order }) => {
+const CatCard = ({ bgColor, icon, text, link, onClick, isWhite, order, isWorkshop }) => {
     const handleOnClick = (e) => {
         if (onClick) {
             onClick(e);
@@ -30,7 +30,7 @@ const CatCard = ({ bgColor, icon, text, link, onClick, isWhite, order }) => {
             <P
                 klasse={`font-semibold !text-[clamp(12px,calc(12px+0.00893*(100svw-320px)),24px)] ${
                     isWhite ? "!text-white" : null
-                }`}
+                } ${isWorkshop ? "!text-blueColor-100" : null}`}
             >
                 {text}
             </P>

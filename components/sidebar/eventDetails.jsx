@@ -12,6 +12,9 @@ import { H2, H3, H4, H5, P } from "../typography";
 //FUNCTION
 import formatDateTime from "../../functions/formatDateTime";
 
+//ASSETS
+import Calendar from "../../assets/Calendar.svg";
+
 const Details = ({ data, isWorkshop, isMobile }) => {
     const [itemsToShow, setItemsToShow] = useState(8);
     const [blockVisibility, setBlockVisibility] = useState({});
@@ -43,13 +46,16 @@ const Details = ({ data, isWorkshop, isMobile }) => {
 
     // Function to render dates for both block and non-block events
     const renderDates = (isWorkshop) => {
-        // Function to map day numbers to day names in German
         const dayOfWeekToGerman = (dayNum) => {
             const days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
             return days[dayNum];
         };
 
-        // Check and render recurring events
+        const isDateOlder = (date) => {
+            const currentDate = new Date();
+            return new Date(date) < currentDate;
+        };
+
         if (data.recurringDates && data.recurringDates.length > 0) {
             return data.recurringDates.map((recurringEvent, index) => {
                 const dayOfWeek = dayOfWeekToGerman(recurringEvent.dayOfWeek);
@@ -71,28 +77,42 @@ const Details = ({ data, isWorkshop, isMobile }) => {
             return data.blocks.map((block, blockIndex) => {
                 const key = block._key || `block-${blockIndex}`;
                 const showAll = blockVisibility[key];
-                const datesToShow = showAll ? block.dates : block.dates.slice(0, 1);
+                const datesToShow = showAll ? block.dates : block.dates.slice(0, 4);
+                const lastDate = block.dates[block.dates.length - 1].endDateTime;
+
+                if (isDateOlder(lastDate)) {
+                    return null;
+                }
 
                 return (
                     <div key={key} className={`mb-4 ${block.ausgebucht ? "opacity-30" : null}`}>
                         <H4 klasse={`font-bold ${isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}`}>
                             {block.blockTitle}
                         </H4>
-                        {block.blockSubline ? <div className="mt-1">{block.blockSubline}</div> : null}
+                        {block.blockSubline ? (
+                            <div className="mt-0 mb-2 font-semibold text-sm">{block.blockSubline}</div>
+                        ) : null}
                         {datesToShow.map((date, dateIndex) => (
-                            <P
+                            <div
                                 key={dateIndex}
-                                klasse={`font-bold ${
+                                className={` flex justify-start text-sm ${
                                     isWorkshop && !isMobile ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"
                                 }`}
                             >
-                                {formatDateTime(date.startDateTime, date.endDateTime)}
-                            </P>
+                                <div className="inline w-[38%]">
+                                    {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0]}
+                                </div>
+                                <div className="inline">
+                                    {" "}
+                                    {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]}-
+                                    {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]}
+                                </div>{" "}
+                            </div>
                         ))}
-                        {block.dates.length > 1 && (
+                        {block.dates.length > 4 && (
                             <button
                                 onClick={() => toggleBlockVisibility(key)}
-                                className="text-primaryColor underline font-semibold mt-2"
+                                className="text-primaryColor underline font-semibold mt-2 text-xs"
                             >
                                 {showAll ? "Weniger anzeigen" : "Alle anzeigen"}
                             </button>
@@ -101,14 +121,22 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                 );
             });
         } else {
-            // Rendering non-block events, same as before
-            return data.datum.slice(0, itemsToShow).map((e, i) => (
-                <P
+            return data.datum.slice(0, itemsToShow).map((date, i) => (
+                <div
                     key={i}
-                    klasse={`font-bold ${isWorkshop ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"}`}
+                    className={` flex justify-start text-sm ${
+                        isWorkshop && !isMobile ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"
+                    }`}
                 >
-                    {formatDateTime(e.startDateTime, e.endDateTime)}
-                </P>
+                    <div className="inline w-[38%]">
+                        {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0]}
+                    </div>
+                    <div className="inline">
+                        {" "}
+                        {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]}-
+                        {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]}
+                    </div>{" "}
+                </div>
             ));
         }
     };
@@ -116,7 +144,7 @@ const Details = ({ data, isWorkshop, isMobile }) => {
     return (
         <>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
-                <H4 klasse="!text-primaryColor mb-4">Location</H4>
+                <H4 klasse="!text-primaryColor mb-2">Location</H4>
                 <BasicPortableText
                     isWorkshop={isWorkshop}
                     isMobile={isMobile}
@@ -124,24 +152,24 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                 />
             </div>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
-                <H4 klasse="!text-primaryColor mb-4">Preis</H4>
+                <H4 klasse="!text-primaryColor mb-2">Preis</H4>
                 <P klasse={isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}>
                     {data.eventDetails.preis}
                 </P>
             </div>
             {data.eventDetails.teilnehmeranzahl && (
                 <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
-                    <H4 klasse="!text-primaryColor mb-4">Teilnehmeranzahl</H4>
+                    <H4 klasse="!text-primaryColor mb-2">Teilnehmeranzahl</H4>
                     <BasicPortableText value={data.eventDetails.teilnehmeranzahl} />
                 </div>
             )}
             {data.eventDetails.altersgruppe && (
                 <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
-                    <H4 klasse="!text-primaryColor mb-4">Altersgruppe</H4>
+                    <H4 klasse="!text-primaryColor mb-2">Altersgruppe</H4>
                     <BasicPortableText value={data.eventDetails.altersgruppe} />
                 </div>
             )}
-            <div className={`wrapper mb-6 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
+            <div className={`wrapper mb-12 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse={`mb-4  ${isWorkshop && !isMobile ? "!text-white" : "text-textColor"}`}>Kurs Leitung</H4>
                 <div className="flex w-full items-center">
                     <div className="image">
@@ -151,7 +179,7 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                                 mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
                                 alt="Cover Background"
                                 style={{ aspectRatio: "1/1" }}
-                                className=" w-20 h-20 z-20 relative rounded-[40px] overflow-hidden  mr-4"
+                                className=" w-10 h-10 z-20 relative rounded-[40px] overflow-hidden  mr-4"
                             />
                         ) : (
                             <Link href={`/partner/${data.eventDetails.partner.slug.current}`}>
@@ -160,7 +188,7 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                                     mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
                                     alt="Cover Background"
                                     style={{ aspectRatio: "1/1" }}
-                                    className=" w-20 h-20 z-20 relative rounded-[40px] overflow-hidden  mr-4"
+                                    className=" w-10 h-10 z-20 relative rounded-[40px] overflow-hidden  mr-4"
                                 />
                             </Link>
                         )}
@@ -171,11 +199,18 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                 </div>
             </div>
             <div
-                className={`wrapper mb-6 font-sans ${
+                className={`wrapper mb-6  font-sans ${
                     isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"
                 }`}
             >
-                <H4 klasse={`mb-4  ${isWorkshop && !isMobile ? "!text-white" : "text-textColor"}`}>Termine</H4>
+                <H4
+                    klasse={`mb-4 flex space-x-2 !text-2xl  ${
+                        isWorkshop && !isMobile ? "!text-white" : "text-textColor"
+                    }`}
+                >
+                    <img width="24px" src={Calendar.src}></img>
+                    <span>Termine</span>
+                </H4>
                 {renderDates(isWorkshop)}
                 {!data.isBlock && data.datum?.length > itemsToShow ? (
                     <button onClick={() => setItemsToShow(itemsToShow + 8)} className="mt-2 text-primaryColor">

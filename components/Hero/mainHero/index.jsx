@@ -68,10 +68,21 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
             opacity: 1,
             scale: 1,
             transition: {
-                delay: 0.5,
+                delay: 0.1,
+                type: "spring",
+                stiffness: 250,
+                damping: 15,
+            },
+        },
+        exit: {
+            opacity: 0,
+            scale: 0.5,
+            transition: {
+                delay: 0.18,
                 duration: 0.4,
-
-                // staggerChildren: 0.6,
+                type: "spring",
+                stiffness: 250,
+                damping: 15,
             },
         },
     };
