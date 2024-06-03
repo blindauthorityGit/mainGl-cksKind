@@ -13,7 +13,7 @@ import { H2, H3, H4, H5, P } from "../typography";
 import formatDateTime from "../../functions/formatDateTime";
 
 //ASSETS
-import Calendar from "../../assets/Calendar.svg";
+import Calendar from "../../assets/calendar.svg";
 
 const Details = ({ data, isWorkshop, isMobile }) => {
     const [itemsToShow, setItemsToShow] = useState(8);
