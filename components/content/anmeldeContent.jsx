@@ -7,6 +7,7 @@ import { H1, P } from "../typography";
 import { MainButtonNOLink } from "../buttons";
 import { Anmeldung } from "../modalContent";
 import StepOne from "../modalContent/steps/stepOne";
+import StepOneNew from "../modalContent/steps/stepOneNew";
 
 //ASSETS
 import Pin from "../../assets/location.svg";
@@ -15,7 +16,7 @@ import Mail from "../../assets/emailNew.svg";
 
 import useStore from "../../store/store";
 
-const AnmeldeContent = ({ data, events, email, phone, isPekip }) => {
+const AnmeldeContent = ({ data, events, email, phone, isPekip, dates }) => {
     const setShowModal = useStore((state) => state.setShowModal);
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setModalContent = useStore((state) => state.setModalContent);
@@ -73,12 +74,13 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip }) => {
                     setShowOverlay(true);
                     setShowModal(true);
                     setModalContent(
-                        <StepOne
+                        <StepOneNew
                             recurring={events.recurringDates?.length > 0}
                             isPekip={isPekip}
                             data={data}
                             events={events}
-                        ></StepOne>
+                            dates={dates}
+                        ></StepOneNew>
                     );
                     console.log("ANMELDUNG");
                 }}

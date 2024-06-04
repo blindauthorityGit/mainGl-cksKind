@@ -6,22 +6,22 @@ import { BasicPortableText } from "../content";
 import { CoverImage } from "../images";
 import urlFor from "../../functions/urlFor";
 
-//TYPO
+// TYPO
 import { H2, H3, H4, H5, P } from "../typography";
 
-//FUNCTION
+// FUNCTION
 import formatDateTime from "../../functions/formatDateTime";
 
-//ASSETS
+// ASSETS
 import Calendar from "../../assets/calendar.svg";
+
+// STORE
+import useStore from "../../store/store"; // Adjust the path to your store file
 
 const Details = ({ data, isWorkshop, isMobile }) => {
     const [itemsToShow, setItemsToShow] = useState(8);
     const [blockVisibility, setBlockVisibility] = useState({});
-
-    // useEffect(() => {
-    //     setDisplayedItems(data.datum.slice(0, itemsToShow));
-    // }, [data.datum, itemsToShow]);
+    const { setDates } = useStore();
 
     useEffect(() => {
         // Initialize block visibility state to false for all blocks
@@ -33,6 +33,15 @@ const Details = ({ data, isWorkshop, isMobile }) => {
         setBlockVisibility(initialVisibility);
     }, [data.blocks]);
 
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
+
+    useEffect(() => {
+        const dates = collectDates(data);
+        setDates(dates);
+    }, [data, setDates]);
+
     const toggleBlockVisibility = (key) => {
         setBlockVisibility((prev) => ({
             ...prev,
@@ -40,11 +49,53 @@ const Details = ({ data, isWorkshop, isMobile }) => {
         }));
     };
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
+    const collectDates = (data) => {
+        const dates = [];
 
-    // Function to render dates for both block and non-block events
+        const dayOfWeekToGerman = (dayNum) => {
+            const days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+            return days[dayNum];
+        };
+
+        const isDateOlder = (date) => {
+            const currentDate = new Date();
+            return new Date(date) < currentDate;
+        };
+
+        if (data.recurringDates && data.recurringDates.length > 0) {
+            data.recurringDates.forEach((recurringEvent) => {
+                const dayOfWeek = dayOfWeekToGerman(recurringEvent.dayOfWeek);
+                const timeslots = recurringEvent.timeslot
+                    ? `${recurringEvent.timeslot.startTime} - ${recurringEvent.timeslot.endTime}`
+                    : "";
+                dates.push({ dayOfWeek, timeslots });
+            });
+        } else if (data.isBlock && data.blocks && data.blocks.length > 0) {
+            data.blocks.forEach((block) => {
+                const datesToShow = block.dates;
+                datesToShow.forEach((date) => {
+                    if (!isDateOlder(date.endDateTime)) {
+                        const dateStart = formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0];
+                        const dateTimeRange = `${
+                            formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]
+                        } - ${formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]}`;
+                        dates.push({ dateStart, dateTimeRange });
+                    }
+                });
+            });
+        } else {
+            data.datum.slice(0, itemsToShow).forEach((date) => {
+                const dateStart = formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0];
+                const dateTimeRange = `${formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]} - ${
+                    formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]
+                }`;
+                dates.push({ dateStart, dateTimeRange });
+            });
+        }
+
+        return dates;
+    };
+
     const renderDates = (isWorkshop) => {
         const dayOfWeekToGerman = (dayNum) => {
             const days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];

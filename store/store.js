@@ -43,6 +43,9 @@ const useStore = create((set) => ({
     modalContent: null,
     setModalContent: (content) => set({ modalContent: content }),
 
+    dates: [],
+    setDates: (newDates) => set({ dates: newDates }),
+
     isCafe: false,
     setIsCafe: (isCafe) => set({ isCafe }),
 

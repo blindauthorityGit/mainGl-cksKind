@@ -226,8 +226,8 @@ const Calendar = ({ data, isSmallCalendar }) => {
 
     useEffect(() => {
         const sortedEvents = processEvents(data);
-        console.log(data.filter((e) => e.headline == "Känguru Salsa & Känguru Belly"));
-        console.log(sortedEvents.filter((e) => e.headline == "Känguru Salsa & Känguru Belly"));
+        // console.log(data.filter((e) => e.headline == "Känguru Salsa & Känguru Belly"));
+        // console.log(sortedEvents.filter((e) => e.headline == "Känguru Salsa & Känguru Belly"));
         setFlatData(sortedEvents);
     }, [data]);
 
@@ -266,7 +266,7 @@ const Calendar = ({ data, isSmallCalendar }) => {
             setShowModal(true);
         } else {
             // No events on this day
-            console.log("No events on this day");
+            // console.log("No events on this day");
         }
     };
 
@@ -310,7 +310,7 @@ const Calendar = ({ data, isSmallCalendar }) => {
                         >
                             {format(day, "d")}
                             {todaysEvents.map((e, i) => {
-                                console.log(e.kategorie.name);
+                                // console.log(e.kategorie.name);
                                 return (
                                     <div
                                         style={{
