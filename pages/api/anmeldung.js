@@ -24,8 +24,8 @@ export default async function handler(req, res) {
             });
 
             const userMailOptions = {
-                // from: "office@atelierbuchner.at",
-                from: "info@mainglueckskind.de",
+                from: "office@atelierbuchner.at",
+                // from: "info@mainglueckskind.de",
                 to: req.body.email,
                 subject: "Anmelde Bestätigung",
                 text: `Liebe/r ${req.body.name}, vielen Dank für Deine Reservierung in unserem Cafe am ${new Date(

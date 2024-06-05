@@ -4,16 +4,19 @@ import { H2, H3, H4, P } from "../../typography";
 import { CoverImage } from "../../images";
 import urlFor from "../../../functions/urlFor";
 
+import DateSelection from "../../contactForm/anmeldung/dateSelection";
+
 import { AnmeldeForm } from "../../contactForm";
 
 //ASSETS
 import Block from "../../../assets/block.svg";
 import Calendar from "../../../assets/calendar.svg";
+import Price from "../../../assets/price.svg";
 
 // STORE
 import useStore from "../../../store/store"; // Adjust the path to your store file
 
-const Anmeldung = ({ data, events, isPekip, recurring, kat }) => {
+const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
     const [infoText, setInfoText] = useState("");
     let isWorkshop = false;
     const { dates } = useStore();
@@ -21,7 +24,7 @@ const Anmeldung = ({ data, events, isPekip, recurring, kat }) => {
     const intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus ut perferendis ratione.";
 
     useEffect(() => {
-        console.log(events, data, events.blocks, kat);
+        console.log(events, data, events.blocks);
         console.log(events.kategorie?.name);
 
         if (events.isBlock) {
@@ -39,17 +42,14 @@ const Anmeldung = ({ data, events, isPekip, recurring, kat }) => {
         console.log(dates);
     }, [dates]);
 
+    const handleDateSelect = (date) => {
+        // Handle date selection
+        handleNextStep();
+    };
+
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8">
             <div className="col-span-12 h-full relative">
-                <div
-                    className="top h-[16svh]"
-                    style={{
-                        background: events.kategorie.farbe.value,
-                    }}
-                >
-                    {" "}
-                </div>
                 <H4 klasse={`my-4`}>
                     {" "}
                     {events.anfrage ? "Anfrage" : null} {events.headline}
@@ -88,27 +88,21 @@ const Anmeldung = ({ data, events, isPekip, recurring, kat }) => {
                         {dates.map((e, i) => {
                             return (
                                 <div className="flex space-x-2">
-                                    <P klasse="text-xs">{e.dateStart}</P>
+                                    <P klasse="text-xs font-semibold">{e.dateStart}</P>
                                     <P klasse="text-xs">{e.dateTimeRange}</P>
                                 </div>
                             );
                         })}
                     </div>
                 </div>
-                <div className="flex items-center space-x-4 mt-6">
-                    <img className="w-6" src={Calendar.src}></img>
-                    <P>{infoText}</P>
+                <div className="flex items-center space-x-4 mt-3 mb-6">
+                    <img className="w-6" src={Price.src}></img>
+                    <P klasse="text-xs">{events.eventDetails.preis}</P>
                 </div>
-                <AnmeldeForm
-                    recurring={recurring}
-                    isPekip={isPekip}
-                    intro={intro}
-                    events={events}
-                    data={events.datum}
-                ></AnmeldeForm>
+                <DateSelection events={events} onDateSelect={handleDateSelect} />
             </div>
         </div>
     );
 };
 
-export default Anmeldung;
+export default StepOneNew;

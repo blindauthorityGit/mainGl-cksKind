@@ -45,7 +45,7 @@ const MobileBar = (props) => {
                 </>
             ) : null}
             <div
-                className={`fixed sm:hidden ${
+                className={`fixed sm:hidden font-sans text-xs ${
                     showModal ? "z-10" : "z-30"
                 }  bottom-0 w-full flex justify-center items-center bg-textColor text-sm h-[7vh] `}
             >

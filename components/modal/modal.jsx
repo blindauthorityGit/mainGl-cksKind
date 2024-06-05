@@ -35,7 +35,10 @@ const Modal = (props) => {
             <motion.div
                 ref={modalRef}
                 className={modalClassNames}
-                style={{ maxHeight: "90vh", background: props.background }} // Setzen Sie die maximale Höhe und fügen Sie overflow-y hinzu
+                style={{
+                    maxHeight: "90vh",
+                    background: props.background,
+                }} // Setzen Sie die maximale Höhe und fügen Sie overflow-y hinzu
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ opacity: 0 }}

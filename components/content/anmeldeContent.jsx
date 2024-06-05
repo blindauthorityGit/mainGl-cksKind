@@ -7,7 +7,8 @@ import { H1, P } from "../typography";
 import { MainButtonNOLink } from "../buttons";
 import { Anmeldung } from "../modalContent";
 import StepOne from "../modalContent/steps/stepOne";
-import StepOneNew from "../modalContent/steps/stepOneNew";
+// import StepOneNew from "../modalContent/steps/stepOneNew";
+import MultiStepForm from "../modalContent/steps/multiStepForm";
 
 //ASSETS
 import Pin from "../../assets/location.svg";
@@ -74,13 +75,13 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip, dates }) => {
                     setShowOverlay(true);
                     setShowModal(true);
                     setModalContent(
-                        <StepOneNew
+                        <MultiStepForm
                             recurring={events.recurringDates?.length > 0}
                             isPekip={isPekip}
                             data={data}
                             events={events}
                             dates={dates}
-                        ></StepOneNew>
+                        ></MultiStepForm>
                     );
                     console.log("ANMELDUNG");
                 }}
