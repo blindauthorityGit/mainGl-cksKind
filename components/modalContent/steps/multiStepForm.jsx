@@ -128,7 +128,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
     }, [currentStep]);
 
     useEffect(() => {
-        setSteps(events.category == "Baby & Kleinkind" ? 4 : 3);
+        setSteps(events.kategorie.name == "Baby & Kleinkind" ? 4 : 3);
     }, [events]);
 
     // useEffect(() => {
@@ -143,7 +143,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
     // }, [formData]);
 
     const renderStep = () => {
-        switch (events.category) {
+        switch (events.kategorie.name) {
             case "Baby & Kleinkind":
                 switch (currentStep) {
                     case 1:

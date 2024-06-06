@@ -268,7 +268,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                 <Divider></Divider>
 
                 {/* SECTION */}
-                <div className="col-span-12 px-4 lg:px-0 py-6 min-h-[100svh] relative pt-[17svh]">
+                <div className="col-span-12 px-4 lg:px-0 py-6 min-h-[100svh] relative pt-[16svh]">
                     <SmallerDecal
                         klasse="absolute top-[7svh] w-[16vw] xl:hidden left-[75svw] z-0 opacity-20 !rotate-6"
                         motionProps={animationProps2}

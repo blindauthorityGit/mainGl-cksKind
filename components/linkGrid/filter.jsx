@@ -31,12 +31,12 @@ const FilterComponent = ({ dataEvents, setFilteredEvents, activeFilter, setActiv
     const activeFilterTextColor = getTextColorClass(activeFilter);
 
     return (
-        <div className="flex flex-wrap gap-4 lg:gap-2 col-span-6 mb-8 font-sans font-semibold relative">
+        <div className="flex flex-wrap gap-4 lg:gap-2 col-span-6 mb-4 font-sans font-semibold relative">
             {/* Mobile Dropdown */}
             <div className="lg:hidden w-full">
                 <button
                     onClick={() => setShowDropdown(!showDropdown)}
-                    className={`w-full px-4 py-2 rounded-lg flex items-center justify-between ${activeFilterTextColor}`}
+                    className={`w-full text-xs px-4 py-2 rounded-lg flex items-center justify-between ${activeFilterTextColor}`}
                     style={{ backgroundColor: activeFilterColor }}
                 >
                     <span>{activeFilter}</span>
@@ -71,7 +71,7 @@ const FilterComponent = ({ dataEvents, setFilteredEvents, activeFilter, setActiv
                     return (
                         <div
                             key={filter.name}
-                            className={`cursor-pointer flex items-center justify-center text-base px-4 py-2 rounded-lg hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 ${textColorClass} ${
+                            className={`cursor-pointer  flex items-center justify-center text-base px-4 py-2 rounded-lg hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 ${textColorClass} ${
                                 isActive ? "border-4 border-white rounded-lg" : ""
                             }`}
                             style={{ backgroundColor: filter.color }}
