@@ -44,17 +44,17 @@ const RoomDetails = ({ data, isWorkshop }) => {
                 <H4 klasse={`mb-4  ${isWorkshop ? "!text-white" : "text-textColor"}`}>Ansprechpartner</H4>
                 {data.ansprechpartner.map((e, i) => {
                     return (
-                        <div className="flex w-full items-center">
+                        <div className="flex w-full items-center mb-4 ">
                             <div className="image">
                                 <CoverImage
                                     src={urlFor(e.image).url()} // Replace with the actual path to your image
                                     mobileSrc={urlFor(e.image).url()} // Replace with the actual path to your image
                                     alt="Cover Background"
                                     style={{ aspectRatio: "1/1" }}
-                                    className=" w-20 h-20 z-20 relative rounded-[40px] overflow-hidden  mr-4"
+                                    className=" w-12 h-12 z-20 relative rounded-[40px] overflow-hidden  mr-4"
                                 />
                             </div>{" "}
-                            <P isHtml htmlContent={e.name}></P>
+                            <P klass="!mt-0" isHtml htmlContent={e.name}></P>
                         </div>
                     );
                 })}

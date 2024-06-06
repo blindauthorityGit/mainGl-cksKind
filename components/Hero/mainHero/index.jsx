@@ -29,7 +29,7 @@ import ProgrammIcon from "../../../assets/programmIcon.svg";
 import PartyIcon from "../../../assets/partyIcon.svg";
 import AboutIcon from "../../../assets/aboutIcon.svg";
 
-const MainHero = ({ data, bgColor, modal, onClick }) => {
+const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
     const { width, height } = useWindowDimensions();
     const router = useRouter();
 
@@ -142,10 +142,14 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
         return () => window.removeEventListener("resize", updateBGHeight);
     }, [updateBGHeight, width]);
 
+    useEffect(() => {
+        console.log(data);
+    }, []);
+
     return (
         <section
-            style={{ background: bgColor }}
-            className="col-span-12 h-[100svh] xl:min-h-0 bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-0"
+            style={{ background: bgColor, height: noCards ? "auto" : "100svh" }}
+            className="col-span-12  xl:min-h-0 bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-0"
         >
             {/* TEXT ABSOLUTE DESKTOP */}
             <div className="absolute hidden lg:block top-[23svh] z-20 w-[42svw]">
@@ -223,12 +227,18 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         src={urlFor(data.image).url()} // Replace with the actual path to your image
                         mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
                         alt="Cover Background"
-                        className="w-full z-20 hidden lg:block relative rounded-[40px] overflow-hidden aspect-[1/0.5] md:aspect-[1/0.7] 2xl:aspect-[1/0.77]"
+                        className={`w-full z-20 ${
+                            !noCards ? "hidden" : null
+                        }  lg:block relative rounded-[10px] overflow-hidden aspect-[1/0.73] md:aspect-[1/0.7] 2xl:aspect-[1/0.77]`}
                         ref={imgRef}
                         priority={true}
                     />
 
-                    <motion.div className="flex-col justify-center flex text-center md:hidden mt-[18svh] px-4">
+                    <motion.div
+                        className={`flex-col justify-center flex text-center md:hidden ${
+                            !noCards ? "mt-[18svh]" : "mt-[3svh]"
+                        }  px-4`}
+                    >
                         <H1 klasse="!mb-[5svh] lg:mb-0 xl:!mb-6">
                             <motion.div
                                 initial={{ scale: 0.5, opacity: 0 }}
@@ -244,8 +254,9 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                                 animate={{ scale: 1, opacity: 1 }}
                                 transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
                             >
-                                Willkommen bei MainGlückskind, dem Ort, an dem Kinder lernen, sich entfalten und die
-                                Welt mit einem Lächeln erkunden.
+                                {!noCards
+                                    ? "Willkommen bei MainGlückskind, dem Ort, an dem Kinder lernen, sich entfalten und die Welt mit einem Lächeln erkunden."
+                                    : data.text}
                             </motion.span>
                         </P>
                     </motion.div>
@@ -256,23 +267,64 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                         style={{ height: `${bgHeightAbsolute}` }}
                         className="absolute hidden lg:block bg-themeGreen-50 w-[104%] md:w-[106%] left-[-0.5rem] md:left-[-1rem] rounded-[40px] h-full top-[-4rem] md:top-[-1rem] lg:top-[-2rem] lg:w-full lg:right-[-2rem] lg:left-auto lg:translate-x-0 z-[0]"
                     ></motion.div>
-                    <motion.div
-                        className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-2 px-4 mt-[4svh] lg:hidden"
-                        variants={container}
-                        initial="hidden"
-                        animate="visible"
-                    >
-                        {cards.map((e, i) => (
-                            <CatCard
-                                key={i}
-                                text={e.text}
-                                bgColor={e.bgColor}
-                                icon={e.icon}
-                                isWhite={e.isWhite}
-                                link={e.link}
-                            />
-                        ))}
-                    </motion.div>
+                    {!noCards ? (
+                        <motion.div
+                            className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-2 px-4 mt-[4svh] lg:hidden"
+                            variants={container}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            {cards.map((e, i) => (
+                                <CatCard
+                                    key={i}
+                                    text={e.text}
+                                    bgColor={e.bgColor}
+                                    icon={e.icon}
+                                    isWhite={e.isWhite}
+                                    link={e.link}
+                                />
+                            ))}
+                        </motion.div>
+                    ) : (
+                        <div className="col-span-12 wrapper flex space-x-2 px-4 mt-6 lg:mt-8 justify-center lg:hidden">
+                            {data.buttons.map((e, i) => {
+                                console.log(modal);
+                                return modal ? (
+                                    <MainButtonNOLink
+                                        klasse={`NOINONONO ${
+                                            e.HauptButton
+                                                ? "bg-primaryColor border-2 border-primaryColor"
+                                                : "border-2 border-primaryColor-50"
+                                        }`}
+                                        onClick={() => {
+                                            e.HauptButton ? (setShowOverlay(true), setShowModal(true)) : null;
+                                            if (router.pathname === "/raumvermietung") {
+                                                setModalContent(<Anfrage image={data.image} raum={true}></Anfrage>);
+                                            }
+                                            if (router.pathname === "/kindergeburtstag") {
+                                                setModalContent(
+                                                    <Anfrage image={data.image} kindergeburtstag={true}></Anfrage>
+                                                );
+                                            }
+                                        }}
+                                    >
+                                        {e.label}
+                                    </MainButtonNOLink>
+                                ) : (
+                                    <MainButton
+                                        klasse={`NOINONONO ${
+                                            e.HauptButton
+                                                ? "bg-primaryColor border-2 border-primaryColor"
+                                                : "border-2 border-primaryColor-50"
+                                        }`}
+                                        link={e.link}
+                                    >
+                                        {e.label}
+                                    </MainButton>
+                                );
+                            })}
+                        </div>
+                    )}
                 </motion.div>
                 <motion.div
                     className="col-span-12 grid-cols-2 lg:grid-cols-4 gap-6 px-4 hidden lg:grid"
@@ -318,8 +370,8 @@ const MainHero = ({ data, bgColor, modal, onClick }) => {
                 initial={{ y: "-100%", opacity: 0.5 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 95, damping: 15 }}
-                style={{ background: bgColor }}
-                className="absolute bg-[#AFD3A2] h-[68svh] w-full left-0 bottom-0 z-[-10] md:hidden"
+                style={{ background: bgColor, height: noCards ? "h-auto" : "68svh" }}
+                className="absolute MOBILEBG bg-[#AFD3A2]  w-full left-0 bottom-0 z-[-10] md:hidden"
             ></motion.div>
         </section>
     );

@@ -9,7 +9,7 @@ const StepIndicator = ({ steps, currentStep }) => {
                     className={`w-4 h-4 flex text-xs items-center justify-center rounded-full mx-3 ${
                         currentStep === index + 1 || currentStep > index
                             ? "bg-primaryColor text-white"
-                            : "bg-primaryColor-50 text-textColor"
+                            : "bg-primaryColor-100 text-textColor"
                     }`}
                 >
                     {/* {index + 1} */}

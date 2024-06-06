@@ -299,7 +299,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                                     </P>
                                 </div>
                                 {/* CARDS */}
-                                <P klasse="!text-lg font-black mt-[8svh]">Wähle eine Kategorie:</P>
+                                <P klasse="!text-lg font-black mt-[5svh]">Wähle eine Kategorie:</P>
                                 <AnimatePresence>
                                     {showCards && (
                                         <motion.div

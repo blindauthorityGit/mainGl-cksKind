@@ -24,7 +24,7 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
     const intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus ut perferendis ratione.";
 
     useEffect(() => {
-        console.log(events, data, events.blocks);
+        console.log(events, isPekip);
         console.log(events.kategorie?.name);
 
         if (events.isBlock) {
@@ -44,16 +44,16 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
 
     const handleDateSelect = (date) => {
         // Handle date selection
-        handleNextStep();
+        // handleNextStep();
     };
 
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8">
             <div className="col-span-12 h-full relative">
-                <H4 klasse={`my-4`}>
+                <H3 klasse={`my-4 !font-sans !font-semibold`}>
                     {" "}
                     {events.anfrage ? "Anfrage" : null} {events.headline}
-                </H4>
+                </H3>
                 <div className="flex w-full items-center">
                     <div className="image">
                         {events.eventDetails.partner.isHidden ? (
@@ -86,20 +86,25 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
                     <img className="w-6" src={Calendar.src}></img>
                     <div className="datum">
                         {dates.map((e, i) => {
-                            return (
+                            return events.recurringDates ? (
                                 <div className="flex space-x-2">
-                                    <P klasse="text-xs font-semibold">{e.dateStart}</P>
+                                    <P klasse="text-xs font-semibold">jeden {e.dayOfWeek}</P>
+                                    <P klasse="text-xs">{e.timeslots}</P>
+                                </div>
+                            ) : (
+                                <div className="flex space-x-2">
+                                    <P klasse="text-xs font-semibold"> {e.dateStart}</P>
                                     <P klasse="text-xs">{e.dateTimeRange}</P>
                                 </div>
                             );
                         })}
                     </div>
                 </div>
-                <div className="flex items-center space-x-4 mt-3 mb-6">
+                <div className="flex items-start space-x-4 mt-3 mb-6">
                     <img className="w-6" src={Price.src}></img>
                     <P klasse="text-xs">{events.eventDetails.preis}</P>
                 </div>
-                <DateSelection events={events} onDateSelect={handleDateSelect} />
+                {isPekip ? null : <DateSelection events={events} onDateSelect={handleDateSelect} />}
             </div>
         </div>
     );

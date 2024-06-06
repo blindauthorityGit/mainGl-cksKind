@@ -39,7 +39,7 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
             <MainContainer width="container mx-auto">
                 <Meta data={data.seo}></Meta>
 
-                <MainHero modal bgColor="#E9B4C7" data={data.components[0]}></MainHero>
+                <MainHero modal bgColor="#E9B4C7" data={data.components[0]} noCards></MainHero>
                 <div className="hidden 2xl:block">
                     <Divider></Divider>
                 </div>

@@ -22,14 +22,14 @@ const Anfrage = ({ cafe, raum, kindergeburtstag, image }) => {
                 {/* <img src={Getreide.src} alt="" /> */}
             </div>
             <div className="col-span-12 xl:col-span-6">
-                <H2 klasse="mt-4 mb-6 ">
+                <H2 klasse="mt-4 mb-6 !font-sans !font-semibold">
                     {cafe ? "Interesse an unseren Cafe Räumlichkeiten?" : null}
                     {raum ? "Interesse an unseren Räumlichkeiten?" : null}
                     {kindergeburtstag ? "Interesse an einer Feier bei uns?" : null}
                 </H2>
                 {cafe ? <P>Sie möchten unsere Cafe Räumlichkeiten anmieten?</P> : null}
                 {raum ? <P>Sie möchten unsere Räumlichkeiten anmieten?</P> : null}
-                {kindergeburtstag ? <P>Sie möchten bei uns feiern?</P> : null}
+                {/* {kindergeburtstag ? <P>Sie möchten bei uns feiern?</P> : null} */}
                 <Form1 raum={raum} kindergeburtstag={kindergeburtstag} cafe={cafe} contact />
             </div>
             <div className="xl:col-span-6 pl-8">

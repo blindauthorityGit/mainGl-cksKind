@@ -12,8 +12,11 @@ import { H2, H3, H4, P } from "../../typography";
 
 //COMPS
 import { MainButtonNOLink } from "../../buttons";
+import getValidationRules from "./getValidationRules";
 
 const MultiStepForm = ({ data, events, isPekip, recurring }) => {
+    const [currentCategory, setCurrentCategory] = useState(null);
+
     const [currentStep, setCurrentStep] = useState(1);
     const [direction, setDirection] = useState(1); // 1 for next, -1 for prev
 
@@ -26,9 +29,30 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
 
     const [steps, setSteps] = useState(0);
 
+    const [isStepValid, setIsStepValid] = useState(false); // Track the validity of the current step
+
+    //SET CATEGORY
+    useEffect(() => {
+        console.log(events.kategorie.name);
+        setCurrentCategory(events.kategorie.name);
+    }, [events]);
+
+    useEffect(() => {
+        // Validate the current step whenever formData or currentStep changes
+        setIsStepValid(false);
+        const validate = getValidationRules(events.kategorie.name, currentStep)(formData);
+        //IF PEKIP FIRST STEP IS VALID
+        if (events.slug.current.includes("pekip") && currentStep == 1) {
+            setIsStepValid(true);
+        }
+
+        if (validate) {
+            setIsStepValid(true);
+        }
+    }, [formData, currentStep, events.kategorie.name]);
+
     // Function to handle form submission
     const handleSubmit = async () => {
-        console.log(JSON.stringify(formData));
         setLoading(true);
 
         try {
@@ -64,7 +88,6 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
 
     useEffect(() => {
         setFormData({});
-        console.log(formData);
         updateFormData({
             kurs: events.headline,
             sum: events.headline,
@@ -74,9 +97,19 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
     }, [events]);
 
     const handleNextStep = () => {
+        const isValid = getValidationRules(currentCategory, currentStep)(formData);
         console.log(formData);
-        setDirection(1);
-        setCurrentStep(currentStep + 1);
+        if (events.slug.current.includes("pekip") && currentStep == 1) {
+            setDirection(1);
+            setCurrentStep(currentStep + 1);
+        }
+        if (isValid) {
+            setDirection(1);
+            setCurrentStep(currentStep + 1);
+        } else {
+            // Handle invalid form data (e.g., show an error message)
+            console.log("Form data is not valid");
+        }
     };
 
     const handlePrevStep = () => {
@@ -87,7 +120,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
     const handleDateSelect = (date) => {
         // updateFormData({ date });
         console.log(formData);
-        handleNextStep();
+        // handleNextStep();
     };
 
     useEffect(() => {
@@ -95,37 +128,71 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
     }, [currentStep]);
 
     useEffect(() => {
-        setSteps(4);
-    }, []);
+        setSteps(events.category == "Baby & Kleinkind" ? 4 : 3);
+    }, [events]);
+
+    // useEffect(() => {
+    //     if (formData.date) {
+    //         console.log("Date valid");
+    //         setStep1Valid(true);
+    //     }
+    //     if (formData.twins && formData.sibilings && birthDate) {
+    //         console.log("Date valid");
+    //         setStep2Valid(true);
+    //     }
+    // }, [formData]);
 
     const renderStep = () => {
-        switch (currentStep) {
-            case 1:
-                return (
-                    <StepOneNew
-                        handleNextStep={handleNextStep}
-                        data={data}
-                        events={events}
-                        onDateSelect={handleDateSelect}
-                    />
-                );
-            case 2:
-                return (
-                    <StepTwoNew
-                        data={data}
-                        events={events}
-                        handleNextStep={handleNextStep}
-                        handlePrevStep={handlePrevStep}
-                    />
-                );
-            case 3:
-                return <StepThreeNew handleNextStep={handleNextStep} handlePrevStep={handlePrevStep} />;
-            case 4:
-                return <StepSummary handleNextStep={handleSubmit} handlePrevStep={handlePrevStep} />;
-            case 5:
-                return <StepThankYou />;
+        switch (events.category) {
+            case "Baby & Kleinkind":
+                switch (currentStep) {
+                    case 1:
+                        return (
+                            <StepOneNew
+                                handleNextStep={handleNextStep}
+                                data={data}
+                                events={events}
+                                isPekip={events.slug.current.includes("pekip")}
+                            />
+                        );
+                    case 2:
+                        return (
+                            <StepTwoNew
+                                data={data}
+                                events={events}
+                                handleNextStep={handleNextStep}
+                                handlePrevStep={handlePrevStep}
+                            />
+                        );
+                    case 3:
+                        return <StepThreeNew handleNextStep={handleNextStep} handlePrevStep={handlePrevStep} />;
+                    case 4:
+                        return <StepSummary handleNextStep={handleSubmit} handlePrevStep={handlePrevStep} />;
+                    case 5:
+                        return <StepThankYou />;
+                    default:
+                        return null;
+                }
             default:
-                return null;
+                switch (currentStep) {
+                    case 1:
+                        return (
+                            <StepOneNew
+                                handleNextStep={handleNextStep}
+                                data={data}
+                                events={events}
+                                isPekip={events.slug.current.includes("pekip")}
+                            />
+                        );
+                    case 2:
+                        return <StepThreeNew handleNextStep={handleNextStep} handlePrevStep={handlePrevStep} />;
+                    case 3:
+                        return <StepSummary handleNextStep={handleSubmit} handlePrevStep={handlePrevStep} />;
+                    case 4:
+                        return <StepThankYou />;
+                    default:
+                        return null;
+                }
         }
     };
 
@@ -156,15 +223,15 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
             >
                 {currentStep != steps + 1 && <StepIndicator steps={steps} currentStep={currentStep} />}
             </div>
-            <div className="multi-step-form">
+            <div className="multi-step-form flex-grow flex flex-col">
                 {renderStep()}
-                <div className="navigation-buttons mt-8 grid grid-cols-2 gap-x-2">
+                <div className="navigation-buttons mt-auto grid grid-cols-2 gap-x-2">
                     {loading ? (
                         <div className="flex justify-center col-span-2">
                             <Rings height="80" width="80" color="#df3288" radius="6" visible={true} />
                         </div>
                     ) : submissionStatus === "success" ? (
-                        <P klasse="!text-green-500 col-span-2">Vielen Dank für Ihre Anmeldung!</P>
+                        <P klasse="!text-green-500 col-span-2"></P>
                     ) : submissionStatus === "failed" ? (
                         <P klasse="!text-red-500 col-span-2">
                             Fehler bei der Anmeldung. Bitte versuchen Sie es später erneut.
@@ -186,6 +253,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
                             )}
                             {currentStep < steps ? (
                                 <MainButtonNOLink
+                                    disabled={!isStepValid}
                                     onClick={handleNextStep}
                                     klasse={`bg-primaryColor ${currentStep === 1 ? "col-span-2" : ""}`}
                                 >
@@ -194,7 +262,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
                             ) : (
                                 currentStep != steps + 1 && (
                                     <MainButtonNOLink onClick={handleSubmit} klasse="bg-themeGreen !text-white">
-                                        Anmelden
+                                        {events.slug.current.includes("pekip") ? "Anfragen" : "Anmelden"}
                                     </MainButtonNOLink>
                                 )
                             )}

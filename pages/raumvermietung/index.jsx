@@ -41,6 +41,8 @@ export default function Raumvermietung({ data, dataKontakt }) {
                 <Meta data={data.seo}></Meta>
 
                 <MainHero
+                    noCards
+                    bgColor="#afd3a2"
                     modal={true}
                     onClick={(e) => {
                         e.preventDefault();

@@ -250,7 +250,7 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                 </div>
             </div>
             <div
-                className={`wrapper mb-6  font-sans ${
+                className={`wrapper mb-12  font-sans ${
                     isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"
                 }`}
             >
