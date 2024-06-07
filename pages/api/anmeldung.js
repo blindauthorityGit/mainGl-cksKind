@@ -77,8 +77,8 @@ MAIN GLÜCKSKIND`;
 <p>MAIN GLÜCKSKIND</p>`;
 
             const userMailOptions = {
-                from: "office@atelierbuchner.at",
-                // from: "info@mainglueckskind.de",
+                // from: "office@atelierbuchner.at",
+                from: "info@mainglueckskind.de",
                 to: req.body.email,
                 subject: "Anmelde Bestätigung",
                 text: req.body.isPekip ? pekipText : nonPekipText,
@@ -87,7 +87,7 @@ MAIN GLÜCKSKIND`;
 
             const adminMailOptions = {
                 from: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_MAIL_BUCHUNG_LIVE,
-                to: process.env.NEXT_DEV === "true" ? "office@atelierbuchner.at" : req.body.trainerEmail, // Replace with your admin email
+                to: process.env.NEXT_DEV === "true" ? "info@mainglueckskind.de" : req.body.trainerEmail, // Replace with your admin email
                 cc: "info@mainglueckskind.de", // CC email
                 subject: `Buchung von ${req.body.name} für ${req.body.kurs} am ${req.body.date}`,
                 html: `

@@ -21,7 +21,8 @@ export default async function handler(req, res) {
             }/api/cancel-reservation?reservationId=${reservationRef.id}`;
 
             const transporter = nodemailer.createTransport({
-                host: process.env.NEXT_DEV == "true" ? "smtp.world4you.com" : "smtp.strato.de",
+                // host: process.env.NEXT_DEV == "true" ? "smtp.world4you.com" : "smtp.strato.de",
+                host: process.env.NEXT_DEV == "true" ? "smtp.strato.de" : "smtp.strato.de",
                 port: 587,
                 secure: false,
                 auth: {
@@ -36,7 +37,7 @@ export default async function handler(req, res) {
 
             // Email content for the user
             const userMailOptions = {
-                from: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
+                from: process.env.NEXT_DEV == "true" ? "cafe@mainglueckskind.de" : "cafe@mainglueckskind.de",
                 to: req.body.email,
                 subject: "Reservierungs Bestätigung",
                 text: `Liebe/r ${req.body.name}, vielen Dank für Deine Reservierung in unserem Cafe am ${new Date(
@@ -52,8 +53,8 @@ export default async function handler(req, res) {
 
             // Email content for the owners
             const ownerMailOptions = {
-                from: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
-                to: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
+                from: process.env.NEXT_DEV == "true" ? "cafe@mainglueckskind.de" : "cafe@mainglueckskind.de",
+                to: process.env.NEXT_DEV == "true" ? "cafe@mainglueckskind.de" : "cafe@mainglueckskind.de",
                 // cc: "office@atelierbuchner.at",
                 subject: `Reservierung von ${req.body.name} am ${new Date(req.body.date).toLocaleDateString(
                     "de-DE"
