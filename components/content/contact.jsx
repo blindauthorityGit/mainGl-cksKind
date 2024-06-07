@@ -11,9 +11,10 @@ import Map from "../map";
 import urlFor from "../../functions/urlFor";
 
 //ASSETS
-import Pin from "../../assets/pinPink.svg";
+//ASSETS
+import Pin from "../../assets/location.svg";
 import Phone from "../../assets/phonePink.svg";
-import Mail from "../../assets/mailPink.svg";
+import Mail from "../../assets/emailNew.svg";
 
 //ANIMATIONM
 import { motion, useAnimation } from "framer-motion";
@@ -59,7 +60,7 @@ const Contact = ({ data, overlap }) => {
             variants={variants}
             className="col-span-12 grid grid-cols-12 px-6 lg:px-24"
         >
-            <div className={`col-span-12 lg:col-span-5 flex flex-col justify-center mt-6 lg:mt-0 mb-12 lg:mb-0 `}>
+            <div className={`col-span-12 lg:col-span-5 flex flex-col justify-center mt-6 lg:mt-0  lg:mb-0 `}>
                 <H2 klasse="">{data.headline}</H2>
                 <p
                     className="text-sm linker text-textColor sm:text-base font-sans font-[500]  xl:leading-relaxed lg:text-base xl:text-sm 2xl:text-base"
@@ -67,23 +68,22 @@ const Contact = ({ data, overlap }) => {
                 />
 
                 {/* <P>{dangerouslySetInnerHTML={createMarkup(data.text)}} </P> */}
-                <div className="flex mt-10 space-x-12 items-center">
-                    <img src={Pin.src} alt="" />
-
+                <div className="flex items-center lg:mt-10 space-x-12 mt-6">
+                    <img className="w-14" src={Pin.src} alt="" />
                     <p
                         className="text-sm linker text-textColor sm:text-base font-sans font-[500]  xl:leading-relaxed lg:text-base xl:text-sm 2xl:text-base"
                         dangerouslySetInnerHTML={createMarkup(data.adresse)}
-                    />
+                    />{" "}
                 </div>
-                <div className="flex mt-10 space-x-12 items-center">
-                    <img src={Phone.src} alt="" />
-                    <P>{data.telefon}</P>
-                </div>
-                <div className="flex mt-10 space-x-12 items-center">
-                    <img src={Mail.src} alt="" />
-                    <P>
+                {/* <div className="flex mt-10 space-x-12">
+                <img src={Phone.src} alt="" />
+                <P>{data.telefon}</P>
+            </div> */}
+                <div className="flex items-center lg:mt-10 space-x-12 mt-4">
+                    <img className="w-14" src={Mail.src} alt="" />
+                    <P klasse="!font-semibold">
                         {" "}
-                        <a href={`mailto:${data.email}`}></a> {data.email}
+                        <a className="!font-semibold" href={`mailto:${data.email}`}></a> {data.email}
                     </P>
                 </div>
             </div>

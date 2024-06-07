@@ -23,6 +23,7 @@ import Divider from "../../components/layout/divider";
 import { BigDecal } from "../../components/decorative";
 import { DecorativeDivider } from "../../components/decorative";
 import { CafeReservierung, Öffnungszeiten, Anfrage } from "../../components/modalContent";
+import MultiStepReservation from "../../components/modalContent/stepsCafe/multiStepReservation";
 import FullWidthSection from "../../components/layout/fullWidthSection";
 
 //STORE
@@ -117,7 +118,7 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                     onClick={() => {
                         setShowOverlay(true);
                         setShowModal(true);
-                        setModalContent(<CafeReservierung image={null} />);
+                        setModalContent(<MultiStepReservation image={null} />);
                     }}
                 >
                     <div className="flex items-center space-x-4">

@@ -46,9 +46,9 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
                 <CardHolder data={dataKategorie}></CardHolder>
                 <Divider></Divider>
             </MainContainer>
-            <FullWidthSection klasse="bg-[#AFD3A2] py-20 2xl:!py-32">
+            {/* <FullWidthSection klasse="bg-[#AFD3A2] py-20 2xl:!py-32">
                 <CTAContent data={dataHome.components[3]}></CTAContent>
-            </FullWidthSection>
+            </FullWidthSection> */}
             <FullWidthSectionBGImage klasse="]" image={dataHome.components[6].image}>
                 <ContentCard data={dataHome.components[6]}></ContentCard>
             </FullWidthSectionBGImage>
