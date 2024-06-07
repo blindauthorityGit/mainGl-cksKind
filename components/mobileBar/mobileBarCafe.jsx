@@ -5,6 +5,7 @@ import { FaPhone, FaEnvelope, FaWhatsapp } from "react-icons/fa";
 import Overlay from "../overlay";
 import ModalMobile from "../modal/modalMobile";
 import { Opening, Contact, Öffnungszeiten, CafeReservierung } from "../modalContent";
+import MultiStepReservation from "../modalContent/stepsCafe/multiStepReservation";
 import { AiOutlineClockCircle } from "react-icons/ai";
 
 //ASSETS
@@ -69,7 +70,7 @@ const MobileBar = (props) => {
                     onClick={() => {
                         setShowOverlay(true);
                         setShowModal(true);
-                        setModalContent(<CafeReservierung image={null} />);
+                        setModalContent(<MultiStepReservation image={null} />);
                     }}
                 >
                     <img className="h-[1.35rem] md:h-10" src={Programm.src} alt="" />
