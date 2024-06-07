@@ -5,7 +5,7 @@ import StepThree from "./stepThree";
 import { AnimatePresence, motion } from "framer-motion";
 import { MainButtonNOLink } from "../../buttons";
 import ClipLoader from "react-spinners/ClipLoader";
-import CoverImage from "../../images/CoverImage";
+import CoverImage from "../../images/coverImage";
 import useStore from "../../../store/store";
 import urlFor from "../../../functions/urlFor";
 
@@ -22,10 +22,14 @@ const MultiStepReservation = ({ image }) => {
     }, [updateFormData]);
 
     const handleNextStep = () => {
+        console.log(formData);
+
         setCurrentStep(currentStep + 1);
     };
 
     const handlePrevStep = () => {
+        console.log(formData);
+
         setCurrentStep(currentStep - 1);
     };
 
@@ -65,7 +69,14 @@ const MultiStepReservation = ({ image }) => {
             case 2:
                 return <StepTwo handleNextStep={handleNextStep} handlePrevStep={handlePrevStep} />;
             case 3:
-                return <StepThree handleSubmit={handleSubmit} handlePrevStep={handlePrevStep} />;
+                return (
+                    <StepThree
+                        loading={loading}
+                        success={success}
+                        handleSubmit={handleSubmit}
+                        handlePrevStep={handlePrevStep}
+                    />
+                );
             default:
                 return null;
         }
@@ -73,7 +84,7 @@ const MultiStepReservation = ({ image }) => {
 
     return (
         <div className="container mx-auto grid-cols-12 font-sans flex-grow flex">
-            <div className="col-span-12 xl:col-span-6 flex-grow flex relative">
+            <div className="col-span-12 xl:col-span-6 flex-grow flex relative flex-col">
                 <AnimatePresence>{renderStep()}</AnimatePresence>
                 {loading ? (
                     <div className="flex justify-center items-center">

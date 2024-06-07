@@ -15,7 +15,7 @@ setDefaultLocale("de");
 
 const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     const [startDate, setStartDate] = useState(null);
-    const [time, setTime] = useState("");
+    const [timeSlot, setTimeSlot] = useState("");
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
     const [isFullyBooked, setIsFullyBooked] = useState(false);
     const updateFormData = useStore((state) => state.updateFormData);
@@ -87,11 +87,13 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     };
 
     const handleNext = () => {
-        updateFormData({ date: startDate, time });
+        // Normalize the date to local timezone before saving to state
+        const localDate = new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60000);
+        updateFormData({ date: localDate, timeSlot });
         handleNextStep();
     };
 
-    const isStepComplete = startDate && time && availableTimeSlots.some((slotObj) => slotObj.slot === time);
+    const isStepComplete = startDate && timeSlot && availableTimeSlots.some((slotObj) => slotObj.slot === timeSlot);
 
     const isWeekdayAndFutureDate = (date) => {
         const day = getDay(date);
@@ -115,7 +117,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                     selected={startDate}
                     onChange={(date) => {
                         setStartDate(date);
-                        setTime("");
+                        setTimeSlot("");
                         setAvailableTimeSlots([]);
                         setIsFullyBooked(false);
                         updateAvailableTimeSlots(date);
@@ -142,8 +144,8 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                     </label>
                     <select
                         id="time-select"
-                        value={time}
-                        onChange={(e) => setTime(e.target.value)}
+                        value={timeSlot}
+                        onChange={(e) => setTimeSlot(e.target.value)}
                         className="col-span-6 w-full mb-4 text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                     >
                         <option disabled value="">
@@ -158,7 +160,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                 </>
             )}
             {isFullyBooked && <P>Leider sind keine Zeitfenster für das gewählte Datum verfügbar.</P>}
-            <div className="w-full col-span-12 sm:mb-8 absolute flex space-x-2 lg:space-x-4 bottom-0">
+            <div className="w-full col-span-12 sm:mb-8 flex space-x-2 lg:space-x-4">
                 <MainButtonNOLink onClick={handlePrevStep} klasse="bg-textColor mt-4">
                     Zurück
                 </MainButtonNOLink>
