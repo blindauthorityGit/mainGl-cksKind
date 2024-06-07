@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
             // Set up Nodemailer
             const transporter = nodemailer.createTransport({
-                host: process.env.NEXT_DEV === "true" ? "smtp.world4you.com" : "smtp.strato.de",
+                host: process.env.NEXT_DEV === "true" ? "smtp.strato.de" : "smtp.strato.de",
                 port: 587,
                 secure: false,
                 auth: {
