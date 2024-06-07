@@ -5,6 +5,8 @@ import useStore from "../../../store/store"; // Adjust the path as necessary
 import Star from "../../../assets/star.svg";
 import Google from "../../../assets/google.svg";
 
+import { MainButton } from "../../buttons";
+
 const ThankYou = ({ data, events }) => {
     useEffect(() => {}, []);
 
@@ -64,6 +66,10 @@ const ThankYou = ({ data, events }) => {
                 <div className="flex justify-center mt-6">
                     <img src={Google.src} alt="" />
                 </div>
+                {/* <MainButton link="#" klasse="bg-primaryColor">
+                    {" "}
+                    Jetzt bewerten
+                </MainButton> */}
             </div>
         </motion.div>
     );

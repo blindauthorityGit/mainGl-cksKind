@@ -41,6 +41,7 @@ function MyApp({ Component, pageProps }) {
 
     const showModal = useStore((state) => state.showModal);
     const setShowModal = useStore((state) => state.setShowModal);
+    const resetFormData = useStore((state) => state.resetFormData);
 
     const modalColor = useStore((state) => state.modalColor);
     const setModalColor = useStore((state) => state.setModalColor);
@@ -124,9 +125,8 @@ function MyApp({ Component, pageProps }) {
                     background={modalColor}
                     onClick={(e) => {
                         setShowModal(false);
-                        console.log("I CLICKED MODAL CLOSE");
                         setShowOverlay(false);
-                        console.log(showOverlay);
+                        resetFormData();
                     }}
                 >
                     {modalContent}
@@ -142,6 +142,7 @@ function MyApp({ Component, pageProps }) {
                             setShowMobileMenu(false);
                             setShowMobileModal(false);
                             setShowModal(false);
+                            resetFormData();
                         }}
                     />
                 )}

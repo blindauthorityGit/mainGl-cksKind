@@ -40,6 +40,7 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
 
     useEffect(() => {
         console.log(dates);
+        console.log(dates.length);
     }, [dates]);
 
     const handleDateSelect = (date) => {
@@ -82,21 +83,42 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
                     <img src={Block.src}></img>
                     <P klasse="text-xs">{infoText}</P>
                 </div>
-                <div className="flex items-start space-x-4 mt-3">
+                <div
+                    className={`flex ${
+                        dates.length || events.isBlock > 2 ? "items-start" : "items-center"
+                    }  space-x-4 mt-3 mb-4`}
+                >
                     <img className="w-6" src={Calendar.src}></img>
                     <div className="datum">
                         {dates.map((e, i) => {
-                            return events.recurringDates ? (
-                                <div className="flex space-x-2">
-                                    <P klasse="text-xs font-semibold">jeden {e.dayOfWeek}</P>
-                                    <P klasse="text-xs">{e.timeslots}</P>
-                                </div>
-                            ) : (
-                                <div className="flex space-x-2">
-                                    <P klasse="text-xs font-semibold"> {e.dateStart}</P>
-                                    <P klasse="text-xs">{e.dateTimeRange}</P>
-                                </div>
-                            );
+                            if (events.recurringDates && events.recurringDates.length > 0) {
+                                return (
+                                    <div key={i} className="flex space-x-2">
+                                        <P klasse="text-xs font-semibold">jeden {e.dayOfWeek}</P>
+                                        <P klasse="text-xs">{e.timeslots}</P>
+                                    </div>
+                                );
+                            } else if (events.isBlock && e.blockTitle) {
+                                return (
+                                    <div key={i} className="mb-4">
+                                        <P klasse="text-xs font-bold">{e.blockTitle}</P>
+                                        <P klasse="text-xs italic mb-2">{e.blockSubline}</P>
+                                        {e.dates.map((date, j) => (
+                                            <div key={j} className="flex space-x-2">
+                                                <P klasse="text-xs font-semibold">{date.dateStart}</P>
+                                                <P klasse="text-xs">{date.dateTimeRange}</P>
+                                            </div>
+                                        ))}
+                                    </div>
+                                );
+                            } else {
+                                return (
+                                    <div key={i} className="flex space-x-2">
+                                        <P klasse="text-xs font-semibold">{e.dateStart}</P>
+                                        <P klasse="text-xs">{e.dateTimeRange}</P>
+                                    </div>
+                                );
+                            }
                         })}
                     </div>
                 </div>
@@ -104,7 +126,9 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
                     <img className="w-6" src={Price.src}></img>
                     <P klasse="text-xs">{events.eventDetails.preis}</P>
                 </div>
-                {isPekip ? null : <DateSelection events={events} onDateSelect={handleDateSelect} />}
+                {isPekip || events.recurringDates ? null : (
+                    <DateSelection events={events} onDateSelect={handleDateSelect} />
+                )}
             </div>
         </div>
     );

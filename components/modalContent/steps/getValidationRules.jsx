@@ -5,6 +5,7 @@ const getValidationRules = (category, step) => {
         3: (formData) => formData.name && formData.wohnort && formData.email && formData.phone,
         4: (formData) => formData,
         5: (formData) => formData,
+        6: (formData) => formData,
     };
 
     const defaultRules = {
@@ -12,6 +13,7 @@ const getValidationRules = (category, step) => {
         2: (formData) => formData.name && formData.wohnort && formData.email && formData.phone,
         3: (formData) => formData, // Add more rules as needed
         4: (formData) => formData,
+        5: (formData) => formData,
     };
 
     if (category === "Baby & Kleinkind") {

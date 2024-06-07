@@ -12,7 +12,7 @@ const StepSummary = ({ data, events }) => {
     const [loading, setLoading] = useState(false);
     const [submissionStatus, setSubmissionStatus] = useState(null); // 'success', 'failed', or null
 
-    const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+    const [isCheckboxChecked, setIsCheckboxChecked] = useState(true);
     const [isCheckboxChecked2, setIsCheckboxChecked2] = useState(true);
     const formData = useStore((state) => state.formData);
 

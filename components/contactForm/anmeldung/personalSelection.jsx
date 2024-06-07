@@ -9,6 +9,7 @@ const PersonalSelection = ({ events, onDateSelect }) => {
         handleSubmit,
         formState: { errors },
     } = useForm();
+    const formData = useStore((state) => state.formData);
     const updateFormData = useStore((state) => state.updateFormData);
 
     const handleInputChange = (event) => {
@@ -44,6 +45,7 @@ const PersonalSelection = ({ events, onDateSelect }) => {
                 type="text"
                 placeholder="Name"
                 onChange={handleInputChange}
+                value={formData.name}
             />
             {errors.name && (
                 <Error klasse="col-span-12 text-themeRed text-xs">Bitte geben Sie Ihren vollen Namen an</Error>
@@ -57,6 +59,7 @@ const PersonalSelection = ({ events, onDateSelect }) => {
             <input
                 {...register("wohnort", { required: false })}
                 onChange={handleInputChange}
+                value={formData.wohnort}
                 id="wohnort"
                 type="text"
                 placeholder="Wohnort"
@@ -73,6 +76,7 @@ const PersonalSelection = ({ events, onDateSelect }) => {
                 {...register("email", { required: true })}
                 name="email"
                 id="email"
+                value={formData.email}
                 className="col-span-12 text-xs mb-3 border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                 type="email"
                 placeholder="Ihre Email"
@@ -91,6 +95,7 @@ const PersonalSelection = ({ events, onDateSelect }) => {
                 {...register("phone", { required: true })}
                 onChange={handleInputChange}
                 type="tel"
+                value={formData.phone}
                 id="telefon"
                 placeholder="Telefon"
                 className="col-span-12 text-xs  border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"

@@ -72,19 +72,28 @@ const Details = ({ data, isWorkshop, isMobile }) => {
             });
         } else if (data.isBlock && data.blocks && data.blocks.length > 0) {
             data.blocks.forEach((block) => {
-                const datesToShow = block.dates;
-                datesToShow.forEach((date) => {
-                    if (!isDateOlder(date.endDateTime)) {
-                        const dateStart = formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0];
-                        const dateTimeRange = `${
-                            formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]
-                        } - ${formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]}`;
-                        dates.push({ dateStart, dateTimeRange });
+                if (block.dates.length > 0) {
+                    const blockDates = [];
+                    block.dates.forEach((date) => {
+                        if (!isDateOlder(date.endDateTime)) {
+                            const dateStart = formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0];
+                            const dateTimeRange = `${
+                                formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]
+                            } - ${formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]}`;
+                            blockDates.push({ dateStart, dateTimeRange });
+                        }
+                    });
+                    if (blockDates.length > 0) {
+                        dates.push({
+                            blockTitle: block.blockTitle,
+                            blockSubline: block.blockSubline,
+                            dates: blockDates,
+                        });
                     }
-                });
+                }
             });
         } else {
-            data.datum.slice(0, itemsToShow).forEach((date) => {
+            data.datum.forEach((date) => {
                 const dateStart = formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0];
                 const dateTimeRange = `${formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]} - ${
                     formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]

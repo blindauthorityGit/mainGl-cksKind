@@ -22,6 +22,7 @@ import Divider from "../../components/layout/divider";
 import { BigDecal } from "../../components/decorative";
 import { DecorativeDivider } from "../../components/decorative";
 import FullWidthSection from "../../components/layout/fullWidthSection";
+import SearchBar from "../../components/searchBar";
 
 //FUNCTIONS
 import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor";
@@ -33,6 +34,7 @@ import Workshop from "../../assets/workshop.svg";
 import All from "../../assets/all.svg";
 import SmallerDecal from "../../components/decorative/smallerDecal";
 import Down from "../../assets/down.svg";
+import Search from "../../assets/search.svg";
 
 export default function Programm({ dataHome, dataKontakt, dataEvents, dataKategorie }) {
     const router = useRouter();
@@ -258,6 +260,17 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
             }, 1000);
         }
     }, [showData]);
+
+    const handleSearch = (searchTerm) => {
+        // Implement your search logic here
+        // For example:
+        const lowercasedTerm = searchTerm.toLowerCase();
+        const filtered = dataEvents.filter((item) => item.headline.toLowerCase().includes(lowercasedTerm));
+        setFilteredEvents(filtered);
+        setShowCards(searchTerm.length === 0);
+        setShowData(searchTerm.length != 0);
+    };
+
     return (
         <>
             <MainContainer width="container mx-auto">
@@ -274,7 +287,12 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                         motionProps={animationProps2}
                     />
                     <div className="wrap">
-                        <H2>Unser Programm</H2>
+                        <div className="flex justify-between items-center w-full relative">
+                            <H2>Unser Programm</H2>
+                            <SearchBar data={dataEvents} onSearch={handleSearch}>
+                                {" "}
+                            </SearchBar>
+                        </div>
                         {showData ? (
                             <span
                                 className="font-semibold mb-4 flex items-center space-x-2 text-textColor"

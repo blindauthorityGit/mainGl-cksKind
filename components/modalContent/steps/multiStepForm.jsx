@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import StepOneNew from "./stepOneNew";
 import StepTwoNew from "./stepTwoNew";
 import StepThreeNew from "./stepThreeNew";
+import StepFourNew from "./stepFourNew";
 import StepSummary from "./stepSummary";
 import StepThankYou from "./stepThankYou";
 import useStore from "../../../store/store"; // Adjust the path as necessary
@@ -11,7 +12,7 @@ import { Rings } from "react-loader-spinner";
 import { H2, H3, H4, P } from "../../typography";
 
 //COMPS
-import { MainButtonNOLink } from "../../buttons";
+import { MainButton, MainButtonNOLink } from "../../buttons";
 import getValidationRules from "./getValidationRules";
 
 const MultiStepForm = ({ data, events, isPekip, recurring }) => {
@@ -45,6 +46,9 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
         if (events.slug.current.includes("pekip") && currentStep == 1) {
             setIsStepValid(true);
         }
+        if (events.recurringDates && currentStep == 1) {
+            setIsStepValid(true);
+        }
 
         if (validate) {
             setIsStepValid(true);
@@ -69,7 +73,8 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
             if (response.ok) {
                 console.log("Form submitted successfully");
                 setSubmissionStatus("success");
-                setCurrentStep((prev) => prev + 1); // Move to the Thank You step
+                console.log(currentStep, steps + 1, steps);
+                setCurrentStep(currentStep + 1);
 
                 // Handle success here (e.g., update UI to show a success message)
             } else {
@@ -93,6 +98,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
             sum: events.headline,
             trainerEmail: events.eventDetails.partner.email,
             trainer: events.eventDetails.partner.name,
+            isPekip: events.slug.current.includes("pekip"),
         });
     }, [events]);
 
@@ -100,6 +106,10 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
         const isValid = getValidationRules(currentCategory, currentStep)(formData);
         console.log(formData);
         if (events.slug.current.includes("pekip") && currentStep == 1) {
+            setDirection(1);
+            setCurrentStep(currentStep + 1);
+        }
+        if (events.recurringDates && currentStep == 1) {
             setDirection(1);
             setCurrentStep(currentStep + 1);
         }
@@ -128,7 +138,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
     }, [currentStep]);
 
     useEffect(() => {
-        setSteps(events.kategorie.name == "Baby & Kleinkind" ? 4 : 3);
+        setSteps(events.kategorie.name == "Baby & Kleinkind" ? 5 : 4);
     }, [events]);
 
     // useEffect(() => {
@@ -167,8 +177,18 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
                     case 3:
                         return <StepThreeNew handleNextStep={handleNextStep} handlePrevStep={handlePrevStep} />;
                     case 4:
-                        return <StepSummary handleNextStep={handleSubmit} handlePrevStep={handlePrevStep} />;
+                        return (
+                            <StepFourNew
+                                events={events}
+                                handleNextStep={handleNextStep}
+                                handlePrevStep={handlePrevStep}
+                                isPekip={events.slug.current.includes("pekip")}
+                            />
+                        );
                     case 5:
+                        return <StepSummary handleNextStep={handleSubmit} handlePrevStep={handlePrevStep} />;
+
+                    case 6:
                         return <StepThankYou />;
                     default:
                         return null;
@@ -187,8 +207,17 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
                     case 2:
                         return <StepThreeNew handleNextStep={handleNextStep} handlePrevStep={handlePrevStep} />;
                     case 3:
-                        return <StepSummary handleNextStep={handleSubmit} handlePrevStep={handlePrevStep} />;
+                        return (
+                            <StepFourNew
+                                events={events}
+                                handleNextStep={handleNextStep}
+                                handlePrevStep={handlePrevStep}
+                                isPekip={events.slug.current.includes("pekip")}
+                            />
+                        );
                     case 4:
+                        return <StepSummary handleNextStep={handleSubmit} handlePrevStep={handlePrevStep} />;
+                    case 5:
                         return <StepThankYou />;
                     default:
                         return null;
@@ -247,9 +276,9 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
                                 </MainButtonNOLink>
                             )}
                             {currentStep === steps + 1 && (
-                                <MainButtonNOLink onClick={handlePrevStep} klasse="bg-primaryColor col-span-2">
+                                <MainButton link="#" aklass="col-span-2" klasse="bg-primaryColor ">
                                     Jetzt Bewerten
-                                </MainButtonNOLink>
+                                </MainButton>
                             )}
                             {currentStep < steps ? (
                                 <MainButtonNOLink

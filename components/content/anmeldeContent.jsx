@@ -31,8 +31,8 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip, dates }) => {
     };
 
     return (
-        <div className="col-span-12 px-6 lg:px-48 ">
-            <H1 klasse=""> {events.anfrage ? "Anfrage" : "Anmeldung"}</H1>
+        <div className="col-span-12 px-6 lg:px-48 bg-themeGreen-300 py-8">
+            <H1 klasse="!mb-8 text-white"> {events.anfrage ? "Anfrage" : "Anmeldung"}</H1>
             <div className="2xl:w-2/4 pt-3 lg:mt-6">
                 {/* <P>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo dolores sed temporibus, deleniti
@@ -44,7 +44,7 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip, dates }) => {
                 {events.anfrage ? (
                     <>
                         <P>Hast du Interesse an unserem Kurs?</P>
-                        <P klasse="mt-4">
+                        <P klasse="mt-4 mb-6">
                             Schicke uns eine Anfrage und wir melden uns bei dir sobald es genug Verfügbarkeiten gibt!
                         </P>
                     </>
@@ -63,13 +63,13 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip, dates }) => {
             </div> */}
             <div className="flex items-center lg:mt-10 space-x-12 mt-4">
                 <img className="w-14" src={Mail.src} alt="" />
-                <P>
+                <P klasse="!font-semibold">
                     {" "}
-                    <a href={`mailto:${email}`}></a> {email}
+                    <a className="!font-semibold" href={`mailto:${email}`}></a> {email}
                 </P>
             </div>
             <MainButtonNOLink
-                klasse={` max-w-[20rem] mt-8 lg:mt-12 bg-primaryColor border-2 border-primaryColor `}
+                klasse={` lg:max-w-[20rem] mt-8 lg:mt-12 bg-primaryColor border-2 border-primaryColor `}
                 link={""}
                 onClick={() => {
                     setShowOverlay(true);
