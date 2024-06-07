@@ -364,7 +364,11 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                                     activeFilter={activeFilter}
                                     setActiveFilter={setActiveFilter}
                                 />
-                                <LinkGrid isEvent data={filteredEvents}></LinkGrid>{" "}
+                                {filteredEvents.length > 0 ? (
+                                    <LinkGrid isEvent data={filteredEvents}></LinkGrid>
+                                ) : (
+                                    <P> Leider keine Kurse vorhanden</P>
+                                )}
                             </motion.div>
                         ) : null}
                     </AnimatePresence>
