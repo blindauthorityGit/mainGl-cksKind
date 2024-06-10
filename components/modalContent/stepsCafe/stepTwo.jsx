@@ -6,9 +6,11 @@ import { MainButtonNOLink } from "../../buttons";
 import { FaChevronDown } from "react-icons/fa";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import de from "date-fns/locale/de";
-import { getDay, isToday, isAfter } from "date-fns";
+import { getDay, isToday, isAfter, format } from "date-fns";
 import { fetchFirestoreData } from "../../../config/firebase";
 import useStore from "../../../store/store";
+
+import client from "../../../client";
 
 registerLocale("de", de);
 setDefaultLocale("de");
@@ -20,6 +22,23 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     const [isFullyBooked, setIsFullyBooked] = useState(false);
     const updateFormData = useStore((state) => state.updateFormData);
     const formData = useStore((state) => state.formData);
+    const [exceptions, setExceptions] = useState([]);
+
+    //FETCH EXCEPRTIONS
+
+    useEffect(() => {
+        const fetchExceptions = async () => {
+            try {
+                const data = await client.fetch(`*[_type == "cafe"]`);
+                console.log(data[0].ausnahmen);
+                setExceptions(data[0].ausnahmen);
+            } catch (error) {
+                console.error("Error fetching exceptions:", error);
+            }
+        };
+
+        fetchExceptions();
+    }, []);
 
     useEffect(() => {
         if (startDate) {
@@ -101,19 +120,36 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
         return isWeekday && (isToday(date) || isAfter(date, new Date()));
     };
 
+    const isExceptionDate = (date) => {
+        const formattedDate = format(date, "yyyy-MM-dd");
+        return exceptions.some((exception) => exception.date === formattedDate);
+    };
+
+    const filterDate = (date) => {
+        const day = getDay(date);
+        return day !== 0 && day !== 6 && !isExceptionDate(date);
+    };
+
+    const getDayClassName = (date) => {
+        if (!filterDate(date)) {
+            return "";
+        }
+        return isWeekdayAndFutureDate(date) ? "weekday bg-primaryColor-200" : "";
+    };
+
     return (
         <div>
-            <H2 klasse="mt-4 mb-6">Datum und Zeit auswählen</H2>
-            <label
+            <H2 klasse="mt-4 mb-6">Datum und Zeit </H2>
+            {/* <label
                 htmlFor="date-picker"
                 className="block text-sm lg:text-lg font-semibold font-sans text-textColor mb-1"
             >
                 Datum auswählen:
-            </label>
+            </label> */}
             <div className="relative col-span-12">
                 <DatePicker
                     id="date-picker"
-                    className="col-span-12 text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
+                    className="col-span-12  text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
                     selected={startDate}
                     onChange={(date) => {
                         setStartDate(date);
@@ -122,23 +158,37 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                         setIsFullyBooked(false);
                         updateAvailableTimeSlots(date);
                     }}
-                    filterDate={(date) => {
-                        const day = getDay(date);
-                        return day !== 0 && day !== 6;
-                    }}
+                    // filterDate={(date) => {
+                    //     const day = getDay(date);
+                    //     return day !== 0 && day !== 6;
+                    // }}
+                    filterDate={filterDate}
+                    inline
                     minDate={new Date()}
                     locale="de-DE"
                     placeholderText="Datum auswählen"
                     dateFormat="dd/MM/yyyy"
-                    dayClassName={(date) => (isWeekdayAndFutureDate(date) ? "weekday bg-primaryColor-200" : "")}
+                    calendarContainer={(props) => (
+                        <div
+                            {...props}
+                            style={{
+                                width: "100%",
+                                color: "#57456a",
+                                display: "flex",
+                                justifyContent: "center",
+                                fontFamily: "Montserrat",
+                            }}
+                        />
+                    )} // Inline style for 100% width
+                    dayClassName={getDayClassName}
                 />
-                <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" />
+                {/* <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" /> */}
             </div>
             {startDate && (
                 <>
                     <label
                         htmlFor="time-select"
-                        className="block text-sm lg:text-lg font-semibold font-sans text-textColor mb-1"
+                        className="block text-sm lg:text-lg font-semibold font-sans text-textColor mb-1 mt-3"
                     >
                         Zeitfenster wählen:
                     </label>
@@ -160,7 +210,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                 </>
             )}
             {isFullyBooked && <P>Leider sind keine Zeitfenster für das gewählte Datum verfügbar.</P>}
-            <div className="w-full col-span-12 sm:mb-8 flex space-x-2 lg:space-x-4">
+            <div className="w-full col-span-12 sm:mb-8 absolute flex space-x-2 lg:space-x-4 bottom-0">
                 <MainButtonNOLink onClick={handlePrevStep} klasse="bg-textColor mt-4">
                     Zurück
                 </MainButtonNOLink>

@@ -17,6 +17,7 @@ import { Modal } from "../components/modal";
 import { MobileBar1, MobileBarCafe } from "../components/mobileBar";
 import { Full } from "../components/footer";
 import { Sub } from "../components/footer";
+import { StartModal } from "../components/modalContent/";
 
 //COOKIE
 import CookieConsent from "react-cookie-consent";
@@ -28,6 +29,9 @@ import useStore from "../store/store"; // Adjust the path to your store file
 //FX
 import { ParallaxProvider } from "react-scroll-parallax";
 import { AnimatePresence } from "framer-motion";
+
+// Sanity client
+import client from "../client"; // Adjust the path to your sanity client
 
 function MyApp({ Component, pageProps }) {
     const [showMobileBar, setShowMobileBar] = useState(false);
@@ -69,6 +73,25 @@ function MyApp({ Component, pageProps }) {
 
     //router
     const router = useRouter();
+
+    // Fetch modal settings from Sanity
+    useEffect(() => {
+        const fetchModalSettings = async () => {
+            try {
+                const settings = await client.fetch(`*[_type == "modalGeneral"][0]`);
+                console.log("GOMMA", settings.text);
+                if (settings && settings.active) {
+                    setModalContent(<StartModal data={settings.text}> </StartModal>);
+                    setShowModal(true);
+                    setShowOverlay(true);
+                }
+            } catch (error) {
+                console.error("Error fetching modal settings:", error);
+            }
+        };
+        console.log(StartModal);
+        fetchModalSettings();
+    }, []);
 
     useEffect(() => {
         // Function to call when the route changes
@@ -131,7 +154,7 @@ function MyApp({ Component, pageProps }) {
                 >
                     {modalContent}
                 </Modal>
-            )}{" "}
+            )}
             <AnimatePresence>
                 {showOverlay && (
                     <Overlay
@@ -147,7 +170,6 @@ function MyApp({ Component, pageProps }) {
                     />
                 )}
             </AnimatePresence>
-            {/* ...other components */}
             {isCafe ? (
                 <div className="">
                     <MobileBarCafe onClick={() => console.log("IS CLICKED")} />
@@ -182,7 +204,7 @@ function MyApp({ Component, pageProps }) {
                         </p>
                         <button
                             onClick={handleAcceptCookies}
-                            lassName="font-sans"
+                            className="font-sans"
                             style={{
                                 background: "#df3288",
                                 color: "white",
@@ -197,19 +219,6 @@ function MyApp({ Component, pageProps }) {
                         </button>
                     </div>
                 )}
-
-                {/* <CookieConsent
-                    location="bottom"
-                    buttonText="OK"
-                    cookieName="myAwesomeCookieName2"
-                    style={{ background: "#2B373B" }}
-                    buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
-                    expires={150}
-                >
-                    Wir nutzen Cookies, um unsere Website zu optimieren.
-
-                </CookieConsent> */}
-
                 <Full></Full>
                 <Sub></Sub>
             </ParallaxProvider>

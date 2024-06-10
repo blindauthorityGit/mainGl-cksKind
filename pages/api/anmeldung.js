@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
             // Set up Nodemailer
             const transporter = nodemailer.createTransport({
-                host: process.env.NEXT_DEV === "true" ? "smtp.strato.de" : "smtp.strato.de",
+                host: process.env.NEXT_DEV === "true" ? "smtp.world4you.com" : "smtp.strato.de",
                 port: 587,
                 secure: false,
                 auth: {
@@ -77,8 +77,8 @@ MAIN GLÜCKSKIND`;
 <p>MAIN GLÜCKSKIND</p>`;
 
             const userMailOptions = {
-                // from: "office@atelierbuchner.at",
-                from: "info@mainglueckskind.de",
+                from: "office@atelierbuchner.at",
+                // from: "info@mainglueckskind.de",
                 to: req.body.email,
                 subject: "Anmelde Bestätigung",
                 text: req.body.isPekip ? pekipText : nonPekipText,

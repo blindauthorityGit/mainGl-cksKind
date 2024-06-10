@@ -10,7 +10,7 @@ import client from "../../client";
 //COMPS
 import { BasicHero } from "../../components/Hero";
 import { EventSlider } from "../../components/slider";
-import { PortableTextEvent, RegularText, AnmeldeContent } from "../../components/content";
+import { PortableTextEvent, RegularText, AnmeldeContent, AnmeldeButton } from "../../components/content";
 import { Contact } from "../../components/content";
 import { Details } from "../../components/sidebar";
 import { LinkGrid } from "../../components/linkGrid";
@@ -70,6 +70,12 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                             <div className="col-span-12 lg:col-span-8 px-4 md:px-0">
                                 {" "}
                                 <BasicHero isEvent data={data}></BasicHero>
+                                <AnmeldeButton
+                                    email={data.eventDetails.partner.email}
+                                    events={data}
+                                    data={dataKontakt[0]}
+                                    isPekip={data.slug.current.includes("pekip")}
+                                ></AnmeldeButton>
                                 <PortableTextEvent
                                     isWorkshop={isWorkshop}
                                     blocks={data.content.content}

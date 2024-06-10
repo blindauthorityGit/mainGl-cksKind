@@ -65,8 +65,20 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
         <>
             <MainContainer width="container mx-auto px-4 lg:px-0">
                 <Meta data={data.seo}></Meta>
-
-                <BasicHero data={data.components[0]}></BasicHero>
+                <BasicHero data={data.components[0]}></BasicHero>{" "}
+                <MainButtonNOLink
+                    klasse="col-span-12 bg-primaryColor mb-8 mt-4"
+                    onClick={() => {
+                        setShowOverlay(true);
+                        setShowModal(true);
+                        setModalContent(<MultiStepReservation image={null} />);
+                    }}
+                >
+                    <div className="flex items-center space-x-4">
+                        <img src={Reservation.src} alt="" />
+                        <div>Plätze reservieren</div>
+                    </div>
+                </MainButtonNOLink>
                 <CardButtonHolder
                     isCafe
                     onClick={(e) => {
@@ -110,22 +122,8 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                 </div>
                 <Divider></Divider>
                 <Divider></Divider>
-
                 <GridGallery big data={data.components[7].images}></GridGallery>
                 <Divider></Divider>
-                <MainButtonNOLink
-                    klasse="col-span-12 bg-primaryColor mb-8 mt-4"
-                    onClick={() => {
-                        setShowOverlay(true);
-                        setShowModal(true);
-                        setModalContent(<MultiStepReservation image={null} />);
-                    }}
-                >
-                    <div className="flex items-center space-x-4">
-                        <img src={Reservation.src} alt="" />
-                        <div>Plätze reservieren</div>
-                    </div>
-                </MainButtonNOLink>
             </MainContainer>{" "}
             <FullWidthSection klasse="bg-[#BF567C] px-4 lg:px-0 py-10 2xl:!py-32" id="speisekarte">
                 <div className="col-span-12 grid grid-cols-12 lg:gap-12 lg:px-36">

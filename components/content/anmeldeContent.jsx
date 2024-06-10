@@ -14,6 +14,7 @@ import MultiStepForm from "../modalContent/steps/multiStepForm";
 import Pin from "../../assets/location.svg";
 import Phone from "../../assets/phonePink.svg";
 import Mail from "../../assets/emailNew.svg";
+import Anmelden from "../../assets/anmelden.svg";
 
 import useStore from "../../store/store";
 
@@ -86,6 +87,8 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip, dates }) => {
                     console.log("ANMELDUNG");
                 }}
             >
+                <img className="inline mr-4" src={Anmelden.src} alt="" />
+
                 {events.anfrage ? "Online Anfrage" : "ONLINE ANMELDUNG"}
             </MainButtonNOLink>
         </div>
