@@ -235,8 +235,8 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
                     />
 
                     <motion.div
-                        className={`flex-col justify-center flex text-center md:hidden ${
-                            !noCards ? "mt-[18svh]" : "mt-[3svh]"
+                        className={`flex-col justify-center flex text-center lg:hidden ${
+                            !noCards ? "mt-[18svh] md:mt-0" : "mt-[3svh]"
                         }  px-4`}
                     >
                         <H1 klasse="!mb-[5svh] lg:mb-0 xl:!mb-6">

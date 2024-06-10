@@ -185,7 +185,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                 {/* <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" /> */}
             </div>
             {startDate && (
-                <>
+                <div className=" mb-24">
                     <label
                         htmlFor="time-select"
                         className="block text-sm lg:text-lg font-semibold font-sans text-textColor mb-1 mt-3"
@@ -207,7 +207,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                             </option>
                         ))}
                     </select>
-                </>
+                </div>
             )}
             {isFullyBooked && <P>Leider sind keine Zeitfenster für das gewählte Datum verfügbar.</P>}
             <div className="w-full col-span-12 sm:mb-8 absolute flex space-x-2 lg:space-x-4 bottom-0">
