@@ -20,7 +20,7 @@ const StepThree = ({ handleSubmit, handlePrevStep, loading, success, error }) =>
                     <strong>Datum:</strong> {formData.date.toLocaleDateString("de-DE")}
                 </P>
                 <P>
-                    <strong>Zeitfenster:</strong> {formData.time}
+                    <strong>Zeitfenster:</strong> {formData.timeSlot}
                 </P>
                 <P>
                     <strong>Anzahl der Erwachsenen:</strong> {formData.guests}

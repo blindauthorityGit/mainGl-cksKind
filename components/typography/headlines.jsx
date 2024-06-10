@@ -14,7 +14,7 @@ const H1 = ({ children, klasse }) => {
 const H2 = ({ children, klasse }) => {
     return (
         <h2
-            className={`text-2xl font-ueber text-textColor  lg:text-2xl 2xl:text-4xl mb-4 lg:mb-10 font-thin  ${klasse}`}
+            className={`text-2xl font-ueber text-textColor md:text-3xl  lg:text-2xl xl:text-3xl 2xl:text-5xl mb-4 lg:mb-10 font-thin  ${klasse}`}
         >
             {children}
         </h2>

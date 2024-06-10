@@ -38,9 +38,7 @@ const SlideElement = ({ data, isWorkshop, aspectRatio }) => {
                 ) : null} */}
             </Link>
             <div className="px-2 hyphens-auto text-balance">
-                <H4 klasse={`${isWorkshop ? "!text-blueColor-100" : null} !font-sans !text-sm !font-semibold`}>
-                    {data.headline}
-                </H4>
+                <H4 klasse={`${isWorkshop ? "" : null} !font-sans !text-sm !font-semibold`}>{data.headline}</H4>
                 <div className="flex w-full items-center mt-4">
                     <div className="image">
                         {data.eventDetails.partner.isHidden ? (
@@ -53,27 +51,28 @@ const SlideElement = ({ data, isWorkshop, aspectRatio }) => {
                             />
                         ) : null}
                     </div>{" "}
-                    <P klasse={`text-xs ${isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}`}>
+                    {/* <P klasse={`text-xs ${isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}`}>
                         {data.eventDetails.partner.name}
-                    </P>
+                    </P> */}
                 </div>
                 <hr className="my-2" />
                 <div className="flex space-x-4 ">
                     <div className="date flex space-x-1 items-center">
                         <img src={Calendar.src} alt="" />
-                        <P klasse={`${isWorkshop ? "!text-blueColor-100" : null} !text-xs`}>
+                        <P klasse={`${isWorkshop ? "" : null} !text-xs`}>
                             {shortenYear(formatStringToDate(data.date).split(" ")[0])}
                         </P>
                     </div>
                     <div className="time flex space-x-1 items-center">
                         <img src={Time.src} alt="" />
-                        <P klasse={`${isWorkshop ? "!text-blueColor-100" : null} !text-xs`}>
+                        <P klasse={`${isWorkshop ? "" : null} !text-xs`}>
                             {" "}
                             {formatStringToDate(data.date).split(" ")[1]}
                         </P>
                     </div>
                 </div>
-                {/* <P klasse={isWorkshop ? "!text-blueColor-100" : null}>{formatStringToDate(data.date)}</P> */}
+                {/* <P klasse={isWorkshop ? "!text-blueColor-100" : null}>{formatString
+                    ToDate(data.date)}</P> */}
             </div>
         </div>
     );

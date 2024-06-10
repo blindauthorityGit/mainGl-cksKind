@@ -34,6 +34,7 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
     const router = useRouter();
 
     const [bgHeightAbsolute, setBGHeightAbsolute] = useState(0);
+    const [bgImgHeight, setBGImgHeight] = useState(0);
 
     const cards = [
         {
@@ -134,6 +135,9 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
         if (heightRef.current) {
             setBGHeightAbsolute(heightRef.current.clientHeight + 140 + "px");
         }
+        if (imgRef.current) {
+            setBGImgHeight(imgRef.current.clientHeight + 0 + "px");
+        }
     }, []);
 
     useEffect(() => {
@@ -163,13 +167,13 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
                     </motion.div>
                 </H1>
             </div>
-            <div className="absolute hidden lg:block xl:top-[52svh] 2xl:top-[50svh] z-20 w-[29svw]">
+            <div className="absolute hidden lg:block xl:top-[52svh] 2xl:top-[52svh] z-20 w-[29svw]">
                 <motion.div
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
                 >
-                    <P klasse="hidden md:block md:mb-10 lg:mb-0">{data.text}</P>
+                    <P klasse="hidden md:block md:mb-10 lg:mb-0 xl:!text-lg">{data.text}</P>
                 </motion.div>
             </div>
 
@@ -236,7 +240,7 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
 
                     <motion.div
                         className={`flex-col justify-center flex text-center lg:hidden ${
-                            !noCards ? "mt-[18svh] md:mt-0" : "mt-[3svh]"
+                            !noCards ? "mt-[18svh] :mt-0" : "mt-[3svh]"
                         }  px-4`}
                     >
                         <H1 klasse="!mb-[5svh] lg:mb-0 xl:!mb-6">
@@ -264,8 +268,8 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.8, duration: 0.8 }}
-                        style={{ height: `${bgHeightAbsolute}` }}
-                        className="absolute hidden lg:block bg-themeGreen-50 w-[104%] md:w-[106%] left-[-0.5rem] md:left-[-1rem] rounded-[40px] h-full top-[-4rem] md:top-[-1rem] lg:top-[-2rem] lg:w-full lg:right-[-2rem] lg:left-auto lg:translate-x-0 z-[0]"
+                        style={{ height: `${bgImgHeight}` }}
+                        className="absolute hidden lg:block bg-themeGreen-50 w-[104%] md:w-[106%] left-[-0.5rem] md:left-[-1rem] rounded-[10px] h-full top-[-4rem] md:top-[-1rem] lg:top-[-2rem] xl:top-[2rem] lg:w-full lg:right-[-2rem] lg:left-auto lg:translate-x-0 z-[0]"
                     ></motion.div>
                     {!noCards ? (
                         <motion.div

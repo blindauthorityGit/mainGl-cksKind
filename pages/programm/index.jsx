@@ -74,6 +74,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                 height: "100%",
                 right: 0,
                 width: "66%",
+                left: "-2rem",
             });
         }, 700);
         // Hide the cards
@@ -246,6 +247,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
             bottom: 0,
             height: 0,
             opacity: 0,
+            left: "-2rem",
             top: "auto",
         });
         if (!showData) {
@@ -281,7 +283,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                 <Divider></Divider>
 
                 {/* SECTION */}
-                <div className="col-span-12 px-4 lg:px-0 py-6 min-h-[100svh] relative pt-[16svh] md:pt-[24svh]">
+                <div className="col-span-12 px-4 lg:px-0 py-6 min-h-[100svh] relative pt-[16svh] md:pt-[24svh] xl:pt-[18svh]">
                     <SmallerDecal
                         klasse="absolute top-[7svh] w-[16vw] xl:hidden left-[75svw] z-0 opacity-20 !rotate-6"
                         motionProps={animationProps2}
@@ -317,11 +319,11 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                                     </P>
                                 </div>
                                 {/* CARDS */}
-                                <P klasse="!text-lg font-black mt-[5svh]">Wähle eine Kategorie:</P>
+                                <P klasse="!text-lg md:!text-2xl font-black mt-[5svh]">Wähle eine Kategorie:</P>
                                 <AnimatePresence>
                                     {showCards && (
                                         <motion.div
-                                            className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-2   mt-[4svh] lg:hidden"
+                                            className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-8 lg:px-8   mt-[4svh] "
                                             initial="hidden"
                                             animate="visible"
                                             exit="exit"
@@ -337,6 +339,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                                                         link={e.link}
                                                         onClick={e.onClick}
                                                         isWorkshop={e.isWorkshop}
+                                                        isBig
                                                     ></CatCard>
                                                 );
                                             })}
@@ -350,7 +353,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                             // initial={{ y: "-100%", opacity: 0.5 }}
                             animate={bgStyle}
                             transition={{ type: "spring", stiffness: 95, damping: 15 }}
-                            className="absolute BGBGBG bg-[#AFD3A2] transition w-full left-0 bottom-0 z-[-10] md:hidden"
+                            className="absolute BGBGBG HUGI bg-[#AFD3A2] transition w-full left-0 lg:left[-2rem] bottom-0 z-[-10] md:hidden"
                         />
                     </div>
                     <AnimatePresence>
