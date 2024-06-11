@@ -67,7 +67,7 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                 <Meta data={data.seo}></Meta>
                 <BasicHero data={data.components[0]}></BasicHero>{" "}
                 <MainButtonNOLink
-                    klasse="col-span-12 bg-primaryColor mb-8 mt-4"
+                    klasse="col-span-12 bg-primaryColor mb-8 mt-4 lg:hidden"
                     onClick={() => {
                         setShowOverlay(true);
                         setShowModal(true);
@@ -87,7 +87,7 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                         if (theme === "Reservierung") {
                             setShowOverlay(true);
                             setShowModal(true);
-                            setModalContent(<CafeReservierung image={data.reservationImage} />);
+                            setModalContent(<MultiStepReservation image={data.reservationImage} />);
                         }
                         if (theme === "Öffnungszeiten") {
                             setShowOverlay(true);
@@ -108,7 +108,7 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                         }
                     }}
                     data={data.components[1].cardButtons}
-                    klasse="mt-[-3rem] z-20"
+                    klasse="mt-[-3rem] z-20 xl:mb-12"
                 ></CardButtonHolder>
                 <div className="hidden 2xl:block">
                     <Divider></Divider>

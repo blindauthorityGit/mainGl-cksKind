@@ -145,6 +145,13 @@ export default {
       description: 'Gibt an, ob die Veranstaltung auf Anfrage ist',
     },
     {
+      name: 'produkte',
+      title: 'Produkte',
+      type: 'array',
+      of: [{type: 'product'}],
+      description: 'Liste der Produkte mit Titel und Preis',
+    },
+    {
       name: 'image',
       title: 'Hauptbild',
       type: 'image',

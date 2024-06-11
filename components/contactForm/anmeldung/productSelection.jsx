@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import formatStringToDate from "../../../functions/formatStringToDate";
 import useStore from "../../../store/store"; // Adjust the path as necessary
 
-const DateSelection = ({ events, onDateSelect }) => {
+const ProductSelection = ({ events, onDateSelect }) => {
     const formData = useStore((state) => state.formData);
     const updateFormData = useStore((state) => state.updateFormData);
 
@@ -30,45 +30,12 @@ const DateSelection = ({ events, onDateSelect }) => {
     }, [formData, setValue]);
 
     const handleDateChange = (e) => {
-        setSelectedDate(e.target.value);
         setIsValid(e.target.value !== "");
-        onDateSelect(e.target.value);
-        updateFormData({ date: e.target.value });
-    };
-
-    const currentDate = new Date();
-
-    let dateOptions = [];
-    if (events.isBlock && events.blocks && events.blocks.length > 0) {
-        dateOptions = events.blocks.map((block, index) => {
-            const startDate = new Date(block.dates[0].startDateTime);
-            const endDate = new Date(block.dates[block.dates.length - 1].startDateTime);
-            const hasFutureDate = block.dates.some((date) => new Date(date.startDateTime) >= currentDate);
-            return {
-                startDate: formatStringToDate(block.dates[0].startDateTime),
-                endDate: formatStringToDate(block.dates[block.dates.length - 1].startDateTime),
-                hasFutureDate,
-            };
-        });
-    } else if (Array.isArray(events.datum)) {
-        dateOptions = events.datum.map((date, index) => {
-            const startDate = new Date(date.startDateTime);
-            const endDate = new Date(date.endDateTime);
-            const hasFutureDate = new Date(date.startDateTime) >= currentDate;
-            return {
-                startDate: formatStringToDate(date.startDateTime),
-                endDate: formatStringToDate(date.endDateTime),
-                hasFutureDate,
-            };
-        });
-    }
-
-    const onSubmit = (data) => {
-        updateFormData({ date: selectedDate });
+        updateFormData({ produkte: e.target.value });
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="mb-8">
+        <form className="mb-8">
             <div className="items-center space-x-4 col-span-12 grid grid-cols-12">
                 <select
                     {...register("date", { required: true })}
@@ -78,16 +45,15 @@ const DateSelection = ({ events, onDateSelect }) => {
                     value={selectedDate}
                 >
                     <option className="text-sm lg:text-base" value="" disabled>
-                        {events.isBlock ? "Block wählen" : "Kurstermin wählen"}
+                        Produkt wählen
                     </option>
-                    {dateOptions.map((date, index) => (
+                    {events.produkte.map((date, index) => (
                         <option
                             key={index}
                             value={`${date.startDate} - ${date.endDate}`}
-                            disabled={!date.hasFutureDate}
                             className={`text-sm my-1 ${date.hasFutureDate ? "font-semibold" : "!opacity-10"}`}
                         >
-                            {`${date.startDate} - ${date.endDate}`}
+                            {`${date.title}`}
                         </option>
                     ))}
                 </select>
@@ -97,4 +63,4 @@ const DateSelection = ({ events, onDateSelect }) => {
     );
 };
 
-export default DateSelection;
+export default ProductSelection;

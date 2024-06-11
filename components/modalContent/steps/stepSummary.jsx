@@ -61,9 +61,9 @@ const StepSummary = ({ data, events }) => {
 
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8 font-sans">
-            <div className="col-span-12 xl:col-span-6 ">
+            <div className="col-span-12 xl:col-span-12 ">
                 <H4 klasse={`mb-3 mt-2`}>Zusammenfassung</H4>
-                <div className="wrapper mb-4 space-y-1 text-xs">
+                <div className="wrapper mb-4 space-y-1 text-xs lg:text-base">
                     <div className="flex justify-start items-center">
                         <p className="flex-1 font-bold">Name:</p>
                         <p className="flex-3">{formData.name}</p>

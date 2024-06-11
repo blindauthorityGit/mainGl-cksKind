@@ -33,6 +33,7 @@ import datumField from './components/datumField'
 import eventBlock from './components/block'
 import recurringEvent from './components/recurringEvent'
 import exceptions from './components/exceptions'
+import product from './components/product'
 
 //SECTIONS
 import partner from './sections/partner'
@@ -79,5 +80,6 @@ export const schemaTypes = [
   recurringEvent,
   modalGeneral,
   exceptions,
+  product,
   // Add more schema types as needed
 ]

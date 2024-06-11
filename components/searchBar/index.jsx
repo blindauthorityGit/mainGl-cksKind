@@ -38,7 +38,7 @@ const SearchBar = ({ data, onSearch }) => {
                         value={searchTerm}
                         onChange={handleSearchChange}
                         placeholder="Suchen..."
-                        className="absolute font-sans right-0 top-[-0.35rem] w-full p-2 border rounded shadow"
+                        className="absolute font-sans right-0 top-[-0.35rem] w-full lg:w-2/4 p-2 border rounded shadow"
                     />
                 )}
             </AnimatePresence>

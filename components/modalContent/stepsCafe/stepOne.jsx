@@ -18,7 +18,7 @@ const StepOne = ({ handleNextStep }) => {
     };
 
     return (
-        <div className="flex-grow">
+        <div className="flex-grow 2xl:w-2/4">
             <H2 klasse="mt-4 mb-6">Tischreservierung</H2>
             <P klasse="mb-6">Bitte geben Sie die Anzahl der Erwachsenen und Kinder an.</P>
             <label
@@ -29,7 +29,7 @@ const StepOne = ({ handleNextStep }) => {
             </label>
             <input
                 id="guest-number"
-                className="col-span-6 w-full mb-4 text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                className="col-span-6 w-full mb-4 text-xs lg:text-base border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                 type="number"
                 value={guests}
                 placeholder="Anzahl der Erwachsenen, z.B. 2"
@@ -45,7 +45,7 @@ const StepOne = ({ handleNextStep }) => {
             </label>
             <input
                 id="kids-number"
-                className="col-span-6 w-full mb-4 text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                className="col-span-6 w-full mb-4 text-xs lg:text-base border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                 type="number"
                 value={kids}
                 placeholder="Anzahl der Kinder, z.B. 1"

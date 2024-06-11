@@ -29,7 +29,7 @@ import ProgrammIcon from "../../../assets/programmIcon.svg";
 import PartyIcon from "../../../assets/partyIcon.svg";
 import AboutIcon from "../../../assets/aboutIcon.svg";
 
-const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
+const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
     const { width, height } = useWindowDimensions();
     const router = useRouter();
 
@@ -157,7 +157,7 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
         >
             {/* TEXT ABSOLUTE DESKTOP */}
             <div className="absolute hidden lg:block top-[23svh] z-20 w-[42svw]">
-                <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6">
+                <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6 2xl:!text-[5rem]">
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -167,7 +167,11 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
                     </motion.div>
                 </H1>
             </div>
-            <div className="absolute hidden lg:block xl:top-[52svh] 2xl:top-[52svh] z-20 w-[29svw]">
+            <div
+                className={`${
+                    twoLine ? "xl:top-[40svh] 2xl:top-[45svh]" : " xl:top-[52svh] 2xl:top-[48svh]"
+                } hidden lg:block absolute z-20 w-[29svw]`}
+            >
                 <motion.div
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -179,7 +183,7 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
 
             <div ref={heightRef} className="grid grid-cols-12 z-10 h-full lg:gap-24 xl:gap-0 relative">
                 <div className="col-span-12 lg:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
-                    <div className="wrapper space-x-6 hidden lg:flex mt-12">
+                    <div className="wrapper space-x-6 hidden lg:flex mt-[58svh]">
                         {data.buttons.map((e, i) => (
                             <motion.div
                                 key={i}
@@ -330,24 +334,26 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards }) => {
                         </div>
                     )}
                 </motion.div>
-                <motion.div
-                    className="col-span-12 grid-cols-2 lg:grid-cols-4 gap-6 px-4 hidden lg:grid"
-                    variants={container}
-                    initial="hidden"
-                    animate="visible"
-                >
-                    {cards.map((e, i) => (
-                        <CatCard
-                            key={i}
-                            order={e.order}
-                            text={e.text}
-                            bgColor={e.bgColor}
-                            icon={e.icon}
-                            isWhite={e.isWhite}
-                            link={e.link}
-                        />
-                    ))}
-                </motion.div>
+                {!noCards && (
+                    <motion.div
+                        className="col-span-12 grid-cols-2 lg:grid-cols-4 gap-6 px-4 hidden lg:grid"
+                        variants={container}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        {cards.map((e, i) => (
+                            <CatCard
+                                key={i}
+                                order={e.order}
+                                text={e.text}
+                                bgColor={e.bgColor}
+                                icon={e.icon}
+                                isWhite={e.isWhite}
+                                link={e.link}
+                            />
+                        ))}
+                    </motion.div>
+                )}
             </div>
             <SmallerDecal
                 klasse="absolute top-[8svh] xl:hidden w-[44svw] left-[29svw] z-0 opacity-20"

@@ -182,7 +182,7 @@ const Menu1 = (props) => {
                             <motion.img
                                 // src={scrolled ? LogoSimple.src : props.logo}
                                 src={props.logo}
-                                className="w-[26vw] lg:w-[10svw] fill-current-[#fff] absolute top-0"
+                                className="w-[26vw] lg:w-[10svw] 2xl:w-[8svw] fill-current-[#fff] absolute top-0"
                                 alt="Logo"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
@@ -260,7 +260,7 @@ const Menu1 = (props) => {
                         </div>
                         <div className="hidden lg:flex mt-0 pt-0 items-center col-span-2">
                             <MainButton klasse="bg-primaryColor !py-3" link="/programm">
-                                Jetzt buchen
+                                Unsere Kurse
                             </MainButton>
                         </div>
                         <div className="hidden lg:hidden ">

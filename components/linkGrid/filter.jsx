@@ -31,7 +31,7 @@ const FilterComponent = ({ dataEvents, setFilteredEvents, activeFilter, setActiv
     const activeFilterTextColor = getTextColorClass(activeFilter);
 
     return (
-        <div className="flex flex-wrap gap-4 lg:gap-2 col-span-6 mb-4 font-sans font-semibold relative">
+        <div className="flex flex-wrap gap-4 lg:gap-2 col-span-6 mb-4 font-sans font-semibold relative ">
             {/* Mobile Dropdown */}
             <div className="lg:hidden w-full">
                 <button
@@ -64,7 +64,7 @@ const FilterComponent = ({ dataEvents, setFilteredEvents, activeFilter, setActiv
             </div>
 
             {/* Desktop Buttons */}
-            <div className="hidden lg:flex flex-wrap gap-2 w-full">
+            <div className="hidden lg:flex flex-wrap gap-2 w-full lg:justify-center lg:mb-6">
                 {filters.map((filter) => {
                     const isActive = activeFilter === filter.name;
                     const textColorClass = getTextColorClass(filter.name);

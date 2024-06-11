@@ -392,9 +392,9 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
             <FullWidthSection klasse="bg-[#fff] py-8 lg:!py-32">
                 <Contact data={dataKontakt[0]}></Contact>
             </FullWidthSection>
-            <BigDecal></BigDecal>
+            {/* <BigDecal></BigDecal>
 
-            <BigDecal></BigDecal>
+            <BigDecal></BigDecal> */}
         </>
     );
 }

@@ -44,7 +44,7 @@ const ThankYou = ({ data, events }) => {
             animate="visible"
             variants={containerVariants}
         >
-            <div className="col-span-12 xl:col-span-6 text-center ">
+            <div className="col-span-12 xl:col-span-12 text-center ">
                 <H2 klasse={`mb-3 mt-2`}>Wir freuen uns auf dich!</H2>
                 <P>
                     Wir würden uns riesig freuen, wenn Du dir einen Moment Zeit nehmen könntest, um Deine Erfahrungen

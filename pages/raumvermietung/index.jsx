@@ -9,6 +9,7 @@ import client from "../../client";
 
 //COMPS
 import { MainHero } from "../../components/Hero";
+import OldHero from "../../components/Hero/mainHero/oldHero";
 import Meta from "../../components/SEO";
 import { PortableTextEvent } from "../../components/content";
 import { TextImage, Contact } from "../../components/content";
@@ -40,7 +41,7 @@ export default function Raumvermietung({ data, dataKontakt }) {
             <MainContainer width="container mx-auto">
                 <Meta data={data.seo}></Meta>
 
-                <MainHero
+                <OldHero
                     noCards
                     bgColor="#afd3a2"
                     modal={true}
@@ -48,7 +49,16 @@ export default function Raumvermietung({ data, dataKontakt }) {
                         e.preventDefault();
                     }}
                     data={data.components[0]}
-                ></MainHero>
+                ></OldHero>
+                {/* <MainHero
+                    noCards
+                    bgColor="#afd3a2"
+                    modal={true}
+                    onClick={(e) => {
+                        e.preventDefault();
+                    }}
+                    data={data.components[0]}
+                ></MainHero> */}
                 <div className="hidden 2xl:block">
                     <Divider></Divider>
                 </div>

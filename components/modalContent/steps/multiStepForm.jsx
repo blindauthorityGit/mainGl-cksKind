@@ -252,9 +252,9 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
             >
                 {currentStep != steps + 1 && <StepIndicator steps={steps} currentStep={currentStep} />}
             </div>
-            <div className="multi-step-form flex-grow flex flex-col">
+            <div className="multi-step-form flex-grow flex flex-col lg:w-[60%]">
                 {renderStep()}
-                <div className="navigation-buttons mt-auto grid grid-cols-2 gap-x-2">
+                <div className="navigation-buttons mt-auto grid grid-cols-2 gap-x-2 l">
                     {loading ? (
                         <div className="flex justify-center col-span-2">
                             <Rings height="80" width="80" color="#df3288" radius="6" visible={true} />
@@ -298,7 +298,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
                         </>
                     )}
                 </div>
-            </div>
+            </div>{" "}
         </>
     );
 };

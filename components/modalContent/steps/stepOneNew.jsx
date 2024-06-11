@@ -5,6 +5,7 @@ import { CoverImage } from "../../images";
 import urlFor from "../../../functions/urlFor";
 
 import DateSelection from "../../contactForm/anmeldung/dateSelection";
+import ProductSelection from "../../contactForm/anmeldung/productSelection";
 
 import { AnmeldeForm } from "../../contactForm";
 
@@ -129,6 +130,7 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
                 {isPekip || events.recurringDates ? null : (
                     <DateSelection events={events} onDateSelect={handleDateSelect} />
                 )}
+                {events.produkte ? <ProductSelection events={events} onDateSelect={handleDateSelect} /> : null}
             </div>
         </div>
     );

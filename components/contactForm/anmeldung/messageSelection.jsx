@@ -31,7 +31,7 @@ const MessageSelection = () => {
             <div className="items-center col-span-12 grid grid-cols-12">
                 <label
                     htmlFor="message"
-                    className="text-xs col-span-12 mb-2 font-sans text-textColor whitespace-nowrap font-semibold"
+                    className="text-xs lg:text-lg col-span-12 mb-2 font-sans text-textColor whitespace-nowrap font-semibold"
                 >
                     Nachricht
                 </label>
@@ -42,7 +42,7 @@ const MessageSelection = () => {
                     id="message"
                     name="message"
                     value={formData.message || ""}
-                    className="text-xs border-2 col-span-12 rounded-lg border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                    className="text-xs lg:text-lg border-2 col-span-12 rounded-lg border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                     onChange={handleInputChange}
                 />
                 {errors.message && (

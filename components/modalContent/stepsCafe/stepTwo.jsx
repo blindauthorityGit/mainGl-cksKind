@@ -138,7 +138,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     };
 
     return (
-        <div>
+        <div className="xl:w-2/4">
             <H2 klasse="mt-4 mb-6">Datum und Zeit </H2>
             {/* <label
                 htmlFor="date-picker"
@@ -146,10 +146,10 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
             >
                 Datum auswählen:
             </label> */}
-            <div className="relative col-span-12">
+            <div className="relative col-span-12 xl:hidden">
                 <DatePicker
                     id="date-picker"
-                    className="col-span-12  text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
+                    className="col-span-12  text-xs lg:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
                     selected={startDate}
                     onChange={(date) => {
                         setStartDate(date);
@@ -184,11 +184,48 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                 />
                 {/* <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" /> */}
             </div>
+            <div className="relative col-span-12 hidden xl:block">
+                <DatePicker
+                    id="date-picker"
+                    className="col-span-12  text-xs lg:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
+                    selected={startDate}
+                    onChange={(date) => {
+                        setStartDate(date);
+                        setTimeSlot("");
+                        setAvailableTimeSlots([]);
+                        setIsFullyBooked(false);
+                        updateAvailableTimeSlots(date);
+                    }}
+                    // filterDate={(date) => {
+                    //     const day = getDay(date);
+                    //     return day !== 0 && day !== 6;
+                    // }}
+                    filterDate={filterDate}
+                    minDate={new Date()}
+                    locale="de-DE"
+                    placeholderText="Datum auswählen"
+                    dateFormat="dd/MM/yyyy"
+                    calendarContainer={(props) => (
+                        <div
+                            {...props}
+                            style={{
+                                width: "100%",
+                                color: "#57456a",
+                                display: "flex",
+                                justifyContent: "center",
+                                fontFamily: "Montserrat",
+                            }}
+                        />
+                    )} // Inline style for 100% width
+                    dayClassName={getDayClassName}
+                />
+                {/* <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" /> */}
+            </div>
             {startDate && (
                 <div className=" mb-24">
                     <label
                         htmlFor="time-select"
-                        className="block text-sm lg:text-lg font-semibold font-sans text-textColor mb-1 mt-3"
+                        className="block text-sm lg:text-lg lg:text-lg font-semibold font-sans text-textColor mb-1 mt-3"
                     >
                         Zeitfenster wählen:
                     </label>
@@ -196,7 +233,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                         id="time-select"
                         value={timeSlot}
                         onChange={(e) => setTimeSlot(e.target.value)}
-                        className="col-span-6 w-full mb-4 text-xs border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                        className="col-span-6 w-full mb-4 text-xs lg:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                     >
                         <option disabled value="">
                             Zeitfenster wählen

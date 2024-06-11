@@ -67,7 +67,7 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
                 <Contact data={dataKontakt[0]}></Contact>
             </FullWidthSection>
 
-            <BigDecal></BigDecal>
+            {/* <BigDecal></BigDecal> */}
         </>
     );
 }

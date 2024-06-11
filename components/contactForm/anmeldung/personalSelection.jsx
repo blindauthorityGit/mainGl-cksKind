@@ -34,25 +34,25 @@ const PersonalSelection = ({ events, onDateSelect }) => {
             </div>
             <label
                 htmlFor="name"
-                className="text-xs col-span-12 mb-2 lg:mb-0 lg:col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
+                className="text-xs lg:text-base  col-span-12  mb-2 lg:mb-0 lg:col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
             >
                 Dein Name
             </label>
             <input
                 {...register("name", { required: true })}
                 id="name"
-                className="col-span-12 mb-3 border-2 text-xs rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                className="col-span-12 lg:col-span-8 mb-3 border-2 text-xs lg:text-base  rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                 type="text"
                 placeholder="Name"
                 onChange={handleInputChange}
                 value={formData.name}
             />
             {errors.name && (
-                <Error klasse="col-span-12 text-themeRed text-xs">Bitte geben Sie Ihren vollen Namen an</Error>
+                <Error klasse="col-span-12 text-themeRed text-xs ">Bitte geben Sie Ihren vollen Namen an</Error>
             )}
             <label
                 htmlFor="wohnort"
-                className="text-xs col-span-12 mb-2 lg:mb-0 lg:col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
+                className="text-xs lg:text-base  col-span-12 mb-2 lg:mb-0 lg:col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
             >
                 Dein Wohnort
             </label>
@@ -63,12 +63,12 @@ const PersonalSelection = ({ events, onDateSelect }) => {
                 id="wohnort"
                 type="text"
                 placeholder="Wohnort"
-                className="col-span-12 text-xs mb-3  border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                className="col-span-1 lg:col-span-8 2 text-xs lg:text-base  mb-3  border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
             />
             {errors.phone && <Error klasse="col-span-12 text-themeRed text-xs">Bitte geben Sie Ihren Wohnort an</Error>}
             <label
                 htmlFor="email"
-                className="text-xs col-span-12 mb-2 lg:mb-0 lg:col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
+                className="text-xs lg:text-base  col-span-12 mb-2 lg:mb-0 lg:col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
             >
                 Deine Email
             </label>
@@ -77,7 +77,7 @@ const PersonalSelection = ({ events, onDateSelect }) => {
                 name="email"
                 id="email"
                 value={formData.email}
-                className="col-span-12 text-xs mb-3 border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                className="col-span-12 lg:col-span-8 text-xs lg:text-base  mb-3 border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                 type="email"
                 placeholder="Ihre Email"
                 onChange={handleInputChange}
@@ -87,9 +87,9 @@ const PersonalSelection = ({ events, onDateSelect }) => {
             )}
             <label
                 htmlFor="telefon"
-                className="text-xs col-span-12 mb-2 lg:mb-0 lg:col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
+                className="text-xs lg:text-base  col-span-12 mb-2 lg:mb-0 lg:col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
             >
-                Deine Telefonnummer
+                Telefonnummer
             </label>
             <input
                 {...register("phone", { required: true })}
@@ -98,7 +98,7 @@ const PersonalSelection = ({ events, onDateSelect }) => {
                 value={formData.phone}
                 id="telefon"
                 placeholder="Telefon"
-                className="col-span-12 text-xs  border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                className="col-span-12 lg:col-span-8 text-xs lg:text-base  border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
             />
             {errors.phone && (
                 <Error klasse="col-span-12 text-themeRed text-xs">Bitte geben Sie Ihre Telefonnummer an</Error>

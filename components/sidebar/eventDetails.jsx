@@ -155,7 +155,7 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                         {datesToShow.map((date, dateIndex) => (
                             <div
                                 key={dateIndex}
-                                className={` flex justify-start text-sm ${
+                                className={` flex justify-start text-sm lg:text-base ${
                                     isWorkshop && !isMobile ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"
                                 }`}
                             >

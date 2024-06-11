@@ -8,7 +8,8 @@ import { StickyContainer, Sticky } from "react-sticky";
 import client from "../../client";
 
 //COMPS
-import { MainHero } from "../../components/Hero";
+// import { MainHero } from "../../components/Hero";
+import OldHero from "../../components/Hero/mainHero/oldHero";
 import Meta from "../../components/SEO";
 import { PortableTextEvent } from "../../components/content";
 import { TextImage, Contact } from "../../components/content";
@@ -39,7 +40,8 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
             <MainContainer width="container mx-auto">
                 <Meta data={data.seo}></Meta>
 
-                <MainHero modal bgColor="#E9B4C7" data={data.components[0]} noCards></MainHero>
+                <OldHero modal bgColor="#E9B4C7" data={data.components[0]} noCards twoLine></OldHero>
+                {/* <MainHero modal bgColor="#E9B4C7" data={data.components[0]} noCards twoLine></MainHero> */}
                 <div className="hidden 2xl:block">
                     <Divider></Divider>
                 </div>

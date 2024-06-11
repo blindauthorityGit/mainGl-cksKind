@@ -70,12 +70,15 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                             <div className="col-span-12 lg:col-span-8 px-4 md:px-0">
                                 {" "}
                                 <BasicHero isEvent data={data}></BasicHero>
-                                <AnmeldeButton
-                                    email={data.eventDetails.partner.email}
-                                    events={data}
-                                    data={dataKontakt[0]}
-                                    isPekip={data.slug.current.includes("pekip")}
-                                ></AnmeldeButton>
+                                <div className="lg:hidden justify-end">
+                                    <AnmeldeButton
+                                        email={data.eventDetails.partner.email}
+                                        events={data}
+                                        data={dataKontakt[0]}
+                                        isPekip={data.slug.current.includes("pekip")}
+                                        klasse="justify-end"
+                                    ></AnmeldeButton>
+                                </div>
                                 <PortableTextEvent
                                     isWorkshop={isWorkshop}
                                     blocks={data.content.content}
@@ -101,7 +104,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                         </div>
                     </MainContainer>{" "}
                     <Divider></Divider>
-                    <FullWidthSection klasse="bg-[#fff] pt-10 pb-0 lg:!py-16 2xl:!py-32">
+                    <FullWidthSection klasse="bg-[#fff] lg:bg-themeGreen-300 pt-10 pb-0 lg:!py-16 2xl:!py-32">
                         <div className="col-span-12 lg:hidden px-6">
                             <Details isWorkshop={isWorkshop} isMobile={true} data={data}></Details>{" "}
                             {/* <hr className="mb-4" /> */}

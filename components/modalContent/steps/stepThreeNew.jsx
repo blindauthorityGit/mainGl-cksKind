@@ -11,7 +11,7 @@ const StepThreeNew = forwardRef(({ data, events, updateFormData }, ref) => {
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8">
             <div className="col-span-12 h-full relative">
-                <H4 klasse={`my-4`}>Angaben zu dir</H4>
+                <H4 klasse={`my-4 lg:!text-xl`}>Angaben zu dir</H4>
             </div>
             <PersonalSelection events={events} />
         </div>
