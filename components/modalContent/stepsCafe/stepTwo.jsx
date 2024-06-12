@@ -149,7 +149,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
             <div className="relative col-span-12 xl:hidden">
                 <DatePicker
                     id="date-picker"
-                    className="col-span-12  text-xs lg:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
+                    className="col-span-12  text-xs 2xl:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
                     selected={startDate}
                     onChange={(date) => {
                         setStartDate(date);
@@ -187,7 +187,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
             <div className="relative col-span-12 hidden xl:block">
                 <DatePicker
                     id="date-picker"
-                    className="col-span-12  text-xs lg:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
+                    className="col-span-12  text-xs 2xl:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
                     selected={startDate}
                     onChange={(date) => {
                         setStartDate(date);
@@ -225,7 +225,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                 <div className=" mb-24">
                     <label
                         htmlFor="time-select"
-                        className="block text-sm lg:text-lg lg:text-lg font-semibold font-sans text-textColor mb-1 mt-3"
+                        className="block text-sm  2xl:text-lg font-semibold font-sans text-textColor mb-1 mt-3"
                     >
                         Zeitfenster wählen:
                     </label>
@@ -233,7 +233,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                         id="time-select"
                         value={timeSlot}
                         onChange={(e) => setTimeSlot(e.target.value)}
-                        className="col-span-6 w-full mb-4 text-xs lg:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                        className="col-span-6 w-full mb-4 text-xs 2xl:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                     >
                         <option disabled value="">
                             Zeitfenster wählen

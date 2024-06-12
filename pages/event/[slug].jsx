@@ -110,7 +110,11 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                             {/* <hr className="mb-4" /> */}
                         </div>
                         <AnmeldeContent
-                            email={data.eventDetails.partner.email}
+                            email={
+                                data.eventDetails.partner.email
+                                    ? data.eventDetails.partner.email
+                                    : "info@mainglueckskind.de"
+                            }
                             events={data}
                             data={dataKontakt[0]}
                             isPekip={data.slug.current.includes("pekip")}

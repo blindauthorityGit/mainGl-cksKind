@@ -64,6 +64,13 @@ const StepSummary = ({ data, events }) => {
             <div className="col-span-12 xl:col-span-12 ">
                 <H4 klasse={`mb-3 mt-2`}>Zusammenfassung</H4>
                 <div className="wrapper mb-4 space-y-1 text-xs lg:text-base">
+                    {formData.produkt && (
+                        <div className="flex justify-start items-center">
+                            <p className="flex-1 font-bold">Produkt:</p>
+                            <p className="flex-3">{formData.produkt}</p>
+                        </div>
+                    )}
+
                     <div className="flex justify-start items-center">
                         <p className="flex-1 font-bold">Name:</p>
                         <p className="flex-3">{formData.name}</p>
@@ -98,10 +105,12 @@ const StepSummary = ({ data, events }) => {
                             <p className="flex-3">{formData.siblings}</p>
                         </div>
                     )}
-                    <div className="flex justify-start items-center">
-                        <p className="flex-1 font-bold">Termin:</p>
-                        <p className="flex-3">{formData.date}</p>
-                    </div>
+                    {formData.date && (
+                        <div className="flex justify-start items-center">
+                            <p className="flex-1 font-bold">Termin:</p>
+                            <p className="flex-3">{formData.date}</p>
+                        </div>
+                    )}
                 </div>
 
                 {/* Checkbox für die Zustimmung */}

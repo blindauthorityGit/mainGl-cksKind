@@ -14,6 +14,7 @@ import formatDateTime from "../../functions/formatDateTime";
 
 // ASSETS
 import Calendar from "../../assets/calendar.svg";
+import CalendarWhite from "../../assets/calendarWhite.svg";
 
 // STORE
 import useStore from "../../store/store"; // Adjust the path to your store file
@@ -268,7 +269,8 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                         isWorkshop && !isMobile ? "!text-white" : "text-textColor"
                     }`}
                 >
-                    <img width="24px" src={Calendar.src}></img>
+                    <img width="24px" className="xl:hidden" src={Calendar.src}></img>
+                    <img width="24px" className="hidden xl:block" src={CalendarWhite.src}></img>
                     <span>Termine</span>
                 </H4>
                 {renderDates(isWorkshop)}

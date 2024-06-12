@@ -20,7 +20,7 @@ const PersonalSelection = ({ events, onDateSelect }) => {
     };
 
     return (
-        <div className=" items-center  col-span-12 grid grid-cols-12">
+        <div className=" items-center  col-span-12 grid grid-cols-12 xl:mb-16">
             <div className="hidden">
                 <label htmlFor="firstName">Name</label>
                 <input
@@ -63,7 +63,7 @@ const PersonalSelection = ({ events, onDateSelect }) => {
                 id="wohnort"
                 type="text"
                 placeholder="Wohnort"
-                className="col-span-1 lg:col-span-8 2 text-xs lg:text-base  mb-3  border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                className="col-span-12 lg:col-span-8 2 text-xs lg:text-base  mb-3  border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
             />
             {errors.phone && <Error klasse="col-span-12 text-themeRed text-xs">Bitte geben Sie Ihren Wohnort an</Error>}
             <label

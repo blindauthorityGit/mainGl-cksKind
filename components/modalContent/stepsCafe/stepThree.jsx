@@ -36,7 +36,7 @@ const StepThree = ({ handleSubmit, handlePrevStep, loading, success, error }) =>
                 value={formData.name || ""}
                 onChange={(e) => updateFormData({ name: e.target.value })}
                 placeholder="Name"
-                className="col-span-6 w-full mb-4 text-xs lg:text-base border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                className="col-span-6 w-full mb-4 text-xs 2xl:text-base border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                 required
             />
             <input
@@ -44,7 +44,7 @@ const StepThree = ({ handleSubmit, handlePrevStep, loading, success, error }) =>
                 value={formData.telefon || ""}
                 onChange={(e) => updateFormData({ telefon: e.target.value })}
                 placeholder="Telefon"
-                className="col-span-6 w-full mb-4 text-xs lg:text-base border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                className="col-span-6 w-full mb-4 text-xs 2xl:text-base border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                 required
             />
             <input
@@ -52,7 +52,7 @@ const StepThree = ({ handleSubmit, handlePrevStep, loading, success, error }) =>
                 value={formData.email || ""}
                 onChange={(e) => updateFormData({ email: e.target.value })}
                 placeholder="Email"
-                className="col-span-6 w-full mb-4 text-xs lg:text-base border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                className="col-span-6 w-full xl:mb-36 mb-4 text-xs 2xl:text-base border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                 required
             />
             <div className="w-full col-span-12 sm:mb-8 absolute flex space-x-2 lg:space-x-4 bottom-0">

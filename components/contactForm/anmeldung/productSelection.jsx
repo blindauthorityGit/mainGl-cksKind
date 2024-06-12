@@ -18,12 +18,13 @@ const ProductSelection = ({ events, onDateSelect }) => {
         },
     });
 
-    const [selectedDate, setSelectedDate] = useState(formData.date || "");
-    const [isValid, setIsValid] = useState(selectedDate !== "");
+    const [selectedProduct, setSelectedProduct] = useState(formData.produkt || "");
+    const [isValid, setIsValid] = useState(selectedProduct !== "");
 
     useEffect(() => {
-        setIsValid(selectedDate !== "");
-    }, [selectedDate]);
+        setIsValid(setSelectedProduct !== "");
+        console.log(selectedProduct);
+    }, [selectedProduct]);
 
     useEffect(() => {
         setValue("date", formData.date || "");
@@ -31,7 +32,10 @@ const ProductSelection = ({ events, onDateSelect }) => {
 
     const handleDateChange = (e) => {
         setIsValid(e.target.value !== "");
-        updateFormData({ produkte: e.target.value });
+        setSelectedProduct(e.target.value);
+
+        console.log(e.target.value);
+        updateFormData({ produkt: e.target.value });
     };
 
     return (
@@ -42,7 +46,7 @@ const ProductSelection = ({ events, onDateSelect }) => {
                     id="date"
                     onChange={handleDateChange}
                     className="text-xs lg:text-base col-span-12 border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
-                    value={selectedDate}
+                    value={selectedProduct}
                 >
                     <option className="text-sm lg:text-base" value="" disabled>
                         Produkt wählen
@@ -50,10 +54,10 @@ const ProductSelection = ({ events, onDateSelect }) => {
                     {events.produkte.map((date, index) => (
                         <option
                             key={index}
-                            value={`${date.startDate} - ${date.endDate}`}
+                            value={`${date.title} - ${date.price}`}
                             className={`text-sm my-1 ${date.hasFutureDate ? "font-semibold" : "!opacity-10"}`}
                         >
-                            {`${date.title}`}
+                            {`${date.title} - ${date.price}`}
                         </option>
                     ))}
                 </select>

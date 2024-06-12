@@ -297,7 +297,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                         </div>
                         {showData ? (
                             <span
-                                className="font-semibold mb-4 flex items-center space-x-2 text-textColor"
+                                className="font-semibold hover:scale-125 transition cursor-pointer mb-4 inline-flex items-center space-x-2 text-textColor"
                                 onClick={() => {
                                     setShowData(false);
                                     router.push(``, undefined, { shallow: true });
@@ -307,7 +307,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                                 }}
                             >
                                 <img className="rotate-90" src={Down.src} alt="" />
-                                <span>zurück</span>
+                                <span className="">zurück</span>
                             </span>
                         ) : null}
                         {!showData ? (

@@ -157,7 +157,7 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
         >
             {/* TEXT ABSOLUTE DESKTOP */}
             <div className="absolute hidden lg:block top-[23svh] z-20 w-[42svw]">
-                <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6 2xl:!text-[5rem]">
+                <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6 xl:!text-[3.2rem] 2xl:!text-[5rem]">
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -169,7 +169,7 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
             </div>
             <div
                 className={`${
-                    twoLine ? "xl:top-[40svh] 2xl:top-[45svh]" : " xl:top-[52svh] 2xl:top-[48svh]"
+                    twoLine ? "xl:top-[40svh] 2xl:top-[45svh]" : " xl:top-[40svh] 2xl:top-[48svh]"
                 } hidden lg:block absolute z-20 w-[29svw]`}
             >
                 <motion.div
@@ -177,7 +177,7 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
                 >
-                    <P klasse="hidden md:block md:mb-10 lg:mb-0 xl:!text-lg">{data.text}</P>
+                    <P klasse="hidden md:block md:mb-10 lg:mb-0 2xl:!text-lg">{data.text}</P>
                 </motion.div>
             </div>
 
@@ -230,14 +230,14 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
                         ))}
                     </div>
                 </div>
-                <motion.div className="col-span-12 lg:col-span-7 relative z-10 md:mt-0 lg:mt-[8svh]">
+                <motion.div className="col-span-12 lg:col-span-7 relative z-10 md:mt-0 lg:mt-[12svh] 2xl:mt-[8svh]">
                     <CoverImage
                         src={urlFor(data.image).url()} // Replace with the actual path to your image
                         mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
                         alt="Cover Background"
                         className={`w-full z-20 ${
                             !noCards ? "hidden" : null
-                        }  lg:block relative rounded-[10px] overflow-hidden aspect-[1/0.73] md:aspect-[1/0.7] 2xl:aspect-[1/0.77]`}
+                        }  lg:block relative rounded-[10px] overflow-hidden aspect-[1/0.73] md:aspect-[1/0.7] lg:aspect-[1/0.56] 2xl:aspect-[1/0.77]`}
                         ref={imgRef}
                         priority={true}
                     />

@@ -27,7 +27,7 @@ const MessageSelection = () => {
     };
 
     return (
-        <div className="items-center col-span-12 grid grid-cols-12">
+        <div className="items-center col-span-12 grid grid-cols-12 xl:mb-16">
             <div className="items-center col-span-12 grid grid-cols-12">
                 <label
                     htmlFor="message"
