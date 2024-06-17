@@ -11,6 +11,7 @@ export default async function handler(req, res) {
                 const docRef = await addDoc(collection(db, "anmeldung_kurse"), req.body);
                 console.log("Document ID: ", docRef.id);
             } else {
+                console.log(req.body);
                 console.log("Skipping Firestore save in development mode.");
             }
 

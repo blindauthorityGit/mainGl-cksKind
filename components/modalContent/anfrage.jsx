@@ -39,7 +39,7 @@ const Anfrage = ({ cafe, raum, kindergeburtstag, image }) => {
                     mobileSrc={urlFor(image).url()}
                     alt="Cover Background"
                     // style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1" }}
-                    className={`w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/1.5] xl:aspect-[1/1.25]
+                    className={`w-full z-20 relative rounded-[40px] overflow-hidden aspect-[1/1.5] 2xl:aspect-[1/1.65]
                     }`}
                 />
             </div>

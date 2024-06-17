@@ -259,8 +259,6 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
                         <div className="flex justify-center col-span-2">
                             <Rings height="80" width="80" color="#df3288" radius="6" visible={true} />
                         </div>
-                    ) : submissionStatus === "success" ? (
-                        <P klasse="!text-green-500 col-span-2"></P>
                     ) : submissionStatus === "failed" ? (
                         <P klasse="!text-red-500 col-span-2">
                             Fehler bei der Anmeldung. Bitte versuchen Sie es später erneut.

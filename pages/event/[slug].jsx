@@ -153,7 +153,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                     <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
                         <Contact data={dataKontakt[0]}></Contact>
                     </FullWidthSection>
-                    <BigDecal></BigDecal>
+                    {/* <BigDecal></BigDecal> */}
                 </>
             ) : (
                 <>LOADING</>
