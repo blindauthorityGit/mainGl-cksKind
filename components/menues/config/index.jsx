@@ -45,12 +45,12 @@ const menuItems = [
 const socialMedia = [
     {
         title: "Facebook",
-        link: "http://www.facebook.com/piz1000",
+        link: "https://www.facebook.com/MainGlueckskind.dreieich/",
         icon: <FaFacebook></FaFacebook>,
     },
     {
-        title: "Inbstagram",
-        link: "http://www.instagram.com",
+        title: "Instagram",
+        link: "https://www.instagram.com/mainglueckskind.dreieich/",
         icon: <FaInstagram></FaInstagram>,
     },
 ];
