@@ -29,7 +29,7 @@ const ChildSelection = ({ events, onDateSelect }) => {
     };
 
     return (
-        <div className="items-center col-span-12 grid grid-cols-12 lg:gap-6 xl:mb-16">
+        <div className="col-span-12 grid grid-cols-12 lg:gap-6 xl:mb-16">
             <div className=" lg:space-x-4 col-span-12 grid grid-cols-12 mb-3">
                 <label
                     htmlFor="birthDate"

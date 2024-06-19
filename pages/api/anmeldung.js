@@ -4,7 +4,13 @@ import { db } from "../../config/firebase"; // Adjust this import according to y
 import axios from "axios";
 
 async function subscribeToNewsletter(email, name, phone) {
-    console.log(process.env.NEXT_MAILCHIMP_SERVER_PREFIX, process.env.NEXT_MAILCHIMP_LIST_ID, NEXT_MAILCHIMP_API_KEY);
+    const mailchimpApiKey = process.env.NEXT_MAILCHIMP_API_KEY;
+    const mailchimpServerPrefix = process.env.NEXT_MAILCHIMP_SERVER_PREFIX;
+    const mailchimpListId = process.env.NEXT_MAILCHIMP_LIST_ID;
+    console.log(mailchimpApiKey, mailchimpServerPrefix, mailchimpListId);
+    if (!mailchimpApiKey || !mailchimpServerPrefix || !mailchimpListId) {
+        throw new Error("Mailchimp environment variables are not defined.");
+    }
     const data = {
         email_address: email,
         status: "subscribed",
@@ -48,6 +54,8 @@ async function subscribeToNewsletter(email, name, phone) {
 
 export default async function handler(req, res) {
     console.log(req.body.trainerEmail);
+    console.log(process.env.NEXT_MAILCHIMP_API_KEY); // Correct way to access the environment variable
+
     if (req.method === "POST") {
         try {
             if (req.body.newsletter) {
