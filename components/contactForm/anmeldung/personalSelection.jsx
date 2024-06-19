@@ -20,7 +20,7 @@ const PersonalSelection = ({ events, onDateSelect }) => {
     };
 
     return (
-        <div className=" items-center  col-span-12 grid grid-cols-12 xl:mb-16">
+        <div className="   col-span-12 grid grid-cols-12 xl:mb-16">
             <div className="hidden">
                 <label htmlFor="firstName">Name</label>
                 <input
