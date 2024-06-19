@@ -30,7 +30,7 @@ const ChildSelection = ({ events, onDateSelect }) => {
 
     return (
         <div className="items-center col-span-12 grid grid-cols-12 lg:gap-6 xl:mb-16">
-            <div className="items-center lg:space-x-4 col-span-12 grid grid-cols-12 mb-3">
+            <div className=" lg:space-x-4 col-span-12 grid grid-cols-12 mb-3">
                 <label
                     htmlFor="birthDate"
                     className="text-xs lg:text-base col-span-12 mb-2 lg:mb-0 lg:col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"
@@ -52,7 +52,7 @@ const ChildSelection = ({ events, onDateSelect }) => {
                     </div>
                 )}
             </div>
-            <div className="items-center lg:space-x-4 col-span-12 grid grid-cols-12  mb-3">
+            <div className=" lg:space-x-4 col-span-12 grid grid-cols-12  mb-3">
                 <label
                     htmlFor="twins"
                     className="text-xs lg:text-base col-span-12 lg:col-span-4 mb-2 font-sans text-textColor whitespace-nowrap font-semibold"
@@ -78,7 +78,7 @@ const ChildSelection = ({ events, onDateSelect }) => {
                 )}
             </div>
 
-            <div className="items-center lg:space-x-4 col-span-12 grid grid-cols-12  mb-3">
+            <div className=" lg:space-x-4 col-span-12 grid grid-cols-12  mb-3">
                 <label
                     htmlFor="siblings"
                     className="text-xs lg:text-base mb-2 lg:mb-0 col-span-12 lg:col-span-4 font-sans text-textColor whitespace-nowrap font-semibold"

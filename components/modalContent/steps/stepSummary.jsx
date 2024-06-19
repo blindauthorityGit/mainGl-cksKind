@@ -15,14 +15,24 @@ const StepSummary = ({ data, events }) => {
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(true);
     const [isCheckboxChecked2, setIsCheckboxChecked2] = useState(true);
     const formData = useStore((state) => state.formData);
+    const setFormData = useStore((state) => state.setFormData);
 
     let isWorkshop = false;
 
     const intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus ut perferendis ratione.";
 
     useEffect(() => {
+        setFormData({
+            ...formData,
+            newsletter: isCheckboxChecked,
+            datenschutz: isCheckboxChecked2,
+        });
         console.log(formData);
     }, []);
+
+    useEffect(() => {
+        console.log(formData);
+    }, [formData]);
 
     // Function to handle form submission
     const handleSubmit = async () => {
@@ -58,6 +68,14 @@ const StepSummary = ({ data, events }) => {
             // Handle network errors here (e.g., update UI to show an error message)
         }
     };
+
+    useEffect(() => {
+        setFormData({
+            ...formData,
+            newsletter: isCheckboxChecked,
+            datenschutz: isCheckboxChecked2,
+        });
+    }, [isCheckboxChecked, isCheckboxChecked2]);
 
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8 font-sans">
