@@ -274,7 +274,11 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
                                 </MainButtonNOLink>
                             )}
                             {currentStep === steps + 1 && (
-                                <MainButton link="#" aklass="col-span-2" klasse="bg-primaryColor ">
+                                <MainButton
+                                    link="https://g.page/r/CYHG1TcTsB2pEB0/review"
+                                    aklass="col-span-2"
+                                    klasse="bg-primaryColor "
+                                >
                                     Jetzt Bewerten
                                 </MainButton>
                             )}

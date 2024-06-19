@@ -1,7 +1,7 @@
 // exceptions.js
 export default {
   name: 'exceptions',
-  type: 'document',
+  type: 'object',
   title: 'Öffnungszeiten Ausnahmen',
   fields: [
     {

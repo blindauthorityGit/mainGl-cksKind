@@ -218,7 +218,7 @@ const Menu1 = (props) => {
                                         {e.subMenu ? (
                                             <motion.ul
                                                 variants={boxMotion}
-                                                className={`absolute z-50 mt-4 bg-[#000] text-white pl-16 pr-24 py-4 left-[-4rem] rounded-br-lg rounded-bl-lg ${props.subMenuKlasse}`}
+                                                className={`absolute z-50 mt-4 bg-textColor text-white pl-16 pr-24 py-4 left-[-4rem] rounded-br-lg rounded-bl-lg ${props.subMenuKlasse}`}
                                             >
                                                 {e.subMenuItems.map((e, i) => {
                                                     return (

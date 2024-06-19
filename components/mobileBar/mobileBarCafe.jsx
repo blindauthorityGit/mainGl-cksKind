@@ -11,8 +11,11 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 //ASSETS
 import Phone from "../../assets/phone.svg";
 import Email from "../../assets/email.svg";
-import Programm from "../../assets/programm.svg";
-import Zeiten from "../../assets/zeiten.svg";
+import Zeiten from "../../assets/time.svg";
+//ASSETS
+import Cafe from "../../assets/cafeBottom.svg";
+import Reservation from "../../assets/reservation.svg";
+import Programm from "../../assets/programmBottom.svg";
 
 //STORE
 import useStore from "../../store/store"; // Adjust the path to your store file
@@ -35,18 +38,14 @@ const MobileBar = (props) => {
             <div
                 className={`fixed lg:hidden  ${
                     showModal ? "z-10" : "z-30"
-                } bottom-0 w-full flex justify-center items-center bg-textColor text-sm`}
+                } bottom-0 w-full flex justify-center items-center bg-textColor text-sm   h-[7vh] `}
             >
                 <a
-                    onClick={() => {
-                        // setShowOverlay((showOverlay) => !showOverlay);
-                        // setShowContact(false);
-                        // setShowOpening(true);
-                    }}
-                    className="w-1/3 p-3 flex border-r border-opacity-30 border-primaryColor-200 flex-col justify-center items-center text-primaryColor-50 hover:text-primaryColor"
+                    href="/programm"
+                    className="w-1/3 p-3 border-r space-x-1 border-primaryColor-200 border-opacity-30 flex  justify-center items-center text-violetColor-200 hover:text-primaryColor "
                 >
-                    <img className="h-[1.35rem] md:h-10" src={Phone.src} alt="" />
-                    <span className="text-xs md:text-base mt-1">Anruf</span>
+                    <img className="h-[1.35rem]" src={Programm.src} alt="" />
+                    <span className="text-xs  mt-1">Programm</span>
                 </a>
                 <a
                     onClick={() => {
@@ -60,20 +59,20 @@ const MobileBar = (props) => {
                             />
                         );
                     }}
-                    className="w-1/3 p-3 flex flex-col border-r border-primaryColor-200 border-opacity-30  justify-center items-center text-primaryColor-50 hover:text-primaryColor"
+                    className="w-1/3 p-3 border-r space-x-1 border-primaryColor-200 border-opacity-30 flex  justify-center items-center text-violetColor-200 hover:text-primaryColor "
                 >
-                    <img className="h-[1.35rem] md:h-10" src={Zeiten.src} alt="" />
+                    <img className="h-[1.35rem] md:h-10 brightness-150	" src={Zeiten.src} alt="" />
                     <span className="text-xs md:text-base font-base mt-1">Zeiten</span>
                 </a>
                 <a
-                    className="w-1/3 p-3 border-r bg-primaryColor-600 border-primaryColor-200 border-opacity-30 flex flex-col justify-center items-center text-primaryColor-200 hover:text-primaryColor "
+                    className="w-1/3 p-3 border-r space-x-1 border-primaryColor-200 border-opacity-30 flex  justify-center items-center text-violetColor-200 hover:text-primaryColor "
                     onClick={() => {
                         setShowOverlay(true);
                         setShowModal(true);
                         setModalContent(<MultiStepReservation image={null} />);
                     }}
                 >
-                    <img className="h-[1.35rem] md:h-10" src={Programm.src} alt="" />
+                    <img className="h-[1.35rem] md:h-10" src={Reservation.src} alt="" />
                     <span className="text-xs md:text-base mt-1">Reservierung</span>
                 </a>
             </div>

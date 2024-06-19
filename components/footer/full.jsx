@@ -46,9 +46,9 @@ const Full = () => {
                     <Link href="/kindergeburtstag">KINDERGEBURTSTAG</Link>
                     <Link href="/raumvermietung">RAUMVERMIETUNG</Link>
                     <Link href="/ueber-uns">ÜBER UNS</Link>
-                    <Link href="#">KONTAKT</Link>
+                    {/* <Link href="#">KONTAKT</Link> */}
                 </div>
-                <div className="col-span-2 flex flex-col font-semibold space-y-2 mt-2 lg:mt-0">
+                <div className="col-span-2 flex flex-col font-semibold space-y-2 mt-8 text-xs lg:text-base lg:mt-0">
                     {" "}
                     <Link href="/impressum">IMPRESSUM</Link>
                     <Link href="/datenschutz">DATENSCHUTZERKLÄRUNG</Link>
