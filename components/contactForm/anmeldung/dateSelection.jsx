@@ -44,10 +44,15 @@ const DateSelection = ({ events, onDateSelect }) => {
             const startDate = new Date(block.dates[0].startDateTime);
             const endDate = new Date(block.dates[block.dates.length - 1].startDateTime);
             const hasFutureDate = block.dates.some((date) => new Date(date.startDateTime) >= currentDate);
+            const isBlockDisabled = startDate < currentDate && !block.einstieg;
+            const blockOpacity = hasFutureDate ? "" : "opacity-30"; // Adjust opacity based on hasFutureDate
+
             return {
                 startDate: formatStringToDate(block.dates[0].startDateTime),
                 endDate: formatStringToDate(block.dates[block.dates.length - 1].startDateTime),
                 hasFutureDate,
+                isBlockDisabled,
+                blockOpacity, // Add this property to control the opacity in the rendering logic
             };
         });
     } else if (Array.isArray(events.datum)) {
@@ -84,8 +89,10 @@ const DateSelection = ({ events, onDateSelect }) => {
                         <option
                             key={index}
                             value={`${date.startDate} - ${date.endDate}`}
-                            disabled={!date.hasFutureDate}
-                            className={`text-sm my-1 ${date.hasFutureDate ? "font-semibold" : "!opacity-10"}`}
+                            disabled={!date.hasFutureDate || date.isBlockDisabled}
+                            className={`text-sm my-1 ${
+                                !date.hasFutureDate || date.isBlockDisabled ? "!text-[#c1c2c3]" : "font-semibold"
+                            } ${date.blockOpacity}`}
                         >
                             {`${date.startDate} - ${date.endDate}`}
                         </option>

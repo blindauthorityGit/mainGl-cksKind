@@ -68,69 +68,72 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
             ref={ref}
         >
             <Link href={`/event/${data.slug.current}`} className="relative">
-                <CoverImage
-                    src={urlFor(data.image).url()}
-                    mobileSrc={urlFor(data.image).url()}
-                    alt="Cover Background"
-                    klasse={data.ausgebucht ? "opacity-20" : "null"}
-                    style={{ aspectRatio: "30/17", borderColor: data.kategorie.farbe.value }}
-                    className="w-full z-20 relative rounded-t-[10px] overflow-hidden mb-3"
-                />
+                <>
+                    <CoverImage
+                        src={urlFor(data.image).url()}
+                        mobileSrc={urlFor(data.image).url()}
+                        alt="Cover Background"
+                        klasse={data.ausgebucht ? "opacity-20" : "null"}
+                        style={{ aspectRatio: "30/17", borderColor: data.kategorie.farbe.value }}
+                        className="w-full z-20 relative rounded-t-[10px] overflow-hidden mb-3"
+                    />
+
+                    <motion.div className="px-4 hyphens-auto text-balance" variants={contentVariants}>
+                        <H4
+                            klasse={`${
+                                isWorkshop ? "!text-blueColor-100" : null
+                            } !font-sans !text-sm xl:!text-lg !font-semibold !leading-snug`}
+                        >
+                            {data.headline}
+                        </H4>
+                        <div className="flex w-full items-center mt-4">
+                            <div className="image">
+                                {data.eventDetails.partner.isHidden ? (
+                                    <CoverImage
+                                        src={urlFor(data.eventDetails.partner.image).url()}
+                                        mobileSrc={urlFor(data.eventDetails.partner.image).url()}
+                                        alt="Cover Background"
+                                        style={{ aspectRatio: "1/1" }}
+                                        className="w-10 h-10 z-20 relative rounded-[40px] overflow-hidden mr-4"
+                                    />
+                                ) : (
+                                    <Link href={`/partner/${data.eventDetails.partner.slug.current}`}>
+                                        <CoverImage
+                                            src={urlFor(data.eventDetails.partner.image).url()}
+                                            mobileSrc={urlFor(data.eventDetails.partner.image).url()}
+                                            alt="Cover Background"
+                                            style={{ aspectRatio: "1/1" }}
+                                            className="w-10 h-10 z-20 relative rounded-[40px] overflow-hidden mr-4"
+                                        />
+                                    </Link>
+                                )}
+                            </div>
+                            <P
+                                klasse={`text-xs xl:!text-base ${
+                                    isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"
+                                }`}
+                            >
+                                {data.eventDetails.partner.name}
+                            </P>
+                        </div>
+                        <hr className="my-2" />
+                        <div className="flex space-x-4 ">
+                            <div className="date flex space-x-1 items-center">
+                                <img src={Calendar.src} alt="" />
+                                <P klasse={`${isWorkshop ? "!text-blueColor-100" : null} !text-xs xl:!text-base`}>
+                                    {shortenYear(formatStringToDate(data.date).split(" ")[0])}
+                                </P>
+                            </div>
+                            <div className="time flex space-x-1 items-center">
+                                <img src={Time.src} alt="" />
+                                <P klasse={`${isWorkshop ? "!text-blueColor-100" : null} !text-xs xl:!text-base`}>
+                                    {formatStringToDate(data.date).split(" ")[1]}
+                                </P>
+                            </div>
+                        </div>
+                    </motion.div>
+                </>{" "}
             </Link>
-            <motion.div className="px-4 hyphens-auto text-balance" variants={contentVariants}>
-                <H4
-                    klasse={`${
-                        isWorkshop ? "!text-blueColor-100" : null
-                    } !font-sans !text-sm xl:!text-lg !font-semibold !leading-snug`}
-                >
-                    {data.headline}
-                </H4>
-                <div className="flex w-full items-center mt-4">
-                    <div className="image">
-                        {data.eventDetails.partner.isHidden ? (
-                            <CoverImage
-                                src={urlFor(data.eventDetails.partner.image).url()}
-                                mobileSrc={urlFor(data.eventDetails.partner.image).url()}
-                                alt="Cover Background"
-                                style={{ aspectRatio: "1/1" }}
-                                className="w-10 h-10 z-20 relative rounded-[40px] overflow-hidden mr-4"
-                            />
-                        ) : (
-                            <Link href={`/partner/${data.eventDetails.partner.slug.current}`}>
-                                <CoverImage
-                                    src={urlFor(data.eventDetails.partner.image).url()}
-                                    mobileSrc={urlFor(data.eventDetails.partner.image).url()}
-                                    alt="Cover Background"
-                                    style={{ aspectRatio: "1/1" }}
-                                    className="w-10 h-10 z-20 relative rounded-[40px] overflow-hidden mr-4"
-                                />
-                            </Link>
-                        )}
-                    </div>
-                    <P
-                        klasse={`text-xs xl:!text-base ${
-                            isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"
-                        }`}
-                    >
-                        {data.eventDetails.partner.name}
-                    </P>
-                </div>
-                <hr className="my-2" />
-                <div className="flex space-x-4 ">
-                    <div className="date flex space-x-1 items-center">
-                        <img src={Calendar.src} alt="" />
-                        <P klasse={`${isWorkshop ? "!text-blueColor-100" : null} !text-xs xl:!text-base`}>
-                            {shortenYear(formatStringToDate(data.date).split(" ")[0])}
-                        </P>
-                    </div>
-                    <div className="time flex space-x-1 items-center">
-                        <img src={Time.src} alt="" />
-                        <P klasse={`${isWorkshop ? "!text-blueColor-100" : null} !text-xs xl:!text-base`}>
-                            {formatStringToDate(data.date).split(" ")[1]}
-                        </P>
-                    </div>
-                </div>
-            </motion.div>
         </motion.div>
     );
 };

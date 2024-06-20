@@ -138,39 +138,53 @@ const Details = ({ data, isWorkshop, isMobile }) => {
             return data.blocks.map((block, blockIndex) => {
                 const key = block._key || `block-${blockIndex}`;
                 const showAll = blockVisibility[key];
-                const datesToShow = showAll ? block.dates : block.dates.slice(0, 4);
-                const lastDate = block.dates[block.dates.length - 1].endDateTime;
+                // Ensure dates are sorted chronologically
+                const sortedDates = block.dates.sort((a, b) => new Date(a.startDateTime) - new Date(b.startDateTime));
+                const datesToShow = showAll ? sortedDates : [sortedDates[0], sortedDates[sortedDates.length - 1]];
+
+                const lastDate = sortedDates[sortedDates.length - 1].endDateTime;
+
+                const startDate = new Date(sortedDates[0].startDateTime);
+                const endDate = new Date(sortedDates[sortedDates.length - 1].endDateTime);
 
                 if (isDateOlder(lastDate)) {
                     return null;
                 }
+                // Determine block opacity based on `einstieg` and date conditions
+                const currentDate = new Date();
+
+                const blockOpacity =
+                    startDate < currentDate && endDate >= currentDate && !block.einstieg ? "opacity-30" : "";
 
                 return (
-                    <div key={key} className={`mb-4 ${block.ausgebucht ? "opacity-30" : null}`}>
+                    <div key={key} className={`mb-4 ${blockOpacity} ${block.ausgebucht ? "opacity-30" : null}`}>
                         <H4 klasse={`font-bold ${isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}`}>
                             {block.blockTitle}
                         </H4>
-                        {block.blockSubline ? (
+                        {block.blockSubline && (
                             <div className="mt-0 mb-2 font-semibold text-sm">{block.blockSubline}</div>
-                        ) : null}
+                        )}
                         {datesToShow.map((date, dateIndex) => (
                             <div
                                 key={dateIndex}
-                                className={` flex justify-start text-sm lg:text-base ${
-                                    isWorkshop && !isMobile ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"
+                                className={`flex justify-start text-sm ${
+                                    isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"
                                 }`}
                             >
-                                <div className="inline w-[38%]">
-                                    {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0]}
+                                <div className="inline w-[50%]">
+                                    {dateIndex == 0 && <span className="font-semibold mr-2">Start</span>}{" "}
+                                    {dateIndex == datesToShow.length - 1 && (
+                                        <span className="font-semibold mr-2">Ende</span>
+                                    )}
+                                    {formatDateTime(date.startDateTime, date.startDateTime).split(" ")[0]}
                                 </div>
                                 <div className="inline">
-                                    {" "}
-                                    {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]}-
-                                    {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]}
-                                </div>{" "}
+                                    {formatDateTime(date.startDateTime, date.startDateTime).split(" ")[1]} -{" "}
+                                    {formatDateTime(date.endDateTime, date.endDateTime).split(" ")[1]}
+                                </div>
                             </div>
                         ))}
-                        {block.dates.length > 4 && (
+                        {sortedDates.length > 2 && ( // Change condition to check for more than two dates
                             <button
                                 onClick={() => toggleBlockVisibility(key)}
                                 className="text-primaryColor underline font-semibold mt-2 text-xs"
