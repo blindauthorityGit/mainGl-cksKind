@@ -33,6 +33,9 @@ import { AnimatePresence } from "framer-motion";
 // Sanity client
 import client from "../client"; // Adjust the path to your sanity client
 
+//LIBS
+import { ReactLenis, useLenis } from "../libs/lenis";
+
 function MyApp({ Component, pageProps }) {
     const [showMobileBar, setShowMobileBar] = useState(false);
 
@@ -128,7 +131,7 @@ function MyApp({ Component, pageProps }) {
     }, []);
 
     return (
-        <>
+        <ReactLenis ReactLenis root>
             <Head>
                 <link rel="icon" href="/favicon.svg" />
                 {/* Other global head tags can also go here */}
@@ -222,7 +225,7 @@ function MyApp({ Component, pageProps }) {
                 <Full></Full>
                 <Sub></Sub>
             </ParallaxProvider>
-        </>
+        </ReactLenis>
     );
 }
 

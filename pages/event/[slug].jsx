@@ -135,7 +135,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                         <div className="hidden md:block">
                             <Divider></Divider>
                         </div>
-                        <EventSlider isWorkshop={isWorkshop} data={dataAllEvents}></EventSlider>
+                        {/* <EventSlider isWorkshop={isWorkshop} data={dataAllEvents}></EventSlider> */}
                         <Divider></Divider>
                         {filteredKategorie && (
                             <LinkGrid

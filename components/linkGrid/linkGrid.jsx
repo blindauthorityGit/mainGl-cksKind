@@ -103,7 +103,7 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
                 {headline}
             </H2>
 
-            <div className="col-span-12 grid grid-cols-12 gap-y-4 gap-x-2 lg:gap-8 lg:px-24">
+            <div className="col-span-12 grid grid-cols-12  gap-x-2 lg:gap-8 lg:px-24">
                 {isEvent
                     ? displayedItems.map((e, i) => (
                           <ElementEvent key={i} isDetail={isDetail} isWorkshop={isWorkshop} data={e} />

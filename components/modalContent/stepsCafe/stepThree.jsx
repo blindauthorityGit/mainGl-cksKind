@@ -15,7 +15,7 @@ const StepThree = ({ handleSubmit, handlePrevStep, loading, success, error }) =>
 
     return (
         <div className="flex-grow xl:w-2/4">
-            <H2 klasse="mt-4 mb-6">Zusammenfasung </H2>
+            <H2 klasse="mt-4 mb-6">Zusammenfassung </H2>
 
             <div className="wrapper mb-4">
                 <P>
