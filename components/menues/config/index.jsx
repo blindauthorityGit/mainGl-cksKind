@@ -41,6 +41,11 @@ const menuItems = [
         slug: "ueber-uns",
         subMenu: false,
     },
+    {
+        title: "Anfahrt",
+        slug: "anfahrt",
+        subMenu: false,
+    },
 ];
 const socialMedia = [
     {

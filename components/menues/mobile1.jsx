@@ -100,8 +100,11 @@ const Mobile1 = (props) => {
                             <li className="mr-8 hover:text-primaryColor hover:underline mb-4 ">
                                 <Link href="/kindergeburtstag">Kindergeburtstag</Link>
                             </li>
-                            <li className="">
+                            <li className="mr-8 hover:text-primaryColor hover:underline mb-4 ">
                                 <Link href="/ueber-uns ">Über uns</Link>
+                            </li>
+                            <li className="">
+                                <Link href="/anfahrt ">Anfahrt</Link>
                             </li>
                         </motion.ul>
                         <hr className="mt-4" />
