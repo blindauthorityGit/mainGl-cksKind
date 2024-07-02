@@ -9,6 +9,7 @@ import kursInfo from './pages/kursInfo'
 import kindergeburtstag from './pages/kindergeburtstag'
 import ueberuns from './pages/about'
 import cafe from './pages/cafe'
+import anfahrt from './pages/anfahrt'
 
 // COMPONENTS
 import mainHero from './components/mainHero'
@@ -81,5 +82,6 @@ export const schemaTypes = [
   modalGeneral,
   exceptions,
   product,
+  anfahrt,
   // Add more schema types as needed
 ]

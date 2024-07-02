@@ -27,8 +27,8 @@ const MapboxMap = (props) => {
                 style: "mapbox://styles/mapbox/light-v11",
                 center: [8.70288, 50.03262],
                 pitch: 45,
-                zoom: 15.5,
-                bearing: -17.6,
+                zoom: 14.5,
+                bearing: 0,
                 antialias: true,
                 scrollZoom: false, // set scrollZoom option based on device
                 dragPan: !isMobile,
@@ -62,7 +62,7 @@ const MapboxMap = (props) => {
     }, []);
 
     return (
-        <div className="map-container" ref={container} style={{ height: "100%" }}>
+        <div className="map-container h-[60%] lg:h-full" ref={container}>
             <div className="map h-full" style={props.style} ref={mapContainer}></div>
         </div>
     );
