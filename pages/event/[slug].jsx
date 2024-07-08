@@ -132,9 +132,9 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                 data={data.eventDetails.partner}
                             ></RegularText>
                         )}
-                        <div className="hidden md:block">
+                        {/* <div className="hidden md:block">
                             <Divider></Divider>
-                        </div>
+                        </div> */}
                         {/* <EventSlider isWorkshop={isWorkshop} data={dataAllEvents}></EventSlider> */}
                         <Divider></Divider>
                         {filteredKategorie && (

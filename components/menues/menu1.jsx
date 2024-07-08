@@ -190,7 +190,7 @@ const Menu1 = (props) => {
                             />
                         </Link>
                     </div>
-                    <div className="col-span-6 md:col-span-8 ">
+                    <div className="col-span-6 lg:col-span-10 xl:col-span-8 ">
                         <ul className="hidden lg:flex items-center list-style-none justify-end pr-8">
                             {props.menuItems.map((e, i) => {
                                 return (
@@ -199,14 +199,14 @@ const Menu1 = (props) => {
                                         whileHover="hover"
                                         animate="rest"
                                         key={`menuKey${i}`}
-                                        className="relative mx-8 xl:mx-4 2xl:mx-6 py-4 font-headline tracking-wider  text-blackText-300 hover:text-primaryColor-500"
+                                        className="relative  mx-4 xl:mx-4 2xl:mx-6 py-4 font-headline xl:tracking-wider  text-blackText-300 hover:text-primaryColor-500"
                                         onMouseEnter={(e) => {
                                             onEnter(e);
                                         }}
                                     >
                                         <Link
                                             href={`/${e.slug}`}
-                                            className="flex items-end font-sans font-semibold text-textColor uppercase text-sm xl:text-xs 2xl:text-xs"
+                                            className="flex items-end font-sans font-semibold text-textColor uppercase text-xs xl:text-xs 2xl:text-xs"
                                         >
                                             {e.title}{" "}
                                             {e.subMenu ? (
@@ -248,7 +248,7 @@ const Menu1 = (props) => {
                             <Newsletter onClick={props.onClick}></Newsletter>
                         </ul> */}
                     </div>
-                    <div className=" flex justify-end text-xl md:text-xl col-span-2">
+                    <div className=" flex justify-end text-xl md:text-xl col-span-2 md:col-span-4 lg:col-span-0 xl:col-span-2">
                         <div
                             className="block lg:hidden cursor-pointer"
                             onClick={(e) => {
@@ -258,7 +258,7 @@ const Menu1 = (props) => {
                         >
                             <img className="h-[1.7rem]" src={props.burgerIcon} alt="" />
                         </div>
-                        <div className="hidden lg:flex mt-0 pt-0 items-center col-span-2">
+                        <div className="hidden xl:flex mt-0 pt-0 items-center col-span-2">
                             <MainButton klasse="bg-primaryColor !py-3" link="/programm">
                                 Unsere Kurse
                             </MainButton>

@@ -283,7 +283,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                 <Divider></Divider>
 
                 {/* SECTION */}
-                <div className="col-span-12 px-4 lg:px-0 py-6 min-h-[100svh] relative pt-[16svh] md:pt-[24svh] xl:pt-[18svh]">
+                <div className="col-span-12 px-4 lg:px-0 py-6 min-h-[100svh] relative pt-[16svh] lg:pt-[12svh] xl:pt-[18svh]">
                     <SmallerDecal
                         klasse="absolute top-[7svh] w-[16vw] xl:hidden left-[75svw] z-0 opacity-20 !rotate-6"
                         motionProps={animationProps2}
@@ -323,7 +323,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                                 <AnimatePresence>
                                     {showCards && (
                                         <motion.div
-                                            className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-8 lg:px-8   mt-[4svh] "
+                                            className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-2 xl:gap-8 lg:px-8   mt-[4svh] "
                                             initial="hidden"
                                             animate="visible"
                                             exit="exit"

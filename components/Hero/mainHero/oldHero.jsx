@@ -62,8 +62,8 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
             style={{ background: bgColor }}
             className={`${klasse} col-span-12 min-h-[70vh] xl:min-h-0  bg-[#AFD3A2] md:bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-24`}
         >
-            <div ref={heightRef} className="grid grid-cols-12 z-10 h-full lg:gap-24 relative">
-                <div className="col-span-12  lg:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
+            <div ref={heightRef} className="grid grid-cols-12 z-10 h-full xl:gap-24 relative">
+                <div className="col-span-12 lg:col-span-6 xl:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -129,7 +129,7 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.6, duration: 0.8 }}
-                    className="col-span-12 lg:col-span-7 relative z-10 mt-10 md:mt-0 lg:mt-12"
+                    className="col-span-12 lg:col-span-6 xl:col-span-7 relative z-10 mt-10 md:mt-0 lg:mt-12"
                 >
                     <CoverImage
                         src={urlFor(data.image).url()} // Replace with the actual path to your image
@@ -138,7 +138,7 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
                         // style={{ aspectRatio: aspectRatio }}
                         className={`w-full z-20 ${
                             !noCards ? "hidden" : null
-                        }  lg:block relative rounded-[10px] overflow-hidden aspect-[1/0.73] md:aspect-[1/0.7] 2xl:aspect-[1/0.77]`}
+                        }  lg:block lg:h-[53svh] lg:ml-12 relative rounded-[10px] overflow-hidden aspect-[1/0.73] md:aspect-[1/0.7] 2xl:aspect-[1/0.77]`}
                         // data-aos={"fade-left"}
                         ref={imgRef}
                         priority={true}

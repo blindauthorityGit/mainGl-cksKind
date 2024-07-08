@@ -40,7 +40,7 @@ const CatCard = ({ bgColor, icon, text, link, onClick, isWhite, order, isWorksho
     const CardContent = (
         <motion.div
             className={`bg-[${bgColor}] ${order} cursor-pointer ${
-                isBig ? "h-[17svh] xl:h-[36svh]" : "h-[17svh] xl:h-[20svh] 2xl:h-[17svh]"
+                isBig ? "h-[17svh] lg:h-[36svh] xl:h-[36svh]" : "h-[17svh]  xl:h-[20svh] 2xl:h-[17svh]"
             }  text-center px-2 rounded-[10px] space-y-2 xl:space-y-4 flex flex-col justify-center items-center font-sans font-semibold text-text`}
             style={{ backgroundColor: bgColor }}
             initial="initial"
@@ -50,7 +50,7 @@ const CatCard = ({ bgColor, icon, text, link, onClick, isWhite, order, isWorksho
         >
             <motion.img className="2xl:w-16" src={icon} alt="icon" variants={contentVariants} />
             <P
-                klasse={`font-semibold !text-[clamp(12px,calc(12px+0.00893*(100svw-320px)),24px)] md:!text-xl ${
+                klasse={`font-semibold !text-[clamp(12px,calc(12px+0.00893*(100svw-320px)),24px)] lg:!text-base 2xl:!text-xl ${
                     isWhite ? "!text-white" : null
                 } ${isWorkshop ? "!text-blueColor-100" : null}`}
             >

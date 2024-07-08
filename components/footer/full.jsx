@@ -40,15 +40,19 @@ const Full = () => {
                 </div>
                 <div className="lg:col-span-3"></div>
                 <div className="lg:col-span-2"></div>
-                <div className="col-span-12 lg:col-span-2 flex flex-col font-semibold space-y-2 ">
+                <div className="col-span-12 lg:col-span-4 xl:col-span-2 flex flex-col font-semibold space-y-2 ">
                     <Link href="/programm">KURSPROGRAMM</Link>
                     <Link href="/cafe">DAS CAFE</Link>
                     <Link href="/kindergeburtstag">KINDERGEBURTSTAG</Link>
                     <Link href="/raumvermietung">RAUMVERMIETUNG</Link>
                     <Link href="/ueber-uns">ÜBER UNS</Link>
+                    <div className="hidden lg:flex xl:hidden text-xs pt-4 flex-col">
+                        <Link href="/impressum">IMPRESSUM</Link>
+                        <Link href="/datenschutz">DATENSCHUTZERKLÄRUNG</Link>
+                    </div>
                     {/* <Link href="#">KONTAKT</Link> */}
                 </div>
-                <div className="col-span-2 flex flex-col font-semibold space-y-2 mt-8 text-xs lg:text-base lg:mt-0">
+                <div className="col-span-2 text-xs flex flex-col font-semibold space-y-2 mt-8 text-xs lg:hidden xl:flex xl:text-xs lg:mt-0">
                     {" "}
                     <Link href="/impressum">IMPRESSUM</Link>
                     <Link href="/datenschutz">DATENSCHUTZERKLÄRUNG</Link>

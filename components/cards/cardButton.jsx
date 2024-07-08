@@ -45,7 +45,7 @@ const CardButton = ({ data, i, onClick, isCafe }) => {
     return (
         <motion.div
             ref={ref}
-            className={`col-span-12 cursor-pointer hover:opacity-50 lg:col-span-4 p-8 text-center rounded-[40px]  ${
+            className={`col-span-12 cursor-pointer hover:opacity-50 lg:col-span-4 p-8 text-center rounded-[20px]  ${
                 data.isMain ? "bg-primaryColor-600" : "bg-[#E9B4C7]"
             }`}
             initial="hidden"
@@ -87,7 +87,9 @@ const CardButton = ({ data, i, onClick, isCafe }) => {
                 />
             </Link> */}
             <div
-                className={`px-6 2xl:px-12 rounded-b-[40px] ${isCafe ? "lg:py-4" : "lg:py-4 2xl:py-8"}  mb-0 2xl:mb-0`}
+                className={`px-6 lg:px-0 2xl:px-12 rounded-b-[40px] ${
+                    isCafe ? "lg:py-4" : "lg:py-4 2xl:py-8"
+                }  mb-0 2xl:mb-0`}
             >
                 <H3 klasse={`${data.isMain ? "!text-white" : null}`}>{data.title}</H3>
             </div>

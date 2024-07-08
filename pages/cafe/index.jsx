@@ -126,7 +126,7 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                 <Divider></Divider>
             </MainContainer>{" "}
             <FullWidthSection klasse="bg-[#BF567C] px-4 lg:px-0 py-10 2xl:!py-32" id="speisekarte">
-                <div className="col-span-12 grid grid-cols-12 lg:gap-12 lg:px-36">
+                <div className="col-span-12 grid grid-cols-12 lg:gap-12 xl:px-36">
                     <div className="col-span-12 lg:col-span-6">
                         <H3 klasse="!text-white">{dataSpeisekarte[0].categories[0].title}</H3>
                         <hr className="mb-10" />

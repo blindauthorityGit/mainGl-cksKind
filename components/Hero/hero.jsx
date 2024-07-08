@@ -20,7 +20,9 @@ const Hero = ({ data, isEvent }) => {
                 alt="Cover Background"
                 // style={{ aspectRatio: isEvent ? "3/2" : "1642/650" }}
                 className={`w-full z-20 relative rounded-[10px] overflow-hidden ${
-                    isEvent ? "aspect-[24/13] xl:aspect-[3/2] 2xl:aspect-[4/2]" : "aspect-[3/2] xl:aspect-[1642/650]"
+                    isEvent
+                        ? "aspect-[24/13]  xl:aspect-[3/2] 2xl:aspect-[4/2]"
+                        : "aspect-[3/2] lg:aspect-[4.5/2] xl:aspect-[1642/650]"
                 }`}
             />
         </motion.div>

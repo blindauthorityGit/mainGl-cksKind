@@ -58,7 +58,7 @@ const Contact = ({ data, overlap }) => {
             initial="hidden"
             animate={controls}
             variants={variants}
-            className="col-span-12 grid grid-cols-12 px-6 lg:px-24"
+            className="col-span-12 grid grid-cols-12 px-6 xl:px-24"
         >
             <div className={`col-span-12 lg:col-span-5 flex flex-col justify-center mt-6 lg:mt-0  lg:mb-0 `}>
                 <H2 klasse="">{data.headline}</H2>
@@ -87,7 +87,7 @@ const Contact = ({ data, overlap }) => {
                     </P>
                 </div>
             </div>
-            <div className={`col-span-12 lg:col-span-7 lg:pl-36 ${overlap ? "mt-[-3rem]" : "lg:mt-[-3rem]"}`}>
+            <div className={`col-span-12 lg:col-span-7 lg:pl-12 xl:pl-36 ${overlap ? "mt-[-3rem]" : "lg:mt-[-3rem]"}`}>
                 <Map></Map>
             </div>
         </motion.div>

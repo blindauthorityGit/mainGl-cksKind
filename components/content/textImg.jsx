@@ -48,11 +48,11 @@ const TextImage = ({ data, overlap, richText, onClick, noLink }) => {
             initial={{ opacity: 0, x: data.rightImage ? 50 : -50 }}
             animate={controls}
             variants={variants}
-            className="col-span-12 grid grid-cols-12 px-6 xl:px-12 2xl:px-24 "
+            className="col-span-12 grid grid-cols-12 px-6 lg:py-12 xl:py-0 xl:px-12 2xl:px-24 "
         >
             <div
-                className={`col-span-12 lg:col-span-6 2xl:col-span-5 flex flex-col justify-center mt-6 lg:mt-0 mb-12 lg:mb-0   ${
-                    !data.rightImage ? "order-last lg:pl-12 2xl:pl-36" : "lg:pr-36 order-last lg:order-first"
+                className={`col-span-12 lg:col-span-6 2xl:col-span-6 flex flex-col justify-center mt-6 lg:mt-0 mb-12 lg:mb-0   ${
+                    !data.rightImage ? "order-last lg:pl-12 2xl:pl-36" : "lg:pr-12 xl:pr-36 order-last lg:order-first"
                 }`}
             >
                 <H2 klasse="">{data.headline}</H2>
@@ -83,8 +83,8 @@ const TextImage = ({ data, overlap, richText, onClick, noLink }) => {
                 )}
             </div>
             <div
-                className={`col-span-12 lg:col-span-6 2xl:col-span-7 grid grid-cols-12 gap-2 lg:gap-8 ${
-                    overlap ? "xl:mt-[-3rem]" : "lg:mt-[-3rem]"
+                className={`col-span-12 lg:col-span-6 2xl:col-span-6 grid grid-cols-12 gap-2 lg:gap-8 ${
+                    overlap ? "xl:mt-[-3rem]" : "xl:mt-[-3rem]"
                 }`}
             >
                 {data.image.map((e, i) => {
@@ -95,7 +95,9 @@ const TextImage = ({ data, overlap, richText, onClick, noLink }) => {
                             mobileSrc={urlFor(e).url()}
                             alt="Cover Background"
                             // style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1" }}
-                            className={`w-full z-20 relative rounded-[40px] overflow-hidden ${
+                            className={`w-full z-20 relative rounded-[40px] h-full overflow-hidden ${
+                                data.rightImage ? "2xl:ml-8" : ""
+                            } ${
                                 data.image.length > 1
                                     ? "col-span-6 aspect-[1/1.5] xl:aspect-[1/2]"
                                     : "col-span-12 aspect-[1/0.7] xl:aspect-[1/1]"

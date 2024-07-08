@@ -32,7 +32,7 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip, dates }) => {
     };
 
     return (
-        <div className="col-span-12 px-6 lg:px-48 bg-themeGreen-300 py-8">
+        <div className="col-span-12 px-6 xl:px-48 bg-themeGreen-300 py-8">
             <H1 klasse="!mb-8 text-white"> {events.anfrage ? "Anfrage" : "Anmeldung"}</H1>
             <div className="2xl:w-2/4 pt-3 lg:mt-6">
                 {/* <P>

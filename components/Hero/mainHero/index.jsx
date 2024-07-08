@@ -35,6 +35,7 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
 
     const [bgHeightAbsolute, setBGHeightAbsolute] = useState(0);
     const [bgImgHeight, setBGImgHeight] = useState(0);
+    const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
 
     const cards = [
         {
@@ -42,7 +43,7 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
             bgColor: "#EE4799",
             icon: CafeIcon.src,
             isWhite: true,
-            order: "xl:order-3",
+            order: "lg:order-3",
             link: "/cafe",
         },
         { text: "Kursprogramm", bgColor: "#F3E584", icon: ProgrammIcon.src, order: "xl:order-4", link: "/programm" },
@@ -50,7 +51,7 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
             text: "Feiern & mehr",
             bgColor: "#CDE4C4",
             icon: PartyIcon.src,
-            order: "xl:order-2",
+            order: "lg:order-2",
             link: "/kindergeburtstag",
         },
         { text: "Das sind wir", bgColor: "#E2EAF7", icon: AboutIcon.src, order: "xl:order-1", link: "/ueber-uns" },
@@ -141,10 +142,29 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
     }, []);
 
     useEffect(() => {
+        console.log(height, imgRef.current.clientWidth);
         updateBGHeight();
         window.addEventListener("resize", updateBGHeight);
         return () => window.removeEventListener("resize", updateBGHeight);
     }, [updateBGHeight, width]);
+
+    const calculateImageDimensions = useCallback((newImageWidth, viewportHeight, aspectRatio = 1 / 0.77) => {
+        let newImageHeight = newImageWidth / aspectRatio;
+        if (newImageHeight > viewportHeight) {
+            newImageHeight = viewportHeight;
+            newImageWidth = viewportHeight * aspectRatio;
+        }
+        return { width: newImageWidth, height: newImageHeight };
+    }, []);
+
+    useEffect(() => {
+        const newDimensions = calculateImageDimensions(imgRef.current.clientWidth, height);
+        setImageDimensions(newDimensions);
+        console.log(newDimensions);
+        updateBGHeight();
+        window.addEventListener("resize", updateBGHeight);
+        return () => window.removeEventListener("resize", updateBGHeight);
+    }, [updateBGHeight, width, height, calculateImageDimensions]);
 
     useEffect(() => {
         console.log(data);
@@ -156,8 +176,9 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
             className="col-span-12  xl:min-h-0 bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-0"
         >
             {/* TEXT ABSOLUTE DESKTOP */}
-            <div className="absolute hidden lg:block top-[23svh] z-20 w-[42svw]">
+            <div className="absolute hidden lg:block top-[23svh] lg:top-[20svh] xl:top-[23svh] 2xl:top-[20svh] 4xl:top-[23svh] z-20 w-[42svw] 2xl:w-[34svw] 4xl:w-[34svw]">
                 <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6 xl:!text-[3.2rem] 2xl:!text-[5rem]">
+                    {" "}
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -169,20 +190,22 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
             </div>
             <div
                 className={`${
-                    twoLine ? "xl:top-[40svh] 2xl:top-[45svh]" : " xl:top-[40svh] 2xl:top-[48svh]"
-                } hidden lg:block absolute z-20 w-[29svw]`}
+                    twoLine
+                        ? " xl:top-[40svh] 2xl:top-[45svh] "
+                        : "lg:top-[40svh] xl:top-[40svh] 2xl:top-[48svh] 4xl:top-[45svh] "
+                } hidden lg:block absolute z-20 lg:w-[35svw] xl:w-[29svw] 4xl:w-[24svw]`}
             >
                 <motion.div
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
                 >
-                    <P klasse="hidden md:block md:mb-10 lg:mb-0 2xl:!text-lg">{data.text}</P>
+                    <P klasse="hidden md:block md:mb-10 lg:mb-0 lg:!text-sm 2xl:!text-lg">{data.text}</P>
                 </motion.div>
             </div>
 
-            <div ref={heightRef} className="grid grid-cols-12 z-10 h-full lg:gap-24 xl:gap-0 relative">
-                <div className="col-span-12 lg:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
+            <div ref={heightRef} className="grid grid-cols-12 z-10 h-full  lg:gap-0 relative">
+                <div className="col-span-12 lg:col-span-6 xl:col-span-5 text-center lg:text-left pt-28 md:pt-40 lg:pt-0 hidden md:flex flex-col justify-center z-20">
                     <div className="wrapper space-x-6 hidden lg:flex mt-[58svh]">
                         {data.buttons.map((e, i) => (
                             <motion.div
@@ -230,8 +253,18 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
                         ))}
                     </div>
                 </div>
-                <motion.div className="col-span-12 lg:col-span-7 relative z-10 md:mt-0 lg:mt-[12svh] 2xl:mt-[8svh]">
+                <motion.div className="col-span-12 lg:col-span-6 xl:col-span-7 relative z-10 md:mt-0 lg:mt-[16svh] xl:mt-[12svh] 2xl:mt-[8svh]">
                     <CoverImage
+                        src={urlFor(data.image).url()} // Replace with the actual path to your image
+                        mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
+                        alt="Cover Background"
+                        className={`w-full z-20 ${
+                            !noCards ? "hidden" : null
+                        }  lg:block relative rounded-[10px] overflow-hidden lg:h-[50svh] xl:h-[50svh] 2xl:h-[58svh] `}
+                        ref={imgRef}
+                        priority={true}
+                    />
+                    {/* <CoverImage
                         src={urlFor(data.image).url()} // Replace with the actual path to your image
                         mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
                         alt="Cover Background"
@@ -240,7 +273,7 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
                         }  lg:block relative rounded-[10px] overflow-hidden aspect-[1/0.73] md:aspect-[1/0.7] lg:aspect-[1/0.56] 2xl:aspect-[1/0.77]`}
                         ref={imgRef}
                         priority={true}
-                    />
+                    /> */}
 
                     <motion.div
                         className={`flex-col justify-center flex text-center lg:hidden ${
@@ -356,15 +389,15 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
                 )}
             </div>
             <SmallerDecal
-                klasse="absolute top-[8svh] xl:hidden w-[44svw] left-[29svw] z-0 opacity-20"
+                klasse="absolute top-[8svh] lg:hidden w-[44svw] left-[29svw] z-0 opacity-20"
                 motionProps={animationProps}
             />
             <SmallerDecal
-                klasse="absolute top-[8svh] w-[16vw] xl:hidden left-[60svw] z-0 opacity-20"
+                klasse="absolute top-[8svh] w-[16vw] lg:hidden left-[60svw] z-0 opacity-20"
                 motionProps={animationProps2}
             />
             <SmallerDecal
-                klasse="absolute top-[5svh] w-[10vw] xl:hidden left-[50svw] z-0 opacity-20 !rotate-6"
+                klasse="absolute top-[5svh] w-[10vw] lg:hidden left-[50svw] z-0 opacity-20 !rotate-6"
                 motionProps={animationProps2}
             />
 
