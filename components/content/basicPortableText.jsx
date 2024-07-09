@@ -44,7 +44,7 @@ const myPortableTextComponents = (isWorkshop, isMobile) => ({
         // Styling for the "normal" paragraphs
         normal: ({ children }) => (
             <P
-                klasse={`RUMPIDUMPO xl:text-base xl:leading-7 font-sans ${
+                klasse={`RUMPIDUMPO mt-4 xl:text-base xl:leading-7 font-sans ${
                     isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"
                 }`}
             >

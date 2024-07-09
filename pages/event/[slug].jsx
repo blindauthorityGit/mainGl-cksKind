@@ -67,7 +67,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                         <Meta data={data.seo}></Meta>
 
                         <StickyContainer className="grid grid-cols-12 w-full col-span-12">
-                            <div className="col-span-12 lg:col-span-8 px-4 md:px-0">
+                            <div className="col-span-12 md:col-span-7 xl:col-span-8 px-4 md:px-0">
                                 {" "}
                                 <BasicHero isEvent data={data}></BasicHero>
                                 <div className="lg:hidden justify-end">
@@ -85,7 +85,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                 ></PortableTextEvent>
                             </div>
                             {/* //SIDEBAR */}
-                            <div className="col-span-12 hidden lg:block md:col-span-4 lg:mt-28 lg:pl-16">
+                            <div className="col-span-12 hidden lg:block md:col-span-5 xl:col-span-4 lg:mt-28 lg:pl-16">
                                 <Sticky distanceFromTop={280} topOffset={-128}>
                                     {({ style, isSticky }) => (
                                         <div
