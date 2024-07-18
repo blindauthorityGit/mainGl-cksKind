@@ -8,12 +8,11 @@ export default async function handler(req, res) {
         process.env.NEXT_MAIL_KONTAKT_LIVE,
         process.env.NEXT_MAIL_GEBURTSTAG_LIVE
     );
-    console.log(req.body);
+
     try {
         // Save to Firestore
         if (req.body.kindergeburtstag) {
             const docRef = await addDoc(collection(db, "kindergeburtstag"), req.body);
-            console.log("Document ID: ", docRef.id);
         }
 
         let emailTo = ""; // Default subject line
@@ -21,22 +20,17 @@ export default async function handler(req, res) {
         if (req.body.cafe) {
             emailTo = process.env.NEXT_MAIL_CAFE_LIVE;
             subjectLine = "Anfrage Vermietung Cafe von " + req.body.name;
-            console.log(emailTo);
         } else if (req.body.raum) {
             emailTo = process.env.NEXT_MAIL_KONTAKT_LIVE;
             subjectLine = "Anfrage Raumvermietung von " + req.body.name;
-            console.log(emailTo);
         } else if (req.body.kindergeburtstag) {
             emailTo = process.env.NEXT_MAIL_GEBURTSTAG_LIVE;
             subjectLine = "Anfrage Kindergeburtstag von " + req.body.name;
-            console.log(emailTo);
         } else {
             emailTo = process.env.NEXT_MAIL_KONTAKT_LIVE;
             subjectLine = "Email von " + req.body.name;
-            console.log(emailTo);
         }
 
-        console.log(emailTo);
         // Set up Nodemailer
         // Set up Nodemailer
         const transporter = nodemailer.createTransport({
@@ -99,9 +93,5 @@ export default async function handler(req, res) {
         await transporter.sendMail(adminMailOptions);
 
         res.status(200).json({ message: "Anmeldung erfolgreich gespeichert und bestätigt" });
-
-        console.log("Email sent successfully");
-    } catch (error) {
-        console.log("Error sending email: ", error);
-    }
+    } catch (error) {}
 }

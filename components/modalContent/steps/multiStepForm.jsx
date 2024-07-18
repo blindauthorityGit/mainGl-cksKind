@@ -34,7 +34,6 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
 
     //SET CATEGORY
     useEffect(() => {
-        console.log(events.kategorie.name);
         setCurrentCategory(events.kategorie.name);
     }, [events]);
 
@@ -71,14 +70,12 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
             setLoading(false);
 
             if (response.ok) {
-                console.log("Form submitted successfully");
                 setSubmissionStatus("success");
-                console.log(currentStep, steps + 1, steps);
+
                 setCurrentStep(currentStep + 1);
 
                 // Handle success here (e.g., update UI to show a success message)
             } else {
-                console.log("Form submission failed");
                 setSubmissionStatus("failed");
 
                 // Handle failure here (e.g., update UI to show an error message)
@@ -104,7 +101,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
 
     const handleNextStep = () => {
         const isValid = getValidationRules(currentCategory, currentStep)(formData);
-        console.log(formData);
+
         if (events.slug.current.includes("pekip") && currentStep == 1) {
             setDirection(1);
             setCurrentStep(currentStep + 1);
@@ -118,7 +115,6 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
             setCurrentStep(currentStep + 1);
         } else {
             // Handle invalid form data (e.g., show an error message)
-            console.log("Form data is not valid");
         }
     };
 
@@ -129,13 +125,10 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
 
     const handleDateSelect = (date) => {
         // updateFormData({ date });
-        console.log(formData);
         // handleNextStep();
     };
 
-    useEffect(() => {
-        console.log(currentStep);
-    }, [currentStep]);
+    useEffect(() => {}, [currentStep]);
 
     useEffect(() => {
         setSteps(events.kategorie.name == "Baby & Kleinkind" ? 5 : 4);
@@ -143,11 +136,11 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
 
     // useEffect(() => {
     //     if (formData.date) {
-    //         console.log("Date valid");
+    //
     //         setStep1Valid(true);
     //     }
     //     if (formData.twins && formData.sibilings && birthDate) {
-    //         console.log("Date valid");
+    //
     //         setStep2Valid(true);
     //     }
     // }, [formData]);

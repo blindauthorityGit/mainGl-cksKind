@@ -23,8 +23,6 @@ import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor
 
 export default function Schwangerschaft({ dataSchwangerschaft, dataEvents }) {
     useEffect(() => {
-        console.log(dataEvents);
-        console.log(dataSchwangerschaft);
         changeBodyBackgroundColor(dataSchwangerschaft);
     }, []);
     return (

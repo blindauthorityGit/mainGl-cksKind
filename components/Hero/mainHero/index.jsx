@@ -142,7 +142,6 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
     }, []);
 
     useEffect(() => {
-        console.log(height, imgRef.current.clientWidth);
         updateBGHeight();
         window.addEventListener("resize", updateBGHeight);
         return () => window.removeEventListener("resize", updateBGHeight);
@@ -160,15 +159,13 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
     useEffect(() => {
         const newDimensions = calculateImageDimensions(imgRef.current.clientWidth, height);
         setImageDimensions(newDimensions);
-        console.log(newDimensions);
+
         updateBGHeight();
         window.addEventListener("resize", updateBGHeight);
         return () => window.removeEventListener("resize", updateBGHeight);
     }, [updateBGHeight, width, height, calculateImageDimensions]);
 
-    useEffect(() => {
-        console.log(data);
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <section
@@ -329,7 +326,6 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
                     ) : (
                         <div className="col-span-12 wrapper flex space-x-2 px-4 mt-6 lg:mt-8 justify-center lg:hidden">
                             {data.buttons.map((e, i) => {
-                                console.log(modal);
                                 return modal ? (
                                     <MainButtonNOLink
                                         klasse={`NOINONONO ${

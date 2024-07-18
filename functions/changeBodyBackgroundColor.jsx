@@ -1,6 +1,4 @@
 export default function changeBackgroundColor(data) {
-    console.log(data._type, data.title, data.kategorie?.name);
-    console.log(data.title, data.title === "Beratung & Coachings & Workshops");
     if (data._type == "home" || data._type == "raumvermietung" || data._type == "ueberuns") {
         document.body.style.backgroundColor = "#CDE4C4";
         return;

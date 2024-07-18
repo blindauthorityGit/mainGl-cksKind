@@ -30,7 +30,6 @@ import changeBodyBackgroundColor from "../functions/changeBodyBackgroundColor";
 
 export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt }) {
     useEffect(() => {
-        console.log(dataEvents);
         changeBodyBackgroundColor(dataHome);
     }, []);
     return (

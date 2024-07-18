@@ -134,7 +134,6 @@ const CafeReservierung = ({ image }) => {
             if (isStep1Complete) {
                 setCurrentStep(2);
             } else {
-                console.log("Please fill all fields correctly.");
             }
         } else if (currentStep === 2) {
             if (isStep2Complete) {
@@ -175,7 +174,6 @@ const CafeReservierung = ({ image }) => {
                     setLoading(false);
                 }
             } else {
-                console.log("Please fill all fields correctly.");
             }
         }
     };

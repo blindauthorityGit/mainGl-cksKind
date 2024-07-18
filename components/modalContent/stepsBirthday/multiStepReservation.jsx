@@ -22,14 +22,10 @@ const MultiStepReservation = ({ image }) => {
     }, [updateFormData]);
 
     const handleNextStep = () => {
-        console.log(formData);
-
         setCurrentStep(currentStep + 1);
     };
 
     const handlePrevStep = () => {
-        console.log(formData);
-
         setCurrentStep(currentStep - 1);
     };
 

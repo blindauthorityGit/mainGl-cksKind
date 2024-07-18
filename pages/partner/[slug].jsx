@@ -110,7 +110,6 @@ export const getStaticProps = async (context) => {
     // `;
 
     // Debugging: Log the query
-    console.log("Query:", query);
 
     const resEvent = await client.fetch(query);
     const dataEvent = await resEvent;

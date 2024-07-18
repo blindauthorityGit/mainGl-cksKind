@@ -14,7 +14,6 @@ const StepOne = ({ handleNextStep }) => {
     const handleNext = () => {
         updateFormData({ guests, kids });
         handleNextStep();
-        console.log(formData);
     };
 
     return (

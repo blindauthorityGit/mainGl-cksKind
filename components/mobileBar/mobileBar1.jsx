@@ -25,9 +25,7 @@ const MobileBar = (props) => {
     const [showContact, setShowContact] = useState(false);
     const [showOpening, setShowOpening] = useState(false);
 
-    useEffect(() => {
-        console.log(props.data);
-    }, [props.data]);
+    useEffect(() => {}, [props.data]);
 
     return (
         <>

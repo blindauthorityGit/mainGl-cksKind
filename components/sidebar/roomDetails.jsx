@@ -11,9 +11,7 @@ import { H2, H3, H4, H5, P } from "../typography";
 import formatDateTime from "../../functions/formatDateTime";
 
 const RoomDetails = ({ data, isWorkshop }) => {
-    useEffect(() => {
-        console.log("FIRED");
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <>

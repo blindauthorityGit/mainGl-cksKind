@@ -13,7 +13,7 @@
 //         fetch("/api/checkout_sessions", { method: "POST" })
 //             .then((res) => res.json())
 //             .then((data) => {
-//                 console.log("Client Secret Received:", data.clientSecret);
+//
 //                 setClientSecret(data.clientSecret);
 //             });
 //     }, []);
@@ -50,7 +50,6 @@ export default function StripePaymentComponent({ title, price, description }) {
     const [error, setError] = useState(""); // State to hold any error message
 
     useEffect(() => {
-        console.log(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
         fetch("/api/checkout_sessions", {
             method: "POST",
             headers: {
@@ -66,7 +65,6 @@ export default function StripePaymentComponent({ title, price, description }) {
             })
             .then((data) => {
                 if (data.clientSecret) {
-                    console.log("Client Secret Received:", data.clientSecret);
                     setClientSecret(data.clientSecret);
                 } else {
                     throw new Error("No client secret received");

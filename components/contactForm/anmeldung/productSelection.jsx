@@ -23,7 +23,6 @@ const ProductSelection = ({ events, onDateSelect }) => {
 
     useEffect(() => {
         setIsValid(setSelectedProduct !== "");
-        console.log(selectedProduct);
     }, [selectedProduct]);
 
     useEffect(() => {
@@ -34,7 +33,6 @@ const ProductSelection = ({ events, onDateSelect }) => {
         setIsValid(e.target.value !== "");
         setSelectedProduct(e.target.value);
 
-        console.log(e.target.value);
         updateFormData({ produkt: e.target.value });
     };
 

@@ -5,7 +5,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 export default async function handler(req, res) {
     if (req.method === "POST") {
         const { title, price, description } = req.body;
-        console.log(title, price, description);
+
         try {
             const session = await stripe.checkout.sessions.create({
                 ui_mode: "embedded",
@@ -32,10 +32,8 @@ export default async function handler(req, res) {
             });
 
             // Log the entire session object to see all its properties
-            console.log("Stripe Session:", session);
 
             if (session.client_secret) {
-                console.log("Sending client secret:", session.client_secret);
                 res.send({ clientSecret: session.client_secret });
             } else {
                 throw new Error("Client secret not found in Stripe session");

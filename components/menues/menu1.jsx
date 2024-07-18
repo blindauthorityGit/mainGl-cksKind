@@ -72,9 +72,7 @@ const Menu1 = (props) => {
         };
     }, [router.events]);
 
-    const onEnter = (e) => {
-        console.log(e.target);
-    };
+    const onEnter = (e) => {};
 
     const textMotion = {
         rest: {

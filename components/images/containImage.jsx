@@ -19,12 +19,11 @@ const ContainImage = (
                 <Image
                     src={mobileSrc}
                     alt={alt}
-                    layout="fill"
-                    objectFit="contain"
+                    fill
                     quality={100}
                     className="block lg:hidden"
                     onClick={onClick}
-                    style={{ aspectRatio: aspectRatio }} // Apply the custom aspect ratio for mobile
+                    style={{ ...style, objectFit: "contain", aspectRatio: aspectRatio }} // Apply the custom aspect ratio for mobile
                     onLoadingComplete={onLoadingComplete} // Pass the onLoad prop to the Image component
                 />
             )}
@@ -32,12 +31,11 @@ const ContainImage = (
                 <Image
                     src={src}
                     alt={alt}
-                    layout="fill"
-                    objectFit="contain"
+                    fill
                     quality={100}
                     className="hidden lg:block"
                     onClick={onClick}
-                    style={{ aspectRatio: aspectRatio }} // Apply the custom aspect ratio for desktop
+                    style={{ ...style, objectFit: "contain", aspectRatio: aspectRatio }} // Apply the custom aspect ratio for desktop
                     onLoadingComplete={onLoadingComplete} // Pass the onLoad prop to the Image component
                 />
             )}

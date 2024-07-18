@@ -34,7 +34,7 @@ export const fetchFirestoreData = async (collectionName) => {
     try {
         const querySnapshot = await getDocs(collection(db, collectionName));
         const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        // console.log(data);
+        //
         return data;
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -54,7 +54,6 @@ export const saveConfirmationToken = async (email, token) => {
             createdAt: new Date(), // Store the current date to handle token expiration if needed
         };
         await addDoc(collectionRef, docData);
-        console.log(`Confirmation token saved for email: ${email}`);
     } catch (error) {
         console.error("Error saving confirmation token:", error);
         throw new Error("Failed to save confirmation token");
@@ -63,7 +62,6 @@ export const saveConfirmationToken = async (email, token) => {
 
 export const verifyTokenAndGetEmail = async (token) => {
     try {
-        console.log("Verifying token:", token);
         const collectionRef = collection(
             db,
             JSON.parse(process.env.NEXT_DEV) ? "dev_newsletter_tokens" : "live_newsletter_tokens"
@@ -75,7 +73,7 @@ export const verifyTokenAndGetEmail = async (token) => {
             const doc = querySnapshot.docs[0];
             const email = doc.data().email;
             await deleteDoc(doc.ref); // Remove token after verification
-            console.log("Token verified, email retrieved:", email);
+
             return email;
         } else {
             console.error("Invalid or expired token");
@@ -99,10 +97,8 @@ export const updateSubscriptionStatus = async (email) => {
         if (!querySnapshot.empty) {
             const docRef = querySnapshot.docs[0].ref;
             await updateDoc(docRef, { status: "subscribed" });
-            console.log(`Subscription status updated for email: ${email}`);
         } else {
             await addDoc(collectionRef, { email: email, status: "subscribed" });
-            console.log(`Subscription status added for new email: ${email}`);
         }
     } catch (error) {
         console.error("Error updating subscription status:", error);

@@ -51,7 +51,6 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
     }, [setIsCafe]);
 
     useEffect(() => {
-        console.log(data, dataSpeisekarte, dataKontakt);
         changeBodyBackgroundColor(data);
         updateCafeData({
             oeffnungszeiten: data.oeffnungszeiten,
@@ -82,7 +81,6 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                 <CardButtonHolder
                     isCafe
                     onClick={(e) => {
-                        console.log(e.currentTarget, e.currentTarget.dataset.id);
                         const theme = e.currentTarget.dataset.id;
                         if (theme === "Reservierung") {
                             setShowOverlay(true);

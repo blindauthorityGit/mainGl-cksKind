@@ -13,9 +13,7 @@ const MapboxMap = (props) => {
 
     const { isMobile, isTablet, isDesktop } = useBreakpoints();
 
-    useEffect(() => {
-        console.log(isMobile, isTablet, isDesktop);
-    }, [isMobile, isTablet, isDesktop]);
+    useEffect(() => {}, [isMobile, isTablet, isDesktop]);
 
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API;
 
@@ -47,7 +45,6 @@ const MapboxMap = (props) => {
                 })
             );
             // Get height of container and set mapHeight state
-            console.log(mapContainer.current.clientWidth);
 
             setMapHeight(mapContainer.current.clientWidth);
         }
@@ -57,7 +54,6 @@ const MapboxMap = (props) => {
         // Get height of container and set mapHeight state
         if (mapContainer.current) {
             setMapHeight(mapContainer.current.clientWidth);
-            console.log(mapContainer.current.clientWidth);
         }
     }, []);
 

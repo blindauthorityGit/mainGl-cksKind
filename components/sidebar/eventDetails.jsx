@@ -34,9 +34,7 @@ const Details = ({ data, isWorkshop, isMobile }) => {
         setBlockVisibility(initialVisibility);
     }, [data.blocks]);
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
+    useEffect(() => {}, [data]);
 
     useEffect(() => {
         const dates = collectDates(data);

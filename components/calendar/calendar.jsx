@@ -61,7 +61,7 @@
 
 //     useEffect(() => {
 //         const sortedEvents = processEvents(data, false);
-//         console.log(sortedEvents);
+//
 //         setFlatData(sortedEvents);
 //     }, [data, currentDate]);
 
@@ -77,7 +77,7 @@
 //             setShowModal(true);
 //         } else {
 //             // No events on this day
-//             console.log("No events on this day");
+//
 //         }
 //     };
 
@@ -136,9 +136,9 @@
 //                                         onClick={(e) => {
 //                                             // setShowToolTip(true);
 //                                             // setToolTipData(getElementByID(data, e.currentTarget.dataset.index));
-//                                             // console.log(e.currentTarget);
-//                                             // console.log(getElementByID(data, e.currentTarget.dataset.index));
-//                                             // console.log(data);
+//                                             //
+//                                             //
+//                                             //
 //                                         }}
 //                                     >
 //                                         <div
@@ -226,8 +226,8 @@ const Calendar = ({ data, isSmallCalendar }) => {
 
     useEffect(() => {
         const sortedEvents = processEvents(data);
-        // console.log(data.filter((e) => e.headline == "Känguru Salsa & Känguru Belly"));
-        // console.log(sortedEvents.filter((e) => e.headline == "Känguru Salsa & Känguru Belly"));
+        //
+        //
         setFlatData(sortedEvents);
     }, [data]);
 
@@ -266,7 +266,7 @@ const Calendar = ({ data, isSmallCalendar }) => {
             setShowModal(true);
         } else {
             // No events on this day
-            // console.log("No events on this day");
+            //
         }
     };
 
@@ -310,7 +310,7 @@ const Calendar = ({ data, isSmallCalendar }) => {
                         >
                             {format(day, "d")}
                             {todaysEvents.map((e, i) => {
-                                // console.log(e.kategorie.name);
+                                //
                                 return (
                                     <div
                                         style={{
@@ -325,9 +325,9 @@ const Calendar = ({ data, isSmallCalendar }) => {
                                         onClick={(e) => {
                                             // setShowToolTip(true);
                                             // setToolTipData(getElementByID(data, e.currentTarget.dataset.index));
-                                            // console.log(e.currentTarget);
-                                            // console.log(getElementByID(data, e.currentTarget.dataset.index));
-                                            // console.log(data);
+                                            //
+                                            //
+                                            //
                                         }}
                                     >
                                         <div

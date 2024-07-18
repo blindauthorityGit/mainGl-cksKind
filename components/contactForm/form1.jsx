@@ -24,7 +24,6 @@ const Form1 = (props) => {
     } = useForm();
 
     async function onSubmitForm(values) {
-        console.log(values, props.bild);
         setLoading(true);
         let config = {
             method: "post",
@@ -44,14 +43,11 @@ const Form1 = (props) => {
             const response = await axios(config);
             setLoading(false);
             setSuccess(true);
-            console.log(response);
-        } catch (err) {
-            console.log(err);
-        }
+        } catch (err) {}
     }
 
     useEffect(() => {
-        // console.log(props.bild);
+        //
     }, []);
 
     return (

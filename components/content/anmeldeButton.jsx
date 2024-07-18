@@ -12,9 +12,7 @@ const AnmeldeButton = ({ events, isPekip, data, dates }) => {
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setModalContent = useStore((state) => state.setModalContent);
 
-    useEffect(() => {
-        console.log(events);
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <div>
@@ -33,7 +31,6 @@ const AnmeldeButton = ({ events, isPekip, data, dates }) => {
                             dates={dates}
                         ></MultiStepForm>
                     );
-                    console.log("ANMELDUNG");
                 }}
             >
                 <img className="inline mr-4" src={Anmelden.src} alt="" />

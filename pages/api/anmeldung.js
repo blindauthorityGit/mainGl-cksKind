@@ -7,7 +7,7 @@ async function subscribeToNewsletter(email, name, phone) {
     const mailchimpApiKey = process.env.NEXT_MAILCHIMP_API_KEY;
     const mailchimpServerPrefix = process.env.NEXT_MAILCHIMP_SERVER_PREFIX;
     const mailchimpListId = process.env.NEXT_MAILCHIMP_LIST_ID;
-    console.log(mailchimpApiKey, mailchimpServerPrefix, mailchimpListId);
+
     if (!mailchimpApiKey || !mailchimpServerPrefix || !mailchimpListId) {
         throw new Error("Mailchimp environment variables are not defined.");
     }
@@ -33,14 +33,13 @@ async function subscribeToNewsletter(email, name, phone) {
                 },
             }
         );
-        console.log("Subscription successful", response.data);
+
         return response.data;
     } catch (error) {
         if (error.response && error.response.data) {
             const errorData = error.response.data;
             // Mailchimp error code for already existing subscriber is 'Member Exists'
             if (errorData.title === "Member Exists") {
-                console.log("Subscriber already exists, no action taken.");
                 return { status: "already_subscribed", detail: errorData.detail };
             } else {
                 console.error("Mailchimp Error:", errorData.detail);
@@ -53,8 +52,7 @@ async function subscribeToNewsletter(email, name, phone) {
 }
 
 export default async function handler(req, res) {
-    console.log(req.body.trainerEmail);
-    console.log(process.env.NEXT_MAILCHIMP_API_KEY); // Correct way to access the environment variable
+    // Correct way to access the environment variable
 
     if (req.method === "POST") {
         try {
@@ -64,10 +62,7 @@ export default async function handler(req, res) {
             // Save to Firestore only if NEXT_DEV is not true
             if (process.env.NEXT_DEV !== "true") {
                 const docRef = await addDoc(collection(db, "anmeldung_kurse"), req.body);
-                console.log("Document ID: ", docRef.id);
             } else {
-                console.log(req.body);
-                console.log("Skipping Firestore save in development mode.");
             }
 
             // Set up Nodemailer

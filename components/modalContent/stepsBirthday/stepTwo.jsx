@@ -30,7 +30,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
         const fetchExceptions = async () => {
             try {
                 const data = await client.fetch(`*[_type == "cafe"]`);
-                console.log(data[0].ausnahmen);
+
                 setExceptions(data[0].ausnahmen);
             } catch (error) {
                 console.error("Error fetching exceptions:", error);
@@ -156,7 +156,6 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                         // setTimeSlot("");
                         // setAvailableTimeSlots([]);
                         setIsFullyBooked(false);
-                        console.log(isFullyBooked);
 
                         // updateAvailableTimeSlots(date);
                     }}
@@ -197,7 +196,6 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                         // setAvailableTimeSlots([]);
                         setIsFullyBooked(false);
                         // updateAvailableTimeSlots(date);
-                        console.log(isFullyBooked);
                     }}
                     // filterDate={(date) => {
                     //     const day = getDay(date);

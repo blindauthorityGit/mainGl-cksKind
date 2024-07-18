@@ -16,9 +16,7 @@ const Mobile1 = (props) => {
 
     const burgerRef = useRef();
 
-    function clicker(e) {
-        console.log("Clicked");
-    }
+    function clicker(e) {}
 
     function handleClose() {
         setShowMenu(false);

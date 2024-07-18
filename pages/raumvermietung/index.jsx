@@ -33,7 +33,6 @@ export default function Raumvermietung({ data, dataKontakt }) {
 
     useEffect(() => {
         changeBodyBackgroundColor(data);
-        console.log(data);
     }, []);
 
     return (

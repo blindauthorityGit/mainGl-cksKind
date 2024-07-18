@@ -27,16 +27,12 @@ const StepSummary = ({ data, events }) => {
             newsletter: isCheckboxChecked,
             datenschutz: isCheckboxChecked2,
         });
-        console.log(formData);
     }, []);
 
-    useEffect(() => {
-        console.log(formData);
-    }, [formData]);
+    useEffect(() => {}, [formData]);
 
     // Function to handle form submission
     const handleSubmit = async () => {
-        console.log(JSON.stringify(formData));
         setLoading(true);
 
         try {
@@ -51,12 +47,10 @@ const StepSummary = ({ data, events }) => {
             setLoading(false);
 
             if (response.ok) {
-                console.log("Form submitted successfully");
                 setSubmissionStatus("success");
 
                 // Handle success here (e.g., update UI to show a success message)
             } else {
-                console.log("Form submission failed");
                 setSubmissionStatus("failed");
 
                 // Handle failure here (e.g., update UI to show an error message)

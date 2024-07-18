@@ -23,9 +23,7 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip, dates }) => {
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setModalContent = useStore((state) => state.setModalContent);
 
-    useEffect(() => {
-        console.log("DAT THE DATA", data, events, events.recurringDates, events.recurringDates?.length > 0);
-    }, [data]);
+    useEffect(() => {}, [data]);
 
     const createMarkup = (htmlString) => {
         return { __html: htmlString };
@@ -84,7 +82,6 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip, dates }) => {
                             dates={dates}
                         ></MultiStepForm>
                     );
-                    console.log("ANMELDUNG");
                 }}
             >
                 <img className="inline mr-4" src={Anmelden.src} alt="" />

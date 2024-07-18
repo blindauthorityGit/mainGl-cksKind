@@ -34,7 +34,6 @@ export default function Anfahrt({ data, dataKontakt, dataAnfahrt }) {
 
     useEffect(() => {
         changeBodyBackgroundColor(data);
-        console.log(data, dataAnfahrt);
     }, []);
 
     return (

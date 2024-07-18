@@ -34,10 +34,7 @@ const MapHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
     const setModalContent = useStore((state) => state.setModalContent);
 
     // const [topDistance, setTopDistance]
-    useEffect(() => {
-        console.log("bin die mapbox");
-        console.log(width);
-    }, []);
+    useEffect(() => {}, []);
 
     const imgRef = useRef();
     const heightRef = useRef();

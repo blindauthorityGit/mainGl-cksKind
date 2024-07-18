@@ -101,16 +101,12 @@ const AnmeldeForm = ({ data, children, events, intro, kategorie, isPekip, recurr
             const response = await axios(config);
             setLoading(false);
             setSuccess(true);
-
-            console.log(response);
-        } catch (err) {
-            console.log(err);
-        }
+        } catch (err) {}
     }
 
     useEffect(() => {
         setFormData({});
-        console.log(formData);
+
         updateFormData({
             kurs: events.headline,
             sum: events.headline,
@@ -119,11 +115,7 @@ const AnmeldeForm = ({ data, children, events, intro, kategorie, isPekip, recurr
         });
     }, [events]);
 
-    useEffect(() => {
-        console.log(data);
-        console.log("IS PEKIP?", isPekip);
-        console.log("IS RECURRIUNG?", recurring);
-    }, []);
+    useEffect(() => {}, []);
 
     useEffect(() => {
         // This function is called when the component mounts or when waitingList updates.

@@ -17,13 +17,10 @@ const StepTwo = ({ data, events, formData }) => {
 
     const intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus ut perferendis ratione.";
 
-    useEffect(() => {
-        console.log(formData);
-    }, []);
+    useEffect(() => {}, []);
 
     // Function to handle form submission
     const handleSubmit = async () => {
-        console.log(JSON.stringify(formData));
         setLoading(true);
 
         try {
@@ -38,12 +35,10 @@ const StepTwo = ({ data, events, formData }) => {
             setLoading(false);
 
             if (response.ok) {
-                console.log("Form submitted successfully");
                 setSubmissionStatus("success");
 
                 // Handle success here (e.g., update UI to show a success message)
             } else {
-                console.log("Form submission failed");
                 setSubmissionStatus("failed");
 
                 // Handle failure here (e.g., update UI to show an error message)

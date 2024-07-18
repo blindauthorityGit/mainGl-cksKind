@@ -5,15 +5,11 @@ export default async function handler(req, res) {
     if (req.method === "GET") {
         const { token } = req.query;
 
-        console.log("Received token:", token);
-
         try {
             const email = await verifyTokenAndGetEmail(token);
-            console.log("Email retrieved from token:", email);
 
             if (email) {
                 await updateSubscriptionStatus(email);
-                console.log("Subscription status updated for email:", email);
 
                 // Call Mailchimp API to finalize the subscription
                 const data = {
@@ -32,7 +28,6 @@ export default async function handler(req, res) {
                     }
                 );
 
-                console.log("Subscription confirmed with Mailchimp:", response.data);
                 res.status(200).send("Subscription confirmed successfully.");
             } else {
                 console.error("Invalid or expired token");

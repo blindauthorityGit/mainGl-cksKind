@@ -15,7 +15,7 @@ const Modal = (props) => {
         if (modalRef.current && !modalRef.current.contains(event.target)) {
             // Clicked outside the modal
             //Close the modal
-            console.log("I CLICKED OUTSIDE");
+
             props.onClick();
             resetModalHeight();
         }

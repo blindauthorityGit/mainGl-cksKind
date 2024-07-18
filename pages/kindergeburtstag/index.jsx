@@ -33,7 +33,6 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
     const setModalContent = useStore((state) => state.setModalContent);
     useEffect(() => {
         changeBodyBackgroundColor(data);
-        console.log(data);
     }, []);
 
     return (

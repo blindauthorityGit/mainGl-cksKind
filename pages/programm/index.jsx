@@ -84,14 +84,14 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
     useEffect(() => {
         // Get the category from the URL query
         const { cat } = router.query;
-        console.log(cat);
+
         if (cat && cat != "alle") {
             // Decode the category name from the URL
             const decodedCategory = decodeURIComponent(cat);
 
             // Filter the data based on the URL query parameter
             const filtered = dataEvents.filter((event) => event.kategorie.name === decodedCategory);
-            console.log("THE DATA: ", filtered);
+
             setFilteredEvents(filtered);
             setActiveFilter(decodedCategory);
 
@@ -115,7 +115,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
 
             // Filter the data based on the URL query parameter
             const filtered = dataEvents.filter((event) => event.kategorie.name === decodedCategory);
-            console.log("THE DATA: ", filtered);
+
             setFilteredEvents(filtered);
             setActiveFilter(decodedCategory);
             setTimeout(() => {
@@ -237,7 +237,6 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
     };
 
     useEffect(() => {
-        console.log(dataEvents);
         setFilteredEvents(dataEvents);
         changeBodyBackgroundColor("");
     }, []);

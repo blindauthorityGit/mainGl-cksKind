@@ -32,10 +32,7 @@ const TextImagePortableText = ({ data, overlap }) => {
         }
     }, [controls, inView]);
 
-    useEffect(() => {
-        console.log(hRef.current.clientHeight);
-        console.log(data);
-    }, [hRef.current]);
+    useEffect(() => {}, [hRef.current]);
 
     const variants = {
         visible: {

@@ -9,9 +9,7 @@ import Calendar from "../../../assets/calendar.svg";
 const StepFourNew = forwardRef(({ data, events, updateFormData, isPekip }, ref) => {
     const { dates } = useStore();
 
-    useEffect(() => {
-        console.log(events);
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8">

@@ -52,7 +52,6 @@ const Card = ({ data, i }) => {
     };
 
     useEffect(() => {
-        console.log(data.button.link);
         if (inView) {
             controls.start("visible");
         } else {

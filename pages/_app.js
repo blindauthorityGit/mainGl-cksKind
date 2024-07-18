@@ -82,7 +82,7 @@ function MyApp({ Component, pageProps }) {
         const fetchModalSettings = async () => {
             try {
                 const settings = await client.fetch(`*[_type == "modalGeneral"][0]`);
-                console.log("GOMMA", settings.text);
+
                 if (settings && settings.active) {
                     setModalContent(<StartModal data={settings.text}> </StartModal>);
                     setShowModal(true);
@@ -92,7 +92,7 @@ function MyApp({ Component, pageProps }) {
                 console.error("Error fetching modal settings:", error);
             }
         };
-        console.log(StartModal);
+
         fetchModalSettings();
     }, []);
 
@@ -162,8 +162,6 @@ function MyApp({ Component, pageProps }) {
                 {showOverlay && (
                     <Overlay
                         onClick={(e) => {
-                            console.log("I CLICKED OVERLAY CLOSE");
-                            console.log(showOverlay);
                             setShowOverlay(false);
                             setShowMobileMenu(false);
                             setShowMobileModal(false);

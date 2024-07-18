@@ -11,7 +11,6 @@ import { H2, P, H4 } from "../typography";
 const myPortableTextComponents = (isWorkshop) => ({
     types: {
         imageGallery: ({ value }) => {
-            console.log(value);
             return (
                 <div className="grid col-span-12 grid-cols-12 gap-2 xl:gap-4 my-8 2xl:my-24">
                     {value.images.map((e, i) => (
@@ -22,7 +21,7 @@ const myPortableTextComponents = (isWorkshop) => ({
                             alt="Cover Background"
                             style={{ aspectRatio: "1/1" }}
                             // onClick={(e) => {
-                            //     console.log(e.target.srcset);
+                            //
                             //     setImageSrc(urlFor(e).url());
                             // }}
                             className={`w-full z-20 relative rounded-[40px] overflow-hidden col-span-6  `}

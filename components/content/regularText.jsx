@@ -11,9 +11,7 @@ import { CoverImage } from "../images";
 import urlFor from "../../functions/urlFor";
 
 const RegularText = ({ data, isWorkshop, link }) => {
-    useEffect(() => {
-        console.log(data);
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <div className="col-span-12 px-6 xl:ml-8 2xl:ml-28  ">

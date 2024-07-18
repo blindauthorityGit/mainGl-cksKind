@@ -9,9 +9,7 @@ const Menu2 = (props) => {
 
     //     }
     // `
-    const onEnter = (e) => {
-        console.log(e.target);
-    };
+    const onEnter = (e) => {};
 
     const textMotion = {
         rest: {

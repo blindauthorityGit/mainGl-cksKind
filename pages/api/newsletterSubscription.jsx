@@ -6,7 +6,7 @@ import { saveToFirestore, uploadFile, moveToPermanentStorage, saveConfirmationTo
 
 async function subscribeToNewsletter(email) {
     const token = uuidv4();
-    console.log(email);
+
     await saveConfirmationToken(email, token);
 
     const confirmationLink = `${
@@ -39,11 +39,9 @@ async function subscribeToNewsletter(email) {
     };
 
     await transporter.sendMail(mailOptions);
-    console.log("Confirmation email sent to", email);
 }
 
 export default async function handler(req, res) {
-    console.log(req);
     if (req.method === "POST") {
         try {
             // Save to Firestore
@@ -51,7 +49,7 @@ export default async function handler(req, res) {
 
             // if (fileUrls && fileUrls.length > 0) {
             //     const permanentUrls = await moveToPermanentStorage(fileUrls);
-            //     console.log("Files moved to permanent storage:", permanentUrls);
+            //
             //     // Optionally add permanent URLs to Firestore or send in the email
             // }
 

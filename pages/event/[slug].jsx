@@ -41,7 +41,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
             // Handle the case where data is undefined
             return;
         }
-        console.log(data.kategorie?.name);
+
         const filterName = data.kategorie?.name;
         if (!filterName || !dataAllKategorie) {
             // Handle the case where filterName or dataAllKategorie is undefined
@@ -56,7 +56,6 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
 
         changeBodyBackgroundColor(data);
         setIsWorkshop(data.kategorie?.name == "Beratung & Coachings");
-        console.log(data);
     }, [data]);
 
     return (

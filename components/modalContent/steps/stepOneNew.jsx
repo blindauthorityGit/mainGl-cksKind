@@ -25,9 +25,6 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
     const intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus ut perferendis ratione.";
 
     useEffect(() => {
-        console.log(events, isPekip);
-        console.log(events.kategorie?.name);
-
         if (events.isBlock) {
             setInfoText("Block Kurs");
         }
@@ -39,10 +36,7 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
         }
     }, [events]);
 
-    useEffect(() => {
-        console.log(dates);
-        console.log(dates.length);
-    }, [dates]);
+    useEffect(() => {}, [dates]);
 
     const handleDateSelect = (date) => {
         // Handle date selection

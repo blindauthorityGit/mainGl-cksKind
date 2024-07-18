@@ -3,10 +3,8 @@ import { addDoc, collection } from "firebase/firestore/lite";
 import { db } from "../../config/firebase"; // Adjust this import according to your firebase config file path
 
 export default async function handler(req, res) {
-    console.log(req);
     if (req.method === "POST") {
         try {
-            console.log(req.body);
             // Save to Firestore
             const reservationRef = await addDoc(
                 collection(db, process.env.NEXT_DEV == "true" ? "dev_kindergeburtstag" : "kindergeburtstag"),
@@ -15,7 +13,6 @@ export default async function handler(req, res) {
                     dateCreated: new Date(), // Add this line
                 }
             );
-            console.log("Reservation ID: ", reservationRef.id);
 
             // Set up Nodemailer
             // Generate cancellation link

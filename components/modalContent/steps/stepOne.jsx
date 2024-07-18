@@ -9,9 +9,7 @@ const Anmeldung = ({ data, events, isPekip, recurring }) => {
 
     const intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus ut perferendis ratione.";
 
-    useEffect(() => {
-        console.log(events, data, events.blocks);
-    }, [events]);
+    useEffect(() => {}, [events]);
 
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8">

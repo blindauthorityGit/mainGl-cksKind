@@ -29,9 +29,7 @@ const MobileBar = (props) => {
     const showModal = useStore((state) => state.showModal);
     const cafeData = useStore((state) => state.cafeData);
 
-    useEffect(() => {
-        console.log(cafeData);
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <>

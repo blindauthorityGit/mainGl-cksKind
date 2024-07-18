@@ -163,7 +163,6 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
 
                 <div className="col-span-12 wrapper flex space-x-2 mt-6 lg:mt-8 justify-center lg:hidden px-4">
                     {data?.buttons?.map((e, i) => {
-                        console.log(modal);
                         return modal ? (
                             <MainButtonNOLink
                                 klasse={`NOINONONO ${

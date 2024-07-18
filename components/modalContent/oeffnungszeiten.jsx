@@ -18,9 +18,7 @@ const Öffnungszeiten = ({ data, image, dataKontakt }) => {
         return { __html: htmlString };
     };
 
-    useEffect(() => {
-        console.log(dataKontakt, dataKontakt.email);
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <div className="container mx-auto grid grid-cols-12 font-sans">

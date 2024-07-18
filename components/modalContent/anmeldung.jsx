@@ -42,9 +42,7 @@ const Anmeldung = ({ data, events }) => {
     const intro =
         "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus ut perferendis ratione, fugiat reminventore praesentium nulla quia ex iusto qui voluptas laborum aspernatur eveniet non, sapiente enimlaboriosam totam.";
 
-    useEffect(() => {
-        console.log(events, data);
-    }, [events]);
+    useEffect(() => {}, [events]);
 
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8">

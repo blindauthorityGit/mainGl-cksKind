@@ -30,7 +30,7 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
         if (data) {
             const filterName = data.title === "Beratung, Coachings & Workshops" ? "Beratung & Coachings" : data.title;
 
-            // console.log(dataPartner);
+            //
             setFilteredDataPartner(
                 dataPartner.filter((partner) => {
                     // Check if the 'kurse' array exists and has at least one entry matching the desired category
@@ -43,9 +43,7 @@ export default function KursOverview({ data, dataEvents, dataPartner, dataKontak
         // FILTER THE PARTNER
     }, [data]);
 
-    useEffect(() => {
-        console.log("BUBUBU", dataEvents);
-    }, [filteredDataPartner]);
+    useEffect(() => {}, [filteredDataPartner]);
 
     return (
         <>
@@ -118,7 +116,6 @@ export const getStaticProps = async (context) => {
     const data = await res[0];
 
     const desiredCategoryName = data?.title == "Beratung, Coachings & Workshops" ? "Beratung & Coachings" : data?.title;
-    console.log("KATTT NAME =", desiredCategoryName);
 
     const resEvents = await client.fetch(`
 *[_type == "event" && kategorie->name == "${desiredCategoryName}"]{
@@ -132,7 +129,7 @@ export const getStaticProps = async (context) => {
     //     kategorie->{...}
     //   }
     // `);
-    //     console.log("LOFGGER", resEventsTEST);
+    //
 
     const dataEvents = await resEvents;
 
