@@ -6,19 +6,23 @@ import { BasicPortableText } from "../content";
 import { CoverImage } from "../images";
 import urlFor from "../../functions/urlFor";
 
-//TYPO
+// TYPO
 import { H2, H3, H4, H5, P } from "../typography";
 
-//FUNCTION
+// FUNCTION
 import formatDateTime from "../../functions/formatDateTime";
+
+// ASSETS
+import Calendar from "../../assets/calendar.svg";
+import CalendarWhite from "../../assets/calendarWhite.svg";
+
+// STORE
+import useStore from "../../store/store"; // Adjust the path to your store file
 
 const Details = ({ data, isWorkshop, isMobile }) => {
     const [itemsToShow, setItemsToShow] = useState(8);
     const [blockVisibility, setBlockVisibility] = useState({});
-
-    // useEffect(() => {
-    //     setDisplayedItems(data.datum.slice(0, itemsToShow));
-    // }, [data.datum, itemsToShow]);
+    const { setDates } = useStore();
 
     useEffect(() => {
         // Initialize block visibility state to false for all blocks
@@ -30,6 +34,15 @@ const Details = ({ data, isWorkshop, isMobile }) => {
         setBlockVisibility(initialVisibility);
     }, [data.blocks]);
 
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
+
+    useEffect(() => {
+        const dates = collectDates(data);
+        setDates(dates);
+    }, [data, setDates]);
+
     const toggleBlockVisibility = (key) => {
         setBlockVisibility((prev) => ({
             ...prev,
@@ -37,19 +50,73 @@ const Details = ({ data, isWorkshop, isMobile }) => {
         }));
     };
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
+    const collectDates = (data) => {
+        const dates = [];
 
-    // Function to render dates for both block and non-block events
-    const renderDates = (isWorkshop) => {
-        // Function to map day numbers to day names in German
         const dayOfWeekToGerman = (dayNum) => {
             const days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
             return days[dayNum];
         };
 
-        // Check and render recurring events
+        const isDateOlder = (date) => {
+            const currentDate = new Date();
+            return new Date(date) < currentDate;
+        };
+
+        if (data.recurringDates && data.recurringDates.length > 0) {
+            data.recurringDates.forEach((recurringEvent) => {
+                const dayOfWeek = dayOfWeekToGerman(recurringEvent.dayOfWeek);
+                const timeslots = recurringEvent.timeslot
+                    ? `${recurringEvent.timeslot.startTime} - ${recurringEvent.timeslot.endTime}`
+                    : "";
+                dates.push({ dayOfWeek, timeslots });
+            });
+        } else if (data.isBlock && data.blocks && data.blocks.length > 0) {
+            data.blocks.forEach((block) => {
+                if (block.dates.length > 0) {
+                    const blockDates = [];
+                    block.dates.forEach((date) => {
+                        if (!isDateOlder(date.endDateTime)) {
+                            const dateStart = formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0];
+                            const dateTimeRange = `${
+                                formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]
+                            } - ${formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]}`;
+                            blockDates.push({ dateStart, dateTimeRange });
+                        }
+                    });
+                    if (blockDates.length > 0) {
+                        dates.push({
+                            blockTitle: block.blockTitle,
+                            blockSubline: block.blockSubline,
+                            dates: blockDates,
+                        });
+                    }
+                }
+            });
+        } else {
+            data.datum.forEach((date) => {
+                const dateStart = formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0];
+                const dateTimeRange = `${formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]} - ${
+                    formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]
+                }`;
+                dates.push({ dateStart, dateTimeRange });
+            });
+        }
+
+        return dates;
+    };
+
+    const renderDates = (isWorkshop) => {
+        const dayOfWeekToGerman = (dayNum) => {
+            const days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+            return days[dayNum];
+        };
+
+        const isDateOlder = (date) => {
+            const currentDate = new Date();
+            return new Date(date) < currentDate;
+        };
+
         if (data.recurringDates && data.recurringDates.length > 0) {
             return data.recurringDates.map((recurringEvent, index) => {
                 const dayOfWeek = dayOfWeekToGerman(recurringEvent.dayOfWeek);
@@ -71,28 +138,56 @@ const Details = ({ data, isWorkshop, isMobile }) => {
             return data.blocks.map((block, blockIndex) => {
                 const key = block._key || `block-${blockIndex}`;
                 const showAll = blockVisibility[key];
-                const datesToShow = showAll ? block.dates : block.dates.slice(0, 1);
+                // Ensure dates are sorted chronologically
+                const sortedDates = block.dates.sort((a, b) => new Date(a.startDateTime) - new Date(b.startDateTime));
+                const datesToShow = showAll ? sortedDates : [sortedDates[0], sortedDates[sortedDates.length - 1]];
+
+                const lastDate = sortedDates[sortedDates.length - 1].endDateTime;
+
+                const startDate = new Date(sortedDates[0].startDateTime);
+                const endDate = new Date(sortedDates[sortedDates.length - 1].endDateTime);
+
+                if (isDateOlder(lastDate)) {
+                    return null;
+                }
+                // Determine block opacity based on `einstieg` and date conditions
+                const currentDate = new Date();
+
+                const blockOpacity =
+                    startDate < currentDate && endDate >= currentDate && !block.einstieg ? "opacity-30" : "";
 
                 return (
-                    <div key={key} className={`mb-4 ${block.ausgebucht ? "opacity-30" : null}`}>
+                    <div key={key} className={`mb-4 ${blockOpacity} ${block.ausgebucht ? "opacity-30" : null}`}>
                         <H4 klasse={`font-bold ${isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}`}>
                             {block.blockTitle}
                         </H4>
-                        {block.blockSubline ? <div className="mt-1">{block.blockSubline}</div> : null}
+                        {block.blockSubline && (
+                            <div className="mt-0 mb-2 font-semibold text-sm">{block.blockSubline}</div>
+                        )}
                         {datesToShow.map((date, dateIndex) => (
-                            <P
+                            <div
                                 key={dateIndex}
-                                klasse={`font-bold ${
-                                    isWorkshop && !isMobile ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"
+                                className={`flex justify-start text-sm ${
+                                    isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"
                                 }`}
                             >
-                                {formatDateTime(date.startDateTime, date.endDateTime)}
-                            </P>
+                                <div className="inline w-[50%]">
+                                    {dateIndex == 0 && <span className="font-semibold mr-2">Start</span>}{" "}
+                                    {dateIndex == datesToShow.length - 1 && (
+                                        <span className="font-semibold mr-2">Ende</span>
+                                    )}
+                                    {formatDateTime(date.startDateTime, date.startDateTime).split(" ")[0]}
+                                </div>
+                                <div className="inline">
+                                    {formatDateTime(date.startDateTime, date.startDateTime).split(" ")[1]} -{" "}
+                                    {formatDateTime(date.endDateTime, date.endDateTime).split(" ")[1]}
+                                </div>
+                            </div>
                         ))}
-                        {block.dates.length > 1 && (
+                        {sortedDates.length > 2 && ( // Change condition to check for more than two dates
                             <button
                                 onClick={() => toggleBlockVisibility(key)}
-                                className="text-primaryColor underline font-semibold mt-2"
+                                className="text-primaryColor underline font-semibold mt-2 text-xs"
                             >
                                 {showAll ? "Weniger anzeigen" : "Alle anzeigen"}
                             </button>
@@ -101,14 +196,22 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                 );
             });
         } else {
-            // Rendering non-block events, same as before
-            return data.datum.slice(0, itemsToShow).map((e, i) => (
-                <P
+            return data.datum.slice(0, itemsToShow).map((date, i) => (
+                <div
                     key={i}
-                    klasse={`font-bold ${isWorkshop ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"}`}
+                    className={` flex justify-start text-sm ${
+                        isWorkshop && !isMobile ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"
+                    }`}
                 >
-                    {formatDateTime(e.startDateTime, e.endDateTime)}
-                </P>
+                    <div className="inline w-[38%]">
+                        {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0]}
+                    </div>
+                    <div className="inline">
+                        {" "}
+                        {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]}-
+                        {formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]}
+                    </div>{" "}
+                </div>
             ));
         }
     };
@@ -116,7 +219,7 @@ const Details = ({ data, isWorkshop, isMobile }) => {
     return (
         <>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
-                <H4 klasse="!text-primaryColor mb-4">Location</H4>
+                <H4 klasse="!text-primaryColor mb-2">Location</H4>
                 <BasicPortableText
                     isWorkshop={isWorkshop}
                     isMobile={isMobile}
@@ -124,24 +227,24 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                 />
             </div>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
-                <H4 klasse="!text-primaryColor mb-4">Preis</H4>
+                <H4 klasse="!text-primaryColor mb-2">Preis</H4>
                 <P klasse={isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}>
                     {data.eventDetails.preis}
                 </P>
             </div>
             {data.eventDetails.teilnehmeranzahl && (
                 <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
-                    <H4 klasse="!text-primaryColor mb-4">Teilnehmeranzahl</H4>
+                    <H4 klasse="!text-primaryColor mb-2">Teilnehmeranzahl</H4>
                     <BasicPortableText value={data.eventDetails.teilnehmeranzahl} />
                 </div>
             )}
             {data.eventDetails.altersgruppe && (
                 <div className={`wrapper mb-6 font-sans ${isWorkshop ? "text-blueColor-100" : "text-textColor"}`}>
-                    <H4 klasse="!text-primaryColor mb-4">Altersgruppe</H4>
+                    <H4 klasse="!text-primaryColor mb-2">Altersgruppe</H4>
                     <BasicPortableText value={data.eventDetails.altersgruppe} />
                 </div>
             )}
-            <div className={`wrapper mb-6 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
+            <div className={`wrapper mb-12 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse={`mb-4  ${isWorkshop && !isMobile ? "!text-white" : "text-textColor"}`}>Kurs Leitung</H4>
                 <div className="flex w-full items-center">
                     <div className="image">
@@ -151,7 +254,7 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                                 mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
                                 alt="Cover Background"
                                 style={{ aspectRatio: "1/1" }}
-                                className=" w-20 h-20 z-20 relative rounded-[40px] overflow-hidden  mr-4"
+                                className=" w-10 h-10 z-20 relative rounded-[40px] overflow-hidden  mr-4"
                             />
                         ) : (
                             <Link href={`/partner/${data.eventDetails.partner.slug.current}`}>
@@ -160,7 +263,7 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                                     mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
                                     alt="Cover Background"
                                     style={{ aspectRatio: "1/1" }}
-                                    className=" w-20 h-20 z-20 relative rounded-[40px] overflow-hidden  mr-4"
+                                    className=" w-10 h-10 z-20 relative rounded-[40px] overflow-hidden  mr-4"
                                 />
                             </Link>
                         )}
@@ -171,11 +274,19 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                 </div>
             </div>
             <div
-                className={`wrapper mb-6 font-sans ${
+                className={`wrapper mb-12  font-sans ${
                     isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"
                 }`}
             >
-                <H4 klasse={`mb-4  ${isWorkshop && !isMobile ? "!text-white" : "text-textColor"}`}>Termine</H4>
+                <H4
+                    klasse={`mb-4 flex space-x-2 !text-2xl  ${
+                        isWorkshop && !isMobile ? "!text-white" : "text-textColor"
+                    }`}
+                >
+                    <img width="24px" className="xl:hidden" src={Calendar.src}></img>
+                    <img width="24px" className="hidden xl:block" src={CalendarWhite.src}></img>
+                    <span>Termine</span>
+                </H4>
                 {renderDates(isWorkshop)}
                 {!data.isBlock && data.datum?.length > itemsToShow ? (
                     <button onClick={() => setItemsToShow(itemsToShow + 8)} className="mt-2 text-primaryColor">

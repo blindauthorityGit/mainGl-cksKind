@@ -35,6 +35,7 @@ const useStore = create((set) => ({
     formData: {},
     setFormData: (data) => set({ formData: data }),
     updateFormData: (newData) => set((state) => ({ formData: { ...state.formData, ...newData } })),
+    resetFormData: () => set({ formData: {} }),
 
     openModal: (x, y) => set({ isModalOpen: true, modalPosition: { x, y } }),
     closeModal: () => set({ isModalOpen: false }),
@@ -42,6 +43,9 @@ const useStore = create((set) => ({
 
     modalContent: null,
     setModalContent: (content) => set({ modalContent: content }),
+
+    dates: [],
+    setDates: (newDates) => set({ dates: newDates }),
 
     isCafe: false,
     setIsCafe: (isCafe) => set({ isCafe }),

@@ -9,6 +9,7 @@ import kursInfo from './pages/kursInfo'
 import kindergeburtstag from './pages/kindergeburtstag'
 import ueberuns from './pages/about'
 import cafe from './pages/cafe'
+import anfahrt from './pages/anfahrt'
 
 // COMPONENTS
 import mainHero from './components/mainHero'
@@ -32,12 +33,16 @@ import speiseKategorie from './components/speiseKategorie'
 import datumField from './components/datumField'
 import eventBlock from './components/block'
 import recurringEvent from './components/recurringEvent'
+import exceptions from './components/exceptions'
+import product from './components/product'
+
 //SECTIONS
 import partner from './sections/partner'
 import location from './sections/location'
 import kategorie from './sections/kategorie'
 import kontakt from './sections/kontakt'
 import speisekarte from './sections/speisekarte'
+import modalGeneral from './sections/modalGeneral'
 
 export const schemaTypes = [
   mainHero,
@@ -74,5 +79,9 @@ export const schemaTypes = [
   datumField,
   eventBlock,
   recurringEvent,
+  modalGeneral,
+  exceptions,
+  product,
+  anfahrt,
   // Add more schema types as needed
 ]

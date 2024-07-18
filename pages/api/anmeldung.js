@@ -1,14 +1,74 @@
 import nodemailer from "nodemailer";
 import { addDoc, collection } from "firebase/firestore/lite";
 import { db } from "../../config/firebase"; // Adjust this import according to your firebase config file path
+import axios from "axios";
+
+async function subscribeToNewsletter(email, name, phone) {
+    const mailchimpApiKey = process.env.NEXT_MAILCHIMP_API_KEY;
+    const mailchimpServerPrefix = process.env.NEXT_MAILCHIMP_SERVER_PREFIX;
+    const mailchimpListId = process.env.NEXT_MAILCHIMP_LIST_ID;
+    console.log(mailchimpApiKey, mailchimpServerPrefix, mailchimpListId);
+    if (!mailchimpApiKey || !mailchimpServerPrefix || !mailchimpListId) {
+        throw new Error("Mailchimp environment variables are not defined.");
+    }
+    const data = {
+        email_address: email,
+        status: "subscribed",
+        // Uncomment and complete merge_fields if you want to use them
+        merge_fields: {
+            FNAME: name.split(" ")[0],
+            LNAME: name.split(" ")[1],
+            PHONE: phone,
+        },
+    };
+
+    try {
+        const response = await axios.post(
+            `https://${process.env.NEXT_MAILCHIMP_SERVER_PREFIX}.api.mailchimp.com/3.0/lists/${process.env.NEXT_MAILCHIMP_LIST_ID}/members/`,
+            data,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${process.env.NEXT_MAILCHIMP_API_KEY}`,
+                },
+            }
+        );
+        console.log("Subscription successful", response.data);
+        return response.data;
+    } catch (error) {
+        if (error.response && error.response.data) {
+            const errorData = error.response.data;
+            // Mailchimp error code for already existing subscriber is 'Member Exists'
+            if (errorData.title === "Member Exists") {
+                console.log("Subscriber already exists, no action taken.");
+                return { status: "already_subscribed", detail: errorData.detail };
+            } else {
+                console.error("Mailchimp Error:", errorData.detail);
+                throw new Error("Failed to subscribe to newsletter: " + errorData.detail);
+            }
+        } else {
+            throw new Error("Failed to connect to Mailchimp.");
+        }
+    }
+}
 
 export default async function handler(req, res) {
     console.log(req.body.trainerEmail);
+    console.log(process.env.NEXT_MAILCHIMP_API_KEY); // Correct way to access the environment variable
+
     if (req.method === "POST") {
         try {
-            // Save to Firestore
-            const docRef = await addDoc(collection(db, "anmeldung_kurse"), req.body);
-            console.log("Document ID: ", docRef.id);
+            if (req.body.newsletter) {
+                await subscribeToNewsletter(req.body.email, req.body.name, req.body.phone);
+            }
+            // Save to Firestore only if NEXT_DEV is not true
+            if (process.env.NEXT_DEV !== "true") {
+                const docRef = await addDoc(collection(db, "anmeldung_kurse"), req.body);
+                console.log("Document ID: ", docRef.id);
+            } else {
+                console.log(req.body);
+                console.log("Skipping Firestore save in development mode.");
+            }
 
             // Set up Nodemailer
             const transporter = nodemailer.createTransport({
@@ -23,41 +83,87 @@ export default async function handler(req, res) {
                 },
             });
 
+            // Define email templates
+            const pekipText = `Liebe/t ${req.body.name},
+vielen Dank für Dein Interesse an einem PEKiP Kurs.
+
+Ist Dein Baby noch nicht auf der Welt:
+
+Durch diese Anfrage wirst Du automatisch auf der Interessentenliste eingetragen. In der Regel beginnt die Planung für die Kurse ca. 3-4 Wochen vor Beginn.
+
+Wir machen die Altersspanne der neuen Kurse immer auch von der Nachfrage abhängig. Daher können wir jetzt noch nicht sagen, an welchem Tag und zu welcher Uhrzeit, der für Dich passende Kurs stattfinden wird.
+
+Ist Dein Baby schon auf der Welt und älter als 8 Wochen? Alle aktuellen Kurse sind voll belegt. Du kommst mit dieser Anfrage automatisch auf die Warteliste für einen „Nachrückerplatz“ falls sich Kapazitäten ergeben.
+
+Sobald wir in die Planung für weitere Kurse gehen und Dir einen Platz anbieten können, melden wir uns wieder bei Dir.
+
+Bis dahin wünschen wir alles Gute und hoffen ihr könnt diese unglaubliche und aufregende Zeit richtig genießen.
+
+Alles liebe!
+
+Deine PEKiP Gruppenleitungen`;
+
+            const pekipHtml = `
+<p>Liebe/t ${req.body.name},</p>
+<p>vielen Dank für Dein Interesse an einem PEKiP Kurs.</p>
+<p><strong>Ist Dein Baby noch nicht auf der Welt:</strong></p>
+<p>Durch diese Anfrage wirst Du automatisch auf der Interessentenliste eingetragen. In der Regel beginnt die Planung für die Kurse ca. 3-4 Wochen vor Beginn.</p>
+<p>Wir machen die Altersspanne der neuen Kurse immer auch von der Nachfrage abhängig. Daher können wir jetzt noch nicht sagen, an welchem Tag und zu welcher Uhrzeit, der für Dich passende Kurs stattfinden wird.</p>
+<p><strong>Ist Dein Baby schon auf der Welt und älter als 8 Wochen?</strong> </p>
+<p>Alle aktuellen Kurse sind voll belegt. Du kommst mit dieser Anfrage automatisch auf die Warteliste für einen „Nachrückerplatz“ falls sich Kapazitäten ergeben.</p>
+<p>Sobald wir in die Planung für weitere Kurse gehen und Dir einen Platz anbieten können, melden wir uns wieder bei Dir.</p>
+<p>Bis dahin wünschen wir alles Gute und hoffen ihr könnt diese unglaubliche und aufregende Zeit richtig genießen.</p>
+<p>Alles liebe!</p>
+<p>Deine PEKiP Gruppenleitungen</p>`;
+
+            const nonPekipText = `Liebe/r ${req.body.name},
+Vielen Dank für Deine Anmeldung zu „${req.body.kurs}“, am „${req.body.date}“.
+
+Die Kursleitung/Anbieterin wird sich mit Dir in Verbindung setzen und Dir weitere Detailinfos mitteilen.
+
+Wir freuen uns auf Dich,
+
+MAIN GLÜCKSKIND`;
+
+            const nonPekipHtml = `
+<p>Liebe/r ${req.body.name},</p>
+<p>Vielen Dank für Deine Anmeldung zu <strong>${req.body.kurs}</strong>, am <strong>${req.body.date}</strong>.</p>
+<p>Die Kursleitung/Anbieterin wird sich mit Dir in Verbindung setzen und Dir weitere Detailinfos mitteilen.</p>
+<p>Wir freuen uns auf Dich,</p>
+<p>MAIN GLÜCKSKIND</p>`;
+
             const userMailOptions = {
-                // from: "office@atelierbuchner.at",
-                from: "info@mainglueckskind.de",
+                from: "office@atelierbuchner.at",
+                // from: "info@mainglueckskind.de",
                 to: req.body.email,
                 subject: "Anmelde Bestätigung",
-                text: `Liebe/r ${req.body.name}, vielen Dank für Deine Reservierung in unserem Cafe am ${new Date(
-                    req.body.date
-                ).toLocaleDateString("de-DE")} um ${req.body.timeSlot}! Wir freuen uns auf dich! Main Glückskind`,
-                html: `
-                <p>Liebe/r ${req.body.name},</p>
-                <p>vielen Dank für deine Anmeldung zu <strong>${req.body.kurs}</strong> am <strong>${req.body.date}</strong>.</p>
-                <p>Unser Trainer wird sich mit dir in Verbindung setzen und dir weitere DetailInfos mitteilen.</p>
-                <p>Wir freuen uns auf dich!</p>
-                <p>Main Glückskind</p>
-            `,
+                text: req.body.isPekip ? pekipText : nonPekipText,
+                html: req.body.isPekip ? pekipHtml : nonPekipHtml,
             };
 
             const adminMailOptions = {
                 from: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_MAIL_BUCHUNG_LIVE,
-                to: process.env.NEXT_DEV === "true" ? "office@atelierbuchner.at" : req.body.trainerEmail, // Replace with your admin email
-                cc: "info@mainglueckskind.de", // CC email
+                to:
+                    process.env.NEXT_DEV === "true"
+                        ? "office@atelierbuchner.at"
+                        : req.body.trainerEmail
+                        ? req.body.trainerEmail
+                        : "info@mainglueckskind.de", // Replace with your admin email
+                // cc: "info@mainglueckskind.de", // CC email
                 subject: `Buchung von ${req.body.name} für ${req.body.kurs} am ${req.body.date}`,
-                // text: `...`, // Your Text email content for admin
                 html: `
-                        <p><strong>Kurs:</strong> ${req.body.kurs}</p>
-                        <p><strong>Name:</strong> ${req.body.name}</p>
-                        <p><strong>Email:</strong> ${req.body.email}</p>
-                        <p><strong>Telefon:</strong> ${req.body.phone}</p>
-                        ${req.body.birthDate ? `<p><strong>Geburtsdatum:</strong> ${req.body.birthDate}</p>` : ""}
-                        ${req.body.siblings ? `<p><strong>Geschwister:</strong> ${req.body.siblings}</p>` : ""}
-                        ${req.body.twins ? `<p><strong>Zwillinge:</strong> ${req.body.twins}</p>` : ""}                
-                        <p><strong>Termin:</strong> ${req.body.date}</p>
-                        <p><strong>Nachricht:</strong><br/> ${
-                            req.body.message ? req.body.message.replace(/\n/g, "<br>") : "keine Nachricht angegeben"
-                        }</p>`,
+                ${req.body.produkt ? `<p><strong>Produkt:</strong> ${req.body.produkt}</p>` : ""}
+                    <p><strong>Kurs:</strong> ${req.body.kurs}</p>
+                    <p><strong>Name:</strong> ${req.body.name}</p>
+                    <p><strong>Email:</strong> ${req.body.email}</p>
+                    <p><strong>Telefon:</strong> ${req.body.phone}</p>
+                    ${req.body.birthDate ? `<p><strong>Geburtsdatum:</strong> ${req.body.birthDate}</p>` : ""}
+                    ${req.body.siblings ? `<p><strong>Geschwister:</strong> ${req.body.siblings}</p>` : ""}
+                    ${req.body.twins ? `<p><strong>Zwillinge:</strong> ${req.body.twins}</p>` : ""}                
+                    <p><strong>Termin:</strong> ${req.body.date}</p>
+                    <p><strong>Nachricht:</strong><br/> ${
+                        req.body.message ? req.body.message.replace(/\n/g, "<br>") : "keine Nachricht angegeben"
+                    }</p>`,
             };
 
             // Send emails
@@ -74,73 +180,3 @@ export default async function handler(req, res) {
         res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 }
-
-// const nodemailer = require("nodemailer");
-
-// // Function to send an email
-// const sendEmail = async (to, subject, html, replyTo, ccEmail) => {
-//     try {
-//         const transporter = nodemailer.createTransport({
-//             host: process.env.NEXT_DEV === "true" ? "smtp.world4you.com" : "smtp.world4you.com",
-//             port: 587,
-//             secure: false,
-//             auth: {
-//                 user: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_W4YUSER,
-//                 pass: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YPASSWORD : process.env.NEXT_W4YPASSWORD,
-//             },
-//         });
-
-//         await transporter.sendMail({
-//             from: "office@atelierbuchner.at",
-//             to,
-//             cc: ccEmail, // Add CC here
-//             replyTo,
-//             subject,
-//             html,
-//         });
-
-//         console.log("Email sent successfully");
-//     } catch (error) {
-//         console.log("Error sending email: ", error);
-//     }
-// };
-
-// // API endpoint handler
-// export default async (req, res) => {
-//     const { name, email, phone, message, date, kurs } = req.body;
-
-//     const ccEmail = "office@atelierbuchner.at"; // Replace with the actual CC email address
-
-//     // Email content for the user
-//     const userMailOptions = {
-//         from: "office@atelierbuchner.at",
-//         to: email,
-//         subject: "Anmelde Bestätigung",
-//         text: `Liebe/r ${name}, vielen Dank für Deine Reservierung in unserem Cafe am ${new Date(
-//             req.body.date
-//         ).toLocaleDateString("de-DE")} um ${req.body.timeSlot}! Wir freuen uns auf dich! Main Glückskind`,
-//         html: `
-//                 <p>Liebe/r ${name},</p>
-//                 <p>vielen Dank für deine Anmeldung zu <strong>${kurs}</strong> am <strong>${date}</strong>.</p>
-//                 <p>Unser Trainer wird sich mit dir in Verbindung setzen und dir weitere DetailInfos mitteilen.</p>
-//                 <p>Wir freuen uns auf dich!</p>
-//                 <p>Main Glückskind</p>
-//             `,
-//     };
-
-//     // Construct the email subject and body
-//     const subject = `Buchung von ${name} für ${kurs} am ${date}`;
-//     const html = `
-//         <p><strong>Kurs:</strong> ${kurs}</p>
-//         <p><strong>Name:</strong> ${name}</p>
-//         <p><strong>Email:</strong> ${email}</p>
-//         <p><strong>Telefon:</strong> ${phone}</p>
-//         <p><strong>Termin:</strong> ${date}</p>
-//         <p><strong>Nachricht:</strong><br/> ${message.replace(/\n/g, "<br>")}</p>
-//     `;
-
-//     await sendEmail("johabuch@gmail.com", subject, html, email, ccEmail);
-//     await sendEmail(email, userMailOptions.subject, userMailOptions.html, "johabuch@gmail.com");
-
-//     res.status(200).json({ message: "Anfrage erfolgreich gesendet" });
-// };

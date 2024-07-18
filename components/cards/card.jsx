@@ -62,8 +62,8 @@ const Card = ({ data, i }) => {
     return (
         <motion.div
             ref={ref}
-            className={`col-span-12 lg:col-span-4 ${i === 1 ? "xl:mt-[-2rem] 2xl:mt-[-6rem]" : ""} ${
-                i === 2 ? "xl:mt-[1rem] 2xl:mt-[4rem]" : ""
+            className={`col-span-12 lg:col-span-4 ${i === 1 ? "lg:mt-[-2rem] xl:mt-[-2rem] 2xl:mt-[-6rem]" : ""} ${
+                i === 2 ? "lg:mt-[1rem] xl:mt-[1rem] 2xl:mt-[4rem]" : ""
             }`}
             initial="hidden"
             animate={controls}

@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 //BUTTON
 import { MainButton } from "../buttons";
 
-// Overlay
-import Overlay from "../overlay";
+// ASSETS
+import LogoSimple from "../../assets/logoSimple.svg";
 // Modal
 import Modal from "../modal/modal1";
 
@@ -23,16 +23,15 @@ import useStore from "../../store/store"; // Adjust the path to your store file
 
 const Menu1 = (props) => {
     const router = useRouter();
+    const [scrolled, setScrolled] = useState(false);
 
     //STORE
-    const showOverlay = useStore((state) => state.showOverlay);
     const setShowOverlay = useStore((state) => state.setShowOverlay);
 
     const showMobileMenu = useStore((state) => state.showMobileMenu);
     const setShowMobileMenu = useStore((state) => state.setShowMobileMenu);
 
     const navRef = useRef(null);
-    const animate = useAnimation();
 
     const ref = useRef(null);
 
@@ -45,10 +44,12 @@ const Menu1 = (props) => {
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > navRef.current.offsetTop) {
+                setScrolled(true);
                 navRef.current.classList.add("fixed", "top-0");
                 ref.current.classList.remove("hidden");
                 ref.current.classList.add("scale-up-hor-left", "block");
             } else {
+                setScrolled(false);
                 // navRef.current.classList.remove("fixed");
             }
         };
@@ -159,9 +160,12 @@ const Menu1 = (props) => {
             {showMobileMenu ? (
                 <Mobile1
                     socialMedia={props.socialMedia}
+                    showMenu={showMobileMenu}
                     onClick={(e) => {
-                        setShowOverlay(false);
-                        setShowMobileMenu(false);
+                        setTimeout(() => {
+                            setShowOverlay(false);
+                            setShowMobileMenu(false);
+                        }, 100);
                     }}
                 ></Mobile1>
             ) : null}
@@ -175,14 +179,18 @@ const Menu1 = (props) => {
                     {/* Background Image */}
                     <div className="logo col-span-4 md:col-span-2 ">
                         <Link className="flex" href="/">
-                            <img
+                            <motion.img
+                                // src={scrolled ? LogoSimple.src : props.logo}
                                 src={props.logo}
-                                className="max-h-[5.75rem] sm:max-h-[8.75rem] fill-current-[#fff] absolute top-0"
+                                className="w-[26vw] lg:w-[10svw] 2xl:w-[8svw] fill-current-[#fff] absolute top-0"
                                 alt="Logo"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.5 }}
                             />
                         </Link>
                     </div>
-                    <div className="col-span-6 md:col-span-8 ">
+                    <div className="col-span-6 lg:col-span-10 xl:col-span-8 ">
                         <ul className="hidden lg:flex items-center list-style-none justify-end pr-8">
                             {props.menuItems.map((e, i) => {
                                 return (
@@ -191,14 +199,14 @@ const Menu1 = (props) => {
                                         whileHover="hover"
                                         animate="rest"
                                         key={`menuKey${i}`}
-                                        className="relative mx-8 xl:mx-4 2xl:mx-6 py-4 font-headline tracking-wider  text-blackText-300 hover:text-primaryColor-500"
+                                        className="relative  mx-4 xl:mx-4 2xl:mx-6 py-4 font-headline xl:tracking-wider  text-blackText-300 hover:text-primaryColor-500"
                                         onMouseEnter={(e) => {
                                             onEnter(e);
                                         }}
                                     >
                                         <Link
                                             href={`/${e.slug}`}
-                                            className="flex items-end font-sans font-semibold text-textColor uppercase text-sm xl:text-xs 2xl:text-xs"
+                                            className="flex items-end font-sans font-semibold text-textColor uppercase text-xs xl:text-xs 2xl:text-xs"
                                         >
                                             {e.title}{" "}
                                             {e.subMenu ? (
@@ -210,7 +218,7 @@ const Menu1 = (props) => {
                                         {e.subMenu ? (
                                             <motion.ul
                                                 variants={boxMotion}
-                                                className={`absolute z-50 mt-4 bg-[#000] text-white pl-16 pr-24 py-4 left-[-4rem] rounded-br-lg rounded-bl-lg ${props.subMenuKlasse}`}
+                                                className={`absolute z-50 mt-4 bg-textColor text-white pl-16 pr-24 py-4 left-[-4rem] rounded-br-lg rounded-bl-lg ${props.subMenuKlasse}`}
                                             >
                                                 {e.subMenuItems.map((e, i) => {
                                                     return (
@@ -240,21 +248,19 @@ const Menu1 = (props) => {
                             <Newsletter onClick={props.onClick}></Newsletter>
                         </ul> */}
                     </div>
-                    <div className=" flex justify-end text-xl md:text-xl col-span-2">
+                    <div className=" flex justify-end text-xl md:text-xl col-span-2 md:col-span-4 lg:col-span-0 xl:col-span-2">
                         <div
                             className="block lg:hidden cursor-pointer"
                             onClick={(e) => {
                                 setShowMobileMenu(true);
                                 setShowOverlay(true);
-
-                                console.log(showMobileMenu);
                             }}
                         >
                             <img className="h-[1.7rem]" src={props.burgerIcon} alt="" />
                         </div>
-                        <div className="hidden lg:flex mt-0 pt-0 items-center col-span-2">
+                        <div className="hidden xl:flex mt-0 pt-0 items-center col-span-2">
                             <MainButton klasse="bg-primaryColor !py-3" link="/programm">
-                                Jetzt buchen
+                                Unsere Kurse
                             </MainButton>
                         </div>
                         <div className="hidden lg:hidden ">

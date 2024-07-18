@@ -8,9 +8,9 @@ import { Opening, Contact } from "../modalContent";
 import { AiOutlineClockCircle } from "react-icons/ai";
 
 //ASSETS
-import Phone from "../../assets/phone.svg";
-import Email from "../../assets/email.svg";
-import Programm from "../../assets/programm.svg";
+import Cafe from "../../assets/cafeBottom.svg";
+import Kontakt from "../../assets/kontakt.svg";
+import Programm from "../../assets/programmBottom.svg";
 
 //STORE
 import useStore from "../../store/store"; // Adjust the path to your store file
@@ -45,17 +45,17 @@ const MobileBar = (props) => {
                 </>
             ) : null}
             <div
-                className={`fixed sm:hidden ${
+                className={`fixed sm:hidden font-sans text-xs ${
                     showModal ? "z-10" : "z-30"
-                }  bottom-0 w-full flex justify-center items-center bg-primaryColor text-sm `}
+                }  bottom-0 w-full flex justify-center items-center bg-textColor text-sm h-[7vh] `}
             >
                 <a
-                    href="tel:01606091569"
+                    href="/cafe"
                     style={{ background: showContact ? "#33333!important" : null }}
-                    className="w-1/3 p-3 flex border-r border-opacity-30 border-primaryColor-200 flex-col justify-center items-center text-primaryColor-200 hover:text-primaryColor"
+                    className="w-1/3 p-3 flex border-r border-opacity-30 space-x-1 border-violetColor-200  justify-center items-center text-violetColor-200 hover:text-primaryColor"
                 >
-                    <img className="h-[1.35rem]" src={Phone.src} alt="" />
-                    <span className="text-xs font-base mt-1">Anruf</span>
+                    <img className="h-[1.35rem]" src={Cafe.src} alt="" />
+                    <span className="text-xs font-base mt-1">Cafe</span>
                 </a>
                 <a
                     onClick={() => {
@@ -64,14 +64,14 @@ const MobileBar = (props) => {
                         setShowOpening(false);
                         setShowMobileModal(true);
                     }}
-                    className="w-1/3 p-3 flex flex-col border-r border-primaryColor-200 border-opacity-30  justify-center items-center text-primaryColor-200 hover:text-primaryColor-300"
+                    className="w-1/3 p-3 flex  border-r space-x-1 border-primaryColor-200 border-opacity-30  justify-center items-center text-violetColor-200 hover:text-primaryColor-300"
                 >
-                    <img className="h-[1.35rem]" src={Email.src} alt="" />
-                    <span className="text-xs font-base mt-1">Email</span>
+                    <img className="h-[1.35rem]" src={Kontakt.src} alt="" />
+                    <span className="text-xs font-base mt-1">Kontakt</span>
                 </a>
                 <a
                     href="/programm"
-                    className="w-1/3 p-3 border-r border-primaryColor-200 border-opacity-30 flex flex-col justify-center items-center text-primaryColor-200 hover:text-primaryColor "
+                    className="w-1/3 p-3 border-r space-x-1 border-primaryColor-200 border-opacity-30 flex  justify-center items-center text-violetColor-200 hover:text-primaryColor "
                 >
                     <img className="h-[1.35rem]" src={Programm.src} alt="" />
                     <span className="text-xs  mt-1">Programm</span>

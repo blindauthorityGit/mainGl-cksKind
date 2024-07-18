@@ -3,6 +3,7 @@ import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
 import {simplerColorInput} from 'sanity-plugin-simpler-color-input'
+import IconPicker from './components/IconPicker' // Import the custom input component
 
 import Logo from './static/logo.png'
 

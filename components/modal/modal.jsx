@@ -15,6 +15,7 @@ const Modal = (props) => {
         if (modalRef.current && !modalRef.current.contains(event.target)) {
             // Clicked outside the modal
             //Close the modal
+            console.log("I CLICKED OUTSIDE");
             props.onClick();
             resetModalHeight();
         }
@@ -25,7 +26,7 @@ const Modal = (props) => {
         resetModalHeight(); // Reset the isFullHeightModal state to false
     };
 
-    const modalClassNames = `w-full relative rounded-xl transition-colors duration-500 max-w-[98%] min-h-[80%] lg:h-auto 2xl:min-h-[66%] lg:max-w-[80%] 2xl:max-w-[60%] lg:max-h-full bg-white py-6 px-6 md:p-12 lg:p-12 xl:p-16 overflow-y-auto ${
+    const modalClassNames = `w-full flex flex-col relative rounded-xl transition-colors duration-500 max-w-[98%] min-h-[90%] lg:h-auto 2xl:min-h-[66%] lg:max-w-[80%] 2xl:max-w-[60%] lg:max-h-full bg-white py-6 px-6 md:p-12 lg:p-12 xl:p-16 overflow-y-auto ${
         isFullHeightModal ? "!h-full" : ""
     }`;
 
@@ -34,9 +35,13 @@ const Modal = (props) => {
             <motion.div
                 ref={modalRef}
                 className={modalClassNames}
-                style={{ maxHeight: "90vh", background: props.background }} // Setzen Sie die maximale Höhe und fügen Sie overflow-y hinzu
+                style={{
+                    maxHeight: "90vh",
+                    background: props.background,
+                }} // Setzen Sie die maximale Höhe und fügen Sie overflow-y hinzu
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
             >
                 <div

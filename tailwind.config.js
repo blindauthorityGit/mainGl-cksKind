@@ -13,6 +13,7 @@ module.exports = {
             xl: "1280px",
             "2xl": "1536px",
             "3xl": "2600px", // Add a custom breakpoint for 2880px
+            "4xl": "1921px", // New breakpoint for screens larger than 1920px
         },
         container: {
             screens: {
@@ -21,7 +22,8 @@ module.exports = {
                 lg: "840px",
                 xl: "1080px",
                 "2xl": "1236px",
-                "3xl": "1436px", // Adjust container width for 2880px
+                "3xl": "1386px", // Adjust container width for 2880px
+                "4xl": "1600px", // New breakpoint for screens larger than 1920px
             },
         },
         extend: {
@@ -29,6 +31,10 @@ module.exports = {
                 ...fontFamily,
                 ueber: ["Ultra", "serif"],
                 sans: ["Montserrat", "sans-serif"],
+            },
+            fontSize: {
+                "responsive-h1": "calc(32px + (32 / 320) * (100vw - 320px))",
+                tester: "2rem",
             },
             colors: {
                 primaryColor: {

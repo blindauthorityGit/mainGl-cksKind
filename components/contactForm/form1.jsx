@@ -59,7 +59,7 @@ const Form1 = (props) => {
             <div className="col-span-12  grid grid-cols-12 ">
                 <form
                     onSubmit={handleSubmit(onSubmitForm)}
-                    className="col-span-12 grid grid-cols-12 footer topKontakt gap-2 sm:gap-4 text-sm sm:text-base"
+                    className="col-span-12 grid grid-cols-12 footer topKontakt gap-4 sm:gap-4 text-sm sm:text-base"
                     action=""
                 >
                     <div className="hidden">
@@ -127,9 +127,9 @@ const Form1 = (props) => {
                             <div className=" items-center space-x-4 col-span-12 grid grid-cols-12">
                                 <label
                                     htmlFor="timeSlot"
-                                    className="block col-span-4 text-base font-medium font-sans text-textColor  mb-1"
+                                    className="block col-span-4 text-sm lg:text-base font-medium font-sans text-textColor  mb-1"
                                 >
-                                    Zeitfenster wählen:
+                                    Zeitfenster:
                                 </label>
                                 <select
                                     {...register("timeSlot", { required: props.kindergeburtstag })}
@@ -154,9 +154,9 @@ const Form1 = (props) => {
                             <div className=" items-center  space-x-4 col-span-12 grid grid-cols-12">
                                 <label
                                     htmlFor="date-picker"
-                                    className="block col-span-4 text-base font-medium font-sans text-textColor  mb-1"
+                                    className="block col-span-4 text-sm lg:text-base font-medium font-sans text-textColor  mb-1"
                                 >
-                                    Datum auswählen:
+                                    Datum:
                                 </label>
                                 <Controller
                                     control={control}
@@ -216,7 +216,7 @@ const Form1 = (props) => {
 
                     <textarea
                         {...register("message", { required: true })}
-                        className="col-span-12 text-xs  border-2 font-regular rounded-[20px] border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                        className="col-span-12 text-xs   border-2 font-regular rounded-[10px] border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans px-3 py-2 sm:p-4"
                         name="message"
                         id="message"
                         cols="20"

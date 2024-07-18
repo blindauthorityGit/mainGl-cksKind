@@ -41,16 +41,21 @@ const menuItems = [
         slug: "ueber-uns",
         subMenu: false,
     },
+    {
+        title: "Anfahrt",
+        slug: "anfahrt",
+        subMenu: false,
+    },
 ];
 const socialMedia = [
     {
         title: "Facebook",
-        link: "http://www.facebook.com/piz1000",
+        link: "https://www.facebook.com/MainGlueckskind.dreieich/",
         icon: <FaFacebook></FaFacebook>,
     },
     {
-        title: "Inbstagram",
-        link: "http://www.instagram.com",
+        title: "Instagram",
+        link: "https://www.instagram.com/mainglueckskind.dreieich/",
         icon: <FaInstagram></FaInstagram>,
     },
 ];

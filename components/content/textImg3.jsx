@@ -55,7 +55,7 @@ const TextImagePortableText = ({ data, overlap }) => {
             initial="hidden"
             animate={controls}
             variants={variants}
-            className="col-span-12 grid grid-cols-12 px-6 lg:px-24"
+            className="col-span-12 grid grid-cols-12  lg:px-24"
         >
             <div
                 className={`col-span-12 lg:col-span-5 relative flex flex-col justify-center mt-6 lg:mt-0 mb-12 lg:mb-0   ${
@@ -91,8 +91,8 @@ const TextImagePortableText = ({ data, overlap }) => {
                             src={urlFor(e).url()}
                             mobileSrc={urlFor(e).url()}
                             alt="Cover Background"
-                            style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1.35" }}
-                            className={`w-full z-20 relative rounded-[40px] overflow-hidden ${
+                            style={{ aspectRatio: data.image.length > 1 ? "1/2" : "1/1.15" }}
+                            className={`w-full z-20 relative rounded-[10px] overflow-hidden ${
                                 data.image.length > 1 ? "col-span-6" : "col-span-12"
                             }`}
                         />

@@ -69,14 +69,13 @@ const PortableTextView = ({ blocks, data, isWorkshop }) => {
 
     return (
         <div
-            className={`col-span-12 xl:col-span-10 2xl:col-span-8 richText lg:ml-64 font-sans text-xl font-medium leading-relaxed ${
+            className={`col-span-12 xl:col-span-10 2xl:col-span-8 richText xl:ml-64 font-sans text-xl font-medium leading-relaxed ${
                 isWorkshop ? "text-blueColor-100" : "text-textColor"
             }`}
         >
-            <img src={imageSrc} alt="" />
-            <H2 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].headline}</H2>
+            {/* <H2 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].headline}</H2>
             <H4 klasse={isWorkshop ? "!text-blueColor-100" : null}>{data.components[0].text}</H4>
-            <br />
+            <br /> */}
 
             <PortableText value={blocks} components={myPortableTextComponents(isWorkshop)} />
         </div>

@@ -16,7 +16,7 @@ const MainButton = (props) => {
     const transition = { duration: 0.1, ease: "easeInOut" };
 
     return (
-        <Link href={props.link} className="md:w-full" passHref>
+        <Link href={props.link} className={`md:w-full ${props.aklass}`} passHref>
             <motion.button
                 onClick={props.onClick}
                 type={props.type}

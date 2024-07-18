@@ -11,3 +11,4 @@ export { default as CafeReservierung } from "./cafeReservierung";
 export { default as Öffnungszeiten } from "./oeffnungszeiten";
 export { default as Anfrage } from "./anfrage";
 export { default as Newsletter } from "./newsletter";
+export { default as StartModal } from "./startModal";

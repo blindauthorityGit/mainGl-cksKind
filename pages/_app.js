@@ -8,6 +8,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { menuItems, socialMedia } from "../components/menues/config";
 import Logo from "../assets/logo.svg";
 import burger from "../assets/BURGER.svg";
+import burgerMenu from "../assets/burgerMenu.svg";
 
 //COMPS
 import { Menu1 } from "../components/menues";
@@ -16,6 +17,7 @@ import { Modal } from "../components/modal";
 import { MobileBar1, MobileBarCafe } from "../components/mobileBar";
 import { Full } from "../components/footer";
 import { Sub } from "../components/footer";
+import { StartModal } from "../components/modalContent/";
 
 //COOKIE
 import CookieConsent from "react-cookie-consent";
@@ -26,6 +28,13 @@ import useStore from "../store/store"; // Adjust the path to your store file
 
 //FX
 import { ParallaxProvider } from "react-scroll-parallax";
+import { AnimatePresence } from "framer-motion";
+
+// Sanity client
+import client from "../client"; // Adjust the path to your sanity client
+
+//LIBS
+import { ReactLenis, useLenis } from "../libs/lenis";
 
 function MyApp({ Component, pageProps }) {
     const [showMobileBar, setShowMobileBar] = useState(false);
@@ -39,6 +48,7 @@ function MyApp({ Component, pageProps }) {
 
     const showModal = useStore((state) => state.showModal);
     const setShowModal = useStore((state) => state.setShowModal);
+    const resetFormData = useStore((state) => state.resetFormData);
 
     const modalColor = useStore((state) => state.modalColor);
     const setModalColor = useStore((state) => state.setModalColor);
@@ -66,6 +76,25 @@ function MyApp({ Component, pageProps }) {
 
     //router
     const router = useRouter();
+
+    // Fetch modal settings from Sanity
+    useEffect(() => {
+        const fetchModalSettings = async () => {
+            try {
+                const settings = await client.fetch(`*[_type == "modalGeneral"][0]`);
+                console.log("GOMMA", settings.text);
+                if (settings && settings.active) {
+                    setModalContent(<StartModal data={settings.text}> </StartModal>);
+                    setShowModal(true);
+                    setShowOverlay(true);
+                }
+            } catch (error) {
+                console.error("Error fetching modal settings:", error);
+            }
+        };
+        console.log(StartModal);
+        fetchModalSettings();
+    }, []);
 
     useEffect(() => {
         // Function to call when the route changes
@@ -102,7 +131,7 @@ function MyApp({ Component, pageProps }) {
     }, []);
 
     return (
-        <>
+        <ReactLenis ReactLenis root>
             <Head>
                 <link rel="icon" href="/favicon.svg" />
                 {/* Other global head tags can also go here */}
@@ -111,37 +140,39 @@ function MyApp({ Component, pageProps }) {
                 logo={Logo.src}
                 menuItems={menuItems}
                 socialMedia={socialMedia}
-                burgerIcon={burger.src}
-                onBurgerClick={(e) => {
-                    console.log(e);
-                }}
+                burgerIcon={burgerMenu.src}
+                onBurgerClick={(e) => {}}
                 onClick={() => {
-                    console.log("IS CLICKED");
                     setIsOpen(true);
                 }}
             ></Menu1>
-            {showModal ? (
+            {showModal && (
                 <Modal
                     background={modalColor}
                     onClick={(e) => {
                         setShowModal(false);
                         setShowOverlay(false);
+                        resetFormData();
                     }}
                 >
                     {modalContent}
                 </Modal>
-            ) : null}
-            {showOverlay ? (
-                <Overlay
-                    onClick={(e) => {
-                        setShowOverlay(false);
-                        setShowMobileMenu(false);
-                        setShowMobileModal(false);
-                        setShowModal(false);
-                    }}
-                ></Overlay>
-            ) : null}
-            {/* ...other components */}
+            )}
+            <AnimatePresence>
+                {showOverlay && (
+                    <Overlay
+                        onClick={(e) => {
+                            console.log("I CLICKED OVERLAY CLOSE");
+                            console.log(showOverlay);
+                            setShowOverlay(false);
+                            setShowMobileMenu(false);
+                            setShowMobileModal(false);
+                            setShowModal(false);
+                            resetFormData();
+                        }}
+                    />
+                )}
+            </AnimatePresence>
             {isCafe ? (
                 <div className="">
                     <MobileBarCafe onClick={() => console.log("IS CLICKED")} />
@@ -176,7 +207,7 @@ function MyApp({ Component, pageProps }) {
                         </p>
                         <button
                             onClick={handleAcceptCookies}
-                            lassName="font-sans"
+                            className="font-sans"
                             style={{
                                 background: "#df3288",
                                 color: "white",
@@ -191,23 +222,10 @@ function MyApp({ Component, pageProps }) {
                         </button>
                     </div>
                 )}
-
-                {/* <CookieConsent
-                    location="bottom"
-                    buttonText="OK"
-                    cookieName="myAwesomeCookieName2"
-                    style={{ background: "#2B373B" }}
-                    buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
-                    expires={150}
-                >
-                    Wir nutzen Cookies, um unsere Website zu optimieren.
-
-                </CookieConsent> */}
-
                 <Full></Full>
                 <Sub></Sub>
             </ParallaxProvider>
-        </>
+        </ReactLenis>
     );
 }
 

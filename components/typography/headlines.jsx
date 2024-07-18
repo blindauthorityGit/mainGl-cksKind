@@ -4,7 +4,7 @@ import React from "react";
 const H1 = ({ children, klasse }) => {
     return (
         <h1
-            className={`text-3xl hyphens-auto text-balance md:text-5xl lg:text-5xl xl:text-4xl 2xl:text-6xl mb-4 lg:mb-6  font-ueber text-textColor ${klasse}`}
+            className={`text-[clamp(32px,calc(32px+0.0957*(100vw-320px)),48px)] !leading-[0.95] text-balance md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-[4rem] mb-4 lg:mb-6  font-ueber text-textColor ${klasse}`}
         >
             {children}
         </h1>
@@ -14,7 +14,7 @@ const H1 = ({ children, klasse }) => {
 const H2 = ({ children, klasse }) => {
     return (
         <h2
-            className={`text-2xl font-ueber text-textColor  lg:text-2xl 2xl:text-4xl mb-4 lg:mb-10 font-thin  ${klasse}`}
+            className={`text-2xl font-ueber text-textColor md:text-3xl  lg:text-2xl xl:text-3xl 2xl:text-5xl mb-4 lg:mb-10 font-thin  ${klasse}`}
         >
             {children}
         </h2>
@@ -34,7 +34,7 @@ const H3 = ({ children, klasse, style }) => {
 const H4 = ({ children, klasse }) => {
     return (
         <h4
-            className={`text-xs md:text-sm lg:text-lg xl:text-sm 2xl:text-base font-thin font-ueber text-textColor ${klasse}`}
+            className={`text-base md:text-sm lg:text-lg xl:text-sm 2xl:text-base font-black font-sans text-textColor ${klasse}`}
         >
             {children}
         </h4>

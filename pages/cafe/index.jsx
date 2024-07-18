@@ -16,12 +16,14 @@ import { Contact } from "../../components/content";
 import { CardButtonHolder } from "../../components/cards";
 import { H3, H4, P } from "../../components/typography";
 import { GridGallery } from "../../components/gallery";
+import { MainButtonNOLink } from "../../components/buttons";
 
 import Divider from "../../components/layout/divider";
 
 import { BigDecal } from "../../components/decorative";
 import { DecorativeDivider } from "../../components/decorative";
 import { CafeReservierung, Öffnungszeiten, Anfrage } from "../../components/modalContent";
+import MultiStepReservation from "../../components/modalContent/stepsCafe/multiStepReservation";
 import FullWidthSection from "../../components/layout/fullWidthSection";
 
 //STORE
@@ -29,6 +31,9 @@ import useStore from "../../store/store"; // Adjust the path to your store file
 
 //FUNCTIONS
 import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor";
+
+//ASSETS
+import Reservation from "../../assets/reservation.svg";
 
 export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
     const setIsCafe = useStore((state) => state.setIsCafe);
@@ -60,8 +65,20 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
         <>
             <MainContainer width="container mx-auto px-4 lg:px-0">
                 <Meta data={data.seo}></Meta>
-
-                <BasicHero data={data.components[0]}></BasicHero>
+                <BasicHero data={data.components[0]}></BasicHero>{" "}
+                <MainButtonNOLink
+                    klasse="col-span-12 bg-primaryColor mb-8 mt-4 lg:hidden"
+                    onClick={() => {
+                        setShowOverlay(true);
+                        setShowModal(true);
+                        setModalContent(<MultiStepReservation image={null} />);
+                    }}
+                >
+                    <div className="flex items-center space-x-4">
+                        <img src={Reservation.src} alt="" />
+                        <div>Plätze reservieren</div>
+                    </div>
+                </MainButtonNOLink>
                 <CardButtonHolder
                     isCafe
                     onClick={(e) => {
@@ -70,7 +87,7 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                         if (theme === "Reservierung") {
                             setShowOverlay(true);
                             setShowModal(true);
-                            setModalContent(<CafeReservierung image={data.reservationImage} />);
+                            setModalContent(<MultiStepReservation image={data.reservationImage} />);
                         }
                         if (theme === "Öffnungszeiten") {
                             setShowOverlay(true);
@@ -91,9 +108,12 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                         }
                     }}
                     data={data.components[1].cardButtons}
-                    klasse="mt-[-3rem] z-20"
+                    klasse="mt-[-3rem] z-20 xl:mb-12"
                 ></CardButtonHolder>
                 <div className="hidden 2xl:block">
+                    <Divider></Divider>
+                </div>
+                <div className="block 2xl:hidden">
                     <Divider></Divider>
                 </div>
                 <PortableTextView blocks={data.components[2].content} data={data}></PortableTextView>
@@ -102,12 +122,11 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
                 </div>
                 <Divider></Divider>
                 <Divider></Divider>
-
                 <GridGallery big data={data.components[7].images}></GridGallery>
                 <Divider></Divider>
             </MainContainer>{" "}
             <FullWidthSection klasse="bg-[#BF567C] px-4 lg:px-0 py-10 2xl:!py-32" id="speisekarte">
-                <div className="col-span-12 grid grid-cols-12 lg:gap-12 lg:px-36">
+                <div className="col-span-12 grid grid-cols-12 lg:gap-12 xl:px-36">
                     <div className="col-span-12 lg:col-span-6">
                         <H3 klasse="!text-white">{dataSpeisekarte[0].categories[0].title}</H3>
                         <hr className="mb-10" />

@@ -10,7 +10,7 @@ import client from "../../client";
 //COMPS
 import { BasicHero } from "../../components/Hero";
 import { EventSlider } from "../../components/slider";
-import { PortableTextEvent, RegularText, AnmeldeContent } from "../../components/content";
+import { PortableTextEvent, RegularText, AnmeldeContent, AnmeldeButton } from "../../components/content";
 import { Contact } from "../../components/content";
 import { Details } from "../../components/sidebar";
 import { LinkGrid } from "../../components/linkGrid";
@@ -67,24 +67,25 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                         <Meta data={data.seo}></Meta>
 
                         <StickyContainer className="grid grid-cols-12 w-full col-span-12">
-                            <div className="col-span-12 lg:col-span-8 px-4 md:px-0">
+                            <div className="col-span-12 md:col-span-7 xl:col-span-8 px-4 md:px-0">
                                 {" "}
                                 <BasicHero isEvent data={data}></BasicHero>
+                                <div className="lg:hidden justify-end">
+                                    <AnmeldeButton
+                                        email={data.eventDetails.partner.email}
+                                        events={data}
+                                        data={dataKontakt[0]}
+                                        isPekip={data.slug.current.includes("pekip")}
+                                        klasse="justify-end"
+                                    ></AnmeldeButton>
+                                </div>
                                 <PortableTextEvent
                                     isWorkshop={isWorkshop}
                                     blocks={data.content.content}
                                 ></PortableTextEvent>
-                                <Divider></Divider>
-                                {!data.eventDetails.partner.isHidden && (
-                                    <RegularText
-                                        link={data.eventDetails.partner.slug.current}
-                                        isWorkshop={isWorkshop}
-                                        data={data.eventDetails.partner}
-                                    ></RegularText>
-                                )}
                             </div>
                             {/* //SIDEBAR */}
-                            <div className="col-span-12 hidden lg:block md:col-span-4 lg:mt-28 lg:pl-16">
+                            <div className="col-span-12 hidden lg:block md:col-span-5 xl:col-span-4 lg:mt-28 lg:pl-16">
                                 <Sticky distanceFromTop={280} topOffset={-128}>
                                     {({ style, isSticky }) => (
                                         <div
@@ -98,26 +99,43 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                             </div>
                         </StickyContainer>
 
-                        <Divider></Divider>
+                        <div className="hidden md:block">
+                            <Divider></Divider>
+                        </div>
                     </MainContainer>{" "}
                     <Divider></Divider>
-                    <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-16 2xl:!py-32">
+                    <FullWidthSection klasse="bg-[#fff] lg:bg-themeGreen-300 pt-10 pb-0 lg:!py-16 2xl:!py-32">
                         <div className="col-span-12 lg:hidden px-6">
                             <Details isWorkshop={isWorkshop} isMobile={true} data={data}></Details>{" "}
-                            <hr className="mb-4" />
+                            {/* <hr className="mb-4" /> */}
                         </div>
                         <AnmeldeContent
-                            email={data.eventDetails.partner.email}
+                            email={
+                                data.eventDetails.partner.email
+                                    ? data.eventDetails.partner.email
+                                    : "info@mainglueckskind.de"
+                            }
                             events={data}
                             data={dataKontakt[0]}
                             isPekip={data.slug.current.includes("pekip")}
                         ></AnmeldeContent>
                     </FullWidthSection>
                     <MainContainer width="container mx-auto gap-8">
-                        <div className="hidden md:block">
+                        <div className="">
                             <Divider></Divider>
                         </div>
-                        <EventSlider isWorkshop={isWorkshop} data={dataAllEvents}></EventSlider>
+
+                        {!data.eventDetails.partner.isHidden && (
+                            <RegularText
+                                link={data.eventDetails.partner.slug.current}
+                                isWorkshop={isWorkshop}
+                                data={data.eventDetails.partner}
+                            ></RegularText>
+                        )}
+                        {/* <div className="hidden md:block">
+                            <Divider></Divider>
+                        </div> */}
+                        {/* <EventSlider isWorkshop={isWorkshop} data={dataAllEvents}></EventSlider> */}
                         <Divider></Divider>
                         {filteredKategorie && (
                             <LinkGrid
@@ -135,7 +153,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                     <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
                         <Contact data={dataKontakt[0]}></Contact>
                     </FullWidthSection>
-                    <BigDecal></BigDecal>
+                    {/* <BigDecal></BigDecal> */}
                 </>
             ) : (
                 <>LOADING</>

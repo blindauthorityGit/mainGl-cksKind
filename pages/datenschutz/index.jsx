@@ -10,8 +10,8 @@ const Datenschutz = () => {
     }, []);
     return (
         <MainContainer width="container mx-auto">
-            <div className="col-span-12 px-8 lg:px-0 pt-24 pb-36 lg:pt-48  lg:pb-24">
-                <H1>Datenschutzerklärung</H1>
+            <div className="col-span-12 px-8 lg:px-0 pt-32 pb-36 lg:pt-48  lg:pb-24">
+                <H1 klasse="hyphens-auto">Datenschutzerklärung</H1>
                 <H2 id="m716">Präambel</H2>
                 <P>
                     Mit der folgenden Datenschutzerklärung möchten wir Sie darüber aufklären, welche Arten Ihrer

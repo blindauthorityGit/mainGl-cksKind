@@ -1,7 +1,7 @@
 import React from "react";
 
 //TYPO
-import { H1, P } from "../typography";
+import { H1, H2, P } from "../typography";
 
 //COMPO
 import { MainButton, MainButtonNOLink } from "../buttons";
@@ -9,7 +9,7 @@ import { MainButton, MainButtonNOLink } from "../buttons";
 const CTAContentButton = ({ data, onClick }) => {
     return (
         <div className="col-span-12 px-6 lg:px-48 text-center flex flex-col items-center">
-            <H1 klasse="!text-white">{data.headline}</H1>
+            <H2 klasse="!text-white ">{data.headline}</H2>
             <div className="2xl:w-2/4 pt-3 lg:mt-6">
                 <P>{data.text}</P>
             </div>

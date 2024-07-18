@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .text-responsive-h1 {
+    font-size: calc(32px + (32 / 320) * (100vw - 320px));
+  }
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;700;800&family=Ultra&display=swap');
@@ -54,6 +60,10 @@ a {
 
 .react-datepicker-popper {
   z-index:50!important
+}
+
+.react-datepicker__header {
+  background: white
 }
 
 @-webkit-keyframes scale-up-hor-left {
@@ -137,3 +147,9 @@ a {
 .slide-in-bottom{-webkit-animation:slide-in-bottom .4s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-bottom .4s cubic-bezier(.25,.46,.45,.94) both}
 
 @-webkit-keyframes slide-in-bottom{0%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@keyframes slide-in-bottom{0%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}
+
+@media (max-width: 600px) {
+  input, select, textarea {
+      font-size: 16px!important; /* Adjust based on device specifics */
+  }
+}

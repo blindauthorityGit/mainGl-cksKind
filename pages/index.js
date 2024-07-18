@@ -38,18 +38,18 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
             <MainContainer width="container mx-auto">
                 <Meta data={dataHome.seo}></Meta>
                 <MainHero data={dataHome.components[0]}></MainHero>
-                <Divider></Divider>
+                {/* <Divider></Divider> */}
 
-                <EventSlider data={dataEvents}></EventSlider>
-                <Divider></Divider>
+                {/* <EventSlider data={dataEvents}></EventSlider> */}
+                {/* <Divider></Divider> */}
                 <Divider></Divider>
                 <CardHolder data={dataKategorie}></CardHolder>
                 <Divider></Divider>
             </MainContainer>
-            <FullWidthSection klasse="bg-[#AFD3A2] py-20 2xl:!py-32">
+            {/* <FullWidthSection klasse="bg-[#AFD3A2] py-20 2xl:!py-32">
                 <CTAContent data={dataHome.components[3]}></CTAContent>
-            </FullWidthSection>
-            <FullWidthSectionBGImage klasse="]" image={dataHome.components[6].image}>
+            </FullWidthSection> */}
+            <FullWidthSectionBGImage klasse="" image={dataHome.components[6].image}>
                 <ContentCard data={dataHome.components[6]}></ContentCard>
             </FullWidthSectionBGImage>
             <MainContainer width="container mx-auto">
@@ -67,7 +67,7 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
                 <Contact data={dataKontakt[0]}></Contact>
             </FullWidthSection>
 
-            <BigDecal></BigDecal>
+            {/* <BigDecal></BigDecal> */}
         </>
     );
 }

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
-    const [activeFilter, setActiveFilter] = useState("Alle");
+//ASSETS
+import Down from "../../assets/down.svg";
+
+const FilterComponent = ({ dataEvents, setFilteredEvents, activeFilter, setActiveFilter }) => {
     const [showDropdown, setShowDropdown] = useState(false);
 
     const filters = [
@@ -19,45 +21,37 @@ const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
         setShowDropdown(false);
     };
 
-    // Mobile-specific text color logic, ensuring background colors are also correctly applied
-    const getMobileStyles = (filterName, isActive) => {
-        let textColor = "text-textColor"; // Default text color
-        let backgroundColor = "white"; // Default background color for non-active buttons
-
-        if (isActive) {
-            backgroundColor = filters.find((filter) => filter.name === filterName).color; // Apply specific background color for active button
-            textColor =
-                filterName === "Alle"
-                    ? "text-primaryColor-50"
-                    : filterName === "Beratung & Coachings"
-                    ? "text-blueColor-50"
-                    : "text-white"; // Special text color for active "Alle" and "Beratung & Workshops"
-        }
-
-        return { backgroundColor, textColor };
+    const getTextColorClass = (filterName) => {
+        return filterName === "Erwachsene" || filterName === "Baby & Kleinkind" ? "text-textColor" : "text-white";
     };
 
+    // Get the color and name of the active filter
+    const activeFilterObj = filters.find((filter) => filter.name === activeFilter);
+    const activeFilterColor = activeFilterObj.color;
+    const activeFilterTextColor = getTextColorClass(activeFilter);
+
     return (
-        <div className="flex flex-wrap gap-4 lg:gap-2 col-span-12 m-auto mb-8 font-sans font-semibold px-8 relative">
+        <div className="flex flex-wrap gap-4 lg:gap-2 col-span-6 mb-4 font-sans font-semibold relative ">
             {/* Mobile Dropdown */}
             <div className="lg:hidden w-full">
                 <button
                     onClick={() => setShowDropdown(!showDropdown)}
-                    className="w-full px-4 py-2 text-white bg-gray-500 rounded-lg"
+                    className={`w-full text-xs px-4 py-2 rounded-lg flex items-center justify-between ${activeFilterTextColor}`}
+                    style={{ backgroundColor: activeFilterColor }}
                 >
-                    Kategorie wählen
+                    <span>{activeFilter}</span>
+                    <img src={Down.src} alt="" />
                 </button>
                 {showDropdown && (
                     <div className="absolute mt-1 w-full shadow-lg rounded-md z-40">
                         {filters.map((filter) => {
-                            const { textColor, backgroundColor } = getMobileStyles(
-                                filter.name,
-                                activeFilter === filter.name
-                            );
+                            const isActive = activeFilter === filter.name;
+                            const textColorClass = getTextColorClass(filter.name);
+                            const backgroundColor = filter.color;
                             return (
                                 <div
                                     key={filter.name}
-                                    className={`cursor-pointer text-xs px-4 py-2 w-full hover:bg-opacity-80 ${textColor}`}
+                                    className={`cursor-pointer text-xs px-4 py-2 w-full hover:bg-opacity-80 ${textColorClass}`}
                                     style={{ backgroundColor }}
                                     onClick={() => handleFilterClick(filter.name)}
                                 >
@@ -70,23 +64,23 @@ const FilterComponent = ({ dataEvents, setFilteredEvents }) => {
             </div>
 
             {/* Desktop Buttons */}
-            <div className="hidden lg:flex flex-wrap gap-2 w-full">
-                {filters.map((filter) => (
-                    <div
-                        key={filter.name}
-                        className={`cursor-pointer flex items-center justify-center text-base px-4 py-2 rounded-lg hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                            filter.name === "Alle"
-                                ? "text-primaryColor-50"
-                                : filter.name === "Beratung & Coachings"
-                                ? "text-blueColor-50"
-                                : "text-textColor"
-                        } ${activeFilter === filter.name ? "border-4 border-white rounded-lg" : ""}`}
-                        style={{ backgroundColor: filter.color }}
-                        onClick={() => handleFilterClick(filter.name)}
-                    >
-                        {filter.name}
-                    </div>
-                ))}
+            <div className="hidden lg:flex flex-wrap gap-2 w-full lg:justify-center lg:mb-6">
+                {filters.map((filter) => {
+                    const isActive = activeFilter === filter.name;
+                    const textColorClass = getTextColorClass(filter.name);
+                    return (
+                        <div
+                            key={filter.name}
+                            className={`cursor-pointer  flex items-center justify-center text-base px-4 py-2 rounded-lg hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 ${textColorClass} ${
+                                isActive ? "border-4 border-white rounded-lg" : ""
+                            }`}
+                            style={{ backgroundColor: filter.color }}
+                            onClick={() => handleFilterClick(filter.name)}
+                        >
+                            {filter.name}
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
