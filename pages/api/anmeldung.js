@@ -8,6 +8,8 @@ async function subscribeToNewsletter(email, name, phone) {
     const mailchimpServerPrefix = process.env.NEXT_MAILCHIMP_SERVER_PREFIX;
     const mailchimpListId = process.env.NEXT_MAILCHIMP_LIST_ID;
 
+    console.log(mailchimpApiKey, mailchimpServerPrefix, mailchimpListId);
+
     if (!mailchimpApiKey || !mailchimpServerPrefix || !mailchimpListId) {
         throw new Error("Mailchimp environment variables are not defined.");
     }
