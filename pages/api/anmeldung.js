@@ -130,7 +130,7 @@ MAIN GLÜCKSKIND`;
 <p>MAIN GLÜCKSKIND</p>`;
 
             const userMailOptions = {
-                from: "office@atelierbuchner.at",
+                from: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_MAIL_BUCHUNG_LIVE,
                 // from: "info@mainglueckskind.de",
                 to: req.body.email,
                 subject: "Anmelde Bestätigung",
