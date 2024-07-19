@@ -4,9 +4,9 @@ import { db } from "../../config/firebase"; // Adjust this import according to y
 import axios from "axios";
 
 async function subscribeToNewsletter(email, name, phone) {
-    const mailchimpApiKey = process.env.NEXT_MAILCHIMP_API_KEY;
-    const mailchimpServerPrefix = process.env.NEXT_MAILCHIMP_SERVER_PREFIX;
-    const mailchimpListId = process.env.NEXT_MAILCHIMP_LIST_ID;
+    const mailchimpApiKey = process.env.NEXT_MAILCHIMP_API;
+    const mailchimpServerPrefix = process.env.NEXT_SERVER_PREFIX;
+    const mailchimpListId = process.env.NEXT_LIST_ID;
 
     console.log(mailchimpApiKey, mailchimpServerPrefix, mailchimpListId);
 
@@ -26,12 +26,12 @@ async function subscribeToNewsletter(email, name, phone) {
 
     try {
         const response = await axios.post(
-            `https://${process.env.NEXT_MAILCHIMP_SERVER_PREFIX}.api.mailchimp.com/3.0/lists/${process.env.NEXT_MAILCHIMP_LIST_ID}/members/`,
+            `https://${process.env.NEXT_SERVER_PREFIX}.api.mailchimp.com/3.0/lists/${process.env.NEXT_LIST_ID}/members/`,
             data,
             {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${process.env.NEXT_MAILCHIMP_API_KEY}`,
+                    Authorization: `Bearer ${process.env.NEXT_MAILCHIMP_API}`,
                 },
             }
         );
