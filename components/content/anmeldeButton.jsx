@@ -7,7 +7,7 @@ import MultiStepForm from "../modalContent/steps/multiStepForm";
 //ASSETS
 import Anmelden from "../../assets/anmelden.svg";
 import useStore from "../../store/store";
-const AnmeldeButton = ({ events, isPekip, data, dates }) => {
+const AnmeldeButton = ({ events, isPekip, data, dates, anfrage }) => {
     const setShowModal = useStore((state) => state.setShowModal);
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setModalContent = useStore((state) => state.setModalContent);
@@ -29,6 +29,7 @@ const AnmeldeButton = ({ events, isPekip, data, dates }) => {
                             data={data}
                             events={events}
                             dates={dates}
+                            anfrage={anfrage}
                         ></MultiStepForm>
                     );
                 }}

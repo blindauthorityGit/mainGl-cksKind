@@ -1,6 +1,6 @@
-const getValidationRules = (category, step) => {
+const getValidationRules = (category, step, anfrage) => {
     const babyAndKleinkindRules = {
-        1: (formData) => !!formData.date,
+        1: (formData) => anfrage || !!formData.date,
         2: (formData) => formData.siblings && formData.birthDate,
         3: (formData) => formData.name && formData.email,
         4: (formData) => formData,
@@ -9,7 +9,7 @@ const getValidationRules = (category, step) => {
     };
 
     const defaultRules = {
-        1: (formData) => !!formData.date,
+        1: (formData) => !!formData.produkt || !!formData.date,
         2: (formData) => formData.name && formData.email,
         3: (formData) => formData, // Add more rules as needed
         4: (formData) => formData,

@@ -58,6 +58,10 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
         setIsWorkshop(data.kategorie?.name == "Beratung & Coachings");
     }, [data]);
 
+    const hasProdukteNoDates = (event) => {
+        return event.produkte && event.produkte.length > 0 && !event.recurringDates && !event.blocks && !event.datum;
+    };
+
     return (
         <>
             {data && dataKontakt && dataAllEvents && dataAllKategorie ? (
@@ -76,6 +80,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                         data={dataKontakt[0]}
                                         isPekip={data.slug.current.includes("pekip")}
                                         klasse="justify-end"
+                                        anfrage={hasProdukteNoDates(data)}
                                     ></AnmeldeButton>
                                 </div>
                                 <PortableTextEvent
@@ -91,7 +96,11 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                             style={{ ...style, marginTop: isSticky ? marginTopValue : "0px" }}
                                             className="col-span-3"
                                         >
-                                            <Details isWorkshop={isWorkshop} data={data}></Details>{" "}
+                                            <Details
+                                                anfrage={hasProdukteNoDates(data)}
+                                                isWorkshop={isWorkshop}
+                                                data={data}
+                                            ></Details>{" "}
                                         </div>
                                     )}
                                 </Sticky>
@@ -105,7 +114,12 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                     <Divider></Divider>
                     <FullWidthSection klasse="bg-[#fff] lg:bg-themeGreen-300 pt-10 pb-0 lg:!py-16 2xl:!py-32">
                         <div className="col-span-12 lg:hidden px-6">
-                            <Details isWorkshop={isWorkshop} isMobile={true} data={data}></Details>{" "}
+                            <Details
+                                anfrage={hasProdukteNoDates(data)}
+                                isWorkshop={isWorkshop}
+                                isMobile={true}
+                                data={data}
+                            ></Details>{" "}
                             {/* <hr className="mb-4" /> */}
                         </div>
                         <AnmeldeContent
@@ -114,6 +128,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                     ? data.eventDetails.partner.email
                                     : "info@mainglueckskind.de"
                             }
+                            anfrage={hasProdukteNoDates(data)}
                             events={data}
                             data={dataKontakt[0]}
                             isPekip={data.slug.current.includes("pekip")}

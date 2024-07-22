@@ -19,7 +19,7 @@ import CalendarWhite from "../../assets/calendarWhite.svg";
 // STORE
 import useStore from "../../store/store"; // Adjust the path to your store file
 
-const Details = ({ data, isWorkshop, isMobile }) => {
+const Details = ({ data, isWorkshop, isMobile, anfrage }) => {
     const [itemsToShow, setItemsToShow] = useState(8);
     const [blockVisibility, setBlockVisibility] = useState({});
     const { setDates } = useStore();
@@ -92,7 +92,7 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                 }
             });
         } else {
-            data.datum.forEach((date) => {
+            data.datum?.forEach((date) => {
                 const dateStart = formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0];
                 const dateTimeRange = `${formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]} - ${
                     formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]
@@ -194,11 +194,18 @@ const Details = ({ data, isWorkshop, isMobile }) => {
                 );
             });
         } else {
-            return data.datum.slice(0, itemsToShow).map((date, i) => (
+            if (anfrage) {
+                return (
+                    <P klasse={`font-bold ${isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}`}>
+                        Termin auf Anfrage
+                    </P>
+                );
+            }
+            return data.datum?.slice(0, itemsToShow).map((date, i) => (
                 <div
                     key={i}
                     className={` flex justify-start text-sm ${
-                        isWorkshop && !isMobile ? "!text-blueColor-100 BUBUBU" : "text-textColor AUTOBUBU"
+                        isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"
                     }`}
                 >
                     <div className="inline w-[38%]">
