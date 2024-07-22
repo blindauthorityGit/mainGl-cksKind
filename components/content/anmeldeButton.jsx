@@ -17,7 +17,7 @@ const AnmeldeButton = ({ events, isPekip, data, dates, anfrage }) => {
     return (
         <div>
             <MainButtonNOLink
-                klasse={` lg:max-w-[20rem] mt-8 lg:mt-12 bg-primaryColor border-2 border-primaryColor`}
+                klasse={` lg:max-w-[20rem] w-full mt-8 lg:mt-12 bg-primaryColor border-2 border-primaryColor`}
                 link={""}
                 onClick={() => {
                     setShowOverlay(true);

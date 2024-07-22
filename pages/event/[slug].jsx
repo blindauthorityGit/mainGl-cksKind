@@ -73,7 +73,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                             <div className="col-span-12 md:col-span-7 xl:col-span-8 px-4 md:px-0">
                                 {" "}
                                 <BasicHero isEvent data={data}></BasicHero>
-                                <div className="flex lg:justify-center justify-end">
+                                <div className="lg:flex lg:justify-center justify-end w-full">
                                     <AnmeldeButton
                                         email={data.eventDetails.partner.email}
                                         events={data}
