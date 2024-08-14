@@ -12,7 +12,7 @@ import { MainButtonNOLink } from "../buttons";
 // FUNCTIONS
 const ITEMS_PER_PAGE = 12; // Define how many items you want per page
 
-const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
+const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent, anfrage }) => {
     const [displayedItems, setDisplayedItems] = useState([]);
     const [allItems, setAllItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -51,7 +51,7 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
                                 recurringEvent.endDate,
                                 recurringEvent.dayOfWeek,
                                 recurringEvent.timeslot
-                            ).map((occurrence) => ({ ...event, ...occurrence, date: occurrence.date }));
+                            ).map((occurrence) => ({ ...event, ...occurrence, date: occurrence.date, anfrage: false }));
                         });
                     } else if (event.blocks && event.blocks.length > 0) {
                         return event.blocks.flatMap((block) =>
@@ -59,31 +59,45 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
                                 ...event,
                                 date: date.startDateTime,
                                 ausgebucht: block.ausgebucht || false,
+                                anfrage: false,
                             }))
                         );
                     } else if (event.datum && event.datum.length > 0) {
                         return event.datum.map((date) => ({
                             ...event,
                             date: date.startDateTime,
+                            anfrage: false,
                         }));
+                    } else if (event.produkte && event.produkte.length > 0) {
+                        console.log(event);
+                        // Only add events with products and no other dates or blocks or recurring events
+                        return [{ ...event, date: null, anfrage: true }];
                     }
                     return []; // For events that don't fit any category
                 })
-                .filter((event) => new Date(event.date) >= currentDate);
+                .filter((event) => event.date === null || new Date(event.date) >= currentDate);
 
             // Group events by base event and get the closest upcoming date for each
             const eventMap = new Map();
 
             processedEvents.forEach((event) => {
-                if (!eventMap.has(event._id) || isAfter(eventMap.get(event._id).nextDate, new Date(event.date))) {
-                    eventMap.set(event._id, { ...event, nextDate: new Date(event.date) });
+                if (
+                    !eventMap.has(event._id) ||
+                    (event.date && isAfter(eventMap.get(event._id).nextDate, new Date(event.date)))
+                ) {
+                    eventMap.set(event._id, { ...event, nextDate: event.date ? new Date(event.date) : null });
                 }
             });
 
             const filteredEvents = Array.from(eventMap.values());
 
-            // Sort and paginate the events
-            const sortedEvents = filteredEvents.sort((a, b) => new Date(a.nextDate) - new Date(b.nextDate));
+            // Sort events, prioritizing events without dates but with products
+            const sortedEvents = filteredEvents.sort((a, b) => {
+                if (a.date === null) return -1;
+                if (b.date === null) return 1;
+                return new Date(a.nextDate) - new Date(b.nextDate);
+            });
+
             setAllItems(sortedEvents);
             setDisplayedItems(sortedEvents.slice(0, ITEMS_PER_PAGE * currentPage));
         }
@@ -106,7 +120,13 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent }) => {
             <div className="col-span-12 grid grid-cols-12 gap-y-4 gap-x-2 xl:gap-8 xl:px-24">
                 {isEvent
                     ? displayedItems.map((e, i) => (
-                          <ElementEvent key={i} isDetail={isDetail} isWorkshop={isWorkshop} data={e} />
+                          <ElementEvent
+                              key={i}
+                              anfrage={e.anfrage || false}
+                              isDetail={isDetail}
+                              isWorkshop={isWorkshop}
+                              data={e}
+                          />
                       ))
                     : data.map((e, i) => (
                           <Element

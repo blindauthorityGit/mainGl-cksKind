@@ -12,7 +12,7 @@ import Calendar from "../../assets/calendar.svg";
 import Time from "../../assets/time.svg";
 import shortenYear from "../../functions/shortenYear";
 
-const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
+const ElementEvent = ({ data, i, isWorkshop, isDetail, anfrage }) => {
     const [flatData, setFlatData] = useState(null);
     const { width } = useWindowDimensions();
     const isMobile = width < 480;
@@ -118,18 +118,44 @@ const ElementEvent = ({ data, i, isWorkshop, isDetail }) => {
                         </div>
                         <hr className="my-2" />
                         <div className="flex space-x-4 ">
-                            <div className="date flex space-x-1 items-center">
-                                <img src={Calendar.src} alt="" />
-                                <P klasse={`${isWorkshop ? "!text-blueColor-100" : null} !text-xs xl:!text-base`}>
-                                    {shortenYear(formatStringToDate(data.date).split(" ")[0])}
-                                </P>
-                            </div>
-                            <div className="time flex space-x-1 items-center">
-                                <img src={Time.src} alt="" />
-                                <P klasse={`${isWorkshop ? "!text-blueColor-100" : null} !text-xs xl:!text-base`}>
-                                    {formatStringToDate(data.date).split(" ")[1]}
-                                </P>
-                            </div>
+                            {" "}
+                            {anfrage ? (
+                                <>
+                                    <div className="date flex space-x-1 items-center">
+                                        <img src={Calendar.src} alt="" />
+                                        <P
+                                            klasse={`${
+                                                isWorkshop ? "!text-blueColor-100" : null
+                                            } !text-xs xl:!text-base`}
+                                        >
+                                            Termin auf Anfrage
+                                        </P>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="date flex space-x-1 items-center">
+                                        <img src={Calendar.src} alt="" />
+                                        <P
+                                            klasse={`${
+                                                isWorkshop ? "!text-blueColor-100" : null
+                                            } !text-xs xl:!text-base`}
+                                        >
+                                            {shortenYear(formatStringToDate(data.date).split(" ")[0])}
+                                        </P>
+                                    </div>
+                                    <div className="time flex space-x-1 items-center">
+                                        <img src={Time.src} alt="" />
+                                        <P
+                                            klasse={`${
+                                                isWorkshop ? "!text-blueColor-100" : null
+                                            } !text-xs xl:!text-base`}
+                                        >
+                                            {formatStringToDate(data.date).split(" ")[1]}
+                                        </P>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </motion.div>
                 </>{" "}

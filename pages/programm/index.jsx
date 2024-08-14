@@ -51,8 +51,6 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
     });
 
     const cardClicker = (category, cardIndex) => {
-        // set stylke for bgt elenment
-
         // Encode the category name for the URL
         const encodedCategory = encodeURIComponent(category);
 
@@ -63,6 +61,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
         const filtered = dataEvents.filter((event) => event.kategorie.name === category);
         setFilteredEvents(filtered);
         setActiveFilter(category);
+        console.log(filtered);
 
         setTimeout(() => {
             setShowData(true);
@@ -349,7 +348,6 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                         ) : null}
 
                         <motion.div
-                            // initial={{ y: "-100%", opacity: 0.5 }}
                             animate={bgStyle}
                             transition={{ type: "spring", stiffness: 95, damping: 15 }}
                             className="absolute BGBGBG HUGI bg-[#AFD3A2] transition w-full left-0 lg:left[-2rem] bottom-0 z-[-10] md:hidden"
@@ -379,11 +377,6 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
             </MainContainer>
             <Divider></Divider>
 
-            {/* <FullWidthSection klasse="bg-[#AFD3A2] py-20 2xl:!py-32">
-                <CTAContent data={dataHome.components[3]}></CTAContent>
-            </FullWidthSection>
-            <Divider></Divider> */}
-
             <MainContainer width="container mx-auto">
                 <CardHolder data={dataKategorie}></CardHolder>
             </MainContainer>
@@ -391,9 +384,6 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
             <FullWidthSection klasse="bg-[#fff] py-8 lg:!py-32">
                 <Contact data={dataKontakt[0]}></Contact>
             </FullWidthSection>
-            {/* <BigDecal></BigDecal>
-
-            <BigDecal></BigDecal> */}
         </>
     );
 }

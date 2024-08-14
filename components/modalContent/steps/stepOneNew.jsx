@@ -17,7 +17,7 @@ import Price from "../../../assets/price.svg";
 // STORE
 import useStore from "../../../store/store"; // Adjust the path to your store file
 
-const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
+const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring, anfrage }) => {
     const [infoText, setInfoText] = useState("");
     let isWorkshop = false;
     const { dates } = useStore();
@@ -36,7 +36,9 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
         }
     }, [events]);
 
-    useEffect(() => {}, [dates]);
+    useEffect(() => {
+        console.log(anfrage);
+    }, [anfrage]);
 
     const handleDateSelect = (date) => {
         // Handle date selection
@@ -85,6 +87,7 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
                 >
                     <img className="w-6" src={Calendar.src}></img>
                     <div className="datum">
+                        {anfrage ? <P klasse="text-xs font-semibold">Termin auf Anfrage</P> : null}
                         {dates.map((e, i) => {
                             if (events.recurringDates && events.recurringDates.length > 0) {
                                 return (
@@ -119,9 +122,11 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring }) => {
                 </div>
                 <div className="flex items-start space-x-4 mt-3 mb-6">
                     <img className="w-6" src={Price.src}></img>
+                    {anfrage ? <P klasse="text-xs font-semibold">Preis siehe Produkt</P> : null}
+
                     <P klasse="text-xs">{events.eventDetails.preis}</P>
                 </div>
-                {isPekip || events.recurringDates ? null : (
+                {isPekip || events.recurringDates || anfrage ? null : (
                     <DateSelection events={events} onDateSelect={handleDateSelect} />
                 )}
                 {events.produkte ? <ProductSelection events={events} onDateSelect={handleDateSelect} /> : null}
