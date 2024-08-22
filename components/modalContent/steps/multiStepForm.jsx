@@ -15,7 +15,7 @@ import { H2, H3, H4, P } from "../../typography";
 import { MainButton, MainButtonNOLink } from "../../buttons";
 import getValidationRules from "./getValidationRules";
 
-const MultiStepForm = ({ data, events, isPekip, recurring }) => {
+const MultiStepForm = ({ data, events, isPekip, recurring, anfrage }) => {
     const [currentCategory, setCurrentCategory] = useState(null);
 
     const [currentStep, setCurrentStep] = useState(1);
@@ -123,27 +123,9 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
         setCurrentStep(currentStep - 1);
     };
 
-    const handleDateSelect = (date) => {
-        // updateFormData({ date });
-        // handleNextStep();
-    };
-
-    useEffect(() => {}, [currentStep]);
-
     useEffect(() => {
         setSteps(events.kategorie.name == "Baby & Kleinkind" ? 5 : 4);
     }, [events]);
-
-    // useEffect(() => {
-    //     if (formData.date) {
-    //
-    //         setStep1Valid(true);
-    //     }
-    //     if (formData.twins && formData.sibilings && birthDate) {
-    //
-    //         setStep2Valid(true);
-    //     }
-    // }, [formData]);
 
     const renderStep = () => {
         switch (events.kategorie.name) {
@@ -156,6 +138,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
                                 data={data}
                                 events={events}
                                 isPekip={events.slug.current.includes("pekip")}
+                                anfrage={anfrage}
                             />
                         );
                     case 2:
@@ -195,6 +178,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring }) => {
                                 data={data}
                                 events={events}
                                 isPekip={events.slug.current.includes("pekip")}
+                                anfrage={anfrage}
                             />
                         );
                     case 2:

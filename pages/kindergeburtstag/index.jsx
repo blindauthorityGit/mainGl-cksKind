@@ -19,7 +19,7 @@ import Divider from "../../components/layout/divider";
 import { BigDecal } from "../../components/decorative";
 import { DecorativeDivider } from "../../components/decorative";
 import FullWidthSection from "../../components/layout/fullWidthSection";
-import { Anfrage } from "../../components/modalContent";
+import MultiStepReservation from "../../components/modalContent/stepsBirthday/multiStepReservation";
 
 import useStore from "../../store/store"; // Adjust the path to your store file
 
@@ -74,7 +74,9 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
                     onClick={() => {
                         setShowOverlay(true);
                         setShowModal(true);
-                        setModalContent(<Anfrage image={data.components[0].image} kindergeburtstag={true}></Anfrage>);
+                        setModalContent(
+                            <MultiStepReservation image={data.image} kindergeburtstag={true}></MultiStepReservation>
+                        );
                     }}
                     data={data.components[4]}
                 ></CTAContentButton>{" "}

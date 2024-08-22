@@ -114,7 +114,7 @@ Deine PEKiP Gruppenleitungen`;
 <p>Deine PEKiP Gruppenleitungen</p>`;
 
             const nonPekipText = `Liebe/r ${req.body.name},
-Vielen Dank für Deine Anmeldung zu „${req.body.kurs}“, am „${req.body.date}“.
+Vielen Dank für Deine Anmeldung zu „${req.body.kurs}${req.body.date ? `, am „${req.body.date}“` : "“"}.
 
 Die Kursleitung/Anbieterin wird sich mit Dir in Verbindung setzen und Dir weitere Detailinfos mitteilen.
 
@@ -124,7 +124,9 @@ MAIN GLÜCKSKIND`;
 
             const nonPekipHtml = `
 <p>Liebe/r ${req.body.name},</p>
-<p>Vielen Dank für Deine Anmeldung zu <strong>${req.body.kurs}</strong>, am <strong>${req.body.date}</strong>.</p>
+<p>Vielen Dank für Deine Anmeldung zu <strong>${req.body.kurs}</strong>${
+                req.body.date ? `, am <strong>${req.body.date}</strong>` : ""
+            }.</p>
 <p>Die Kursleitung/Anbieterin wird sich mit Dir in Verbindung setzen und Dir weitere Detailinfos mitteilen.</p>
 <p>Wir freuen uns auf Dich,</p>
 <p>MAIN GLÜCKSKIND</p>`;

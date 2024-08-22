@@ -18,7 +18,7 @@ import Anmelden from "../../assets/anmelden.svg";
 
 import useStore from "../../store/store";
 
-const AnmeldeContent = ({ data, events, email, phone, isPekip, dates }) => {
+const AnmeldeContent = ({ data, events, email, phone, isPekip, dates, anfrage }) => {
     const setShowModal = useStore((state) => state.setShowModal);
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setModalContent = useStore((state) => state.setModalContent);
@@ -80,13 +80,14 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip, dates }) => {
                             data={data}
                             events={events}
                             dates={dates}
+                            anfrage={anfrage}
                         ></MultiStepForm>
                     );
                 }}
             >
                 <img className="inline mr-4" src={Anmelden.src} alt="" />
 
-                {events.anfrage ? "Online Anfrage" : "ONLINE ANMELDUNG"}
+                {events.anfrage || anfrage ? "Online Anfrage" : "ONLINE ANMELDUNG"}
             </MainButtonNOLink>
         </div>
     );
