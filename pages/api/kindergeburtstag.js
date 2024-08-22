@@ -53,8 +53,8 @@ export default async function handler(req, res) {
 
             // Email content for the owners
             const ownerMailOptions = {
-                from: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
-                to: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
+                from: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "info@mainglueckskind.de",
+                to: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "info@mainglueckskind.de",
                 // cc: "office@atelierbuchner.at",
                 subject: `Kindergeburtstag Anfrage von ${req.body.name} am ${new Date(req.body.date).toLocaleDateString(
                     "de-DE"
