@@ -40,7 +40,7 @@ const RoomDetails = ({ data, isWorkshop }) => {
             </div>
             <div className={`wrapper mb-6 font-sans ${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
                 <H4 klasse={`mb-4  ${isWorkshop ? "!text-white" : "text-textColor"}`}>Ansprechpartner</H4>
-                {data.ansprechpartner.map((e, i) => {
+                {data?.ansprechpartner?.map((e, i) => {
                     return (
                         <div className="flex w-full items-center mb-4 ">
                             <div className="image">

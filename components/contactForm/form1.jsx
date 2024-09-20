@@ -239,29 +239,34 @@ const Form1 = (props) => {
                             <Error klasse="block col-span-12 text-themeRed text-xs">Bitte bestätigen</Error>
                         )}
                     </div>
-                    {loading ? (
-                        <div className="w-full col-span-12 flex justify-center">
-                            <Rings
-                                height="80"
-                                width="80"
-                                color="#df3288"
-                                radius="6"
-                                wrapperStyle={{}}
-                                wrapperClass=""
-                                visible={true}
-                                ariaLabel="rings-loading"
-                            />
-                        </div>
-                    ) : (
-                        <div className="w-full col-span-12 sm:mb-8">
-                            <MainButtonNOLink
-                                // className="bg-primaryColor-500 text-white mt-6 tracking-widest hover-underline-animation z-20 flex items-center justify-center lg:mt-8 py-2 text-sm sm:text-base sm:py-3 px-6 min-w-[10rem] w-full uppercase rounded-md md:mt-8"
-                                type="submit"
-                                klasse="bg-primaryColor border-2 border-primaryColor mt-4"
-                            >
-                                Absenden
-                            </MainButtonNOLink>
-                        </div>
+                    {/* Loading Spinner oder Absenden Button */}
+                    {!success && (
+                        <>
+                            {loading ? (
+                                <div className="w-full col-span-12 flex justify-center">
+                                    <Rings
+                                        height="80"
+                                        width="80"
+                                        color="#df3288"
+                                        radius="6"
+                                        wrapperStyle={{}}
+                                        wrapperClass=""
+                                        visible={true}
+                                        ariaLabel="rings-loading"
+                                    />
+                                </div>
+                            ) : (
+                                <div className="w-full col-span-12 sm:mb-8">
+                                    <MainButtonNOLink
+                                        // className="bg-primaryColor-500 text-white mt-6 tracking-widest hover-underline-animation z-20 flex items-center justify-center lg:mt-8 py-2 text-sm sm:text-base sm:py-3 px-6 min-w-[10rem] w-full uppercase rounded-md md:mt-8"
+                                        type="submit"
+                                        klasse="bg-primaryColor border-2 border-primaryColor mt-4"
+                                    >
+                                        Absenden
+                                    </MainButtonNOLink>
+                                </div>
+                            )}
+                        </>
                     )}
                 </form>
                 {success ? (

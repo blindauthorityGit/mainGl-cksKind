@@ -9,15 +9,14 @@ import client from "../../client";
 
 //COMPS
 import { BasicHero } from "../../components/Hero";
-import { EventSlider } from "../../components/slider";
 import { PortableTextEvent, RegularText, AnmeldeContent, AnmeldeButton } from "../../components/content";
 import { Contact } from "../../components/content";
 import { Details } from "../../components/sidebar";
 import { LinkGrid } from "../../components/linkGrid";
+import PdfHolder from "../../components/pdf";
 
 import Divider from "../../components/layout/divider";
 
-import { BigDecal } from "../../components/decorative";
 import { DecorativeDivider } from "../../components/decorative";
 import FullWidthSection from "../../components/layout/fullWidthSection";
 
@@ -37,6 +36,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
 
     useEffect(() => {
         // FILTER THE PARTNER
+        console.log(data);
         if (!data) {
             // Handle the case where data is undefined
             return;
@@ -87,6 +87,7 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                     isWorkshop={isWorkshop}
                                     blocks={data.content.content}
                                 ></PortableTextEvent>
+                                <PdfHolder data={data.pdfUploads}></PdfHolder>
                             </div>
                             {/* //SIDEBAR */}
                             <div className="col-span-12 hidden lg:block md:col-span-5 xl:col-span-4 lg:mt-28 lg:pl-16">
@@ -196,17 +197,22 @@ export const getStaticProps = async (context) => {
     const slug = context.params.slug;
 
     const res = await client.fetch(`
-    *[_type == "event" && slug.current == "${slug}"]{
-        ...,
-        kategorie->{...},
-        eventDetails {
+        *[_type == "event" && slug.current == "${slug}"]{
+          ...,
+          kategorie->{...},
+          eventDetails {
             ...,
             partner->{...},
             location->{...},
+          },
+          pdfUploads[]{
+            pdfTitle,
+            pdfText,
+            buttonLabel,
+            "pdfUrl": pdfFile.asset->url // Hier wird die URL der PDF geladen
+          }
         }
-      }
-      
-  `);
+      `);
 
     const data = await res[0];
 

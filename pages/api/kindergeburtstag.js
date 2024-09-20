@@ -40,15 +40,32 @@ export default async function handler(req, res) {
                 from: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "info@mainglueckskind.de",
                 to: req.body.email,
                 subject: "Kindergeburtstag Anfrage",
-                text: `Liebe/r ${req.body.name}, vielen Dank für Deine Anfrage zu einer Feier am ${new Date(
-                    req.body.date
-                ).toLocaleDateString("de-DE")} um ${req.body.timeSlot}! Wir freuen uns auf dich! Main Glückskind`,
-                html: `Liebe/r ${req.body.name}, </br>vielen Dank für Deine Anfrage zu einer Feier am ${new Date(
-                    req.body.date
-                ).toLocaleDateString("de-DE")} um ${
-                    req.body.timeSlot
-                }! </br> Wir freuen uns auf dich! <p>Main Glückskind</p>
-             `,
+                text: `Liebe/r ${req.body.name},
+
+vielen Dank für deine Geburtstagsanfrage. Wir prüfen so schnell wie möglich die Verfügbarkeit und schicken dir alle wichtigen Informationen zu.
+
+In der Regel erhältst du innerhalb der nächsten fünf Tage eine Antwort.
+
+Falls du in der Zwischenzeit noch Fragen hast, stehen wir dir natürlich gerne zur Verfügung.
+
+Für dringende Anfragen kannst du uns auch unter folgender Nummer per WhatsApp erreichen: +49 1515 4908198.
+
+Herzliche Grüße
+
+Dein MAIN GLÜCKSKIND`,
+                html: `Liebe/r ${req.body.name},</br>
+</br>
+vielen Dank für deine Geburtstagsanfrage. Wir prüfen so schnell wie möglich die Verfügbarkeit und schicken dir alle wichtigen Informationen zu.</br>
+</br>
+In der Regel erhältst du innerhalb der nächsten fünf Tage eine Antwort.</br>
+</br>
+Falls du in der Zwischenzeit noch Fragen hast, stehen wir dir natürlich gerne zur Verfügung.</br>
+</br>
+Für dringende Anfragen kannst du uns auch unter folgender Nummer per WhatsApp erreichen: <strong>+49 1515 4908198</strong>.</br>
+</br>
+Herzliche Grüße</br>
+</br>
+<p>Dein MAIN GLÜCKSKIND</p>`,
             };
 
             // Email content for the owners

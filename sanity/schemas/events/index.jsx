@@ -178,6 +178,45 @@ export default {
 
       description: 'Der Inhalt der Veranstaltung (Text und Bilder, max 80 Zeichen)',
     },
+    {
+      name: 'pdfUploads',
+      title: 'PDF Uploads',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'pdfFile',
+              title: 'PDF Datei',
+              type: 'file',
+              options: {
+                accept: '.pdf',
+              },
+            },
+            {
+              name: 'pdfTitle',
+              title: 'Titel der PDF',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'pdfText',
+              title: 'Text für PDF',
+              type: 'text', // Assuming you have a 'blockContent' type for rich text
+              // validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'buttonLabel',
+              title: 'Button Label',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+        },
+      ],
+      description: 'Liste der hochgeladenen PDFs mit Titel, Text und Button-Beschriftung',
+    },
   ],
   preview: {
     select: {

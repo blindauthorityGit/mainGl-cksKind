@@ -33,6 +33,7 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
     const setModalContent = useStore((state) => state.setModalContent);
     useEffect(() => {
         changeBodyBackgroundColor(data);
+        console.log(data);
     }, []);
 
     return (
@@ -48,14 +49,14 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
 
                 <StickyContainer className="grid grid-cols-12 w-full col-span-12 px-4 lg_px-0">
                     <div className="col-span-12 lg:col-span-8">
-                        <PortableTextEvent blocks={data.components[2].content} data={data}></PortableTextEvent>
+                        <PortableTextEvent blocks={data.components[1].content} data={data}></PortableTextEvent>
                     </div>
 
                     <div className="col-span-4 lg:mt-28 lg:pl-16 hidden lg:block">
                         <Sticky distanceFromTop={10} topOffset={-18}>
                             {({ style, isSticky }) => (
                                 <div style={{ ...style, marginTop: isSticky ? "90px" : "0px" }} className="col-span-3">
-                                    <RoomDetails data={data.components[3]}></RoomDetails>{" "}
+                                    <RoomDetails data={data.components[2]}></RoomDetails>{" "}
                                 </div>
                             )}
                         </Sticky>
@@ -68,7 +69,7 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
             </MainContainer>
             <FullWidthSection klasse="bg-[#E9B4C7] py-10 2xl:!py-32">
                 <div className="col-span-12 lg:hidden px-4">
-                    <RoomDetails data={data.components[3]}></RoomDetails>{" "}
+                    <RoomDetails data={data.components[2]}></RoomDetails>{" "}
                 </div>
                 <CTAContentButton
                     onClick={() => {
@@ -78,11 +79,11 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
                             <MultiStepReservation image={data.image} kindergeburtstag={true}></MultiStepReservation>
                         );
                     }}
-                    data={data.components[4]}
+                    data={data.components[3]}
                 ></CTAContentButton>{" "}
             </FullWidthSection>
             <MainContainer width="container mx-auto">
-                <TextImage richText data={data.components[5]}></TextImage>
+                <TextImage richText data={data.components[4]}></TextImage>
             </MainContainer>
             <DecorativeDivider></DecorativeDivider>
             <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">

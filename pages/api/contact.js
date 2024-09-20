@@ -51,15 +51,27 @@ export default async function handler(req, res) {
             from: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : emailTo,
             to: req.body.email,
             subject: "Anfrage Bestätigung",
-            text: `Liebe/r ${req.body.name}, vielen Dank für Deine Anfrage in unserem Cafe am ${new Date(
-                req.body.date
-            ).toLocaleDateString("de-DE")} um ${req.body.timeSlot}! Wir freuen uns auf dich! Main Glückskind`,
+            text: `Liebe/r ${req.body.name},
+        
+        vielen Dank für deine Raumanfrage. Wir prüfen so schnell wie möglich die Verfügbarkeit und schicken dir alle wichtigen Informationen zu.
+        
+        In der Regel erhältst du innerhalb der nächsten fünf Tage eine Antwort.
+        
+        Für dringende Anfragen kannst du uns auch unter folgender Nummer per WhatsApp erreichen: +49 1515 4908198.
+        
+        Falls du in der Zwischenzeit noch Fragen hast, stehen wir dir natürlich gerne zur Verfügung.
+        
+        Herzliche Grüße
+        
+        Dein MAIN GLÜCKSKIND`,
             html: `
                 <p>Liebe/r ${req.body.name},</p>
-                <p>vielen Dank für deine Anmeldung zu <strong>${req.body.kurs}</strong> am <strong>${req.body.date}</strong>.</p>
-                <p>Unser Trainer wird sich mit dir in Verbindung setzen und dir weitere DetailInfos mitteilen.</p>
-                <p>Wir freuen uns auf dich!</p>
-                <p>Main Glückskind</p>
+                <p>vielen Dank für deine Raumanfrage. Wir prüfen so schnell wie möglich die Verfügbarkeit und schicken dir alle wichtigen Informationen zu.</p>
+                <p>In der Regel erhältst du innerhalb der nächsten fünf Tage eine Antwort.</p>
+                <p>Für dringende Anfragen kannst du uns auch unter folgender Nummer per WhatsApp erreichen: <strong>+49 1515 4908198</strong>.</p>
+                <p>Falls du in der Zwischenzeit noch Fragen hast, stehen wir dir natürlich gerne zur Verfügung.</p>
+                <p>Herzliche Grüße</p>
+                <p>Dein MAIN GLÜCKSKIND</p>
             `,
         };
 
