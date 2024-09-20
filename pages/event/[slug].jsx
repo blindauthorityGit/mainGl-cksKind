@@ -87,7 +87,9 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
                                     isWorkshop={isWorkshop}
                                     blocks={data.content.content}
                                 ></PortableTextEvent>
-                                <PdfHolder data={data.pdfUploads}></PdfHolder>
+                                {data.pdfUploads && data.pdfUploads.length > 0 ? (
+                                    <PdfHolder data={data.pdfUploads} />
+                                ) : null}
                             </div>
                             {/* //SIDEBAR */}
                             <div className="col-span-12 hidden lg:block md:col-span-5 xl:col-span-4 lg:mt-28 lg:pl-16">
