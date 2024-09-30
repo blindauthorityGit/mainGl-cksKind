@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { addDoc, collection } from "firebase/firestore/lite";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore/lite";
 import { db } from "../../config/firebase"; // Adjust this import according to your firebase config file path
 import axios from "axios";
 
@@ -61,10 +61,23 @@ export default async function handler(req, res) {
             if (req.body.newsletter) {
                 await subscribeToNewsletter(req.body.email, req.body.name, req.body.phone);
             }
+
+            // Save to Firestore: dev = true -> "dev_anmeldungen", dev = false -> "anmeldung_kurse"
+            const collectionName = process.env.NEXT_DEV === "true" ? "dev_anmeldungen" : "anmeldung_kurse";
+
             // Save to Firestore only if NEXT_DEV is not true
-            if (process.env.NEXT_DEV !== "true") {
-                const docRef = await addDoc(collection(db, "anmeldung_kurse"), req.body);
+            if (process.env.NEXT_DEV === "true") {
+                // Save to the "dev_anmeldungen" collection in development mode
+                await addDoc(collection(db, "dev_anmeldungen"), {
+                    ...req.body, // Spread the body data
+                    createdAt: serverTimestamp(), // Add the server timestamp for the creation time
+                });
             } else {
+                // Save to the "anmeldung_kurse" collection in production mode
+                await addDoc(collection(db, "anmeldung_kurse"), {
+                    ...req.body, // Spread the body data
+                    createdAt: serverTimestamp(), // Add the server timestamp for the creation time
+                });
             }
 
             // Set up Nodemailer
@@ -140,6 +153,14 @@ MAIN GLÜCKSKIND`;
                 html: req.body.isPekip ? pekipHtml : nonPekipHtml,
             };
 
+            // Set up CC logic
+            let ccEmail;
+            if (process.env.NEXT_DEV === "true") {
+                ccEmail = "johabuch@gmail.com";
+            } else if (!req.body.trainerEmail) {
+                ccEmail = "info@mainglueckskind.de";
+            }
+
             const adminMailOptions = {
                 from: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_MAIL_BUCHUNG_LIVE,
                 to:
@@ -149,6 +170,8 @@ MAIN GLÜCKSKIND`;
                         ? req.body.trainerEmail
                         : "info@mainglueckskind.de", // Replace with your admin email
                 // cc: "info@mainglueckskind.de", // CC email
+                cc: ccEmail, // Add the CC email conditionally
+
                 subject: `Buchung von ${req.body.name} für ${req.body.kurs} am ${req.body.date}`,
                 html: `
                 ${req.body.produkt ? `<p><strong>Produkt:</strong> ${req.body.produkt}</p>` : ""}
