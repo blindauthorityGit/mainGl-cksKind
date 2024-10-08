@@ -6,7 +6,7 @@ import { CoverImage } from "../images";
 import urlFor from "../../functions/urlFor";
 
 //TYPO
-import { H2, P, H4 } from "../typography";
+import { H2, P, H4, H3 } from "../typography";
 
 const myPortableTextComponents = (isWorkshop) => ({
     types: {
