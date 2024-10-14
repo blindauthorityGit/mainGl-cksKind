@@ -68,6 +68,7 @@ export default async function handler(req, res) {
             // Save to Firestore only if NEXT_DEV is not true
             if (process.env.NEXT_DEV === "true") {
                 // Save to the "dev_anmeldungen" collection in development mode
+                console.log(process.env.NEXT_DEV);
                 await addDoc(collection(db, "dev_anmeldungen"), {
                     ...req.body, // Spread the body data
                     createdAt: serverTimestamp(), // Add the server timestamp for the creation time
@@ -157,9 +158,12 @@ MAIN GLÜCKSKIND`;
             let ccEmail;
             if (process.env.NEXT_DEV === "true") {
                 ccEmail = "johabuch@gmail.com";
-            } else if (!req.body.trainerEmail) {
+            } else {
+                console.log("info@mainglueckskind.de");
                 ccEmail = "info@mainglueckskind.de";
             }
+
+            console.log(req.body.trainerEmail, !req.body.trainerEmail);
 
             const adminMailOptions = {
                 from: process.env.NEXT_DEV === "true" ? process.env.NEXT_W4YUSER : process.env.NEXT_MAIL_BUCHUNG_LIVE,
