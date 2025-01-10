@@ -4,6 +4,7 @@ const MainButtonNOLink = (props) => {
     return (
         <button
             onClick={props.onClick}
+            disabled={props.disabled}
             id={props.id}
             className={`${props.klasse} ${
                 props.disabled ? "opacity-30" : null

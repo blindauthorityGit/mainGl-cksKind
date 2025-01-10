@@ -42,10 +42,7 @@ export default async function handler(req, res) {
                 subject: "Kindergeburtstag Anfrage",
                 text: `Liebe/r ${req.body.name},
 
-vielen Dank für deine Geburtstagsanfrage. Wir prüfen so schnell wie möglich die Verfügbarkeit und schicken dir alle wichtigen Informationen zu.
-
-In der Regel erhältst du innerhalb der nächsten fünf Tage eine Antwort.
-
+vielen Dank für deine Anfrage für eine Kindergeburtstags/Raumbuchung. Wir prüfen die Verfügbarkeit und melden uns so schnell wie möglich bei dir. Bitte beachte, dass deine Anfrage noch keine verbindliche Buchung ist.
 Falls du in der Zwischenzeit noch Fragen hast, stehen wir dir natürlich gerne zur Verfügung.
 
 Für dringende Anfragen kannst du uns auch unter folgender Nummer per WhatsApp erreichen: +49 1515 4908198.
@@ -55,9 +52,11 @@ Herzliche Grüße
 Dein MAIN GLÜCKSKIND`,
                 html: `Liebe/r ${req.body.name},</br>
 </br>
-vielen Dank für deine Geburtstagsanfrage. Wir prüfen so schnell wie möglich die Verfügbarkeit und schicken dir alle wichtigen Informationen zu.</br>
+vielen Dank für deine Anfrage für eine Kindergeburtstags/Raumbuchung.</br>
 </br>
-In der Regel erhältst du innerhalb der nächsten fünf Tage eine Antwort.</br>
+Wir prüfen die Verfügbarkeit und melden uns so schnell wie möglich bei dir.</br>
+</br>
+Bitte beachte, dass deine Anfrage noch keine verbindliche Buchung ist.</br>
 </br>
 Falls du in der Zwischenzeit noch Fragen hast, stehen wir dir natürlich gerne zur Verfügung.</br>
 </br>

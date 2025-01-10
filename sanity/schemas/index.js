@@ -35,6 +35,7 @@ import eventBlock from './components/block'
 import recurringEvent from './components/recurringEvent'
 import exceptions from './components/exceptions'
 import product from './components/product'
+import downloadBereich from './components/downloadBereich'
 
 //SECTIONS
 import partner from './sections/partner'
@@ -83,5 +84,6 @@ export const schemaTypes = [
   exceptions,
   product,
   anfahrt,
+  downloadBereich,
   // Add more schema types as needed
 ]

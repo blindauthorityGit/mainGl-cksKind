@@ -50,6 +50,23 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
                 <StickyContainer className="grid grid-cols-12 w-full col-span-12 px-4 lg_px-0">
                     <div className="col-span-12 lg:col-span-8">
                         <PortableTextEvent blocks={data.components[1].content} data={data}></PortableTextEvent>
+                        {data.components[5].introText && (
+                            <PortableTextEvent blocks={data.components[5].introText} data={data}></PortableTextEvent>
+                        )}
+                        {data.components[5].downloads &&
+                            data.components[5].downloads.map((e, i) => {
+                                return (
+                                    <a
+                                        key={i}
+                                        className="xl:ml-8 2xl:ml-28   font-sans text-xl font-medium leading-relaxed text-textColor"
+                                        href={e.file.asset.url} // Hier wird die Datei-URL verwendet
+                                        target="_blank" // Öffnet den Link in einem neuen Tab
+                                        rel="noopener noreferrer" // Sicherheit für externe Links
+                                    >
+                                        {e.fileName}
+                                    </a>
+                                );
+                            })}
                     </div>
 
                     <div className="col-span-4 lg:mt-28 lg:pl-16 hidden lg:block">
@@ -93,17 +110,30 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
         </>
     );
 }
-
 export const getStaticProps = async (context) => {
-    const res = await client.fetch(`*[_type == "kindergeburtstag"] 
+    const res = await client.fetch(`
+        *[_type == "kindergeburtstag"]{
+            ...,
+            components[]{
+                ...,
+                downloads[]{
+                    file{
+                        asset->{
+                            url
+                        }
+                    },
+                    fileName
+                }
+            }
+        }
     `);
-    const data = await res[0];
+    const data = res[0];
 
     const resKontakt = await client.fetch(`
-    *[_type == "kontakt"]
+        *[_type == "kontakt"]
     `);
 
-    const dataKontakt = await resKontakt;
+    const dataKontakt = resKontakt;
 
     return {
         props: {

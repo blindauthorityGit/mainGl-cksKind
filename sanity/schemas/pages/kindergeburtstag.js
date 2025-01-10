@@ -51,6 +51,9 @@ export default {
         {
           type: 'roomDetails', // Reference the object type directly
         },
+        {
+          type: 'downloadBereich', // Reference the object type directly
+        },
         // Add other custom component types as needed
       ],
     },
