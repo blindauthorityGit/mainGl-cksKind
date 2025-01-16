@@ -12,6 +12,8 @@ const AnmeldeButton = ({ events, isPekip, data, dates, anfrage }) => {
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setModalContent = useStore((state) => state.setModalContent);
 
+    console.log("AFNRAGE", anfrage);
+
     useEffect(() => {}, []);
 
     return (

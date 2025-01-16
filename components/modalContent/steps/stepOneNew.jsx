@@ -9,7 +9,7 @@ import ProductSelection from "../../contactForm/anmeldung/productSelection";
 
 import { AnmeldeForm } from "../../contactForm";
 
-//ASSETS
+// ASSETS
 import Block from "../../../assets/block.svg";
 import Calendar from "../../../assets/calendar.svg";
 import Price from "../../../assets/price.svg";
@@ -19,6 +19,7 @@ import useStore from "../../../store/store"; // Adjust the path to your store fi
 
 const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring, anfrage }) => {
     const [infoText, setInfoText] = useState("");
+    const [openBlockIndex, setOpenBlockIndex] = useState(null);
     let isWorkshop = false;
     const { dates } = useStore();
 
@@ -45,75 +46,92 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring, anfrage 
         // handleNextStep();
     };
 
+    const toggleBlock = (index) => {
+        setOpenBlockIndex(openBlockIndex === index ? null : index);
+    };
+
     return (
         <div className="container mx-auto grid grid-cols-12 sm:gap-8">
             <div className="col-span-12 h-full relative">
                 <H3 klasse={`my-4 !font-sans !font-semibold`}>
-                    {" "}
-                    {events.anfrage ? "Anfrage" : null} {events.headline}
+                    {events.anfrage ? "Anfrage" : null} {events.headline}{" "}
+                    {events.isFullyBooked && <span className="font-bold text-red-500">AUSGEBUCHT</span>}
                 </H3>
                 <div className="flex w-full items-center">
                     <div className="image">
-                        {events.eventDetails.partner.isHidden ? (
-                            <CoverImage
-                                src={urlFor(events.eventDetails.partner.image).url()} // Replace with the actual path to your image
-                                mobileSrc={urlFor(events.eventDetails.partner.image).url()} // Replace with the actual path to your image
-                                alt="Cover Background"
-                                style={{ aspectRatio: "1/1" }}
-                                className=" w-10 h-10 z-20 relative rounded-[40px] overflow-hidden  mr-4"
-                            />
-                        ) : (
-                            <CoverImage
-                                src={urlFor(events.eventDetails.partner.image).url()} // Replace with the actual path to your image
-                                mobileSrc={urlFor(events.eventDetails.partner.image).url()} // Replace with the actual path to your image
-                                alt="Cover Background"
-                                style={{ aspectRatio: "1/1" }}
-                                className=" w-10 h-10 z-20 relative rounded-[40px] overflow-hidden  mr-4"
-                            />
-                        )}
-                    </div>{" "}
-                    <P klasse={` ${isWorkshop && !isMobile ? "!text-blueColor-100" : "text-textColor"}`}>
+                        <CoverImage
+                            src={urlFor(events.eventDetails.partner.image).url()}
+                            mobileSrc={urlFor(events.eventDetails.partner.image).url()}
+                            alt="Cover Background"
+                            style={{ aspectRatio: "1/1" }}
+                            className="w-10 h-10 z-20 relative rounded-[40px] overflow-hidden mr-4"
+                        />
+                    </div>
+                    <P klasse={`${isWorkshop ? "!text-blueColor-100" : "text-textColor"}`}>
                         {events.eventDetails.partner.name}
                     </P>
                 </div>
                 <div className="flex items-center space-x-4 mt-6">
-                    <img src={Block.src}></img>
+                    <img src={Block.src} alt="Block Icon"></img>
                     <P klasse="text-xs">{infoText}</P>
                 </div>
                 <div
                     className={`flex ${
                         dates.length || events.isBlock > 2 ? "items-start" : "items-center"
-                    }  space-x-4 mt-3 mb-4`}
+                    } space-x-4 mt-3 mb-4`}
                 >
-                    <img className="w-6" src={Calendar.src}></img>
+                    <img className="w-6" src={Calendar.src} alt="Calendar Icon"></img>
                     <div className="datum">
                         {anfrage ? <P klasse="text-xs font-semibold">Termin auf Anfrage</P> : null}
                         {dates.map((e, i) => {
                             if (events.recurringDates && events.recurringDates.length > 0) {
                                 return (
-                                    <div key={i} className="flex space-x-2">
+                                    <div key={i} className="grid grid-cols-2 gap-x-4 mb-2">
                                         <P klasse="text-xs font-semibold">jeden {e.dayOfWeek}</P>
-                                        <P klasse="text-xs">{e.timeslots}</P>
+                                        <P klasse="text-xs text-right">{e.timeslots}</P>
                                     </div>
                                 );
                             } else if (events.isBlock && e.blockTitle) {
                                 return (
-                                    <div key={i} className="mb-4">
-                                        <P klasse="text-xs font-bold">{e.blockTitle}</P>
-                                        <P klasse="text-xs italic mb-2">{e.blockSubline}</P>
-                                        {e.dates.map((date, j) => (
-                                            <div key={j} className="flex space-x-2">
-                                                <P klasse="text-xs font-semibold">{date.dateStart}</P>
-                                                <P klasse="text-xs">{date.dateTimeRange}</P>
+                                    <div key={i} className="mb-4 border border-gray-200 rounded-lg shadow">
+                                        <div
+                                            className="p-3 bg-gray-100 flex justify-between items-center cursor-pointer rounded-t-lg"
+                                            onClick={() => toggleBlock(i)}
+                                        >
+                                            <P klasse="text-xs font-bold">
+                                                {e.blockTitle}{" "}
+                                                {events.blocks[i].ausgebucht && (
+                                                    <span className="text-primaryColor text-xs !font-normal">
+                                                        Ausgebucht
+                                                    </span>
+                                                )}
+                                            </P>
+                                            <button className="text-gray-500 transform ml-2 transition-transform">
+                                                {openBlockIndex === i ? "▲" : "▼"}
+                                            </button>
+                                        </div>
+                                        {openBlockIndex === i && (
+                                            <div className="p-3 bg-white">
+                                                <P klasse="text-xs italic mb-2">{e.blockSubline}</P>
+                                                <div className="grid grid-cols-3 gap-x-4">
+                                                    {e.dates.map((date, j) => (
+                                                        <React.Fragment key={j}>
+                                                            <P klasse="text-xs font-semibold">{date.dateStart}</P>
+                                                            <P klasse="text-xs col-span-2 text-right">
+                                                                {date.dateTimeRange}
+                                                            </P>
+                                                        </React.Fragment>
+                                                    ))}
+                                                </div>
                                             </div>
-                                        ))}
+                                        )}
                                     </div>
                                 );
                             } else {
                                 return (
-                                    <div key={i} className="flex space-x-2">
+                                    <div key={i} className="grid grid-cols-2 gap-x-4 mb-2">
                                         <P klasse="text-xs font-semibold">{e.dateStart}</P>
-                                        <P klasse="text-xs">{e.dateTimeRange}</P>
+                                        <P klasse="text-xs text-right">{e.dateTimeRange}</P>
                                     </div>
                                 );
                             }
@@ -121,7 +139,7 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring, anfrage 
                     </div>
                 </div>
                 <div className="flex items-start space-x-4 mt-3 mb-6">
-                    <img className="w-6" src={Price.src}></img>
+                    <img className="w-6" src={Price.src} alt="Price Icon"></img>
                     {anfrage ? <P klasse="text-xs font-semibold">Preis siehe Produkt</P> : null}
 
                     <P klasse="text-xs">{events.eventDetails.preis}</P>

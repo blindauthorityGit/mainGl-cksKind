@@ -37,6 +37,8 @@ const MultiStepForm = ({ data, events, isPekip, recurring, anfrage }) => {
         setCurrentCategory(events.kategorie.name);
     }, [events]);
 
+    console.log("DAT DATA", data, events, isPekip, recurring, anfrage);
+
     useEffect(() => {
         // Validate the current step whenever formData or currentStep changes
         setIsStepValid(false);
@@ -219,14 +221,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring, anfrage }) => {
 
     return (
         <>
-            <div
-                className="top h-[6svh] flex items-center justify-start"
-                style={
-                    {
-                        // background: events.kategorie.farbe.value,
-                    }
-                }
-            >
+            <div className="top h-[1svh] flex items-center justify-start">
                 {currentStep != steps + 1 && <StepIndicator steps={steps} currentStep={currentStep} />}
             </div>
             <div className="multi-step-form flex-grow flex flex-col lg:w-[60%]">
