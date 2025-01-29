@@ -79,28 +79,14 @@ export default function PEKIP({ data, dataKontakt, dataAllEvents, dataAllKategor
                         <div className="grid grid-cols-12 w-full col-span-12">
                             {" "}
                             <PekipHero></PekipHero>
-                            <Box sessions={data.recurringSessions} data={data}></Box>
+                            <Box sessions={data.recurringSessions}></Box>
                             <OrderBoxes></OrderBoxes>
                         </div>
                     </MainContainer>
                     <PekipAnmeldung></PekipAnmeldung>
                     <FAQSection></FAQSection>
                     <Divider></Divider>
-                    {/* <MainContainer width="container mx-auto gap-8">
-                        <Divider></Divider>
-                        {filteredKategorie && (
-                            <LinkGrid
-                                isDetail
-                                isWorkshop={isWorkshop}
-                                data={filteredKategorie}
-                                headline="Weitere Kurse"
-                            ></LinkGrid>
-                        )}
-                        <div className="hidden 2xl:block">
-                            <Divider></Divider>
-                        </div>
-                    </MainContainer> */}
-                    {/* <DecorativeDivider></DecorativeDivider> */}
+
                     <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
                         <Contact data={dataKontakt[0]}></Contact>
                     </FullWidthSection>
@@ -180,7 +166,7 @@ export const getStaticProps = async ({ params }) => {
 
     const dataAllKategorie = await resKategorie;
 
-    console.log(data, dataKontakt, dataAllEvents, dataAllKategorie);
+    console.log(data);
 
     return {
         props: {
