@@ -298,10 +298,7 @@ const Menu1 = (props) => {
                         transform-origin: bottom left;
                     }
                 `}</style>
-                <motion.div
-                    ref={ref}
-                    className="absolute hidden w-full h-full top-0 left-0 bg-themeGreen-50"
-                ></motion.div>
+                <motion.div ref={ref} className="absolute hidden w-full h-full top-0 left-0 bg-white"></motion.div>
             </nav>
         </>
     );

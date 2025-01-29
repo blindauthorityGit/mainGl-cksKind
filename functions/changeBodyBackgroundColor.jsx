@@ -11,6 +11,11 @@ export default function changeBackgroundColor(data) {
         document.body.style.backgroundColor = "#F3D7E2";
         return;
     }
+    if (data._type == "pekip") {
+        // document.body.style.backgroundColor = "#f6faf3";
+        document.body.style.backgroundColor = "#ffffff";
+        return;
+    }
 
     if (data._type == "erwachsene" || data.title === "Erwachsene" || data.kategorie?.name == "Erwachsene") {
         document.body.style.backgroundColor = "#C8C1E1";

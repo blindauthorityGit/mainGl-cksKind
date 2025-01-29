@@ -8,18 +8,22 @@ import { StickyContainer, Sticky } from "react-sticky";
 import client from "../../client";
 
 //COMPS
-import { BasicHero } from "../../components/Hero";
+import { BasicHero, PekipHero } from "../../components/Hero";
 import { PortableTextEvent, RegularText, AnmeldeContent, AnmeldeButton } from "../../components/content";
 import { Contact } from "../../components/content";
 import { Details } from "../../components/sidebar";
 import { LinkGrid } from "../../components/linkGrid";
 import PdfHolder from "../../components/pdf";
 import PekipTermine from "../../components/pekip/pekipTermine";
+import { Box } from "../../components/infoBox";
+import PekipAnmeldung from "../../components/pekipAnmelden";
+import FAQSection from "../../components/pekipFAQ";
 
 import Divider from "../../components/layout/divider";
 
 import { DecorativeDivider } from "../../components/decorative";
 import FullWidthSection from "../../components/layout/fullWidthSection";
+import OrderBoxes from "../../components/process";
 
 import Meta from "../../components/SEO";
 
@@ -72,91 +76,17 @@ export default function PEKIP({ data, dataKontakt, dataAllEvents, dataAllKategor
                     <MainContainer width="container mx-auto gap-8">
                         <Meta data={data.seo}></Meta>
 
-                        <StickyContainer className="grid grid-cols-12 w-full col-span-12">
-                            <div className="col-span-12 md:col-span-7 xl:col-span-8 px-4 md:px-0">
-                                {" "}
-                                <BasicHero isEvent data={data}></BasicHero>
-                                <div className="lg:flex lg:justify-center justify-end w-full">
-                                    {/* <AnmeldeButton
-                                        email={data.eventDetails.partner.email}
-                                        events={data}
-                                        data={dataKontakt[0]}
-                                        isPekip={data.slug.current.includes("pekip")}
-                                        klasse="justify-end"
-                                        anfrage={hasProdukteNoDates(data)}
-                                    ></AnmeldeButton> */}
-                                </div>
-                                <PortableTextEvent
-                                    isWorkshop={isWorkshop}
-                                    blocks={data.content.content}
-                                ></PortableTextEvent>
-                                <PekipTermine sessions={data.recurringSessions} data={data}></PekipTermine>
-                                {data.pdfUploads && data.pdfUploads.length > 0 ? (
-                                    <PdfHolder data={data.pdfUploads} />
-                                ) : null}
-                            </div>
-                            {/* //SIDEBAR */}
-                            <div className="col-span-12 hidden lg:block md:col-span-5 xl:col-span-4 lg:mt-28 lg:pl-16">
-                                <Sticky distanceFromTop={280} topOffset={-128}>
-                                    {({ style, isSticky }) => (
-                                        <div
-                                            style={{ ...style, marginTop: isSticky ? marginTopValue : "0px" }}
-                                            className="col-span-3"
-                                        >
-                                            {/* <Details
-                                                anfrage={hasProdukteNoDates(data)}
-                                                isWorkshop={isWorkshop}
-                                                data={data}
-                                            ></Details> */}
-                                        </div>
-                                    )}
-                                </Sticky>
-                            </div>
-                        </StickyContainer>
-
-                        <div className="hidden md:block">
-                            <Divider></Divider>
+                        <div className="grid grid-cols-12 w-full col-span-12">
+                            {" "}
+                            <PekipHero></PekipHero>
+                            <Box sessions={data.recurringSessions} data={data}></Box>
+                            <OrderBoxes></OrderBoxes>
                         </div>
-                    </MainContainer>{" "}
+                    </MainContainer>
+                    <PekipAnmeldung></PekipAnmeldung>
+                    <FAQSection></FAQSection>
                     <Divider></Divider>
-                    <FullWidthSection klasse="bg-[#fff] lg:bg-themeGreen-300 pt-10 pb-0 lg:!py-16 2xl:!py-32">
-                        <div className="col-span-12 lg:hidden px-6">
-                            {/* <Details
-                                anfrage={hasProdukteNoDates(data)}
-                                isWorkshop={isWorkshop}
-                                isMobile={true}
-                                data={data}
-                            ></Details> */}
-                            {/* <hr className="mb-4" /> */}
-                        </div>
-                        {/* <AnmeldeContent
-                            email={
-                                data.eventDetails.partner.email
-                                    ? data.eventDetails.partner.email
-                                    : "info@mainglueckskind.de"
-                            }
-                            anfrage={hasProdukteNoDates(data)}
-                            events={data}
-                            data={dataKontakt[0]}
-                            isPekip={data.slug.current.includes("pekip")}
-                        ></AnmeldeContent> */}
-                    </FullWidthSection>
-                    <MainContainer width="container mx-auto gap-8">
-                        <div className="">
-                            <Divider></Divider>
-                        </div>
-
-                        {/* {!data.eventDetails.partner.isHidden && (
-                            <RegularText
-                                link={data.eventDetails.partner.slug.current}
-                                isWorkshop={isWorkshop}
-                                data={data.eventDetails.partner}
-                            ></RegularText>
-                        )} */}
-                        {/* <div className="hidden md:block">
-                            <Divider></Divider>
-                        </div> */}
-                        {/* <EventSlider isWorkshop={isWorkshop} data={dataAllEvents}></EventSlider> */}
+                    {/* <MainContainer width="container mx-auto gap-8">
                         <Divider></Divider>
                         {filteredKategorie && (
                             <LinkGrid
@@ -169,8 +99,8 @@ export default function PEKIP({ data, dataKontakt, dataAllEvents, dataAllKategor
                         <div className="hidden 2xl:block">
                             <Divider></Divider>
                         </div>
-                    </MainContainer>
-                    <DecorativeDivider></DecorativeDivider>
+                    </MainContainer> */}
+                    {/* <DecorativeDivider></DecorativeDivider> */}
                     <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
                         <Contact data={dataKontakt[0]}></Contact>
                     </FullWidthSection>
