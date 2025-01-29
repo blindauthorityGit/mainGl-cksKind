@@ -180,6 +180,8 @@ export const getStaticProps = async ({ params }) => {
 
     const dataAllKategorie = await resKategorie;
 
+    console.log(data, dataKontakt, dataAllEvents, dataAllKategorie);
+
     return {
         props: {
             data,
