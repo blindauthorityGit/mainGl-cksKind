@@ -32,46 +32,16 @@ import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor
 // ... other imports
 import { useWindowDimensions } from "../../hooks/useWindowDimension";
 
-export default function PEKIP({ data, dataKontakt, dataAllEvents, dataAllKategorie }) {
+export default function PEKIP({ data, dataKontakt }) {
     const [isWorkshop, setIsWorkshop] = useState(false);
     const [filteredKategorie, setFilteredKategorie] = useState(false);
 
     const { width } = useWindowDimensions();
     const marginTopValue = width < 1440 ? "80px" : "128px";
 
-    console.log("data", data, "kontakt", dataKontakt, dataAllEvents, dataAllKategorie);
-
-    useEffect(() => {
-        // FILTER THE PARTNER
-        console.log(data);
-        if (!data) {
-            // Handle the case where data is undefined
-            return;
-        }
-
-        const filterName = data.kategorie?.name;
-        if (!filterName || !dataAllKategorie) {
-            // Handle the case where filterName or dataAllKategorie is undefined
-            return;
-        }
-
-        setFilteredKategorie(
-            dataAllKategorie.filter((e) => {
-                return e.name !== filterName;
-            })
-        );
-
-        changeBodyBackgroundColor(data);
-        setIsWorkshop(data.kategorie?.name == "Beratung & Coachings");
-    }, [data]);
-
-    const hasProdukteNoDates = (event) => {
-        return event.produkte && event.produkte.length > 0 && !event.recurringDates && !event.blocks && !event.datum;
-    };
-
     return (
         <>
-            {data && dataKontakt && dataAllEvents && dataAllKategorie ? (
+            {data && dataKontakt ? (
                 <>
                     <MainContainer width="container mx-auto gap-8">
                         <Meta data={data.seo}></Meta>
@@ -172,8 +142,6 @@ export const getStaticProps = async ({ params }) => {
         props: {
             data,
             dataKontakt,
-            dataAllEvents,
-            dataAllKategorie,
         },
         revalidate: 60, // e.g. 60 seconds
     };
