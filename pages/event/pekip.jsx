@@ -41,30 +41,30 @@ export default function PEKIP({ data, dataKontakt }) {
 
     return (
         <>
-            {data && dataKontakt ? (
-                <>
-                    <MainContainer width="container mx-auto gap-8">
-                        <Meta data={data.seo}></Meta>
+            {/* {data && dataKontakt ? ( */}
+            <>
+                <MainContainer width="container mx-auto gap-8">
+                    <Meta data={data.seo}></Meta>
 
-                        <div className="grid grid-cols-12 w-full col-span-12">
-                            {" "}
-                            <PekipHero></PekipHero>
-                            <Box sessions={data.recurringSessions}></Box>
-                            <OrderBoxes></OrderBoxes>
-                        </div>
-                    </MainContainer>
-                    <PekipAnmeldung></PekipAnmeldung>
-                    <FAQSection></FAQSection>
-                    <Divider></Divider>
+                    <div className="grid grid-cols-12 w-full col-span-12">
+                        {" "}
+                        <PekipHero></PekipHero>
+                        <Box sessions={data.recurringSessions}></Box>
+                        <OrderBoxes></OrderBoxes>
+                    </div>
+                </MainContainer>
+                <PekipAnmeldung></PekipAnmeldung>
+                <FAQSection></FAQSection>
+                <Divider></Divider>
 
-                    <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
-                        <Contact data={dataKontakt[0]}></Contact>
-                    </FullWidthSection>
-                    {/* <BigDecal></BigDecal> */}
-                </>
-            ) : (
+                <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
+                    <Contact data={dataKontakt[0]}></Contact>
+                </FullWidthSection>
+                {/* <BigDecal></BigDecal> */}
+            </>
+            {/* ) : (
                 <>LOADING</>
-            )}
+            )} */}
         </>
     );
 }
