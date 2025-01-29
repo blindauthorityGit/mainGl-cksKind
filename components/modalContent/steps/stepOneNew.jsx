@@ -60,8 +60,8 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring, anfrage 
                 <div className="flex w-full items-center">
                     <div className="image">
                         <CoverImage
-                            src={urlFor(events.eventDetails.partner.image).url()}
-                            mobileSrc={urlFor(events.eventDetails.partner.image).url()}
+                            src={urlFor(events.eventDetails?.partner?.image).url()}
+                            mobileSrc={urlFor(events.eventDetails?.partner?.image).url()}
                             alt="Cover Background"
                             style={{ aspectRatio: "1/1" }}
                             className="w-10 h-10 z-20 relative rounded-[40px] overflow-hidden mr-4"

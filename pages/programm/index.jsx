@@ -36,7 +36,7 @@ import SmallerDecal from "../../components/decorative/smallerDecal";
 import Down from "../../assets/down.svg";
 import Search from "../../assets/search.svg";
 
-export default function Programm({ dataHome, dataKontakt, dataEvents, dataKategorie }) {
+export default function Programm({ dataHome, dataKontakt, dataEvents, dataKategorie, dataPekip }) {
     const router = useRouter();
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [activeFilter, setActiveFilter] = useState("Alle");
@@ -49,6 +49,8 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
         height: "43svh",
         top: "auto",
     });
+
+    console.log(dataEvents, dataPekip);
 
     const cardClicker = (category, cardIndex) => {
         // Encode the category name for the URL
@@ -414,10 +416,42 @@ export const getStaticProps = async (context) => {
   
 `);
 
+    const resPekip = await client.fetch(`
+  *[_type == "pekip"]{
+    ...,
+    recurringSessions[]{
+      ...,
+      trainer-> {
+        _id,
+        name,
+        image,
+        "slug": slug.current
+      }
+    },
+    kategorie->{
+      ...
+    },
+    eventDetails {
+      ...,
+      partner->{
+        ...
+      },
+      location->{
+        ...
+      }
+    }
+  }
+      
+    `);
+
     const dataHome = await resData;
     const dataKategorie = await resKategorie;
     const dataKontakt = await resKontakt;
     const dataEvents = await resEvents;
+    // const dataPekip = await resPekip;
+    // const dataEvents = [...dataEventsPrev, ...dataPekip];
+
+    // console.log(dataEventsPrev);
 
     return {
         props: {
@@ -425,6 +459,7 @@ export const getStaticProps = async (context) => {
             dataKategorie,
             dataKontakt,
             dataEvents,
+            // dataPekip,
         },
         revalidate: 1, // 10 seconds
     };

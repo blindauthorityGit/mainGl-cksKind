@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { parseISO, addDays, endOfYear, format, isAfter } from "date-fns";
+import { parseISO, addDays, endOfYear, format, isAfter, addMonths } from "date-fns";
 
 // COMPS
 import Element from "./element";
@@ -16,6 +16,8 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent, anfrage }) =>
     const [displayedItems, setDisplayedItems] = useState([]);
     const [allItems, setAllItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+
+    console.log(data.filter((e) => e.pekipSingle));
 
     useEffect(() => {
         const computeWeeklyOccurrences = (startDate, endDate, dayOfWeek, timeslot) => {
@@ -45,6 +47,22 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent, anfrage }) =>
             const processedEvents = data
                 .flatMap((event) => {
                     if (event.recurringDates && event.recurringDates.length > 0) {
+                        console.log(
+                            "NORMAL",
+                            event.recurringDates.flatMap((recurringEvent) => {
+                                return computeWeeklyOccurrences(
+                                    recurringEvent.startDate,
+                                    recurringEvent.endDate,
+                                    recurringEvent.dayOfWeek,
+                                    recurringEvent.timeslot
+                                ).map((occurrence) => ({
+                                    ...event,
+                                    ...occurrence,
+                                    date: occurrence.date,
+                                    anfrage: false,
+                                }));
+                            })
+                        );
                         return event.recurringDates.flatMap((recurringEvent) => {
                             return computeWeeklyOccurrences(
                                 recurringEvent.startDate,
@@ -72,7 +90,45 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent, anfrage }) =>
                         console.log(event);
                         // Only add events with products and no other dates or blocks or recurring events
                         return [{ ...event, date: null, anfrage: true }];
+                    } else if (event.pekipSingle && event.recurringSessions?.length > 0) {
+                        console.log("BRANCH IS THERE");
+                        // NEW BRANCH FOR PEKIP
+                        console.log(
+                            event.recurringSessions.flatMap((session) => {
+                                return computeWeeklyOccurrences(
+                                    session.startDate,
+                                    // possibly session.endDate
+                                    null,
+                                    session.dayOfWeek,
+                                    session.timeslot
+                                ).map((occurrence) => ({
+                                    ...event,
+                                    ...occurrence,
+                                    date: occurrence.date,
+                                    anfrage: session.anfrage || false,
+                                    title: session.title,
+                                    trainer: session.trainer,
+                                }));
+                            })
+                        );
+                        return event.recurringSessions.flatMap((session) => {
+                            return computeWeeklyOccurrences(
+                                session.startDate,
+                                // possibly session.endDate
+                                null,
+                                session.dayOfWeek,
+                                session.timeslot
+                            ).map((occurrence) => ({
+                                ...event,
+                                ...occurrence,
+                                date: occurrence.date,
+                                anfrage: session.anfrage || false,
+                                title: session.title,
+                                trainer: session.trainer,
+                            }));
+                        });
                     }
+
                     return []; // For events that don't fit any category
                 })
                 .filter((event) => event.date === null || new Date(event.date) >= currentDate);

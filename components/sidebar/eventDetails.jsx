@@ -253,7 +253,7 @@ const Details = ({ data, isWorkshop, isMobile, anfrage }) => {
                 <H4 klasse={`mb-4  ${isWorkshop && !isMobile ? "!text-white" : "text-textColor"}`}>Kurs Leitung</H4>
                 <div className="flex w-full items-center">
                     <div className="image">
-                        {data.eventDetails.partner.isHidden ? (
+                        {data.eventDetails?.partner?.isHidden ? (
                             <CoverImage
                                 src={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
                                 mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
@@ -262,10 +262,10 @@ const Details = ({ data, isWorkshop, isMobile, anfrage }) => {
                                 className=" w-10 h-10 z-20 relative rounded-[40px] overflow-hidden  mr-4"
                             />
                         ) : (
-                            <Link href={`/partner/${data.eventDetails.partner.slug.current}`}>
+                            <Link href={`/partner/${data.eventDetails?.partner?.slug?.current}`}>
                                 <CoverImage
-                                    src={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
-                                    mobileSrc={urlFor(data.eventDetails.partner.image).url()} // Replace with the actual path to your image
+                                    src={urlFor(data.eventDetails?.partner?.image).url()} // Replace with the actual path to your image
+                                    mobileSrc={urlFor(data.eventDetails?.partner?.image).url()} // Replace with the actual path to your image
                                     alt="Cover Background"
                                     style={{ aspectRatio: "1/1" }}
                                     className=" w-10 h-10 z-20 relative rounded-[40px] overflow-hidden  mr-4"

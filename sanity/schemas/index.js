@@ -2,6 +2,8 @@
 
 import section from './sections/index'
 import event from './events'
+import pekip from './events/pekip'
+
 //PAGES
 import home from './pages/home'
 import raumvermietung from './pages/raumvermietung'
@@ -55,6 +57,7 @@ export const schemaTypes = [
   ueberuns,
   cafe,
   event,
+  pekip,
   eventDetails,
   partner,
   location,
