@@ -41,7 +41,6 @@ export default function PEKIP({ data, dataKontakt }) {
 
     return (
         <>
-            {/* {data && dataKontakt ? ( */}
             <>
                 <MainContainer width="container mx-auto gap-8">
                     <Meta data={data.seo}></Meta>
@@ -62,9 +61,6 @@ export default function PEKIP({ data, dataKontakt }) {
                 </FullWidthSection>
                 {/* <BigDecal></BigDecal> */}
             </>
-            {/* ) : (
-                <>LOADING</>
-            )} */}
         </>
     );
 }
