@@ -39,6 +39,19 @@ export default function PEKIP({ data, dataKontakt }) {
     const { width } = useWindowDimensions();
     const marginTopValue = width < 1440 ? "80px" : "128px";
 
+    useEffect(() => {
+        // FILTER THE PARTNER
+        console.log(data);
+        if (!data) {
+            // Handle the case where data is undefined
+            return;
+        }
+
+        changeBodyBackgroundColor(data);
+    }, [data]);
+
+    console.log(data);
+
     return (
         <>
             {data && dataKontakt ? (
@@ -48,13 +61,13 @@ export default function PEKIP({ data, dataKontakt }) {
 
                         <div className="grid grid-cols-12 w-full col-span-12">
                             {" "}
-                            <PekipHero></PekipHero>
+                            <PekipHero data={data}></PekipHero>
                             <Box sessions={data.recurringSessions}></Box>
-                            <OrderBoxes></OrderBoxes>
+                            <OrderBoxes data={data}></OrderBoxes>
                         </div>
                     </MainContainer>
                     <PekipAnmeldung></PekipAnmeldung>
-                    <FAQSection></FAQSection>
+                    <FAQSection data={data}></FAQSection>
                     <Divider></Divider>
 
                     <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">

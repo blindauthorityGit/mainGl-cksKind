@@ -18,11 +18,11 @@ import { motion } from "framer-motion";
 import { useWindowDimensions } from "../../hooks/useWindowDimension";
 
 import PekipHeroImage from "../../assets/pekipHero.png";
-
+import { BasicPortableText } from "../content";
 //STORE
 import useStore from "../../store/store"; // Adjust the path to your store file
 
-const PekipHero = ({}) => {
+const PekipHero = ({ data }) => {
     const { width, height } = useWindowDimensions();
 
     useEffect(() => {}, []);
@@ -36,19 +36,14 @@ const PekipHero = ({}) => {
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4, duration: 0.85 }}
                     >
-                        <H1 klasse="!mb-2 lg:mb-0 xl:!mb-2  2xl:!mb-6 !text-7xl lg:!text-8xl 2xl:!text-9xl">PEKiP</H1>
+                        <H1 klasse="!mb-2 lg:mb-0 xl:!mb-2  2xl:!mb-6 !text-7xl lg:!text-8xl 2xl:!text-9xl">
+                            {data.heroSettings.headline}
+                        </H1>
                         <P klasse="block font-bold mb-6 md:mb-10 lg:mb-8 !text-xl lg:!text-2xl 2xl:!text-3xl !text-semibold ">
-                            Spielerische Förderung für dich und dein Baby
+                            {data.heroSettings.subline}
                         </P>
-                        <P klasse="block mb-4 md:mb-4   !text-semibold">
-                            Unsere <strong>PEKiP-Kurse </strong> sind eine besondere Reise für dich und dein Baby.
-                            Gemeinsam erlebt ihr wertvolle Momente, fördert die Entwicklung deines Babys und knüpft
-                            Kontakte zu anderen Eltern.
-                        </P>
-                        <P klasse="block md:mb-10 lg:mb-0  !text-semibold">
-                            Unsere Kurse finden regelmäßig statt, aber die Nachfrage ist groß – daher ist eine
-                            Vormerkung notwendig. <strong>Hier erfährst du alles Wichtige!</strong>
-                        </P>
+                        <BasicPortableText value={data.heroSettings.intro}></BasicPortableText>
+
                         {/* Unsere Kurse finden regelmäßig statt, aber die Nachfrage ist groß – daher ist eine Vormerkung notwendig. Hier  erfährst du alles Wichtige! */}
                     </motion.div>
 

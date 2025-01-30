@@ -9,6 +9,7 @@ import Icon5 from "../../assets/order/5.svg";
 import Arrow from "../../assets/order/arrow.svg"; // Arrow icon between items
 
 import { P, H2 } from "../typography";
+import { BasicPortableText } from "../content";
 
 // Control object for order boxes
 const orderSteps = [
@@ -23,14 +24,12 @@ const orderSteps = [
     { icon: Icon5, description: "Wunschtage oder Wunschzeiten können wir leider nicht garantieren" },
 ];
 
-const OrderBoxes = () => {
+const OrderBoxes = ({ data }) => {
     return (
         <>
             <div className="col-span-12 mt-16 lg:mt-20 mb-12 px-4 lg:px-36">
-                <H2>
-                    Erklärung zum <br /> Vormerkungsprozess
-                </H2>
-                <P>Wie läuft die Anmeldung ab?</P>
+                <H2>{data.process.headline}</H2>
+                <P>{data.process.subline}</P>
             </div>
 
             {/* Desktop: Icons side by side | Mobile: Icons stacked */}
@@ -41,7 +40,7 @@ const OrderBoxes = () => {
                             {/* Order Box */}
                             <div className="flex flex-col items-center text-center w-[180px] min-w-[180px] mb-12 lg:mb-0 lg:min-h-[220px]">
                                 <img src={step.icon.src} alt={`Step ${index + 1}`} className=" mb-2" />
-                                <P className="text-sm md:text-base text-textColor">{step.description}</P>
+                                <P className="text-sm md:text-base text-textColor">{data.process.steps[index]}</P>
                             </div>
 
                             {/* Arrow (Except Last Item) */}
@@ -57,12 +56,7 @@ const OrderBoxes = () => {
 
             {/* Positive Hinweis Section */}
             <div className="lg:col-span-4 col-span-12 bg-[#F3F3F3] p-8 rounded-2xl lg:mt-8 ml-0 md:ml-24">
-                <P klasse="font-bold">Positiver Hinweis:</P>
-                <P>
-                    Auch wenn es etwas Geduld erfordert, lohnt sich das Warten: Unsere PEKiP-Kurse sind eine wunderbare
-                    Möglichkeit, dein Baby spielerisch zu fördern und in einer festen Gruppe wertvolle Erfahrungen zu
-                    sammeln
-                </P>
+                <BasicPortableText value={data.process.hinweis}></BasicPortableText>
             </div>
         </>
     );

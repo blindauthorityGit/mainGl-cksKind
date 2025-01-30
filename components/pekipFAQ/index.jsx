@@ -28,7 +28,7 @@ const contentData = {
     ],
 };
 
-const FAQSection = () => {
+const FAQSection = ({ data }) => {
     const [openIndex, setOpenIndex] = useState(null);
 
     // Toggle FAQ visibility
@@ -37,9 +37,9 @@ const FAQSection = () => {
     };
 
     return (
-        <div className="w-full max-w-3xl mx-auto py-12 px-6">
+        <div className="w-full lg:max-w-6xl mx-auto py-12 px-6">
             {/* Headline & Subline */}
-            <H2 className="text-center">{contentData.headline}</H2>
+            <H2 className="text-center">{data.specials.headline}</H2>
 
             {/* Custom Bullet List */}
             <ul className="mb-10 space-y-3">
@@ -54,7 +54,7 @@ const FAQSection = () => {
             {/* FAQ Section */}
             <div className="bg-gray-100 p-6 rounded-lg shadow-md">
                 <H2 className="text-lg font-semibold mb-4">FAQ</H2>
-                {contentData.faq.map((faq, index) => (
+                {data.faq.map((faq, index) => (
                     <div key={index} className="border-b border-gray-300">
                         <button
                             className="w-full text-left py-3 px-4 flex bg-textColor text-white justify-between items-center font-medium focus:outline-none"

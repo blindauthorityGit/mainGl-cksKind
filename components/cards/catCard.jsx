@@ -3,7 +3,7 @@ import { P } from "../typography";
 import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
 
-const CatCard = ({ bgColor, icon, text, link, onClick, isWhite, order, isWorkshop, isBig }) => {
+const CatCard = ({ bgColor, icon, text, link, onClick, isWhite, order, isWorkshop, isBig, pekip }) => {
     const handleOnClick = (e) => {
         if (onClick) {
             onClick(e);
@@ -48,7 +48,12 @@ const CatCard = ({ bgColor, icon, text, link, onClick, isWhite, order, isWorksho
             whileHover="hover"
             variants={cardVariants}
         >
-            <motion.img className="2xl:w-16" src={icon} alt="icon" variants={contentVariants} />
+            <motion.img
+                className={`${pekip ? "2xl:w-30" : "2xl:w-16"}`}
+                src={icon}
+                alt="icon"
+                variants={contentVariants}
+            />
             <P
                 klasse={`font-semibold !text-[clamp(12px,calc(12px+0.00893*(100svw-320px)),24px)] lg:!text-base 2xl:!text-xl ${
                     isWhite ? "!text-white" : null
