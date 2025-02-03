@@ -83,7 +83,8 @@ function MyApp({ Component, pageProps }) {
             try {
                 const settings = await client.fetch(`*[_type == "modalGeneral"][0]`);
 
-                if (settings && settings.active) {
+                // Check if the modal should be displayed and if it has not been dismissed in this session
+                if (settings && settings.active && !sessionStorage.getItem("modalDismissed")) {
                     setModalContent(<StartModal data={settings.text}> </StartModal>);
                     setShowModal(true);
                     setShowOverlay(true);
@@ -153,6 +154,7 @@ function MyApp({ Component, pageProps }) {
                         setShowModal(false);
                         setShowOverlay(false);
                         resetFormData();
+                        sessionStorage.setItem("modalDismissed", "true"); // Set flag to prevent reopening in this session
                     }}
                 >
                     {modalContent}

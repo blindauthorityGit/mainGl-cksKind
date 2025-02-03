@@ -74,7 +74,7 @@ Deine PEKiP Gruppenleitungen`;
                 <p><strong>Email:</strong> ${req.body.email}</p>
                 <p><strong>Telefon:</strong> ${req.body.phone}</p>
                 <p><strong>Wunsch-Tage und Zeiten:</strong> ${req.body.preferredDays || "Nicht angegeben"}</p>
-                <p><strong>Einwilligung bestätigt:</strong> ${req.body.agreement ? "Ja" : "Nein"}</p>`,
+              `,
         };
 
         // Send Emails

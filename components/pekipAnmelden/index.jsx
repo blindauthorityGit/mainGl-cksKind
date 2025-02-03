@@ -160,7 +160,11 @@ const PekipAnmeldung = () => {
                         </div>
 
                         {/* Success Message */}
-                        {success && <P className="text-green-600 text-center mt-4">Anmeldung erfolgreich gesendet!</P>}
+                        {success && (
+                            <P klasse="!text-green-600  mt-8 block">
+                                Vielen Dank, wir setzen uns mit dir in Verbindung!
+                            </P>
+                        )}
 
                         {/* General Error Message */}
                         {errors.form && <P className="text-red-500 text-center mt-4">{errors.form}</P>}

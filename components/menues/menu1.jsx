@@ -254,7 +254,7 @@ const Menu1 = (props) => {
                                 setShowOverlay(true);
                             }}
                         >
-                            <img className="h-[1.7rem]" src={props.burgerIcon} alt="" />
+                            <img className="h-[1.3rem]" src={props.burgerIcon} alt="" />
                         </div>
                         <div className="hidden xl:flex mt-0 pt-0 items-center col-span-2">
                             <MainButton klasse="bg-primaryColor !py-3" link="/programm">
