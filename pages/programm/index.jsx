@@ -31,6 +31,7 @@ import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor
 import Adult from "../../assets/adult.svg";
 import Baby from "../../assets/baby.svg";
 import Workshop from "../../assets/workshop.svg";
+import PEKIP from "../../assets/icons/pekip.svg";
 import All from "../../assets/all.svg";
 import SmallerDecal from "../../components/decorative/smallerDecal";
 import Down from "../../assets/down.svg";
@@ -63,7 +64,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
         const filtered = dataEvents.filter((event) => event.kategorie.name === category);
         setFilteredEvents(filtered);
         setActiveFilter(category);
-        console.log(filtered);
+        console.log("FILTER", filtered);
 
         setTimeout(() => {
             setShowData(true);
@@ -158,6 +159,16 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
             order: "xl:order-2",
             isWorkshop: true,
             onClick: () => cardClicker("Beratung & Coachings"),
+        },
+        {
+            text: "",
+            bgColor: "#fff",
+            icon: PEKIP.src,
+            order: "xl:order-2",
+            isWorkshop: false,
+            link: "/event/pekip",
+            pekip: true,
+            // onClick: () => cardClicker("Beratung & Coachings"),
         },
         {
             text: "Alle anzeigen",
@@ -323,7 +334,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                                 <AnimatePresence>
                                     {showCards && (
                                         <motion.div
-                                            className="col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-2 xl:gap-8 lg:px-8   mt-[4svh] "
+                                            className="col-span-12 grid grid-cols-2 lg:grid-cols-5 gap-2 xl:gap-8 lg:px-8   mt-[4svh] "
                                             initial="hidden"
                                             animate="visible"
                                             exit="exit"
@@ -340,6 +351,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                                                         onClick={e.onClick}
                                                         isWorkshop={e.isWorkshop}
                                                         isBig
+                                                        pekip={e.pekip}
                                                     ></CatCard>
                                                 );
                                             })}
@@ -391,75 +403,75 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
 }
 
 export const getStaticProps = async (context) => {
-    const resData = await client.fetch(`
-    *[_type == "home"][0]
-`);
+    const resData = await client.fetch(`*[_type == "home"][0]`);
+    const resKategorie = await client.fetch(`*[_type == "kategorie"]`);
+    const resKontakt = await client.fetch(`*[_type == "kontakt"]`);
 
-    const resKategorie = await client.fetch(`
-    *[_type == "kategorie"]
-`);
-
-    const resKontakt = await client.fetch(`
-*[_type == "kontakt"]
-`);
-
+    // Fetch all events (unfiltered)
     const resEvents = await client.fetch(`
-*[_type == "event"]{
-    ...,
+    *[_type == "event"]{
+        ...,
         kategorie->{...},
         eventDetails {
             ...,
             partner->{...},
             location->{...},
         }
-      }
-  
-`);
-
-    const resPekip = await client.fetch(`
-  *[_type == "pekip"]{
-    ...,
-    recurringSessions[]{
-      ...,
-      trainer-> {
-        _id,
-        name,
-        image,
-        "slug": slug.current
-      }
-    },
-    kategorie->{
-      ...
-    },
-    eventDetails {
-      ...,
-      partner->{
-        ...
-      },
-      location->{
-        ...
-      }
     }
-  }
-      
     `);
 
-    const dataHome = await resData;
-    const dataKategorie = await resKategorie;
-    const dataKontakt = await resKontakt;
-    const dataEvents = await resEvents;
-    // const dataPekip = await resPekip;
-    // const dataEvents = [...dataEventsPrev, ...dataPekip];
+    // Fetch all PEKiP sessions (unfiltered)
+    const resPekip = await client.fetch(`
+    *[_type == "pekip"]{
+        ...,
+        recurringSessions[] {
+            ...,
+            trainer-> {
+                _id,
+                name,
+                image,
+                "slug": slug.current
+            }
+        },
+        kategorie->{
+            ...
+        },
+        eventDetails {
+            ...,
+            partner->{
+                ...
+            },
+            location->{
+                ...
+            }
+        }
+    }
+    `);
 
-    // console.log(dataEventsPrev);
+    // ✅ Filter out specific slugs AFTER fetching
+    const excludedSlugs = [
+        "dienstag-pekip",
+        "pekip-arlett",
+        "pekip-mittwoch",
+        "pekip-donnerstag",
+        "pekip-montag-nachmittag",
+        "pekip-montag",
+    ];
+    const filteredEvents = resEvents.filter((event) => !excludedSlugs.includes(event.slug?.current));
+    // const filteredPekip = resPekip.filter((pekip) => !excludedSlugs.includes(pekip.slug?.current));
+    // ✅ Ensure `resPekip[0]` is an object before adding it
+    const pekipData = resPekip.length > 0 ? resPekip[0] : null;
+    const finalEvents = [...filteredEvents, pekipData];
+    console.log("Filtered Events:", filteredEvents);
+    // console.log("Filtered PEKiP:", filteredPekip);
 
     return {
         props: {
-            dataHome,
-            dataKategorie,
-            dataKontakt,
-            dataEvents,
-            // dataPekip,
+            dataHome: resData,
+            dataKategorie: resKategorie,
+            dataKontakt: resKontakt,
+            dataEvents: finalEvents, // Now only the filtered events are passed
+            dataPekip: pekipData, // Now only the filtered PEKiP sessions are passed
         },
         revalidate: 1, // 10 seconds
     };

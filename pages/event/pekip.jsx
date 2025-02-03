@@ -8,18 +8,22 @@ import { StickyContainer, Sticky } from "react-sticky";
 import client from "../../client";
 
 //COMPS
-import { BasicHero } from "../../components/Hero";
+import { BasicHero, PekipHero } from "../../components/Hero";
 import { PortableTextEvent, RegularText, AnmeldeContent, AnmeldeButton } from "../../components/content";
 import { Contact } from "../../components/content";
 import { Details } from "../../components/sidebar";
 import { LinkGrid } from "../../components/linkGrid";
 import PdfHolder from "../../components/pdf";
 import PekipTermine from "../../components/pekip/pekipTermine";
+import { Box } from "../../components/infoBox";
+import PekipAnmeldung from "../../components/pekipAnmelden";
+import FAQSection from "../../components/pekipFAQ";
 
 import Divider from "../../components/layout/divider";
 
 import { DecorativeDivider } from "../../components/decorative";
 import FullWidthSection from "../../components/layout/fullWidthSection";
+import OrderBoxes from "../../components/process";
 
 import Meta from "../../components/SEO";
 
@@ -28,14 +32,12 @@ import changeBodyBackgroundColor from "../../functions/changeBodyBackgroundColor
 // ... other imports
 import { useWindowDimensions } from "../../hooks/useWindowDimension";
 
-export default function PEKIP({ data, dataKontakt, dataAllEvents, dataAllKategorie }) {
+export default function PEKIP({ data, dataKontakt }) {
     const [isWorkshop, setIsWorkshop] = useState(false);
     const [filteredKategorie, setFilteredKategorie] = useState(false);
 
     const { width } = useWindowDimensions();
     const marginTopValue = width < 1440 ? "80px" : "128px";
-
-    console.log("data", data, "kontakt", dataKontakt, dataAllEvents, dataAllKategorie);
 
     useEffect(() => {
         // FILTER THE PARTNER
@@ -45,132 +47,29 @@ export default function PEKIP({ data, dataKontakt, dataAllEvents, dataAllKategor
             return;
         }
 
-        const filterName = data.kategorie?.name;
-        if (!filterName || !dataAllKategorie) {
-            // Handle the case where filterName or dataAllKategorie is undefined
-            return;
-        }
-
-        setFilteredKategorie(
-            dataAllKategorie.filter((e) => {
-                return e.name !== filterName;
-            })
-        );
-
         changeBodyBackgroundColor(data);
-        setIsWorkshop(data.kategorie?.name == "Beratung & Coachings");
     }, [data]);
 
-    const hasProdukteNoDates = (event) => {
-        return event.produkte && event.produkte.length > 0 && !event.recurringDates && !event.blocks && !event.datum;
-    };
+    console.log(data);
 
     return (
         <>
-            {data && dataKontakt && dataAllEvents && dataAllKategorie ? (
+            {data && dataKontakt ? (
                 <>
                     <MainContainer width="container mx-auto gap-8">
                         <Meta data={data.seo}></Meta>
 
-                        <StickyContainer className="grid grid-cols-12 w-full col-span-12">
-                            <div className="col-span-12 md:col-span-7 xl:col-span-8 px-4 md:px-0">
-                                {" "}
-                                <BasicHero isEvent data={data}></BasicHero>
-                                <div className="lg:flex lg:justify-center justify-end w-full">
-                                    {/* <AnmeldeButton
-                                        email={data.eventDetails.partner.email}
-                                        events={data}
-                                        data={dataKontakt[0]}
-                                        isPekip={data.slug.current.includes("pekip")}
-                                        klasse="justify-end"
-                                        anfrage={hasProdukteNoDates(data)}
-                                    ></AnmeldeButton> */}
-                                </div>
-                                <PortableTextEvent
-                                    isWorkshop={isWorkshop}
-                                    blocks={data.content.content}
-                                ></PortableTextEvent>
-                                <PekipTermine sessions={data.recurringSessions} data={data}></PekipTermine>
-                                {data.pdfUploads && data.pdfUploads.length > 0 ? (
-                                    <PdfHolder data={data.pdfUploads} />
-                                ) : null}
-                            </div>
-                            {/* //SIDEBAR */}
-                            <div className="col-span-12 hidden lg:block md:col-span-5 xl:col-span-4 lg:mt-28 lg:pl-16">
-                                <Sticky distanceFromTop={280} topOffset={-128}>
-                                    {({ style, isSticky }) => (
-                                        <div
-                                            style={{ ...style, marginTop: isSticky ? marginTopValue : "0px" }}
-                                            className="col-span-3"
-                                        >
-                                            {/* <Details
-                                                anfrage={hasProdukteNoDates(data)}
-                                                isWorkshop={isWorkshop}
-                                                data={data}
-                                            ></Details> */}
-                                        </div>
-                                    )}
-                                </Sticky>
-                            </div>
-                        </StickyContainer>
-
-                        <div className="hidden md:block">
-                            <Divider></Divider>
-                        </div>
-                    </MainContainer>{" "}
-                    <Divider></Divider>
-                    <FullWidthSection klasse="bg-[#fff] lg:bg-themeGreen-300 pt-10 pb-0 lg:!py-16 2xl:!py-32">
-                        <div className="col-span-12 lg:hidden px-6">
-                            {/* <Details
-                                anfrage={hasProdukteNoDates(data)}
-                                isWorkshop={isWorkshop}
-                                isMobile={true}
-                                data={data}
-                            ></Details> */}
-                            {/* <hr className="mb-4" /> */}
-                        </div>
-                        {/* <AnmeldeContent
-                            email={
-                                data.eventDetails.partner.email
-                                    ? data.eventDetails.partner.email
-                                    : "info@mainglueckskind.de"
-                            }
-                            anfrage={hasProdukteNoDates(data)}
-                            events={data}
-                            data={dataKontakt[0]}
-                            isPekip={data.slug.current.includes("pekip")}
-                        ></AnmeldeContent> */}
-                    </FullWidthSection>
-                    <MainContainer width="container mx-auto gap-8">
-                        <div className="">
-                            <Divider></Divider>
-                        </div>
-
-                        {/* {!data.eventDetails.partner.isHidden && (
-                            <RegularText
-                                link={data.eventDetails.partner.slug.current}
-                                isWorkshop={isWorkshop}
-                                data={data.eventDetails.partner}
-                            ></RegularText>
-                        )} */}
-                        {/* <div className="hidden md:block">
-                            <Divider></Divider>
-                        </div> */}
-                        {/* <EventSlider isWorkshop={isWorkshop} data={dataAllEvents}></EventSlider> */}
-                        <Divider></Divider>
-                        {filteredKategorie && (
-                            <LinkGrid
-                                isDetail
-                                isWorkshop={isWorkshop}
-                                data={filteredKategorie}
-                                headline="Weitere Kurse"
-                            ></LinkGrid>
-                        )}
-                        <div className="hidden 2xl:block">
-                            <Divider></Divider>
+                        <div className="grid grid-cols-12 w-full col-span-12">
+                            {" "}
+                            <PekipHero data={data}></PekipHero>
+                            <Box sessions={data.recurringSessions}></Box>
+                            <OrderBoxes data={data}></OrderBoxes>
                         </div>
                     </MainContainer>
-                    <DecorativeDivider></DecorativeDivider>
+                    <PekipAnmeldung></PekipAnmeldung>
+                    <FAQSection data={data}></FAQSection>
+                    <Divider></Divider>
+
                     <FullWidthSection klasse="bg-[#fff] py-10 lg:!py-32">
                         <Contact data={dataKontakt[0]}></Contact>
                     </FullWidthSection>
@@ -210,12 +109,7 @@ export const getStaticProps = async ({ params }) => {
             image
           }
         },
-        pdfUploads[]{
-          pdfTitle,
-          pdfText,
-          buttonLabel,
-          "pdfUrl": pdfFile.asset->url
-        },
+
         seo{
           ...
         }
@@ -250,12 +144,12 @@ export const getStaticProps = async ({ params }) => {
 
     const dataAllKategorie = await resKategorie;
 
+    console.log(data);
+
     return {
         props: {
             data,
             dataKontakt,
-            dataAllEvents,
-            dataAllKategorie,
         },
         revalidate: 60, // e.g. 60 seconds
     };

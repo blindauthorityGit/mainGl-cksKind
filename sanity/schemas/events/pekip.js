@@ -44,6 +44,33 @@ export default {
       type: 'boolean',
     },
     {
+      name: 'heroSettings',
+      title: 'HERO SETTINGS',
+      type: 'object',
+      fields: [
+        {
+          name: 'headline',
+          title: 'Headline',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: 'subline',
+          title: 'Subline',
+          type: 'string',
+        },
+        {
+          name: 'intro',
+          title: 'Intro',
+          type: 'array',
+          of: [{type: 'block'}],
+          description: 'Rich text for introduction',
+        },
+      ],
+      description: 'Settings for the hero section of the PEKiP course page',
+    },
+
+    {
       name: 'recurringSessions',
       title: 'Dauerhafte Termine',
       type: 'array',
@@ -192,6 +219,85 @@ export default {
         },
       ],
       description: 'Einzeltermine für diesen Kurs',
+    },
+    {
+      name: 'process',
+      title: 'Process',
+      type: 'object',
+      fields: [
+        {
+          name: 'headline',
+          title: 'Headline',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: 'subline',
+          title: 'Subline',
+          type: 'string',
+        },
+        {
+          name: 'steps',
+          title: 'Steps',
+          type: 'array',
+          of: [{type: 'string'}],
+          description: 'Each step in the process as a text entry',
+        },
+        {
+          name: 'hinweis',
+          title: 'Hinweis',
+          type: 'array',
+          of: [{type: 'block'}],
+          description: 'Rich text notice or additional information',
+        },
+      ],
+      description: 'Process section with headline, steps, and notice',
+    },
+    {
+      name: 'specials',
+      title: 'Specials',
+      type: 'object',
+      fields: [
+        {
+          name: 'headline',
+          title: 'Headline',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: 'items',
+          title: 'Special Items',
+          type: 'array',
+          of: [{type: 'string'}],
+          description: 'List of special features or highlights',
+        },
+      ],
+      description: 'Special highlights of the course',
+    },
+    {
+      name: 'faq',
+      title: 'Häufig gestellte Fragen (FAQ)',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'question',
+              title: 'Frage',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'answer',
+              title: 'Antwort',
+              type: 'text',
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+        },
+      ],
+      description: 'Liste der häufig gestellten Fragen zum Kurs',
     },
     {
       name: 'eventDetails',

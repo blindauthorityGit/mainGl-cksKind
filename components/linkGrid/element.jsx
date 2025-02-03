@@ -26,6 +26,8 @@ const Element = ({ data, i, isWorkshop, isDetail, link, partner }) => {
         rootMargin: "-150px 0px", // Adjust the rootMargin to add a threshold
     });
 
+    console.log(isDetail, data.image, data.logo);
+
     const variants = {
         visible: isMobile
             ? {

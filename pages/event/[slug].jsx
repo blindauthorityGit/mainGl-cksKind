@@ -179,19 +179,16 @@ export default function KursOverview({ data, dataKontakt, dataAllEvents, dataAll
     );
 }
 
+// pages/event/[slug].jsx
 export const getStaticPaths = async () => {
-    const res = await client.fetch(`*[_type in ["event"] ]`);
-    const data = await res;
-
-    const paths = data.map((e) => {
-        return {
-            params: { slug: e.slug.current },
-        };
-    });
+    const events = await client.fetch(`*[_type == "event"]`);
+    const filtered = events.filter((e) => e.slug.current !== "pekip"); // exclude
+    const paths = filtered.map((e) => ({
+        params: { slug: e.slug.current },
+    }));
     return {
         paths,
         fallback: true,
-        // fallback: process.env.NEXT_DEV === "true" ? false : true,
     };
 };
 

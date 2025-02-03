@@ -48,7 +48,7 @@ export default function Ueberuns({ dataAbout, dataPartner, dataKontakt }) {
                 <Divider></Divider>
                 <Divider></Divider>
 
-                <LinkGrid data={filteredDataPartner} headline="Unsere Partner"></LinkGrid>
+                <LinkGrid data={filteredDataPartner} isDetail headline="Unsere Partner"></LinkGrid>
 
                 {/* <h1 className="font-sans">Hallo ich bin ein Textor</h1> */}
             </MainContainer>
