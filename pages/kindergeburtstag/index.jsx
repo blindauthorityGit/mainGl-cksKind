@@ -58,11 +58,24 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
                                 return (
                                     <a
                                         key={i}
-                                        className="xl:ml-8 2xl:ml-28   font-sans text-xl font-medium leading-relaxed text-textColor"
-                                        href={e.file.asset.url} // Hier wird die Datei-URL verwendet
-                                        target="_blank" // Öffnet den Link in einem neuen Tab
-                                        rel="noopener noreferrer" // Sicherheit für externe Links
+                                        className="xl:ml-8 2xl:ml-28 underline font-sans text-xl font-medium leading-relaxed text-textColor flex items-start my-2"
+                                        href={e.file.asset.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                     >
+                                        {/* Inline SVG download icon */}
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor"
+                                            viewBox="0 0 24 24"
+                                            className="w-6 h-6 mr-2"
+                                        >
+                                            <path
+                                                d="M21 15v4a2 2 0 0 1-2 2H5a2 
+                                               2 0 0 1-2-2v-4M7 10l5 5 5-5M12
+                                               15V3"
+                                            />
+                                        </svg>
                                         {e.fileName}
                                     </a>
                                 );
