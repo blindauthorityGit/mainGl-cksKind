@@ -42,10 +42,11 @@ const DateSelection = ({ events, onDateSelect }) => {
     let dateOptions = [];
     if (events.isBlock && events.blocks && events.blocks.length > 0) {
         dateOptions = events.blocks.map((block, index) => {
-            const startDate = new Date(block.dates[0].startDateTime);
-            const endDate = new Date(block.dates[block.dates.length - 1].endDateTime);
+            const startDateObj = new Date(block.dates[0].startDateTime);
+            const endDateObj = new Date(block.dates[block.dates.length - 1].endDateTime);
             const hasFutureDate = block.dates.some((date) => new Date(date.endDateTime) >= currentDate);
-            const isBlockDisabled = (endDate < currentDate && !block.einstieg) || block.ausgebucht;
+            // Disable the block if it has already started and einstieg is explicitly false, or if ausgebucht is true
+            const isBlockDisabled = (startDateObj < currentDate && block.einstieg === false) || block.ausgebucht;
             const blockOpacity = hasFutureDate ? "" : "opacity-30";
 
             return {

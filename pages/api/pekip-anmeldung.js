@@ -15,8 +15,10 @@ export default async function handler(req, res) {
 
         // Save data to Firestore
         await addDoc(collection(db, collectionName), {
-            parentName: req.body.parentName,
-            babyNameBirthdate: req.body.babyNameBirthdate,
+            name: req.body.parentName,
+            birthDate: req.body.babyNameBirthdate,
+            kurs: "PEKIP",
+            isPekip: true,
             email: req.body.email,
             phone: req.body.phone,
             preferredDays: req.body.preferredDays || "Nicht angegeben", // Optional field

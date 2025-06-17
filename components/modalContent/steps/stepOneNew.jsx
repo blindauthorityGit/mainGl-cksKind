@@ -37,9 +37,7 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring, anfrage 
         }
     }, [events]);
 
-    useEffect(() => {
-        console.log(anfrage);
-    }, [anfrage]);
+    useEffect(() => {}, [anfrage]);
 
     const handleDateSelect = (date) => {
         // Handle date selection
@@ -84,6 +82,7 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring, anfrage 
                     <div className="datum">
                         {anfrage ? <P klasse="text-xs font-semibold">Termin auf Anfrage</P> : null}
                         {dates.map((e, i) => {
+                            console.log(e);
                             if (events.recurringDates && events.recurringDates.length > 0) {
                                 return (
                                     <div key={i} className="grid grid-cols-2 gap-x-4 mb-2">
@@ -92,6 +91,10 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring, anfrage 
                                     </div>
                                 );
                             } else if (events.isBlock && e.blockTitle) {
+                                // Only skip rendering if einstieg is explicitly false.
+                                if (e.einstieg === false) {
+                                    return null;
+                                }
                                 return (
                                     <div key={i} className="mb-4 border border-gray-200 rounded-lg shadow">
                                         <div
@@ -100,7 +103,7 @@ const StepOneNew = ({ handleNextStep, data, events, isPekip, recurring, anfrage 
                                         >
                                             <P klasse="text-xs font-bold">
                                                 {e.blockTitle}{" "}
-                                                {events.blocks[i].ausgebucht && (
+                                                {e.ausgebucht && (
                                                     <span className="text-primaryColor text-xs !font-normal">
                                                         Ausgebucht
                                                     </span>

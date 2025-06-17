@@ -3,6 +3,7 @@ import ListItem from "./listElement";
 import { P, H2 } from "../typography";
 
 const Box = ({ data, sessions }) => {
+    console.log(sessions);
     return (
         <div className="lg:px-16 col-span-12">
             <H2 klasse="col-span-12 text-center  mt-16 lg:mt-24">Aktuelle Kurszeiten (Timetable):</H2>

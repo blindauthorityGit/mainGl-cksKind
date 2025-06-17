@@ -72,22 +72,27 @@ const Details = ({ data, isWorkshop, isMobile, anfrage }) => {
         } else if (data.isBlock && data.blocks && data.blocks.length > 0) {
             data.blocks.forEach((block) => {
                 if (block.dates.length > 0) {
-                    const blockDates = [];
-                    block.dates.forEach((date) => {
-                        if (!isDateOlder(date.endDateTime)) {
+                    // Determine the block's overall end date from the last date entry
+                    const lastDateObj = block.dates[block.dates.length - 1];
+                    // Only include the block if its overall end date is not in the past
+                    if (!isDateOlder(lastDateObj.endDateTime)) {
+                        // Push all dates from the block, regardless of each individual date's state
+                        const blockDates = block.dates.map((date) => {
                             const dateStart = formatDateTime(date.startDateTime, date.endDateTime).split(" ")[0];
                             const dateTimeRange = `${
                                 formatDateTime(date.startDateTime, date.endDateTime).split(" ")[1]
                             } - ${formatDateTime(date.startDateTime, date.endDateTime).split(" ")[3]}`;
-                            blockDates.push({ dateStart, dateTimeRange });
-                        }
-                    });
-                    if (blockDates.length > 0) {
-                        dates.push({
-                            blockTitle: block.blockTitle,
-                            blockSubline: block.blockSubline,
-                            dates: blockDates,
+                            return { dateStart, dateTimeRange };
                         });
+                        if (blockDates.length > 0) {
+                            dates.push({
+                                blockTitle: block.blockTitle,
+                                blockSubline: block.blockSubline,
+                                dates: blockDates,
+                                ausgebucht: block.ausgebucht, // include the booking flag
+                                einstieg: block.einstieg, // add the booking flag for availability
+                            });
+                        }
                     }
                 }
             });
@@ -134,6 +139,7 @@ const Details = ({ data, isWorkshop, isMobile, anfrage }) => {
 
         if (data.isBlock && data.blocks && data.blocks.length > 0) {
             return data.blocks.map((block, blockIndex) => {
+                // console.log(block.ausgebucht);
                 const key = block._key || `block-${blockIndex}`;
                 const showAll = blockVisibility[key];
                 // Ensure dates are sorted chronologically

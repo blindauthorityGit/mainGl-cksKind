@@ -23,7 +23,9 @@ const AnmeldeContent = ({ data, events, email, phone, isPekip, dates, anfrage })
     const setShowOverlay = useStore((state) => state.setShowOverlay);
     const setModalContent = useStore((state) => state.setModalContent);
 
-    useEffect(() => {}, [data]);
+    useEffect(() => {
+        console.log(dates);
+    }, [dates]);
 
     const createMarkup = (htmlString) => {
         return { __html: htmlString };
