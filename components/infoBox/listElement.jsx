@@ -32,7 +32,7 @@ const ListElement = ({ session, i }) => {
                 </P>
 
                 {/* Trainer Column */}
-                <div className="flex items-center gap-3 mt-2 lg:mt-0 lg:justify-center">
+                <div className="flex items-center gap-3 mt-2 lg:mt-0 lg:justify-start">
                     {session.trainer?.image ? (
                         <img
                             src={urlFor(session.trainer.image).width(80).height(80).url()}

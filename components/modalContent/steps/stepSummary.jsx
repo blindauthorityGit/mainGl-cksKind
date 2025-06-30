@@ -21,6 +21,8 @@ const StepSummary = ({ data, events }) => {
 
     const intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus ut perferendis ratione.";
 
+    console.log(data, events, formData);
+
     useEffect(() => {
         setFormData({
             ...formData,
@@ -36,12 +38,26 @@ const StepSummary = ({ data, events }) => {
         setLoading(true);
 
         try {
+            //     const response = await fetch("/api/anmeldung", {
+            //         method: "POST",
+            //         headers: {
+            //             "Content-Type": "application/json",
+            //         },
+            //         body: JSON.stringify(formData),
+            //     });
+
+            // beides in ein Objekt packen
+            const payload = {
+                ...formData, // alle Form-Felder
+                events: events, // das events-Objekt aus den Props
+            };
+
             const response = await fetch("/api/anmeldung", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(payload),
             });
 
             setLoading(false);

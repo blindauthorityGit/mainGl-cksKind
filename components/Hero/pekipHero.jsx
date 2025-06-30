@@ -47,7 +47,7 @@ const PekipHero = ({ data }) => {
                         {/* Unsere Kurse finden regelmäßig statt, aber die Nachfrage ist groß – daher ist eine Vormerkung notwendig. Hier  erfährst du alles Wichtige! */}
                     </motion.div>
 
-                    <div className="wrapper  space-x-6 hidden lg:flex mt-12">
+                    <div className="wrapper  space-x-6  lg:flex mt-12">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -56,6 +56,19 @@ const PekipHero = ({ data }) => {
                         >
                             <MainButton klasse={`${"bg-primaryColor border-2 border-primaryColor"}`} link="#anmelden">
                                 Jetzt vormerken
+                            </MainButton>
+                        </motion.div>
+                    </div>
+
+                    <div className="wrapper  space-x-6   lg:hidden mt-4">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="w-full"
+                            transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.9 * 0.2 }}
+                        >
+                            <MainButton klasse={`${"bg-none border-2 border-textColor text-textColor"}`} link="#kurszeiten">
+                                Kurszeiten
                             </MainButton>
                         </motion.div>
                     </div>
