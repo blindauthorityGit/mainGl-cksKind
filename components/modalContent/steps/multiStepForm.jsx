@@ -59,6 +59,10 @@ const MultiStepForm = ({ data, events, isPekip, recurring, anfrage }) => {
     // Function to handle form submission
     const handleSubmit = async () => {
         setLoading(true);
+        const payload = {
+            ...formData, // alle Felder aus dem Store
+            events, // das von oben reinkommende events-Prop
+        };
 
         try {
             const response = await fetch("/api/anmeldung", {
@@ -66,7 +70,7 @@ const MultiStepForm = ({ data, events, isPekip, recurring, anfrage }) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(payload),
             });
 
             setLoading(false);
@@ -164,7 +168,14 @@ const MultiStepForm = ({ data, events, isPekip, recurring, anfrage }) => {
                             />
                         );
                     case 5:
-                        return <StepSummary handleNextStep={handleSubmit} handlePrevStep={handlePrevStep} />;
+                        return (
+                            <StepSummary
+                                data={data}
+                                events={events}
+                                handleNextStep={handleSubmit}
+                                handlePrevStep={handlePrevStep}
+                            />
+                        );
 
                     case 6:
                         return <StepThankYou />;
@@ -195,7 +206,14 @@ const MultiStepForm = ({ data, events, isPekip, recurring, anfrage }) => {
                             />
                         );
                     case 4:
-                        return <StepSummary handleNextStep={handleSubmit} handlePrevStep={handlePrevStep} />;
+                        return (
+                            <StepSummary
+                                data={data}
+                                events={events}
+                                handleNextStep={handleSubmit}
+                                handlePrevStep={handlePrevStep}
+                            />
+                        );
                     case 5:
                         return <StepThankYou />;
                     default:

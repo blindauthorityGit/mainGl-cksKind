@@ -217,6 +217,13 @@ export default {
       ],
       description: 'Liste der hochgeladenen PDFs mit Titel, Text und Button-Beschriftung',
     },
+    {
+  name: 'confirmationText',
+  title: 'E-Mail Bestätigungstext',
+  type: 'text',
+  description: 'Text, der in der Bestätigungs-E-Mail angezeigt wird (Markdown erlaubt)',
+  validation: (Rule) => Rule.required().max(1000).warning('Nicht länger als 1000 Zeichen'),
+},
   ],
   preview: {
     select: {

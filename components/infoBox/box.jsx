@@ -5,7 +5,7 @@ import { P, H2 } from "../typography";
 const Box = ({ data, sessions }) => {
     console.log(sessions);
     return (
-        <div className="lg:px-16 col-span-12">
+        <div className="lg:px-16 col-span-12" id="kurszeiten">
             <H2 klasse="col-span-12 text-center  mt-16 lg:mt-24">Aktuelle Kurszeiten (Timetable):</H2>
             <P klasse="col-span-12 text-center font-bold mb-8">Unsere PEKiP-Kurse auf einen Blick</P>
             <div className="col-span-12 bg-yellowColor py-12 p-4 lg:p-20 lg:rounded-[140px] flex flex-col items-center">

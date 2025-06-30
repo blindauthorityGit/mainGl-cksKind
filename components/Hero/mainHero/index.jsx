@@ -173,8 +173,8 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
             className="col-span-12  xl:min-h-0 bg-transparent md:px-4 pb-8 lg:pb-0 lg:mt-0"
         >
             {/* TEXT ABSOLUTE DESKTOP */}
-            <div className="absolute hidden lg:block top-[23svh] lg:top-[20svh] xl:top-[23svh] 2xl:top-[20svh] 4xl:top-[23svh] z-20 w-[42svw] 2xl:w-[34svw] 4xl:w-[34svw]">
-                <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6 xl:!text-[3.2rem] 2xl:!text-[5rem]">
+            <div className="absolute hidden lg:block top-[23svh] lg:top-[20svh] xl:top-[23svh] 2xl:top-[25svh] 4xl:top-[23svh] z-20 w-[42svw] 2xl:w-[34svw] 4xl:w-[34svw]">
+                <H1 klasse="!mb-20 lg:mb-0 xl:!mb-6 xl:!text-[3.2rem] 2xl:!text-[4rem]">
                     {" "}
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
