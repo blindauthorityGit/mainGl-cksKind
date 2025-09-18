@@ -57,6 +57,30 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
         setBGHeightAbsolute(heightRef.current.clientHeight + 140 + "px");
     }, [heightRef.current]);
 
+    // Entscheidet, ob ein Button ein Modal öffnet (statt Link)
+    const isButtonModal = (btn) =>
+        modal && (btn?.HauptButton === true || !btn?.link || btn?.link === "#" || btn?.link?.startsWith("modal"));
+
+    // Öffnet das passende Modal je nach Route
+    const openModalForRoute = () => {
+        setShowOverlay(true);
+        setShowModal(true);
+        if (router.pathname === "/raumvermietung") {
+            setModalContent(<Anfrage image={data.image} raum />);
+        } else if (router.pathname === "/kindergeburtstag") {
+            setModalContent(<MultiStepReservation image={data.image} kindergeburtstag />);
+        } else {
+            // Fallback
+            setModalContent(<Anfrage image={data.image} />);
+        }
+    };
+
+    // Hilfsfunktion für Links (führt fehlenden Slash voran)
+    const normLink = (link) => {
+        if (!link) return "#";
+        return link.startsWith("/") ? link : `/${link}`;
+    };
+
     return (
         <section
             style={{ background: bgColor }}
@@ -74,55 +98,39 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
                     </motion.div>
 
                     <div className="wrapper  space-x-6 hidden lg:flex mt-12">
-                        {data?.buttons?.map((e, i) => {
-                            return (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="w-full"
-                                    transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.9 + i * 0.2 }}
-                                >
-                                    {modal ? (
-                                        <MainButtonNOLink
-                                            klasse={`${
-                                                e.HauptButton
-                                                    ? "bg-primaryColor border-2 border-primaryColor"
-                                                    : "border-2 border-primaryColor-50"
-                                            }`}
-                                            onClick={() => {
-                                                e.HauptButton ? (setShowOverlay(true), setShowModal(true)) : null;
-                                                if (router.pathname === "/raumvermietung") {
-                                                    setModalContent(<Anfrage image={data.image} raum={true}></Anfrage>);
-                                                }
-                                                if (router.pathname === "/kindergeburtstag") {
-                                                    setModalContent(
-                                                        <MultiStepReservation
-                                                            image={data.image}
-                                                            kindergeburtstag={true}
-                                                        ></MultiStepReservation>
-                                                        // <Anfrage image={data.image} kindergeburtstag={true}></Anfrage>
-                                                    );
-                                                }
-                                            }}
-                                        >
-                                            {e.label}
-                                        </MainButtonNOLink>
-                                    ) : (
-                                        <MainButton
-                                            klasse={`${
-                                                e.HauptButton
-                                                    ? "bg-primaryColor border-2 border-primaryColor"
-                                                    : "border-2 border-primaryColor-50"
-                                            }`}
-                                            link={e.link}
-                                        >
-                                            {e.label}
-                                        </MainButton>
-                                    )}
-                                </motion.div>
-                            );
-                        })}
+                        {data?.buttons?.map((e, i) => (
+                            <motion.div
+                                key={e._key || i}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="w-full"
+                                transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.9 + i * 0.2 }}
+                            >
+                                {isButtonModal(e) ? (
+                                    <MainButtonNOLink
+                                        klasse={`${
+                                            e.HauptButton
+                                                ? "bg-primaryColor border-2 border-primaryColor"
+                                                : "border-2 border-primaryColor-50"
+                                        }`}
+                                        onClick={openModalForRoute}
+                                    >
+                                        {e.label}
+                                    </MainButtonNOLink>
+                                ) : (
+                                    <MainButton
+                                        klasse={`${
+                                            e.HauptButton
+                                                ? "bg-primaryColor border-2 border-primaryColor"
+                                                : "border-2 border-primaryColor-50"
+                                        }`}
+                                        link={normLink(e.link)}
+                                    >
+                                        {e.label}
+                                    </MainButton>
+                                )}
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
                 <motion.div
@@ -160,48 +168,36 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
                         className="absolute  lg:block bg-themeGreen-50 w-[104%] md:w-[106%] left-[-0.5rem] md:left-[-1rem] rounded-[40px] h-full top-[-4rem] md:top-[-1rem] lg:top-[-2rem] lg:w-full lg:right-[-2rem] lg:left-auto lg:translate-x-0 z-[0]"
                     ></motion.div>
                 </motion.div>
-
                 <div className="col-span-12 wrapper flex space-x-2 mt-6 lg:mt-8 justify-center lg:hidden px-4">
-                    {data?.buttons?.map((e, i) => {
-                        return modal ? (
+                    {data?.buttons?.map((e, i) =>
+                        isButtonModal(e) ? (
                             <MainButtonNOLink
-                                klasse={`NOINONONO ${
+                                key={e._key || i}
+                                klasse={`${
                                     e.HauptButton
                                         ? "bg-primaryColor border-2 border-primaryColor"
                                         : "border-2 border-primaryColor-50"
                                 }`}
-                                onClick={() => {
-                                    e.HauptButton ? (setShowOverlay(true), setShowModal(true)) : null;
-                                    if (router.pathname === "/raumvermietung") {
-                                        setModalContent(<Anfrage image={data.image} raum={true}></Anfrage>);
-                                    }
-                                    if (router.pathname === "/kindergeburtstag") {
-                                        setModalContent(
-                                            <MultiStepReservation
-                                                image={data.image}
-                                                kindergeburtstag={true}
-                                            ></MultiStepReservation>
-                                        );
-                                        // setModalContent(<Anfrage image={data.image} kindergeburtstag={true}></Anfrage>);
-                                    }
-                                }}
+                                onClick={openModalForRoute}
                             >
                                 {e.label}
                             </MainButtonNOLink>
                         ) : (
                             <MainButton
-                                klasse={`NOINONONO ${
+                                key={e._key || i}
+                                klasse={`${
                                     e.HauptButton
                                         ? "bg-primaryColor border-2 border-primaryColor"
                                         : "border-2 border-primaryColor-50"
                                 }`}
-                                link={e.link}
+                                link={normLink(e.link)}
                             >
                                 {e.label}
                             </MainButton>
-                        );
-                    })}
+                        )
+                    )}
                 </div>
+
                 {/* <div
                     style={{ height: bgHeight * 0.89 + "px" }}
                     className="absolute bg-themeGreen-50 w-[97%] lg:hidden rounded-[40px] h-full top-[0] lg:top-32 lg:w-2/4 lg:right-32 lg:left-auto left-1/2 transform translate-x-[-50%] lg:translate-x-0 z-[0]"

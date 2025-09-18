@@ -31,6 +31,8 @@ export default function Raumvermietung({ data, dataKontakt }) {
     const setShowModal = useStore((state) => state.setShowModal);
     const setModalContent = useStore((state) => state.setModalContent);
 
+    console.log(data.components[0]);
+
     useEffect(() => {
         changeBodyBackgroundColor(data);
     }, []);

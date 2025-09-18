@@ -60,6 +60,8 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
         });
     }, []);
 
+    console.log(data.components[6]);
+
     return (
         <>
             <MainContainer width="container mx-auto px-4 lg:px-0">
@@ -162,17 +164,7 @@ export default function Cafe({ data, dataSpeisekarte, dataKontakt }) {
 
                 <Divider></Divider>
                 <Divider></Divider>
-                <TextImage
-                    richText
-                    overlap
-                    noLink
-                    data={data.components[5]}
-                    onClick={() => {
-                        setShowOverlay(true);
-                        setShowModal(true);
-                        setModalContent(<Anfrage cafe={true} image={data.reservationImage} />);
-                    }}
-                ></TextImage>
+                <TextImage richText overlap link={"/kindergeburtstag"} data={data.components[5]}></TextImage>
                 <Divider></Divider>
                 <Divider></Divider>
                 <TextImage richText overlap data={data.components[6]}></TextImage>
