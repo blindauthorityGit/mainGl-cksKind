@@ -15,7 +15,7 @@ setDefaultLocale("de");
 
 // ---- TESTDATEN (Fallback, wenn Sanity leer ist) ----
 // akzeptiert: "YYYY-MM-DD" oder { date: "YYYY-MM-DD" }
-const TEST_EXCEPTIONS = ["2025-10-12", { date: "2025-10-19" }];
+// const TEST_EXCEPTIONS = ["12-10-2025", { date: "12-10-2025" }];
 
 const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     const [startDate, setStartDate] = useState(null);
@@ -30,10 +30,11 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     useEffect(() => {
         const fetchExceptions = async () => {
             try {
-                const data = await client.fetch(`*[_type == "cafe"][0]{ ausnahmen }`);
+                const data = await client.fetch(`*[_type == "kindergeburtstag"][0]{ ausnahmen }`);
                 const raw = data?.ausnahmen?.length ? data.ausnahmen : TEST_EXCEPTIONS;
                 const normalized = raw.map((ex) => (typeof ex === "string" ? ex : ex?.date)).filter(Boolean); // => ["YYYY-MM-DD", ...]
                 setExceptions(normalized);
+                console.log(raw);
             } catch (error) {
                 console.error("Error fetching exceptions, using TEST_EXCEPTIONS:", error);
                 const normalized = TEST_EXCEPTIONS.map((ex) => (typeof ex === "string" ? ex : ex?.date)).filter(
@@ -131,6 +132,11 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     return (
         <div className="xl:w-2/4">
             <H2 klasse="mt-4 mb-6">Datum und Zeit </H2>
+            <P klasse="mb-4 text-sm text-textColor/80">
+                Bitte wähle dein Wunschdatum. Buchungen sind in der Regel nur am{" "}
+                <span className="font-bold">Samstag und Sonntag </span>
+                möglich. Urlaubstage und Ausnahmen sind im Kalender ausgegraut und nicht anwählbar.
+            </P>
 
             {/* Mobile (inline) */}
             <div className="relative col-span-12 xl:hidden">
