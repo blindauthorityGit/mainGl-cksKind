@@ -63,6 +63,12 @@ export default {
       title: 'Bild Anfrage',
       type: 'image',
     },
+    {
+      name: 'ausnahmen',
+      title: 'Ausnahmen',
+      type: 'array',
+      of: [{type: 'exceptions'}],
+    },
     // Add other fields or components as needed
   ],
 }

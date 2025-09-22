@@ -45,17 +45,23 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
     const [showCards, setShowCards] = useState(true);
     const [showData, setShowData] = useState(false);
 
+    const [debugLimit, setDebugLimit] = useState(10);
+    const visibleEvents = (filteredEvents ?? []).slice(0, debugLimit);
+
+    console.log(filteredEvents);
+
     const [bgStyle, setBgStyle] = useState({
         bottom: 0,
         height: "43svh",
         top: "auto",
     });
 
-    console.log(dataEvents, dataPekip);
+    // console.log(dataEvents, dataPekip);
 
     const cardClicker = (category, cardIndex) => {
         // Encode the category name for the URL
         const encodedCategory = encodeURIComponent(category);
+        console.log(encodedCategory);
 
         // Update the URL with the encoded category
         router.push(`?cat=${encodedCategory}`, undefined, { shallow: true });
@@ -381,6 +387,7 @@ export default function Programm({ dataHome, dataKontakt, dataEvents, dataKatego
                                 {filteredEvents.length > 0 ? (
                                     <LinkGrid isEvent data={filteredEvents}></LinkGrid>
                                 ) : (
+                                    // console.log(filteredEvents)
                                     <P> Leider keine Kurse vorhanden</P>
                                 )}
                             </motion.div>
@@ -462,7 +469,7 @@ export const getStaticProps = async (context) => {
     // ✅ Ensure `resPekip[0]` is an object before adding it
     const pekipData = resPekip.length > 0 ? resPekip[0] : null;
     const finalEvents = [...filteredEvents, pekipData];
-    console.log("Filtered Events:", filteredEvents);
+    // console.log("Filtered Events:", filteredEvents);
     // console.log("Filtered PEKiP:", filteredPekip);
 
     return {

@@ -11,6 +11,7 @@ import { fetchFirestoreData } from "../../../config/firebase";
 import useStore from "../../../store/store";
 
 import client from "../../../client";
+const MAX_SEATS_PER_DAY = 20; // Tageskapazität
 
 registerLocale("de", de);
 setDefaultLocale("de");
@@ -66,8 +67,49 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
         );
     };
 
+    // const checkAvailability = async (selectedDate, numberOfGuests) => {
+    //     setIsFullyBooked(false);
+    //     const utcSelectedDate = new Date(
+    //         Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate())
+    //     );
+    //     const formattedDate = utcSelectedDate.toISOString().split("T")[0];
+
+    //     try {
+    //         const reservations = await fetchFirestoreData(
+    //             process.env.NEXT_DEV === "true" ? "dev_cafe" : "reservierung_cafe"
+    //         );
+    //         const reservationsOnDate = reservations.filter((reservation) => {
+    //             const reservationDate = new Date(reservation.date);
+    //             return reservationDate.toISOString().split("T")[0] === formattedDate;
+    //         });
+
+    //         const updatedAvailableTimeSlots = availableTimeSlots
+    //             .map(({ slot, capacity }) => {
+    //                 const totalGuestsInSlot = reservationsOnDate
+    //                     .filter((reservation) => reservation.timeSlot === slot)
+    //                     .reduce((total, current) => {
+    //                         const guestsInCurrentReservation = parseInt(current.guests, 10) || 0;
+    //                         return total + guestsInCurrentReservation;
+    //                     }, 0);
+
+    //                 return {
+    //                     slot: slot,
+    //                     availableSpaces: capacity - totalGuestsInSlot,
+    //                 };
+    //             })
+    //             .filter(({ availableSpaces }) => availableSpaces >= numberOfGuests);
+
+    //         setAvailableTimeSlots(updatedAvailableTimeSlots);
+    //         setIsFullyBooked(updatedAvailableTimeSlots.length === 0);
+    //     } catch (error) {
+    //         console.error("Error checking availability:", error);
+    //     }
+    // };
+
     const checkAvailability = async (selectedDate, numberOfGuests) => {
         setIsFullyBooked(false);
+
+        // Datum als YYYY-MM-DD normalisieren
         const utcSelectedDate = new Date(
             Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate())
         );
@@ -77,29 +119,30 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
             const reservations = await fetchFirestoreData(
                 process.env.NEXT_DEV === "true" ? "dev_cafe" : "reservierung_cafe"
             );
-            const reservationsOnDate = reservations.filter((reservation) => {
-                const reservationDate = new Date(reservation.date);
-                return reservationDate.toISOString().split("T")[0] === formattedDate;
+
+            // Alle Reservierungen an DIESEM Tag (egal ob alt mit timeSlot oder neu ohne)
+            const reservationsOnDate = reservations.filter((r) => {
+                const d = new Date(r.date);
+                return d.toISOString().split("T")[0] === formattedDate;
             });
 
-            const updatedAvailableTimeSlots = availableTimeSlots
-                .map(({ slot, capacity }) => {
-                    const totalGuestsInSlot = reservationsOnDate
-                        .filter((reservation) => reservation.timeSlot === slot)
-                        .reduce((total, current) => {
-                            const guestsInCurrentReservation = parseInt(current.guests, 10) || 0;
-                            return total + guestsInCurrentReservation;
-                        }, 0);
+            console.log(reservationsOnDate);
 
-                    return {
-                        slot: slot,
-                        availableSpaces: capacity - totalGuestsInSlot,
-                    };
-                })
-                .filter(({ availableSpaces }) => availableSpaces >= numberOfGuests);
+            // Summe der Sitzplätze am Tag (wir zählen NUR Personen >= 2 Jahre -> r.guests)
+            const totalGuestsForDay = reservationsOnDate.reduce((sum, r) => {
+                const guests = parseInt(r.guests, 10) || 0;
+                return sum + guests;
+            }, 0);
 
-            setAvailableTimeSlots(updatedAvailableTimeSlots);
-            setIsFullyBooked(updatedAvailableTimeSlots.length === 0);
+            const remaining = Math.max(0, MAX_SEATS_PER_DAY - totalGuestsForDay);
+
+            console.log(totalGuestsForDay, totalGuestsForDay);
+
+            // Voll, wenn nicht genug Plätze für die aktuelle Anfrage übrig sind
+            setIsFullyBooked(remaining < (parseInt(numberOfGuests, 10) || 0));
+
+            // Die alte Slot-Liste wird nicht mehr benötigt – leeren, damit nix irritiert:
+            setAvailableTimeSlots([]);
         } catch (error) {
             console.error("Error checking availability:", error);
         }
@@ -112,7 +155,8 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
         handleNextStep();
     };
 
-    const isStepComplete = startDate && timeSlot && availableTimeSlots.some((slotObj) => slotObj.slot === timeSlot);
+    // const isStepComplete = startDate && timeSlot && availableTimeSlots.some((slotObj) => slotObj.slot === timeSlot);
+    const isStepComplete = Boolean(startDate && timeSlot);
 
     const isWeekdayAndFutureDate = (date) => {
         const day = getDay(date);
@@ -222,31 +266,34 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                 {/* <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" /> */}
             </div>
             {startDate && (
-                <div className=" mb-24">
+                <div className="mb-12">
                     <label
-                        htmlFor="time-select"
-                        className="block text-sm  2xl:text-lg font-semibold font-sans text-textColor mb-1 mt-3"
+                        htmlFor="arrival-time"
+                        className="block text-sm 2xl:text-lg font-semibold font-sans text-textColor mb-1 mt-3"
                     >
-                        Zeitfenster wählen:
+                        Ankunftszeit:
                     </label>
-                    <select
-                        id="time-select"
+                    <input
+                        id="arrival-time"
+                        type="time"
+                        step={900} // 15 Minuten Raster
                         value={timeSlot}
                         onChange={(e) => setTimeSlot(e.target.value)}
-                        className="col-span-6 w-full mb-4 text-xs 2xl:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
-                    >
-                        <option disabled value="">
-                            Zeitfenster wählen
-                        </option>
-                        {availableTimeSlots.map(({ slot, availableSpaces }, index) => (
-                            <option className="text-textColor text-sm mb-4" key={index} value={slot}>
-                                {slot} (Verfügbare Plätze: {availableSpaces})
-                            </option>
-                        ))}
-                    </select>
+                        className="col-span-6 w-full mb-2 text-xs 2xl:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
+                        // min="09:00"
+                        // max="10:30"
+                        required
+                    />
+                    <P klasse="text-sm text-textColor/80">
+                        Bitte bis spätestens <strong>10:30 Uhr</strong> ankommen, da unser Café um{" "}
+                        <strong>12:30 Uhr</strong> schließt.
+                    </P>
                 </div>
             )}
-            {isFullyBooked && <P>Leider sind keine Zeitfenster für das gewählte Datum verfügbar.</P>}
+
+            {isFullyBooked && (
+                <P klasse="text-redColor"> Leider sind für das gewählte Datum nicht genug Plätze verfügbar. .</P>
+            )}
             <div className="w-full col-span-12 sm:mb-8 absolute flex space-x-2 lg:space-x-4 bottom-0">
                 <MainButtonNOLink onClick={handlePrevStep} klasse="bg-textColor mt-4">
                     Zurück
