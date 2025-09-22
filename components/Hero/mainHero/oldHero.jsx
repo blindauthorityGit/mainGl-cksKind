@@ -22,7 +22,7 @@ import { useWindowDimensions } from "../../../hooks/useWindowDimension";
 //STORE
 import useStore from "../../../store/store"; // Adjust the path to your store file
 
-const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
+const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse, additionalLink }) => {
     const { width, height } = useWindowDimensions();
     const router = useRouter();
 
@@ -33,21 +33,19 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
     const setShowModal = useStore((state) => state.setShowModal);
     const setModalContent = useStore((state) => state.setModalContent);
 
-    // const [topDistance, setTopDistance]
     useEffect(() => {}, []);
 
     const imgRef = useRef();
     const heightRef = useRef();
     const [bgHeight, setBGHeight] = useState(null);
     const [bgHeightAbsolute, setBGHeightAbsolute] = useState(0);
-    // Resize handler
+
     const handleResize = () => {
         if (heightRef.current) {
             setBGHeightAbsolute(heightRef.current.clientHeight + 140 + "px");
         }
     };
     useEffect(() => {
-        // Set initial value
         if (heightRef.current) {
             setBGHeightAbsolute(heightRef.current.clientHeight + 140 + "px");
         }
@@ -70,7 +68,6 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
         } else if (router.pathname === "/kindergeburtstag") {
             setModalContent(<MultiStepReservation image={data.image} kindergeburtstag />);
         } else {
-            // Fallback
             setModalContent(<Anfrage image={data.image} />);
         }
     };
@@ -80,6 +77,11 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
         if (!link) return "#";
         return link.startsWith("/") ? link : `/${link}`;
     };
+
+    // additionalLink normalisieren: String -> {label, link}
+    const additional =
+        additionalLink &&
+        (typeof additionalLink === "string" ? { label: "Mehr Infos", link: additionalLink } : additionalLink);
 
     return (
         <section
@@ -97,6 +99,7 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
                         <P klasse="hidden md:block md:mb-10 lg:mb-0">{data.text}</P>
                     </motion.div>
 
+                    {/* Desktop: zwei Buttons in einer Zeile */}
                     <div className="wrapper  space-x-6 hidden lg:flex mt-12">
                         {data?.buttons?.map((e, i) => (
                             <motion.div
@@ -132,7 +135,20 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
                             </motion.div>
                         ))}
                     </div>
+
+                    {/* Desktop: zusätzlicher Button darunter (optional) */}
+                    {additional?.link && (
+                        <div className="hidden lg:block mt-4">
+                            <a
+                                className=" underline w-full justify-center font-sans font-semibold text-textColor p-4 items-center text-center flex"
+                                href={additional.link}
+                            >
+                                {additional.label || "Mehr Infos"}
+                            </a>
+                        </div>
+                    )}
                 </div>
+
                 <motion.div
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -140,14 +156,12 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
                     className="col-span-12 lg:col-span-6 xl:col-span-7 relative z-10 mt-10 md:mt-0 lg:mt-12"
                 >
                     <CoverImage
-                        src={urlFor(data.image).url()} // Replace with the actual path to your image
-                        mobileSrc={urlFor(data.image).url()} // Replace with the actual path to your image
+                        src={urlFor(data.image).url()}
+                        mobileSrc={urlFor(data.image).url()}
                         alt="Cover Background"
-                        // style={{ aspectRatio: aspectRatio }}
                         className={`w-full z-20 ${
                             !noCards ? "hidden" : null
                         }  lg:block lg:h-[53svh] lg:ml-12 relative rounded-[10px] overflow-hidden aspect-[1/0.73] md:aspect-[1/0.7] 2xl:aspect-[1/0.77]`}
-                        // data-aos={"fade-left"}
                         ref={imgRef}
                         priority={true}
                     />
@@ -168,6 +182,8 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
                         className="absolute  lg:block bg-themeGreen-50 w-[104%] md:w-[106%] left-[-0.5rem] md:left-[-1rem] rounded-[40px] h-full top-[-4rem] md:top-[-1rem] lg:top-[-2rem] lg:w-full lg:right-[-2rem] lg:left-auto lg:translate-x-0 z-[0]"
                     ></motion.div>
                 </motion.div>
+
+                {/* Mobile: zwei Buttons in einer Zeile */}
                 <div className="col-span-12 wrapper flex space-x-2 mt-6 lg:mt-8 justify-center lg:hidden px-4">
                     {data?.buttons?.map((e, i) =>
                         isButtonModal(e) ? (
@@ -198,11 +214,19 @@ const OldHero = ({ data, bgColor, modal, onClick, noCards, klasse }) => {
                     )}
                 </div>
 
-                {/* <div
-                    style={{ height: bgHeight * 0.89 + "px" }}
-                    className="absolute bg-themeGreen-50 w-[97%] lg:hidden rounded-[40px] h-full top-[0] lg:top-32 lg:w-2/4 lg:right-32 lg:left-auto left-1/2 transform translate-x-[-50%] lg:translate-x-0 z-[0]"
-                ></div> */}
+                {/* Mobile: zusätzlicher Button darunter (optional) */}
+                {additional?.link && (
+                    <div className="col-span-12 flex justify-center lg:hidden mt-3 px-4">
+                        <a
+                            className=" underline w-full justify-center font-sans font-semibold text-textColor p-4 items-center text-center flex"
+                            href={normLink(additional.link)}
+                        >
+                            {additional.label || "Mehr Infos"}
+                        </a>
+                    </div>
+                )}
             </div>
+
             <motion.div
                 translateY={["-90vh", "90vh"]}
                 initial={{ x: "-100%", opacity: 0.5 }}
