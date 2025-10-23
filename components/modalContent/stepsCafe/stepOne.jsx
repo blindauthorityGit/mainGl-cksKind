@@ -24,14 +24,14 @@ const StepOne = ({ handleNextStep }) => {
                 htmlFor="guest-number"
                 className="block text-sm 2xl:text-lg font-semibold font-sans text-textColor mb-1"
             >
-                Anzahl der Erwachsenen:
+                Personen über 2 Jahre: :
             </label>
             <input
                 id="guest-number"
                 className="col-span-6 w-full mb-4 text-xs 2xl:text-base border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                 type="number"
                 value={guests}
-                placeholder="Anzahl der Erwachsenen, z.B. 2"
+                placeholder="Anzahl Personen"
                 onChange={(e) => setGuests(e.target.value)}
                 min="1"
                 max="25"
@@ -40,14 +40,14 @@ const StepOne = ({ handleNextStep }) => {
                 htmlFor="kids-number"
                 className="block text-sm 2xl:text-lg font-semibold font-sans text-textColor mb-1"
             >
-                Anzahl der Kinder:
+                Personen unter 2 Jahre::
             </label>
             <input
                 id="kids-number"
                 className="col-span-6 w-full mb-4 text-xs 2xl:text-base border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4"
                 type="number"
                 value={kids}
-                placeholder="Anzahl der Kinder, z.B. 1"
+                placeholder="Anzahl der Personen unter 2, Babies"
                 onChange={(e) => setKids(e.target.value)}
                 min="0"
             />

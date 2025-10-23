@@ -54,7 +54,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
 
     const updateAvailableTimeSlots = (date) => {
         const dayOfWeek = getDay(date);
-        const newTimeSlots = ["09:30", "11:30"];
+        const newTimeSlots = ["09:30"];
         if (dayOfWeek === 3 || dayOfWeek === 4) {
             newTimeSlots.push("15:00");
         }
