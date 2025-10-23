@@ -3,17 +3,19 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { H2, P } from "../../typography";
 import { MainButtonNOLink } from "../../buttons";
-import { FaChevronDown } from "react-icons/fa";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import de from "date-fns/locale/de";
 import { getDay, isToday, isAfter, format } from "date-fns";
 import { fetchFirestoreData } from "../../../config/firebase";
 import useStore from "../../../store/store";
-
 import client from "../../../client";
 
 registerLocale("de", de);
 setDefaultLocale("de");
+
+// ---- TESTDATEN (Fallback, wenn Sanity leer ist) ----
+// akzeptiert: "YYYY-MM-DD" oder { date: "YYYY-MM-DD" }
+// const TEST_EXCEPTIONS = ["12-10-2025", { date: "12-10-2025" }];
 
 const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     const [startDate, setStartDate] = useState(null);
@@ -24,40 +26,31 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     const formData = useStore((state) => state.formData);
     const [exceptions, setExceptions] = useState([]);
 
-    //FETCH EXCEPRTIONS
-
+    // --- AUSNAHMEN aus Sanity laden (und normalisieren) ---
     useEffect(() => {
         const fetchExceptions = async () => {
             try {
-                const data = await client.fetch(`*[_type == "cafe"]`);
-
-                setExceptions(data[0].ausnahmen);
+                const data = await client.fetch(`*[_type == "kindergeburtstag"][0]{ ausnahmen }`);
+                const raw = data?.ausnahmen?.length ? data.ausnahmen : TEST_EXCEPTIONS;
+                const normalized = raw.map((ex) => (typeof ex === "string" ? ex : ex?.date)).filter(Boolean); // => ["YYYY-MM-DD", ...]
+                setExceptions(normalized);
+                console.log(raw);
             } catch (error) {
-                console.error("Error fetching exceptions:", error);
+                console.error("Error fetching exceptions, using TEST_EXCEPTIONS:", error);
+                const normalized = TEST_EXCEPTIONS.map((ex) => (typeof ex === "string" ? ex : ex?.date)).filter(
+                    Boolean
+                );
+                setExceptions(normalized);
             }
         };
-
         fetchExceptions();
     }, []);
 
-    // useEffect(() => {
-    //     if (startDate) {
-    //         updateAvailableTimeSlots(startDate);
-    //     }
-    // }, [startDate]);
-
-    // useEffect(() => {
-    //     if (startDate && formData.guests) {
-    //         checkAvailability(startDate, formData.guests);
-    //     }
-    // }, [startDate, formData.guests]);
-
+    // --- (optional) alte Logik beibehalten / ungenutzt ---
     const updateAvailableTimeSlots = (date) => {
         const dayOfWeek = getDay(date);
         const newTimeSlots = ["09:30", "11:30"];
-        if (dayOfWeek === 4) {
-            newTimeSlots.push("15:00");
-        }
+        if (dayOfWeek === 4) newTimeSlots.push("15:00");
         setAvailableTimeSlots(
             newTimeSlots.map((slot) => ({
                 slot: slot,
@@ -106,7 +99,6 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     };
 
     const handleNext = () => {
-        // Normalize the date to local timezone before saving to state
         const localDate = new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60000);
         updateFormData({ date: localDate, timeSlot });
         handleNextStep();
@@ -114,55 +106,49 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
 
     const isStepComplete = startDate && timeSlot;
 
-    const isWeekdayAndFutureDate = (date) => {
-        const day = getDay(date);
-        const isWeekday = day !== 0 && day !== 6;
-        return isWeekday && (isToday(date) || isAfter(date, new Date()));
-    };
-
-    const isExceptionDate = (date) => {
-        const formattedDate = format(date, "yyyy-MM-dd");
-        return exceptions.some((exception) => exception.date === formattedDate);
-    };
+    // ---- AUSNAHMEN-Logik (nur SA & SO erlauben, Ausnahmen sperren, Vergangenheit sperren) ----
+    const toISODate = (date) => format(date, "yyyy-MM-dd");
+    const isExceptionDate = (date) => exceptions.includes(toISODate(date));
 
     const filterDate = (date) => {
         const day = getDay(date);
-        return day == 6 || day == 0;
+        const isWeekend = day === 6 || day === 0; // SA/SO
+        const futureOrToday = isToday(date) || isAfter(date, new Date());
+        if (!isWeekend || !futureOrToday) return false;
+        if (isExceptionDate(date)) return false; // Urlaub/ausgeschlossen
+        return true;
     };
 
     const getDayClassName = (date) => {
-        if (!filterDate(date)) {
-            return "";
+        const day = getDay(date);
+        const isWeekend = day === 6 || day === 0;
+        const futureOrToday = isToday(date) || isAfter(date, new Date());
+        if (!isWeekend || !futureOrToday || isExceptionDate(date)) {
+            return "opacity-40 line-through";
         }
-        return !isWeekdayAndFutureDate(date) ? "weekday bg-primaryColor-200" : "";
+        return "weekday bg-primaryColor-200";
     };
 
     return (
         <div className="xl:w-2/4">
             <H2 klasse="mt-4 mb-6">Datum und Zeit </H2>
-            {/* <label
-                htmlFor="date-picker"
-                className="block text-sm lg:text-lg font-semibold font-sans text-textColor mb-1"
-            >
-                Datum auswählen:
-            </label> */}
+            <P klasse="mb-4 text-sm text-textColor/80">
+                Bitte wähle dein Wunschdatum. Buchungen sind in der Regel nur am{" "}
+                <span className="font-bold">Samstag und Sonntag </span>
+                möglich. Urlaubstage und Ausnahmen sind im Kalender ausgegraut und nicht anwählbar.
+            </P>
+
+            {/* Mobile (inline) */}
             <div className="relative col-span-12 xl:hidden">
                 <DatePicker
                     id="date-picker"
-                    className="col-span-12  text-xs 2xl:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
+                    className="col-span-12 text-xs 2xl:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
                     selected={startDate}
                     onChange={(date) => {
                         setStartDate(date);
-                        // setTimeSlot("");
-                        // setAvailableTimeSlots([]);
                         setIsFullyBooked(false);
-
-                        // updateAvailableTimeSlots(date);
+                        // updateAvailableTimeSlots(date); // falls du die alte Slot-Logik brauchst
                     }}
-                    // filterDate={(date) => {
-                    //     const day = getDay(date);
-                    //     return day !== 0 && day !== 6;
-                    // }}
                     filterDate={filterDate}
                     inline
                     minDate={new Date()}
@@ -180,27 +166,22 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                                 fontFamily: "Montserrat",
                             }}
                         />
-                    )} // Inline style for 100% width
+                    )}
                     dayClassName={getDayClassName}
                 />
-                {/* <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" /> */}
             </div>
+
+            {/* Desktop (Dropdown) */}
             <div className="relative col-span-12 hidden xl:block">
                 <DatePicker
                     id="date-picker"
-                    className="col-span-12  text-xs 2xl:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
+                    className="col-span-12 text-xs 2xl:text-lg border-2 rounded-full border-textColor bg-transparent text-textColor placeholder-primaryColor-950 font-sans p-2 sm:p-4 mb-4 w-full"
                     selected={startDate}
                     onChange={(date) => {
                         setStartDate(date);
-                        // setTimeSlot("");
-                        // setAvailableTimeSlots([]);
                         setIsFullyBooked(false);
-                        // updateAvailableTimeSlots(date);
+                        // updateAvailableTimeSlots(date); // falls du die alte Slot-Logik brauchst
                     }}
-                    // filterDate={(date) => {
-                    //     const day = getDay(date);
-                    //     return day !== 0 && day !== 6;
-                    // }}
                     filterDate={filterDate}
                     minDate={new Date()}
                     locale="de-DE"
@@ -217,11 +198,11 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                                 fontFamily: "Montserrat",
                             }}
                         />
-                    )} // Inline style for 100% width
+                    )}
                     dayClassName={getDayClassName}
                 />
-                {/* <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" /> */}
             </div>
+
             {startDate && (
                 <div className=" mb-24">
                     <label
@@ -239,24 +220,24 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                         <option disabled value="">
                             Zeitfenster wählen
                         </option>
-                        {availableTimeSlots.map(
-                            (slot, index) => (
-                                console.log(slot),
-                                (
-                                    <option className="text-textColor text-sm mb-4" key={index} value={slot}>
-                                        {slot}
-                                    </option>
-                                )
-                            )
-                        )}
+                        {availableTimeSlots.map((slot, index) => (
+                            <option className="text-textColor text-sm mb-4" key={index} value={slot}>
+                                {slot}
+                            </option>
+                        ))}
                     </select>
                 </div>
             )}
+
             {isFullyBooked && <P>Leider sind keine Zeitfenster für das gewählte Datum verfügbar.</P>}
+
             <div className="w-full col-span-12 sm:mb-8 absolute flex space-x-2 lg:space-x-4 bottom-0">
                 <MainButtonNOLink
                     disabled={!isStepComplete}
-                    onClick={handleNext}
+                    onClick={() => {
+                        // wenn du Availability wirklich prüfen willst, ruf hier checkAvailability auf
+                        handleNextStep ? handleNext() : handleNextStep?.();
+                    }}
                     klasse="bg-primaryColor border-2 border-primaryColor mt-4"
                 >
                     Weiter

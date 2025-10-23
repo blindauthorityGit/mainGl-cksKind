@@ -11,6 +11,15 @@ export default async function handler(req, res) {
                 req.body
             );
 
+            // Base URL + Links
+            const baseUrl = process.env.NEXT_DEV == "true" ? "http://localhost:3000" : "https://www.mainglueckskind.de";
+
+            // Optional: Google-Review-Link (per ENV setzen)
+            const googleReviewUrl = process.env.NEXT_GOOGLE_REVIEW_URL || baseUrl;
+
+            // Vorname aus dem Namen ziehen (Fallback "Gast")
+            const firstName = (req.body.name || "").trim().split(" ")[0] || "Gast";
+
             // Set up Nodemailer
             // Generate cancellation link
             const cancellationLink = `${
@@ -36,16 +45,49 @@ export default async function handler(req, res) {
             const userMailOptions = {
                 from: process.env.NEXT_DEV == "true" ? "office@atelierbuchner.at" : "cafe@mainglueckskind.de",
                 to: req.body.email,
-                subject: "Reservierungs Bestätigung",
-                text: `Liebe/r ${req.body.name}, vielen Dank für Deine Reservierung in unserem Cafe am ${new Date(
-                    req.body.date
-                ).toLocaleDateString("de-DE")} um ${req.body.timeSlot}! Wir freuen uns auf dich! Main Glückskind`,
-                html: `Liebe/r ${req.body.name}, </br>vielen Dank für Deine Reservierung in unserem Cafe am ${new Date(
-                    req.body.date
-                ).toLocaleDateString("de-DE")} um ${
-                    req.body.timeSlot
-                }! </br> Wir freuen uns auf dich! <p>Main Glückskind</p>
-                <p>Falls du die Reservierung stornieren möchtest, klicke bitte auf den folgenden Link: <a href="${cancellationLink}">Reservierung stornieren</a></p>`,
+                subject: "Deine Buchung bei MAIN GLÜCKSKIND 💛",
+                text: `Hallo liebe/r ${firstName},
+
+schön, dass du bald bei uns bist! 🤗
+
+Falls ihr es doch nicht schafft, storniere bitte einfach über den Link in dieser Mail und wenn ihr nur ein bisschen später kommt, kein Stress, wir halten euren Platz frei.
+
+${cancellationLink}
+
+💡 Tipp: Du suchst einen Kurs für dein Kind (0–5 Jahre)?
+Sprich uns im Café an oder schau auf unserer Website vorbei, wir haben tolle Angebote für Familien! ${baseUrl}
+
+Nach eurem Besuch freuen wir uns riesig über eine Google-Bewertung. Für jede 10. Bewertung spenden wir 5 € an ein Herzensprojekt. 💖
+${googleReviewUrl ? `\nJetzt bewerten: ${googleReviewUrl}\n` : ""}
+
+Bis bald,
+dein MAIN GLÜCKSKIND-Team`,
+                html: `
+    <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.55;color:#222;">
+      <p>Hallo liebe/r ${firstName},</p>
+
+      <p>schön, dass du bald bei uns bist! 🤗</p>
+
+      <p>Falls ihr es doch nicht schafft, storniere bitte einfach über den Link in dieser Mail und wenn ihr nur ein bisschen später kommt, kein Stress, wir halten euren Platz frei.</p>
+
+      <p style="margin:16px 0;">
+        <a href="${cancellationLink}" style="display:inline-block;background:#57456a;color:#fff;text-decoration:none;padding:10px 16px;border-radius:9999px;">Reservierung stornieren</a>
+      </p>
+
+      <p>💡 <strong>Tipp:</strong> Du suchst einen Kurs für dein Kind (0–5 Jahre)?<br />
+      Sprich uns im Café an oder schau auf unserer Website vorbei, wir haben tolle Angebote für Familien!
+      ${baseUrl ? ` <a href="${baseUrl}" style="color:#57456a;">Website</a>` : ""}</p>
+
+      <p>Nach eurem Besuch freuen wir uns riesig über eine Google-Bewertung. Für jede 10. Bewertung spenden wir 5 € an ein Herzensprojekt. 💖</p>
+      ${
+          googleReviewUrl
+              ? `<p><a href="${googleReviewUrl}" style="display:inline-block;background:#BF567C;color:#fff;text-decoration:none;padding:10px 16px;border-radius:9999px;">Jetzt bewerten</a></p>`
+              : ""
+      }
+
+      <p>Bis bald,<br/>dein MAIN GLÜCKSKIND-Team</p>
+    </div>
+  `,
             };
 
             // Email content for the owners

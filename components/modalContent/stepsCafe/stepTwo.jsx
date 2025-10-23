@@ -3,13 +3,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { H2, P } from "../../typography";
 import { MainButtonNOLink } from "../../buttons";
-import { FaChevronDown } from "react-icons/fa";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import de from "date-fns/locale/de";
 import { getDay, isToday, isAfter, format } from "date-fns";
 import { fetchFirestoreData } from "../../../config/firebase";
 import useStore from "../../../store/store";
-
 import client from "../../../client";
 
 registerLocale("de", de);
@@ -24,19 +22,16 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     const formData = useStore((state) => state.formData);
     const [exceptions, setExceptions] = useState([]);
 
-    //FETCH EXCEPRTIONS
-
+    // Ausnahmen aus Sanity laden
     useEffect(() => {
         const fetchExceptions = async () => {
             try {
                 const data = await client.fetch(`*[_type == "cafe"]`);
-
                 setExceptions(data[0].ausnahmen);
             } catch (error) {
                 console.error("Error fetching exceptions:", error);
             }
         };
-
         fetchExceptions();
     }, []);
 
@@ -52,15 +47,17 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
         }
     }, [startDate, formData.guests]);
 
+    // >>> HIER: 11:30 ENTFERNT
     const updateAvailableTimeSlots = (date) => {
         const dayOfWeek = getDay(date);
+        // Nur noch 09:30 standardmäßig, plus 15:00 an Mi(3)/Do(4)
         const newTimeSlots = ["09:30"];
         if (dayOfWeek === 3 || dayOfWeek === 4) {
             newTimeSlots.push("15:00");
         }
         setAvailableTimeSlots(
             newTimeSlots.map((slot) => ({
-                slot: slot,
+                slot,
                 capacity: slot === "15:00" ? 25 : 20,
             }))
         );
@@ -77,6 +74,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
             const reservations = await fetchFirestoreData(
                 process.env.NEXT_DEV === "true" ? "dev_cafe" : "reservierung_cafe"
             );
+
             const reservationsOnDate = reservations.filter((reservation) => {
                 const reservationDate = new Date(reservation.date);
                 return reservationDate.toISOString().split("T")[0] === formattedDate;
@@ -92,7 +90,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                         }, 0);
 
                     return {
-                        slot: slot,
+                        slot,
                         availableSpaces: capacity - totalGuestsInSlot,
                     };
                 })
@@ -106,7 +104,6 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     };
 
     const handleNext = () => {
-        // Normalize the date to local timezone before saving to state
         const localDate = new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60000);
         updateFormData({ date: localDate, timeSlot });
         handleNextStep();
@@ -131,21 +128,14 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
     };
 
     const getDayClassName = (date) => {
-        if (!filterDate(date)) {
-            return "";
-        }
+        if (!filterDate(date)) return "";
         return isWeekdayAndFutureDate(date) ? "weekday bg-primaryColor-200" : "";
     };
 
     return (
         <div className="xl:w-2/4">
             <H2 klasse="mt-4 mb-6">Datum und Zeit </H2>
-            {/* <label
-                htmlFor="date-picker"
-                className="block text-sm lg:text-lg font-semibold font-sans text-textColor mb-1"
-            >
-                Datum auswählen:
-            </label> */}
+
             <div className="relative col-span-12 xl:hidden">
                 <DatePicker
                     id="date-picker"
@@ -158,10 +148,6 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                         setIsFullyBooked(false);
                         updateAvailableTimeSlots(date);
                     }}
-                    // filterDate={(date) => {
-                    //     const day = getDay(date);
-                    //     return day !== 0 && day !== 6;
-                    // }}
                     filterDate={filterDate}
                     inline
                     minDate={new Date()}
@@ -179,11 +165,11 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                                 fontFamily: "Montserrat",
                             }}
                         />
-                    )} // Inline style for 100% width
+                    )}
                     dayClassName={getDayClassName}
                 />
-                {/* <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" /> */}
             </div>
+
             <div className="relative col-span-12 hidden xl:block">
                 <DatePicker
                     id="date-picker"
@@ -196,10 +182,6 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                         setIsFullyBooked(false);
                         updateAvailableTimeSlots(date);
                     }}
-                    // filterDate={(date) => {
-                    //     const day = getDay(date);
-                    //     return day !== 0 && day !== 6;
-                    // }}
                     filterDate={filterDate}
                     minDate={new Date()}
                     locale="de-DE"
@@ -216,11 +198,11 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                                 fontFamily: "Montserrat",
                             }}
                         />
-                    )} // Inline style for 100% width
+                    )}
                     dayClassName={getDayClassName}
                 />
-                {/* <FaChevronDown className="absolute right-4 top-[38%] transform -translate-y-1/2 text-gray-700 pointer-events-none" /> */}
             </div>
+
             {startDate && (
                 <div className=" mb-24">
                     <label
@@ -246,7 +228,9 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                     </select>
                 </div>
             )}
+
             {isFullyBooked && <P>Leider sind keine Zeitfenster für das gewählte Datum verfügbar.</P>}
+
             <div className="w-full col-span-12 sm:mb-8 absolute flex space-x-2 lg:space-x-4 bottom-0">
                 <MainButtonNOLink onClick={handlePrevStep} klasse="bg-textColor mt-4">
                     Zurück

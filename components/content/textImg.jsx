@@ -15,7 +15,7 @@ import urlFor from "../../functions/urlFor";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const TextImage = ({ data, overlap, richText, onClick, noLink }) => {
+const TextImage = ({ data, overlap, richText, onClick, noLink, link }) => {
     const controls = useAnimation();
     const [ref, inView] = useInView({
         triggerOnce: true,

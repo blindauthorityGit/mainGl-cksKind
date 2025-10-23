@@ -41,7 +41,17 @@ export default function Kindergeburtstag({ data, dataKontakt }) {
             <MainContainer width="container mx-auto">
                 <Meta data={data.seo}></Meta>
 
-                <OldHero modal bgColor="#E9B4C7" data={data.components[0]} noCards twoLine></OldHero>
+                <OldHero
+                    additionalLink={{
+                        label: data.components[5].downloads[0].fileName,
+                        link: data.components[5].downloads[0].file.asset.url,
+                    }}
+                    modal
+                    bgColor="#E9B4C7"
+                    data={data.components[0]}
+                    noCards
+                    twoLine
+                ></OldHero>
                 <div className="hidden 2xl:block">
                     <Divider></Divider>
                 </div>

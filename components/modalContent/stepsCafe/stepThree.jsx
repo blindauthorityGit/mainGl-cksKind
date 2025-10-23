@@ -75,7 +75,8 @@ const StepThree = ({ handleSubmit, handlePrevStep, loading, success, error, info
             <h3 className="text-lg font-semibold text-textColor mb-2">Wichtige Hinweise</h3>
             <ul className="list-disc pl-5 text-sm leading-relaxed">
                 <li>Reservierungen nur innerhalb der Öffnungszeiten möglich.</li>
-                <li>Bitte kommen Sie bis 10:30 Uhr (bei Buchungen am Vormittag)</li>
+                <li>Unser Cafe schließt um 12:00 Uhr.</li>
+                <li>Bitte erscheine vor 10:30 Uhr, wenn Vormittags gebucht wurde</li>
                 <li>Änderungen bitte per Telefon oder E-Mail mitteilen.</li>
             </ul>
         </div>

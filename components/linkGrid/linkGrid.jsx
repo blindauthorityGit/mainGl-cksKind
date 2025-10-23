@@ -30,7 +30,7 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent, anfrage }) =>
                 current = addDays(current, 1);
             }
 
-            while (current <= end) {
+            while (current <= end && occurrences.length < 300) {
                 occurrences.push({
                     ...timeslot, // Assuming timeslot contains relevant event info
                     date: format(current, "yyyy-MM-dd") + "T" + timeslot.startTime,
@@ -63,6 +63,7 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent, anfrage }) =>
                                 }));
                             })
                         );
+
                         return event.recurringDates.flatMap((recurringEvent) => {
                             return computeWeeklyOccurrences(
                                 recurringEvent.startDate,
@@ -95,6 +96,11 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent, anfrage }) =>
                         // NEW BRANCH FOR PEKIP
                         console.log(
                             event.recurringSessions.flatMap((session) => {
+                                if (!session?.startDate || session.dayOfWeek === undefined || !session.timeslot) {
+                                    console.warn("FEHLERHAFTER SESSION:", session);
+                                    return [];
+                                }
+
                                 return computeWeeklyOccurrences(
                                     session.startDate,
                                     // possibly session.endDate
@@ -112,9 +118,13 @@ const LinkGrid = ({ data, headline, isWorkshop, isDetail, isEvent, anfrage }) =>
                             })
                         );
                         return event.recurringSessions.flatMap((session) => {
+                            if (!session?.startDate || session.dayOfWeek === undefined || !session.timeslot) {
+                                console.warn("FEHLERHAFTER SESSION (wird ignoriert):", session);
+                                return [];
+                            }
+
                             return computeWeeklyOccurrences(
                                 session.startDate,
-                                // possibly session.endDate
                                 null,
                                 session.dayOfWeek,
                                 session.timeslot
