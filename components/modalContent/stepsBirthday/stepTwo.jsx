@@ -13,6 +13,9 @@ import client from "../../../client";
 registerLocale("de", de);
 setDefaultLocale("de");
 
+// Stichtag: Reservierungen nur bis inklusive 31.12.2025
+const MAX_RESERVATION_DATE = new Date(2025, 11, 31); // Monate 0-basiert: 11 = Dezember
+
 // ---- TESTDATEN (Fallback, wenn Sanity leer ist) ----
 // akzeptiert: "YYYY-MM-DD" oder { date: "YYYY-MM-DD" }
 // const TEST_EXCEPTIONS = ["12-10-2025", { date: "12-10-2025" }];
@@ -106,7 +109,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
 
     const isStepComplete = startDate && timeSlot;
 
-    // ---- AUSNAHMEN-Logik (nur SA & SO erlauben, Ausnahmen sperren, Vergangenheit sperren) ----
+    // ---- AUSNAHMEN-Logik (nur SA & SO, Ausnahmen sperren, Vergangenheit & ab 1.1.2026 sperren) ----
     const toISODate = (date) => format(date, "yyyy-MM-dd");
     const isExceptionDate = (date) => exceptions.includes(toISODate(date));
 
@@ -114,7 +117,9 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
         const day = getDay(date);
         const isWeekend = day === 6 || day === 0; // SA/SO
         const futureOrToday = isToday(date) || isAfter(date, new Date());
-        if (!isWeekend || !futureOrToday) return false;
+        const beforeCutoff = !isAfter(date, MAX_RESERVATION_DATE); // nur bis inkl. 31.12.2025
+
+        if (!isWeekend || !futureOrToday || !beforeCutoff) return false;
         if (isExceptionDate(date)) return false; // Urlaub/ausgeschlossen
         return true;
     };
@@ -123,7 +128,9 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
         const day = getDay(date);
         const isWeekend = day === 6 || day === 0;
         const futureOrToday = isToday(date) || isAfter(date, new Date());
-        if (!isWeekend || !futureOrToday || isExceptionDate(date)) {
+        const beforeCutoff = !isAfter(date, MAX_RESERVATION_DATE);
+
+        if (!isWeekend || !futureOrToday || !beforeCutoff || isExceptionDate(date)) {
             return "opacity-40 line-through";
         }
         return "weekday bg-primaryColor-200";
@@ -135,7 +142,8 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
             <P klasse="mb-4 text-sm text-textColor/80">
                 Bitte wähle dein Wunschdatum. Buchungen sind in der Regel nur am{" "}
                 <span className="font-bold">Samstag und Sonntag </span>
-                möglich. Urlaubstage und Ausnahmen sind im Kalender ausgegraut und nicht anwählbar.
+                möglich und aktuell nur bis inklusive 31.12.2025. Urlaubstage und Ausnahmen sind im Kalender ausgegraut
+                und nicht anwählbar.
             </P>
 
             {/* Mobile (inline) */}
@@ -152,6 +160,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                     filterDate={filterDate}
                     inline
                     minDate={new Date()}
+                    maxDate={MAX_RESERVATION_DATE}
                     locale="de-DE"
                     placeholderText="Datum auswählen"
                     dateFormat="dd/MM/yyyy"
@@ -184,6 +193,7 @@ const StepTwo = ({ handleNextStep, handlePrevStep }) => {
                     }}
                     filterDate={filterDate}
                     minDate={new Date()}
+                    maxDate={MAX_RESERVATION_DATE}
                     locale="de-DE"
                     placeholderText="Datum auswählen"
                     dateFormat="dd/MM/yyyy"
