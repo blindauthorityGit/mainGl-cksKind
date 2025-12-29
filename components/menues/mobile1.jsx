@@ -79,7 +79,7 @@ const Mobile1 = (props) => {
                             Kursprogramm
                         </Link>
                         <motion.ul className="">
-                            <motion.li className="mb-4">
+                            {/* <motion.li className="mb-4">
                                 <div className="wrap dropdown   ">
                                     <Link
                                         className="text-text block my-4 subNav relative hover:text-primaryColor cursor-pointer"
@@ -88,7 +88,7 @@ const Mobile1 = (props) => {
                                         Cafe
                                     </Link>
                                 </div>
-                            </motion.li>
+                            </motion.li> */}
                             <Link
                                 className="text-text block my-4 subNav relative mt-4 hover:text-primaryColor cursor-pointer"
                                 href="/raumvermietung"

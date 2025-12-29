@@ -49,11 +49,17 @@ const CatCard = ({ bgColor, icon, text, link, onClick, isWhite, order, isWorksho
             variants={cardVariants}
         >
             <motion.img
-                className={`${pekip ? "2xl:w-30" : "2xl:w-16"}`}
+                className={`
+    w-12 h-12 md:w-14 md:h-14 xl:w-12 xl:h-12 2xl:w-16 2xl:h-16
+    object-contain
+    ${pekip ? "2xl:w-30 2xl:h-30" : ""}
+  `}
                 src={icon}
-                alt="icon"
+                alt=""
+                aria-hidden="true"
                 variants={contentVariants}
             />
+
             <P
                 klasse={`font-semibold !text-[clamp(12px,calc(12px+0.00893*(100svw-320px)),24px)] lg:!text-base 2xl:!text-xl ${
                     isWhite ? "!text-white" : null
