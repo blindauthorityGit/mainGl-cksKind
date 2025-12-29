@@ -28,6 +28,7 @@ import CafeIcon from "../../../assets/cafeIcon.svg";
 import ProgrammIcon from "../../../assets/programmIcon.svg";
 import PartyIcon from "../../../assets/partyIcon.svg";
 import AboutIcon from "../../../assets/aboutIcon.svg";
+import Anfahrt from "../../../assets/anfahrt.svg";
 
 const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
     const { width, height } = useWindowDimensions();
@@ -39,14 +40,14 @@ const MainHero = ({ data, bgColor, modal, onClick, noCards, twoLine }) => {
 
     const cards = [
         {
-            text: "Unser Café",
+            text: "Anfahrt",
             bgColor: "#EE4799",
-            icon: CafeIcon.src,
+            icon: Anfahrt.src,
             isWhite: true,
-            order: "lg:order-3",
-            link: "/cafe",
+            order: "lg:order-4",
+            link: "/anfahrt",
         },
-        { text: "Kursprogramm", bgColor: "#F3E584", icon: ProgrammIcon.src, order: "xl:order-4", link: "/programm" },
+        { text: "Kursprogramm", bgColor: "#F3E584", icon: ProgrammIcon.src, order: "xl:order-3", link: "/programm" },
         {
             text: "Feiern & mehr",
             bgColor: "#CDE4C4",

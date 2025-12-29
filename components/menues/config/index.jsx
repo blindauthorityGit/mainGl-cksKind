@@ -21,11 +21,11 @@ const menuItems = [
             },
         ],
     },
-    {
-        title: "Cafe",
-        slug: "cafe",
-        subMenu: false,
-    },
+    // {
+    //     title: "Cafe",
+    //     slug: "cafe",
+    //     subMenu: false,
+    // },
     {
         title: "Raumvermietung",
         slug: "raumvermietung",

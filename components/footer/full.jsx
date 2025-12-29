@@ -42,7 +42,7 @@ const Full = () => {
                 <div className="lg:col-span-2"></div>
                 <div className="col-span-12 lg:col-span-4 xl:col-span-2 flex flex-col font-semibold space-y-2 ">
                     <Link href="/programm">KURSPROGRAMM</Link>
-                    <Link href="/cafe">DAS CAFE</Link>
+                    {/* <Link href="/cafe">DAS CAFE</Link> */}
                     <Link href="/kindergeburtstag">KINDERGEBURTSTAG</Link>
                     <Link href="/raumvermietung">RAUMVERMIETUNG</Link>
                     <Link href="/ueber-uns">ÜBER UNS</Link>

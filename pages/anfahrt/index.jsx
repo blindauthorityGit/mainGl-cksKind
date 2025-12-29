@@ -32,14 +32,14 @@ export default function Anfahrt({ data, dataKontakt, dataAnfahrt }) {
     const setShowModal = useStore((state) => state.setShowModal);
     const setModalContent = useStore((state) => state.setModalContent);
 
-    useEffect(() => {
-        changeBodyBackgroundColor(data);
-    }, []);
+    // useEffect(() => {
+    //     changeBodyBackgroundColor(null);
+    // }, []);
 
     return (
         <>
             <MainContainer width="container mx-auto">
-                <Meta data={data.seo}></Meta>
+                {/* <Meta data={data.seo}></Meta> */}
 
                 <MapHero
                     noCards
@@ -103,28 +103,23 @@ export default function Anfahrt({ data, dataKontakt, dataAnfahrt }) {
         </>
     );
 }
+export const getStaticProps = async () => {
+    const anfahrt = await client.fetch(`*[_type == "anfahrt"][0]`);
+    const kontakt = await client.fetch(`*[_type == "kontakt"]`);
 
-export const getStaticProps = async (context) => {
-    const res = await client.fetch(`*[_type == "raumvermietung"] 
-    `);
-    const data = await res[0];
+    console.log("anfahrt vorhanden:", !!anfahrt);
+    console.log("kontakt anzahl:", Array.isArray(kontakt) ? kontakt.length : "kein array");
 
-    const resAnfahrt = await client.fetch(`*[_type == "anfahrt"] 
-    `);
-    const dataAnfahrt = await resAnfahrt[0];
-
-    const resKontakt = await client.fetch(`
-    *[_type == "kontakt"]
-    `);
-
-    const dataKontakt = await resKontakt;
+    if (!anfahrt || !Array.isArray(kontakt) || kontakt.length === 0) {
+        return { notFound: true, revalidate: 60 };
+    }
 
     return {
         props: {
-            data,
-            dataKontakt,
-            dataAnfahrt,
+            data: anfahrt,
+            dataAnfahrt: anfahrt,
+            dataKontakt: kontakt,
         },
-        revalidate: 1, // 10 seconds
+        revalidate: 60,
     };
 };
