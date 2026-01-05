@@ -48,9 +48,9 @@ export default function Home({ dataHome, dataEvents, dataKategorie, dataKontakt 
             {/* <FullWidthSection klasse="bg-[#AFD3A2] py-20 2xl:!py-32">
                 <CTAContent data={dataHome.components[3]}></CTAContent>
             </FullWidthSection> */}
-            <FullWidthSectionBGImage klasse="" image={dataHome.components[6].image}>
+            {/* <FullWidthSectionBGImage klasse="" image={dataHome.components[6].image}>
                 <ContentCard data={dataHome.components[6]}></ContentCard>
-            </FullWidthSectionBGImage>
+            </FullWidthSectionBGImage> */}
             <MainContainer width="container mx-auto">
                 <div className="mt-8 lg:mt-0"></div>
                 <TextImage richText overlap data={dataHome.components[4]}></TextImage>

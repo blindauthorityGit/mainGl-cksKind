@@ -115,6 +115,8 @@ export const getStaticProps = async (context) => {
     `);
     const data = await res[0];
 
+    console.log(data);
+
     const resKontakt = await client.fetch(`
     *[_type == "kontakt"]
     `);
